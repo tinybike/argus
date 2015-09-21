@@ -14,8 +14,9 @@ def form():
 def generate_answer():
     question=request.form['question']
     anstext='Answer to question \''+question+'\' is:'+get_answer(question)
-    sources=get_sources()
-    return render_template('form_action.html', answer=anstext,sources=sources)
+    (headline,url,body)=get_sources()
+    return render_template('form_action.html', answer=anstext,
+                           headline=headline,url=url,body=body)
 
 
 if __name__ == '__main__':
