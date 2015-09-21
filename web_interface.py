@@ -7,15 +7,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def form():
-    return render_template('form_action.html')
+    return render_template('form_action.html', content='none')
 
 
 @app.route('/', methods=['POST'])
 def generate_answer():
     question=request.form['question']
-    anstext='Answer to question \''+question+'\' is:'+get_answer(question)
+    answer = get_answer(question)
     (headline,url,body)=get_sources()
-    return render_template('form_action.html', answer=anstext,
+    return render_template('form_action.html', content='block', question=question, answer=answer,
                            headline=headline,url=url,body=body,query=get_query())
 
 
