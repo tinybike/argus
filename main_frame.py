@@ -2,7 +2,7 @@ from guardian import get_content
 from keyword_extract import extract
 #import nltk
 sources=''
-
+query=''
 
 def get_keywords(question):
 #    tokens=nltk.word_tokenize(question)
@@ -13,13 +13,13 @@ def get_keywords(question):
     return relevant
 
 def get_answer(question):
-    global sources
+    global sources,query
     keywords=get_keywords(question)
     query=''
     for word in keywords:
         query+=word+" AND "
     query=query[:-5]
-    print 'asking',query
+#    print 'asking',query
     found,sources=get_content(query)
 #    print found,sources
     if found:
@@ -32,4 +32,8 @@ def get_sources():
     global sources
     s=sources
     return s
-    
+
+def get_query():
+    global query
+    q=query
+    return q

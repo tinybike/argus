@@ -40,12 +40,10 @@ def acceptable_word(word):
         and word.lower() not in stopw)
     return accepted
 
-
 def get_terms(tree):
     for leaf in leaves(tree):
         term = [ normalise(w) for w,t in leaf if acceptable_word(w) ]
         yield term
-
 
 def extract(text):
     chunker = nltk.RegexpParser(grammar)
@@ -58,7 +56,6 @@ def extract(text):
     for term in terms:
         for word in term:
             keywords.append(word)
-    return keywords
+    return set(keywords)
 
-
-#print extract("""is Hillary Clinton running for president?""")
+#print extract("""Were the New England Patriots going to be called the Bay State Patriots?""")
