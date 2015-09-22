@@ -1,6 +1,6 @@
 import requests
 import json
-
+from html_clean import sentence_split_guardian
 
 def kw_to_query(keywords):
     query=''
@@ -25,8 +25,32 @@ def get_content(keywords):
     data = response.json()
     jobj=json.loads(json.dumps(data, indent=4))
 #    print json.dumps(data, indent=4)
-    return search_headlines(keywords,jobj)
+#    return search_headlines(keywords,jobj)
+    return search_sentences(keywords,jobj)
     
+    
+def search_sentences(keywords,jobj):
+    if len(jobj['response']['results'])==0:
+        return (False,('absolutely no result','absolutely no result','absolutely no result'))
+    for i in range(0,len(jobj['response']['results'])):
+        bodyhtml=jobj['response']['results'][i]['fields']['body']
+        sentences=sentence_split_guardian(bodyhtml)
+#        print '\n-----\n'.join(sentences)
+        
+        for sentence in sentences:
+            j=0
+            for word in keywords:
+                if word.lower() not in sentence.lower():
+                    j+=1
+                    break
+            if j==0:
+#                print 'found in:',sentence
+                return (True,
+                (jobj['response']['results'][i]['fields']['headline'], #headline
+                jobj['response']['results'][i]['webUrl'],   #url
+                jobj['response']['results'][i]['fields']['body']))  #body
+    return (False,('no result','no result','no result'))
+
 def search_headlines(keywords,jobj):
     if len(jobj['response']['results'])==0:
         return (False,('absolutely no result','absolutely no result','absolutely no result'))
@@ -44,9 +68,5 @@ def search_headlines(keywords,jobj):
             jobj['response']['results'][i]['webUrl'],   #url
             jobj['response']['results'][i]['fields']['body']))  #body
     return (False,('no result','no result','no result'))
-    
-        
-
-
-#print get_content(['Barack','Obama'])
+#get_content(['Barack','Obama','Nasa'])
 

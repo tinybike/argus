@@ -2,11 +2,9 @@ import csv
 import os
 from main_frame import get_answer,get_sources,get_query
 
-
-
 #TSVFILE=sys.argv[1]
 CSVFOLDER="tests/batches"
-OUTFILE="tests/outfile.csv"
+OUTFILE="tests/outfile.tsv"
 def reparse():
     qnum=0
     
@@ -30,7 +28,7 @@ def reparse():
                 (headline,url,body)=get_sources()
                 info=[line[0],line[30],line[28],ouranswer,get_query(),headline,line[31],line[29],url]
                 writer.writerow(info)
-                print 'question number',qnum
+                print 'answering question number',qnum
 
 def get_stats():
     i=-1
@@ -38,6 +36,9 @@ def get_stats():
     false_positive=0
     false_negative=0
     not_sure=0
+    no=0
+    yes=0
+    complete_query=0
     for line in csv.reader(open(OUTFILE), delimiter='\t'):
         i+=1
         if i==0:
@@ -49,12 +50,20 @@ def get_stats():
         elif line[3]=='NO':
             false_negative+=1
         else:
+#            perc+=1
             not_sure+=1
+        if line[2]=='YES':
+            yes+=1
+        else:
+            no+=1
+        if '(' not in line[4]:
+            complete_query+=1
         
     print 'Total questions:',i,',',float(perc)/float(i)*100,'% correct:'
-    print 'not sure:',not_sure,'/',i
+    print 'YES=',float(yes)/float(i)*100,'%'
     print 'false positive:',false_positive,'/',i
     print 'false negative:',false_negative,'/',i
-
-#reparse()
+    print 'not sure:',not_sure,'/',i
+    print 'complete query:',complete_query,'/',i
+reparse()
 get_stats()
