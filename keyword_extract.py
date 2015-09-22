@@ -13,7 +13,7 @@ sentence_re = r'''(?x)      # set flag to allow verbose regexps
 grammar = r"""
     NBAR:
         {<NN.*|JJ>*<NN.*>}  # Nouns and Adjectives, terminated with Nouns
-        
+
     NP:
         {<NBAR>}
         {<NBAR><IN><NBAR>}  # Above, connected with in/of/etc...
@@ -23,7 +23,7 @@ stop_words = stopwords.words('english')
 
 def leaves(tree):
     """Finds NP (nounphrase) leaf nodes of a chunk tree."""
-    for subtree in tree.subtrees(filter = lambda t: t.label()=='NP'):
+    for subtree in tree.subtrees(filter = lambda t: t.label() == 'NP'):
         yield subtree.leaves()
 
 def normalise(word):
@@ -46,7 +46,7 @@ def get_terms(tree):
         term = [ normalise(w) for w,t in leaf if acceptable_word(w) ]
         yield term
 
-postoks=[]
+postoks = []
 
 def extract(question):
     global postoks
@@ -57,7 +57,7 @@ def extract(question):
     tree = chunker.parse(postoks)
 
     terms = get_terms(tree)
-    keywords=[]
+    keywords = []
     for term in terms:
         for word in term:
             keywords.append(word)
@@ -65,9 +65,9 @@ def extract(question):
 
 def check(keywords):
     global postoks
-    nikw=[word for word,pos in postoks if pos != '.' 
+    nikw = [word for word,pos in postoks if pos != '.'
     and word.lower() not in stop_words and word not in keywords]
-    if len(nikw)>0:
+    if len(nikw) > 0:
 #        print "not in keywords:",nikw
         return False,nikw
     return True,None

@@ -3,10 +3,10 @@ import json
 from html_clean import sentence_split_guardian
 
 def kw_to_query(keywords):
-    query=''
+    query = ''
     for word in keywords:
-            query+=word+" AND "
-    query=query[:-5]
+            query += word + " AND "
+    query = query[:-5]
     return query
 
 def get_content(keywords):
@@ -23,50 +23,50 @@ def get_content(keywords):
     }
     response = requests.get(api_url, params=payload)
     data = response.json()
-    jobj=json.loads(json.dumps(data, indent=4))
+    jobj=json.loads(json.dumps(data, indent = 4))
 #    print json.dumps(data, indent=4)
 #    return search_headlines(keywords,jobj)
-    return search_sentences(keywords,jobj)
-    
-    
-def search_sentences(keywords,jobj):
-    if len(jobj['response']['results'])==0:
-        return (False,('absolutely no result','absolutely no result','absolutely no result'))
-    for i in range(0,len(jobj['response']['results'])):
-        bodyhtml=jobj['response']['results'][i]['fields']['body']
-        sentences=sentence_split_guardian(bodyhtml)
+    return search_sentences(keywords, jobj)
+
+
+def search_sentences(keywords, jobj):
+    if len(jobj['response']['results']) == 0:
+        return (False, ('absolutely no result', 'absolutely no result', 'absolutely no result'))
+    for i in range(0, len(jobj['response']['results'])):
+        bodyhtml = jobj['response']['results'][i]['fields']['body']
+        sentences = sentence_split_guardian(bodyhtml)
 #        print '\n-----\n'.join(sentences)
-        
+
         for sentence in sentences:
-            j=0
+            j = 0
             for word in keywords:
                 if word.lower() not in sentence.lower():
-                    j+=1
+                    j += 1
                     break
-            if j==0:
+            if j == 0:
 #                print 'found in:',sentence
                 return (True,
                 (jobj['response']['results'][i]['fields']['headline'], #headline
                 jobj['response']['results'][i]['webUrl'],   #url
                 jobj['response']['results'][i]['fields']['body']))  #body
-    return (False,('no result','no result','no result'))
+    return (False, ('no result','no result','no result'))
 
-def search_headlines(keywords,jobj):
-    if len(jobj['response']['results'])==0:
-        return (False,('absolutely no result','absolutely no result','absolutely no result'))
-    for i in range(0,len(jobj['response']['results'])):
-        headline=jobj['response']['results'][i]['fields']['headline']
+def search_headlines(keywords, jobj):
+    if len(jobj['response']['results']) == 0:
+        return (False, ('absolutely no result','absolutely no result','absolutely no result'))
+    for i in range(0, len(jobj['response']['results'])):
+        headline = jobj['response']['results'][i]['fields']['headline']
 #        print headline
-        j=0
+        j = 0
         for word in keywords:
             if word not in headline:
-                j+=1
+                j += 1
                 break
-        if j==0:
+        if j == 0:
             return (True,
             (jobj['response']['results'][i]['fields']['headline'], #headline
             jobj['response']['results'][i]['webUrl'],   #url
             jobj['response']['results'][i]['fields']['body']))  #body
-    return (False,('no result','no result','no result'))
+    return (False, ('no result','no result','no result'))
 #get_content(['Barack','Obama','Nasa'])
 
