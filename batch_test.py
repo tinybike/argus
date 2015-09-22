@@ -1,6 +1,6 @@
 import csv
 import os
-from main_frame import get_answer,get_sources,get_query
+from main_frame import get_answer, get_sources, get_query
 
 #TSVFILE=sys.argv[1]
 CSVFOLDER="tests/batches"
@@ -26,7 +26,9 @@ def reparse():
                 qnum+=1
                 ouranswer=get_answer(line[30])
                 (headline,url,body)=get_sources()
-                info=[line[0],line[30],line[28],ouranswer,get_query(),headline,line[31],line[29],url]
+                info=[line[0].encode('utf-8'),line[30].encode('utf-8'),line[28].encode('utf-8'),
+                      ouranswer.encode('utf-8'),get_query().encode('utf-8'),headline.encode('utf-8'),line[31].encode('utf-8'),line[29].encode('utf-8'),url.encode('utf-8')]
+                
                 writer.writerow(info)
                 print 'answering question number',qnum
 
