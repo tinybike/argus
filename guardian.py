@@ -1,13 +1,22 @@
 import requests
 import json
-def get_content(query):
+
+
+def kw_to_query(keywords):
+    query=''
+    for word in keywords:
+            query+=word+" AND "
+    query=query[:-5]
+    return query
+
+def get_content(keywords):
     api_url = 'http://content.guardianapis.com/search'
     payload = {
-        'q':                    query,
+        'q':                    kw_to_query(keywords),
         'from-date':            '2014-09-01',
         'to-date':              '2015-09-01',
         'api-key':              'qdz547b6gvss2ndwc9npwqcx',
-        'page-size':            1,
+        'page-size':            50,
         'format':               'json',
         'show-fields':          'all'
 
@@ -16,14 +25,28 @@ def get_content(query):
     data = response.json()
     jobj=json.loads(json.dumps(data, indent=4))
 #    print json.dumps(data, indent=4)
-    if len(jobj['response']['results'])>0:
-        return (True,
-                (jobj['response']['results'][0]['fields']['headline'], #headline
-                jobj['response']['results'][0]['webUrl'],   #url
-                jobj['response']['results'][0]['fields']['body']))  #body
-    else:
-        return (False,('no result','no result','no result'))
+    return search_headlines(keywords,jobj)
+    
+def search_headlines(keywords,jobj):
+    if len(jobj['response']['results'])==0:
+        return (False,('absolutely no result','absolutely no result','absolutely no result'))
+    for i in range(0,len(jobj['response']['results'])):
+        headline=jobj['response']['results'][i]['fields']['headline']
+#        print headline
+        j=0
+        for word in keywords:
+            if word not in headline:
+                j+=1
+                break
+        if j==0:
+            return (True,
+            (jobj['response']['results'][i]['fields']['headline'], #headline
+            jobj['response']['results'][i]['webUrl'],   #url
+            jobj['response']['results'][i]['fields']['body']))  #body
+    return (False,('no result','no result','no result'))
+    
+        
 
 
-#get_content('Barack AND Obama')
+#print get_content(['Barack','Obama'])
 

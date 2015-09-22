@@ -19,6 +19,8 @@ grammar = r"""
         {<NBAR><IN><NBAR>}  # Above, connected with in/of/etc...
 """
 
+stop_words = stopwords.words('english')
+
 def leaves(tree):
     """Finds NP (nounphrase) leaf nodes of a chunk tree."""
     for subtree in tree.subtrees(filter = lambda t: t.label()=='NP'):
@@ -35,9 +37,8 @@ def normalise(word):
 
 def acceptable_word(word):
     """Checks conditions for acceptable word: length, stopword."""
-    stopw = stopwords.words('english')
     accepted = bool(2 <= len(word) <= 40
-        and word.lower() not in stopw)
+        and word.lower() not in stop_words)
     return accepted
 
 def get_terms(tree):
@@ -45,10 +46,14 @@ def get_terms(tree):
         term = [ normalise(w) for w,t in leaf if acceptable_word(w) ]
         yield term
 
-def extract(text):
+postoks=[]
+
+def extract(question):
+    global postoks
     chunker = nltk.RegexpParser(grammar)
-    toks = nltk.regexp_tokenize(text, sentence_re)
-    postoks = nltk.tag.pos_tag(toks)
+    tokens = nltk.regexp_tokenize(question, sentence_re)
+    postoks = nltk.tag.pos_tag(tokens)
+#    print postoks
     tree = chunker.parse(postoks)
 
     terms = get_terms(tree)
@@ -58,4 +63,17 @@ def extract(text):
             keywords.append(word)
     return set(keywords)
 
-#print extract("""Were the New England Patriots going to be called the Bay State Patriots?""")
+def check(keywords):
+    global postoks
+    nikw=[word for word,pos in postoks if pos != '.' 
+    and word.lower() not in stop_words and word not in keywords]
+    if len(nikw)>0:
+#        print "not in keywords:",nikw
+        return False,nikw
+    return True,None
+
+
+
+#keyw= extract("""is Hillary Clinton running for president?""")
+#print keyw
+#check(keyw)

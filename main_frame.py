@@ -1,5 +1,5 @@
-from guardian import get_content
-from keyword_extract import extract
+from guardian import get_content,kw_to_query
+from keyword_extract import extract,check
 #import nltk
 sources=''
 query=''
@@ -12,21 +12,24 @@ def get_keywords(question):
     relevant=extract(question)
     return relevant
 
+
 def get_answer(question):
     global sources,query
     keywords=get_keywords(question)
-    query=''
-    for word in keywords:
-        query+=word+" AND "
-    query=query[:-5]
-#    print 'asking',query
-    found,sources=get_content(query)
-#    print found,sources
+    query=kw_to_query(keywords)
+
+    checked,nikw=check(keywords)
+    
+    found,sources=get_content(keywords)
+
+    if not checked:
+        query+=' ('+str(nikw)+'not in words)'
+
     if found:
-        answer='YES'
-    else:
-        answer='NO'
-    return answer    
+        if not checked:
+            return 'Not sure'
+        return'YES'
+    return'NO'    
 
 def get_sources():
     global sources
