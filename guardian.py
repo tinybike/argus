@@ -33,7 +33,11 @@ def search_sentences(keywords, jobj):
     if len(jobj['response']['results']) == 0:
         return (False, ('absolutely no result', 'absolutely no result', 'absolutely no result'))
     for i in range(0, len(jobj['response']['results'])):
-        bodyhtml = jobj['response']['results'][i]['fields']['body']
+        try:
+            bodyhtml = jobj['response']['results'][i]['fields']['body']
+        except KeyError:
+            continue
+
         sentences = sentence_split_guardian(bodyhtml)
 #        print '\n-----\n'.join(sentences)
 
@@ -44,7 +48,9 @@ def search_sentences(keywords, jobj):
                     j += 1
                     break
             if j == 0:
-#                print 'found in:',sentence
+#                if 'not' in sentence.loewr():
+                print 'found in:', sentence
+
                 return (True,
                 (jobj['response']['results'][i]['fields']['headline'], #headline
                 jobj['response']['results'][i]['webUrl'],   #url
@@ -68,5 +74,6 @@ def search_headlines(keywords, jobj):
             jobj['response']['results'][i]['webUrl'],   #url
             jobj['response']['results'][i]['fields']['body']))  #body
     return (False, ('no result','no result','no result'))
-#get_content(['Barack','Obama','Nasa'])
+
+#get_content(['win', 'Premier', 'Chelsea', 'League'])
 

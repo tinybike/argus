@@ -20,16 +20,16 @@ def get_answer(question):
 
     checked, nikw = check(keywords)
 
-    found,sources = get_content(keywords)
-
     if not checked:
         query += ' ('+str(nikw)+'not in words)'
+        sources = ('', '', '')
+        return 'Didn\'t understand the question'
+
+    found,sources = get_content(keywords)
 
     if found:
-        if not checked:
-            return 'Not sure'
         return'YES'
-    return'NO'
+    return'Not sure'
 
 def get_sources():
     global sources

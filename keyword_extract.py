@@ -61,12 +61,20 @@ def extract(question):
     for term in terms:
         for word in term:
             keywords.append(word)
+    # add non-stop verbs
+    for word,pos in postoks:
+        if word not in keywords and word.lower() not in stop_words and 'VB' in pos:
+                keywords.append(word)
+
     return set(keywords)
 
 def check(keywords):
     global postoks
-    nikw = [word for word,pos in postoks if pos != '.'
-    and word.lower() not in stop_words and word not in keywords]
+    allowed = '2014 2015 2016'
+    allowedpos = '. , \'\' :'
+    nikw = [word for word,pos in postoks if pos not in allowedpos and pos!= 'POS'
+    and word.lower() not in stop_words and word not in keywords
+    and word not in allowed]
     if len(nikw) > 0:
 #        print "not in keywords:",nikw
         return False,nikw
@@ -74,6 +82,6 @@ def check(keywords):
 
 
 
-#keyw= extract("""is Hillary Clinton running for president?""")
+#keyw= extract("""Will Ronnie O\'Sullivan win the 2015 Snooker World Championship?""")
 #print keyw
-#check(keyw)
+#print check(keyw)
