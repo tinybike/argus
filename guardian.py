@@ -19,7 +19,6 @@ def get_content(keywords):
         'page-size':            50,
         'format':               'json',
         'show-fields':          'all'
-
     }
     response = requests.get(api_url, params=payload)
     data = response.json()

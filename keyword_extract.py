@@ -77,7 +77,6 @@ def check_keywords(question):
     return True,None
 
 
-
 #keyw= extract("""Will Ronnie O\'Sullivan win the 2015 Snooker World Championship?""")
 #print keyw
 #print check(keyw)

@@ -1,6 +1,6 @@
 from __future__ import print_function
 from flask import Flask, render_template, request
-from main_frame import get_answer, get_sources,get_query
+from main_frame import get_answer
 
 app = Flask(__name__)
 
@@ -14,10 +14,10 @@ def form():
 def generate_answer():
     question = request.form['question']
     answer = get_answer(question)
-    (headline, url, body) = get_sources()
-    print('<<%s>> -> %s :: [%s :: %s]' % (question, answer, headline, url))
-    return render_template('form_action.html', content='block', question=question, answer=answer,
-                           headline=headline, url=url, body=body, query=get_query())
+    (headline, url, body, sentence) = answer.sources
+    print('<<%s>> -> %s :: [%s :: %s]' % (question, answer.text, headline, url))
+    return render_template('form_action.html', content='block', question=question, answer=answer.text,
+                           headline=headline, url=url, body=body, query=answer.q.query)
 
 
 if __name__ == '__main__':
