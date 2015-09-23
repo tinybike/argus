@@ -31,7 +31,7 @@ def get_content(keywords):
 
 def search_sentences(keywords, jobj):
     if len(jobj['response']['results']) == 0:
-        return (False, ('absolutely no result', 'absolutely no result', 'absolutely no result'))
+        return (False, ('absolutely no result', 'absolutely no result', 'absolutely no result', 'absolutely no result'))
     for i in range(0, len(jobj['response']['results'])):
         try:
             bodyhtml = jobj['response']['results'][i]['fields']['body']
@@ -54,8 +54,8 @@ def search_sentences(keywords, jobj):
                 return (True,
                 (jobj['response']['results'][i]['fields']['headline'], #headline
                 jobj['response']['results'][i]['webUrl'],   #url
-                jobj['response']['results'][i]['fields']['body']))  #body
-    return (False, ('no result','no result','no result'))
+                jobj['response']['results'][i]['fields']['body'], sentence))  #body
+    return (False, ('no result','no result','no result','no result'))
 
 def search_headlines(keywords, jobj):
     if len(jobj['response']['results']) == 0:

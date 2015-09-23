@@ -46,15 +46,13 @@ def get_terms(tree):
         term = [ normalise(w) for w,t in leaf if acceptable_word(w) ]
         yield term
 
-postoks = []
 
 def extract(question):
-    global postoks
     chunker = nltk.RegexpParser(grammar)
-    tokens = nltk.regexp_tokenize(question, sentence_re)
-    postoks = nltk.tag.pos_tag(tokens)
+    tokens = nltk.regexp_tokenize(question.text, sentence_re)
+    question.postokens = nltk.tag.pos_tag(tokens)
 #    print postoks
-    tree = chunker.parse(postoks)
+    tree = chunker.parse(question.postokens)
 
     terms = get_terms(tree)
     keywords = []
@@ -62,18 +60,16 @@ def extract(question):
         for word in term:
             keywords.append(word)
     # add non-stop verbs
-    for word,pos in postoks:
+    for word,pos in question.postokens:
         if word not in keywords and word.lower() not in stop_words and 'VB' in pos:
                 keywords.append(word)
-
     return set(keywords)
 
-def check(keywords):
-    global postoks
+def check_keywords(question):
     allowed = '2014 2015 2016'
     allowedpos = '. , \'\' :'
-    nikw = [word for word,pos in postoks if pos not in allowedpos and pos!= 'POS'
-    and word.lower() not in stop_words and word not in keywords
+    nikw = [word for word,pos in question.postokens if pos not in allowedpos and pos!= 'POS'
+    and word.lower() not in stop_words and word not in question.keywords
     and word not in allowed]
     if len(nikw) > 0:
 #        print "not in keywords:",nikw
