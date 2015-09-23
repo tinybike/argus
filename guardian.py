@@ -47,9 +47,6 @@ def search_sentences(keywords, jobj):
                     j += 1
                     break
             if j == 0:
-#                if 'not' in sentence.loewr():
-                print 'found in:', sentence
-
                 return (True,
                 (jobj['response']['results'][i]['fields']['headline'], #headline
                 jobj['response']['results'][i]['webUrl'],   #url

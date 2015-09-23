@@ -94,6 +94,6 @@ def turkstats():
     print 'stock market',float(stock)/i
 
 if __name__ == "__main__":
-    reparse()
+#    reparse()
     get_stats()
 #    turkstats()
