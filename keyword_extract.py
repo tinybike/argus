@@ -1,6 +1,6 @@
 import nltk
 from nltk.corpus import stopwords
-
+import csv
 # Used when tokenizing words
 sentence_re = r'''(?x)      # set flag to allow verbose regexps
       ([A-Z])(\.[A-Z])+\.?  # abbreviations, e.g. U.S.A.
@@ -18,8 +18,14 @@ grammar = r"""
         {<NBAR>}
         {<NBAR><IN><NBAR>}  # Above, connected with in/of/etc...
 """
-
+def load_sw():
+    sw = []
+    for line in csv.reader(open('sources/stopwords_long.txt'), delimiter='\t'):
+        for word in line:
+            sw.append(word)
+    return sw
 stop_words = stopwords.words('english')
+stop_words = stop_words+load_sw()
 
 def leaves(tree):
     """Finds NP (nounphrase) leaf nodes of a chunk tree."""
@@ -59,6 +65,7 @@ def extract(question):
     for term in terms:
         for word in term:
             keywords.append(word)
+    question.searchwords = set(keywords)
     # add non-stop verbs
     for word,pos in question.postokens:
         if word not in keywords and word.lower() not in stop_words and 'VB' in pos:
@@ -73,10 +80,5 @@ def check_keywords(question):
     and word not in allowed]
     if len(nikw) > 0:
 #        print "not in keywords:",nikw
-        return False,nikw
-    return True,None
-
-
-#keyw= extract("""Will Ronnie O\'Sullivan win the 2015 Snooker World Championship?""")
-#print keyw
-#print check(keyw)
+        return False, nikw
+    return True, None

@@ -14,10 +14,11 @@ def get_content(keywords):
     payload = {
         'q':                    kw_to_query(keywords),
         'from-date':            '2014-09-01',
-        'to-date':              '2015-09-01',
+#        'to-date':              '2015-09-01',
         'api-key':              'qdz547b6gvss2ndwc9npwqcx',
         'page-size':            50,
         'format':               'json',
+        'orderBy':             'newest',
         'show-fields':          'all'
     }
     response = requests.get(api_url, params=payload)

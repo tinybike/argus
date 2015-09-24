@@ -12,21 +12,25 @@ class Answer(object):
     sources = ('', '', '', '')
     def __init__(self,q):
         self.q = q
+    def set_sources(self):
+        (self.headline, self.url, self.body, self.sentence) = self.sources
 
 
 class Question(object):
     text = ''
     keywords = []
+    searchwords = []
     postokens = []
     query = ''
     def __init__(self,question):
         self.text = question
         self.keywords = extract(self)
-        self.query = kw_to_query(self.keywords)
+        self.query = kw_to_query(self.searchwords)
 
 
 
-#ans = Answer(Question('Will the Giants win the World Series in 2014?'))
-#
-#
+#ans = Answer(Question('Will the Chinese Stock Market continue to rise throughout 2015?'))
+##
+##
 #print ans.q.keywords
+#print ans.q.searchwords
