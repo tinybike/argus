@@ -72,11 +72,11 @@ def get_stats():
 
 def parse_yes():
     i=0
-    with open('tests/erroranal.tsv', 'wb') as csvfile:
+    with open('tests/erroranalysis.tsv', 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t',
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for line in csv.reader(open(OUTFILE), delimiter='\t'):
-            if (line[3] in 'YES NO') or i==0:
+            if (line [2] in 'NO YES' and line[3] in 'YES NO') or i==0:
                 writer.writerow(line)
                 i += 1
 

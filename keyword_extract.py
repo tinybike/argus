@@ -18,6 +18,11 @@ grammar = r"""
         {<NBAR>}
         {<NBAR><IN><NBAR>}  # Above, connected with in/of/etc...
 """
+
+
+def tokenize(string):
+    return nltk.regexp_tokenize(string, sentence_re)
+
 def load_sw():
     sw = []
     for line in csv.reader(open('sources/stopwords_long.txt'), delimiter='\t'):
@@ -82,3 +87,6 @@ def check_keywords(question):
 #        print "not in keywords:",nikw
         return False, nikw
     return True, None
+
+
+#print [word.lower() for word in tokenize('Bad idea')]

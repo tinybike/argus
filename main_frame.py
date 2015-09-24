@@ -1,6 +1,7 @@
 from guardian import get_content
-from keyword_extract import check_keywords
+from keyword_extract import check_keywords, tokenize
 from answer import Question, Answer
+#from nltk.corpus import sentiwordnet as swn
 #import nltk
 
 
@@ -31,9 +32,10 @@ afinn = dict(map(lambda (k,v): (k,int(v)),
 
 def sentiment(answer):
     ans = ''
-    q = sum(map(lambda word: afinn.get(word, 0), answer.q.text.lower().split()))
-    s = sum(map(lambda word: afinn.get(word, 0), answer.sentence.lower().split()))
-    h = sum(map(lambda word: afinn.get(word, 0), answer.headline.lower().split()))
+
+    q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
+    s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentence)]))
+    h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headline)]))
     a = s + h
     if q == 0:
         if a < 0:
@@ -51,6 +53,11 @@ def sentiment(answer):
         else:
             ans = 'YES'
     return ans
+
+
+
+
+
 
 #text = ''
 
