@@ -6,7 +6,6 @@ from main_frame import get_answer
 #TSVFILE=sys.argv[1]
 CSVFOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
-#OUTFILE = "tests/outfile_zruseni didnt understand.tsv"
 def reparse():
     qnum = 0
 

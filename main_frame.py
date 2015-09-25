@@ -1,6 +1,9 @@
 from guardian import get_content
 from keyword_extract import check_keywords, tokenize
 from answer import Question, Answer
+from sklearn import linear_model
+import numpy as np
+from sklearn.externals import joblib
 #from nltk.corpus import sentiwordnet as swn
 #import nltk
 
@@ -17,7 +20,7 @@ def get_answer(question):
 
     found = get_content(a)
     if found:
-        a.text = sentiment(a)
+        a.text = sentiment_learned(a)
         return a
 
     if 'bsolutely' in a.headline:
@@ -35,6 +38,7 @@ def sentiment(answer):
     s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentence)]))
     h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headline)]))
     answer.sentiment = [str(q), str(s), str(h)]
+
     a = s + h
     if q == 0:
         if a < 0:
@@ -53,10 +57,17 @@ def sentiment(answer):
             ans = 'YES'
     return ans
 
-
-
-
-
+def sentiment_learned(answer):
+    q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
+    s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentence)]))
+    h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headline)]))
+    answer.sentiment = [str(q), str(s), str(h)]
+    clf = joblib.load('sources/models/sentiment.pkl')
+    x = np.array([q, s, h])
+    a=clf.predict_proba(x)[:,1]
+    if a < 0.5:
+        return 'NO'
+    return 'YES'
 
 #text = ''
 

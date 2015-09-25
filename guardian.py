@@ -29,7 +29,15 @@ def get_content(a):
 
 
 def search_sentences(a, jobj):
-    if len(jobj['response']['results']) == 0:
+    try:
+        if len(jobj['response']['results']) == 0:
+            a.headline = 'Absolutely no result'
+            a.url = 'Absolutely no result'
+            a.body = 'Absolutely no result'
+            a.sentence = 'Absolutely no result'
+            return False
+    except KeyError:
+        print 'Unknown error occured while answering:',a.q.text
         a.headline = 'Absolutely no result'
         a.url = 'Absolutely no result'
         a.body = 'Absolutely no result'
@@ -61,7 +69,3 @@ def search_sentences(a, jobj):
     a.body = 'No result'
     a.sentence = 'No result'
     return False
-
-
-#get_content(['win', 'Premier', 'Chelsea', 'League'])
-

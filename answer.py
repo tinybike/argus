@@ -13,7 +13,6 @@ class Answer(object):
     def __init__(self,q):
         self.q = q
 
-
 class Question(object):
     text = ''
     keywords = []
@@ -25,11 +24,3 @@ class Question(object):
         self.text = question
         self.keywords = extract(self)
         self.query = kw_to_query(self.searchwords)
-
-
-
-#ans = Answer(Question('Will the Chinese Stock Market continue to rise throughout 2015?'))
-##
-##
-#print ans.q.keywords
-#print ans.q.searchwords
