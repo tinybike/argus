@@ -26,13 +26,4 @@ Algorithm
 
 We extract keywords (mostly names and other nouns) from given question, then ask The Guardian for articles containing all keywords.  
 We expand the keywords by adding non-stop-words verbs. Then we check if we covered all non-stop-words; if we didn't the answer is "Didn't understand the question". Otherwise we continue evaluating.  
-We then divide the first found article into sentences and look for a sentence with all the keywords in it. If we can't find one, our answer is 'Not sure'. If we do, we evaluate sentiment(sum of emotionaly colored words) of the question, sentence and headline. Then we compute the answers like this:  
-(P = positive, N = negative, 0 = neutral)  
-question X (sentence + headline) = answer  
-P X P = 'YES'  
-N X N = 'YES'  
-0 X P = 'YES'  
-P X N = 'NO'  
-N X P = 'NO'  
-0 X N = 'NO'  
-else 'YES'
+We then divide the first found article into sentences and look for a sentence with all the keywords in it. If we can't find one, our answer is 'Not sure'. If we do, we evaluate sentiment(sum of emotionaly colored words) of the question, sentence and headline. Sentiments are then input to a logistic regression classifier.
