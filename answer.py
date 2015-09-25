@@ -9,11 +9,9 @@ class Answer(object):
     url = ''
     body = ''
     sentence = ''
-    sources = ('', '', '', '')
+    sentiment = ['0', '0', '0']
     def __init__(self,q):
         self.q = q
-    def set_sources(self):
-        (self.headline, self.url, self.body, self.sentence) = self.sources
 
 
 class Question(object):
@@ -22,6 +20,7 @@ class Question(object):
     searchwords = []
     postokens = []
     query = ''
+    not_in_kw = []
     def __init__(self,question):
         self.text = question
         self.keywords = extract(self)

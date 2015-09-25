@@ -9,10 +9,10 @@ def kw_to_query(keywords):
     query = query[:-5]
     return query
 
-def get_content(keywords):
+def get_content(a):
     api_url = 'http://content.guardianapis.com/search'
     payload = {
-        'q':                    kw_to_query(keywords),
+        'q':                    kw_to_query(a.q.searchwords),
         'from-date':            '2014-09-01',
 #        'to-date':              '2015-09-01',
         'api-key':              'qdz547b6gvss2ndwc9npwqcx',
@@ -25,13 +25,16 @@ def get_content(keywords):
     data = response.json()
     jobj=json.loads(json.dumps(data, indent = 4))
 #    print json.dumps(data, indent=4)
-#    return search_headlines(keywords,jobj)
-    return search_sentences(keywords, jobj)
+    return search_sentences(a, jobj)
 
 
-def search_sentences(keywords, jobj):
+def search_sentences(a, jobj):
     if len(jobj['response']['results']) == 0:
-        return (False, ('absolutely no result', 'absolutely no result', 'absolutely no result', 'absolutely no result'))
+        a.headline = 'Absolutely no result'
+        a.url = 'Absolutely no result'
+        a.body = 'Absolutely no result'
+        a.sentence = 'Absolutely no result'
+        return False
     for i in range(0, len(jobj['response']['results'])):
         try:
             bodyhtml = jobj['response']['results'][i]['fields']['body']
@@ -43,34 +46,22 @@ def search_sentences(keywords, jobj):
 
         for sentence in sentences:
             j = 0
-            for word in keywords:
+            for word in a.q.keywords:
                 if word.lower() not in sentence.lower():
                     j += 1
                     break
             if j == 0:
-                return (True,
-                (jobj['response']['results'][i]['fields']['headline'], #headline
-                jobj['response']['results'][i]['webUrl'],   #url
-                jobj['response']['results'][i]['fields']['body'], sentence))  #body
-    return (False, ('no result','no result','no result','no result'))
+                a.headline = jobj['response']['results'][i]['fields']['headline']
+                a.url = jobj['response']['results'][i]['webUrl']
+                a.body = jobj['response']['results'][i]['fields']['body']
+                a.sentence = sentence
+                return True
+    a.headline = 'No result'
+    a.url = 'No result'
+    a.body = 'No result'
+    a.sentence = 'No result'
+    return False
 
-def search_headlines(keywords, jobj):
-    if len(jobj['response']['results']) == 0:
-        return (False, ('absolutely no result','absolutely no result','absolutely no result'))
-    for i in range(0, len(jobj['response']['results'])):
-        headline = jobj['response']['results'][i]['fields']['headline']
-#        print headline
-        j = 0
-        for word in keywords:
-            if word not in headline:
-                j += 1
-                break
-        if j == 0:
-            return (True,
-            (jobj['response']['results'][i]['fields']['headline'], #headline
-            jobj['response']['results'][i]['webUrl'],   #url
-            jobj['response']['results'][i]['fields']['body']))  #body
-    return (False, ('no result','no result','no result'))
 
 #get_content(['win', 'Premier', 'Chelsea', 'League'])
 

@@ -8,15 +8,14 @@ from answer import Question, Answer
 def get_answer(question):
     a = Answer(Question(question))
 
-    checked, nikw = check_keywords(a.q)
+    checked = check_keywords(a.q)
 
     if not checked:
-        a.q.query += ' ('+str(nikw)+'not in keywords)'
+        a.q.query += ' ('+str(a.q.not_in_kw)+'not in keywords)'
         a.text = 'Didn\'t understand the question'
         return a
 
-    found, a.sources = get_content(a.q.searchwords)
-    a.set_sources()
+    found = get_content(a)
     if found:
         a.text = sentiment(a)
         return a
@@ -32,10 +31,10 @@ afinn = dict(map(lambda (k,v): (k,int(v)),
 
 def sentiment(answer):
     ans = ''
-
     q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
     s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentence)]))
     h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headline)]))
+    answer.sentiment = [str(q), str(s), str(h)]
     a = s + h
     if q == 0:
         if a < 0:

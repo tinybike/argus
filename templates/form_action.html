@@ -15,13 +15,14 @@
     <body>
 	<div id="container">
             <div class="title">
-                <h1>Ailao Argus Prototype &ndash; YES/NO question</h1>
+                <h1>Ailao Argus Prototype &ndash; YES/NO questions</h1>
             </div>
             <div id="qbox">
                 <form method="post" action="{{ url_for('generate_answer') }}">
                     <!-- <label for="question">Enter a YES/NO question:</label> -->
-                  <input type="text" name="question" size="60" value="{{question}}" placeholder="Will the conservatives win the UK election?" />
+                  <input type="text" name="question" size="60" placeholder="Will the conservatives win the UK election?" />
                   <input type="submit" name="go" value="Ask" />
+<p>{{question|safe}}</p>
                 </form>
             </div>
         </div>

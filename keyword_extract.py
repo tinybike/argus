@@ -83,10 +83,11 @@ def check_keywords(question):
     nikw = [word for word,pos in question.postokens if pos not in allowedpos and pos!= 'POS'
     and word.lower() not in stop_words and word not in question.keywords
     and word not in allowed]
+    question.not_in_kw = nikw
     if len(nikw) > 0:
 #        print "not in keywords:",nikw
-        return False, nikw
-    return True, None
+        return False
+    return True
 
 
 #print [word.lower() for word in tokenize('Bad idea')]

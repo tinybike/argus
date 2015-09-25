@@ -18,7 +18,8 @@ def reparse():
             for line in csv.reader(open(CSVFOLDER+'/'+csvfile), delimiter=',',skipinitialspace=True):
                 if i == 0:
                     i += 1
-                    info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer', 'OurKeywords', 'FoundSentence', 'OurHeadline', 'TurkTopic', 'TurkURL', 'OurURL']
+                    info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer', 'OurKeywords', 'FoundSentence', 'OurHeadline',
+                            'TurkTopic', 'TurkURL', 'OurURL','QSentiment', 'SSentiment','HSentiment']
                     if qnum == 0:
                         writer.writerow(info)
                     continue
@@ -27,12 +28,13 @@ def reparse():
 
                 qnum += 1
                 ouranswer = get_answer(line[30])
-                (headline, url, body, sentence) = ouranswer.sources
                 info=[line[0], line[30], line[28],
-                      ouranswer.text, ouranswer.q.query, sentence, headline,line[31],line[29],url]
+                      ouranswer.text, ouranswer.q.query, ouranswer.sentence,
+                      ouranswer.headline,line[31],line[29],ouranswer.url,
+                        ouranswer.sentiment[0], ouranswer.sentiment[1], ouranswer.sentiment[2]]
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
-                if qnum%10 == 1:
+                if qnum % 10 == 1:
                     print 'answering question',qnum
 
 def get_stats():
@@ -57,14 +59,14 @@ def get_stats():
             correct += 1
         if ourans in 'YES NO':
             answered += 1
-        if line[5] == 'absolutely no result':
+        if line[5] == 'Absolutely no result':
             anr += 1
 
     precision = correct / answered
     recall = correct / understood
     print 'Out of %d questions we understand %d (%.2f%%)' % (i, understood, understood/i*100)
     print 'Out of these %d questions:' % understood
-    print 'We didnt find any articles containing all keywords in %d (%.2f%%) cases' % (anr, anr/understood*100)
+    print 'We didnt find any articles containing all searchwords in %d (%.2f%%) cases' % (anr, anr/understood*100)
     print 'We didnt find any sentences containing all keywords in %d (%.2f%%) cases' % (not_sure, not_sure/understood*100)
     print 'We were able to answer %d-%d-%d = %d (%.2f%%) questions' % (understood, anr, not_sure, answered, answered/understood*100)
     print 'Recall =', recall
