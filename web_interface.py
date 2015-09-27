@@ -51,6 +51,9 @@ def form():
 @app.route('/', methods=['POST'])
 def generate_answer():
     question = request.form['question']
+    if question == '':
+        return render_template('form_action.html', content='none')
+
     a = get_answer(question)
 
     a.body = highlight_body(a.body, a.sentence)
