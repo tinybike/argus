@@ -22,7 +22,7 @@
                     <!-- <label for="question">Enter a YES/NO question:</label> -->
                   <input type="text" name="question" size="60" placeholder="Will the conservatives win the UK election?" />
                   <input type="submit" name="go" value="Ask" />
-<p>{{question|safe}}</p>
+			<p>{{question|safe}}</p>
                 </form>
             </div>
         </div>
@@ -32,6 +32,14 @@
 		<div class="article">
 			<h2><a href={{url}}>{{headline}}</a></h2>
 			<div class="body">{{body|safe}}</div>
+		</div>
+		<div class="article">
+			<h2><a href={{url1}}>{{headline1}}</a></h2>
+			<div class="body">{{body1|safe}}</div>
+		</div>
+		<div class="article">
+			<h2><a href={{url2}}>{{headline2}}</a></h2>
+			<div class="body">{{body2|safe}}</div>
 		</div>
             </div>
         </div>

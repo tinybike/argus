@@ -3,9 +3,7 @@ from flask import Flask, render_template, request
 from main_frame import get_answer
 import re
 
-
 app = Flask(__name__)
-
 
 def highlight_body(body, sentence):
     starttag = '<span style="background-color: #FFFF00">'
@@ -34,7 +32,6 @@ def highlight_question(body, sentence):
 def highlight_question_wrong(body, sentence):
     starttag = '<span style="background-color: #E77471">'
     endtag = '</span>'
-#    print (sentence)
     try:
         match = re.search(sentence, body)
         start, end = match.start(), match.end()
@@ -47,7 +44,6 @@ def highlight_question_wrong(body, sentence):
 def form():
     return render_template('form_action.html', content='none')
 
-
 @app.route('/', methods=['POST'])
 def generate_answer():
     question = request.form['question']
@@ -55,8 +51,19 @@ def generate_answer():
         return render_template('form_action.html', content='none')
 
     a = get_answer(question)
+    print("FOUND:", len(a.urls))
+    urls = ['']*3
+    bodies = ['']*3
+    headlines = ['']*3
+    sentences = ['']*3
 
-    a.body = highlight_body(a.body, a.sentence)
+    for i in range(0, 3):
+        if i == len(a.urls):
+            break
+        urls[i] = a.urls[i]
+        headlines[i] = a.headlines[i]
+        bodies[i] = highlight_body(a.bodies[i], a.sentences[i])
+        sentences[i] = a.sentences[i]
 
     for word in a.q.keywords:
        question = highlight_question(question,word)
@@ -64,9 +71,12 @@ def generate_answer():
        question = highlight_question_wrong(question,word)
 
     print('<<%s>> -> %s :: [%s :: %s]' % (question, a.text, a.headline, a.url))
-    return render_template('form_action.html', content='block', question=question, answer=a.text,
-                           headline=a.headline, url=a.url, body=a.body, query=a.q.query)
 
+
+    return render_template('form_action.html', content='block', question=question, answer=a.text,
+                            headline=headlines[0], url=urls[0], body=bodies[0],
+                            headline1=headlines[1], url1=urls[1], body1=bodies[1],
+                            headline2=headlines[2], url2=urls[2], body2=bodies[2],query=a.q.query)
 
 if __name__ == '__main__':
   app.run(port=5500, host='0.0.0.0', debug=True, use_reloader=False)

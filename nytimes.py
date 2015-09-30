@@ -1,6 +1,6 @@
 import requests
 import json
-from html_clean import sentence_split_guardian
+from html_clean import sentence_split
 
 def kw_to_query(keywords):
     query = ''
@@ -9,28 +9,27 @@ def kw_to_query(keywords):
     query = query[:-5]
     return query
 
-def get_content_guardian(a):
-    api_url = 'http://content.guardianapis.com/search'
+def get_content_nytimes(a):
+    api_url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json'
     payload = {
-        'q':                    kw_to_query(a.q.searchwords),
-        'from-date':            '2014-09-01',
-#        'to-date':              '2015-09-01',
-        'api-key':              'qdz547b6gvss2ndwc9npwqcx',
-        'page-size':            50,
-        'format':               'json',
-        'orderBy':             'newest',
-        'show-fields':          'all'
+        'fq':                    kw_to_query(a.q.keywords),
+        'begin_date':           '20140901',
+        'end_date':             '20150901',
+        'api-key':              'da3f5d9d42b3a9d28f7bc2951909f167:15:73058897',
+        'sort':                 'newest',
+#        'orderBy':              'newest',
     }
     response = requests.get(api_url, params=payload)
     data = response.json()
     jobj=json.loads(json.dumps(data, indent = 4))
+#    print kw_to_query(a.q.searchwords)
 #    print json.dumps(data, indent=4)
     return search_sentences(a, jobj)
 
 
 def search_sentences(a, jobj):
     try:
-        if len(jobj['response']['results']) == 0:
+        if len(jobj['response']['docs']) == 0:
             a.headline = 'Absolutely no result'
             a.url = 'Absolutely no result'
             a.body = 'Absolutely no result'
@@ -43,13 +42,16 @@ def search_sentences(a, jobj):
         a.body = 'Absolutely no result'
         a.sentence = 'Absolutely no result'
         return False
-    for i in range(0, len(jobj['response']['results'])):
+    for i in range(0, len(jobj['response']['docs'])):
         try:
-            bodyhtml = jobj['response']['results'][i]['fields']['body']
+            body = jobj['response']['docs'][i]['lead_paragraph']
+            if body == None:
+                body = jobj['response']['docs'][i]['abstract']
+#            print body
         except KeyError:
             continue
 
-        sentences = sentence_split_guardian(bodyhtml)
+        sentences = sentence_split(body)
 #        print '\n-----\n'.join(sentences)
 
         for sentence in sentences:
@@ -59,15 +61,17 @@ def search_sentences(a, jobj):
                     j += 1
                     break
             if j == 0:
-                if len(a.url) ==0:
-                    a.headline = jobj['response']['results'][i]['fields']['headline']
-                    a.url = jobj['response']['results'][i]['webUrl']
-                    a.body = jobj['response']['results'][i]['fields']['body']
-                    a.sentence = sentence
-                a.headlines.append(jobj['response']['results'][i]['fields']['headline'])
-                a.urls.append(jobj['response']['results'][i]['webUrl'])
-                a.bodies.append(jobj['response']['results'][i]['fields']['body'])
-                a.sentences.append(sentence)
+                if len(a.urls) == 0:
+                    if len(a.url) ==0:
+                        a.headline = jobj['response']['docs'][i]['headline']['main']
+                        a.url = jobj['response']['docs'][i]['web_url']
+                        a.body = body
+                        a.sentence = sentence
+                    a.headlines.append(jobj['response']['docs'][i]['headline']['main'])
+                    a.urls.append(jobj['response']['docs'][i]['web_url'])
+                    a.bodies.append(body)
+                    a.sentences.append(sentence)
+
     if len(a.urls) != 0:
         return True
     a.headline = 'No result'

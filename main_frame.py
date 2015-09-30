@@ -1,4 +1,5 @@
-from guardian import get_content
+from guardian import get_content_guardian
+from nytimes import get_content_nytimes
 from keyword_extract import check_keywords, tokenize
 from answer import Question, Answer
 from sklearn import linear_model
@@ -18,8 +19,9 @@ def get_answer(question):
         a.text = 'Didn\'t understand the question'
         return a
 
-    found = get_content(a)
-    if found:
+    foundg = get_content_guardian(a)
+    foundny = get_content_nytimes(a)
+    if foundg or foundny:
         a.text = sentiment_learned(a)
         return a
 
@@ -69,18 +71,5 @@ def sentiment_learned(answer):
         return 'NO'
     return 'YES'
 
-#text = ''
-
-
-
-#print sum(map(lambda word: afinn.get(word, 0), text.lower().split()))
-
-
-
-
-
-
-
-
-
-
+if __name__ == "__main__":
+    print get_answer('Did the stock market rally on Sept. 11th 2014?').text
