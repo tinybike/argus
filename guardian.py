@@ -31,17 +31,17 @@ def get_content_guardian(a):
 def search_sentences(a, jobj):
     try:
         if len(jobj['response']['results']) == 0:
-            a.headline = 'Absolutely no result'
-            a.url = 'Absolutely no result'
-            a.body = 'Absolutely no result'
-            a.sentence = 'Absolutely no result'
+            a.headlines.append('Absolutely no result')
+            a.urls.append('Absolutely no result')
+            a.bodies.append('Absolutely no result')
+            a.sentences.append('Absolutely no result')
             return False
     except KeyError:
         print 'Unknown error occured while answering:',a.q.text
-        a.headline = 'Absolutely no result'
-        a.url = 'Absolutely no result'
-        a.body = 'Absolutely no result'
-        a.sentence = 'Absolutely no result'
+        a.headlines.append('Absolutely no result')
+        a.urls.append('Absolutely no result')
+        a.bodies.append('Absolutely no result')
+        a.sentences.append('Absolutely no result')
         return False
     for i in range(0, len(jobj['response']['results'])):
         try:
@@ -59,19 +59,14 @@ def search_sentences(a, jobj):
                     j += 1
                     break
             if j == 0:
-                if len(a.url) ==0:
-                    a.headline = jobj['response']['results'][i]['fields']['headline']
-                    a.url = jobj['response']['results'][i]['webUrl']
-                    a.body = jobj['response']['results'][i]['fields']['body']
-                    a.sentence = sentence
                 a.headlines.append(jobj['response']['results'][i]['fields']['headline'])
                 a.urls.append(jobj['response']['results'][i]['webUrl'])
                 a.bodies.append(jobj['response']['results'][i]['fields']['body'])
                 a.sentences.append(sentence)
     if len(a.urls) != 0:
         return True
-    a.headline = 'No result'
-    a.url = 'No result'
-    a.body = 'No result'
-    a.sentence = 'No result'
+    a.headlines.append('No result')
+    a.urls.append('No result')
+    a.bodies.append('No result')
+    a.sentences.append('No result')
     return False

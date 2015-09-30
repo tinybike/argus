@@ -5,10 +5,6 @@ from guardian import kw_to_query
 class Answer(object):
     def __init__(self,q):
         self.text = ''
-        self.headline = ''
-        self.url = ''
-        self.body = ''
-        self.sentence = ''
         self.headlines = []
         self.urls = []
         self.bodies = []

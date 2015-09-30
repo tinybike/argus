@@ -30,17 +30,17 @@ def get_content_nytimes(a):
 def search_sentences(a, jobj):
     try:
         if len(jobj['response']['docs']) == 0:
-            a.headline = 'Absolutely no result'
-            a.url = 'Absolutely no result'
-            a.body = 'Absolutely no result'
-            a.sentence = 'Absolutely no result'
+            a.headlines.append('Absolutely no result')
+            a.urls.append('Absolutely no result')
+            a.bodies.append('Absolutely no result')
+            a.sentences.append('Absolutely no result')
             return False
     except KeyError:
         print 'Unknown error occured while answering:',a.q.text
-        a.headline = 'Absolutely no result'
-        a.url = 'Absolutely no result'
-        a.body = 'Absolutely no result'
-        a.sentence = 'Absolutely no result'
+        a.headlines.append('Absolutely no result')
+        a.urls.append('Absolutely no result')
+        a.bodies.append('Absolutely no result')
+        a.sentences.append('Absolutely no result')
         return False
     for i in range(0, len(jobj['response']['docs'])):
         try:
@@ -61,16 +61,10 @@ def search_sentences(a, jobj):
                     j += 1
                     break
             if j == 0:
-                if len(a.urls) == 0:
-                    if len(a.url) ==0:
-                        a.headline = jobj['response']['docs'][i]['headline']['main']
-                        a.url = jobj['response']['docs'][i]['web_url']
-                        a.body = body
-                        a.sentence = sentence
-                    a.headlines.append(jobj['response']['docs'][i]['headline']['main'])
-                    a.urls.append(jobj['response']['docs'][i]['web_url'])
-                    a.bodies.append(body)
-                    a.sentences.append(sentence)
+                a.headlines.append(jobj['response']['docs'][i]['headline']['main'])
+                a.urls.append(jobj['response']['docs'][i]['web_url'])
+                a.bodies.append(body)
+                a.sentences.append(sentence)
 
     if len(a.urls) != 0:
         return True

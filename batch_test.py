@@ -28,8 +28,8 @@ def reparse():
                 qnum += 1
                 ouranswer = get_answer(line[30])
                 info=[line[0], line[30], line[28],
-                      ouranswer.text, ouranswer.q.query, ouranswer.sentence,
-                      ouranswer.headline,line[31],line[29],ouranswer.url,
+                      ouranswer.text, ouranswer.q.query, ouranswer.sentences[0],
+                      ouranswer.headlines[0],line[31],line[29],ouranswer.urls[0],
                         ouranswer.sentiment[0], ouranswer.sentiment[1], ouranswer.sentiment[2]]
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)

@@ -15,6 +15,10 @@ def get_answer(question):
     checked = check_keywords(a.q)
 
     if not checked:
+        a.headlines.append('')
+        a.urls.append('')
+        a.bodies.append('')
+        a.sentences.append('')
         a.q.query += ' ('+str(a.q.not_in_kw)+'not in keywords)'
         a.text = 'Didn\'t understand the question'
         return a
@@ -25,7 +29,7 @@ def get_answer(question):
         a.text = sentiment_learned(a)
         return a
 
-    if 'bsolutely' in a.headline:
+    if 'bsolutely' in a.headlines[0]:
         a.text = 'Absolutely not sure'
     else:
         a.text = 'Not sure'
@@ -37,8 +41,8 @@ afinn = dict(map(lambda (k,v): (k,int(v)),
 def sentiment(answer):
     ans = ''
     q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
-    s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentence)]))
-    h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headline)]))
+    s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentences[0])]))
+    h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headlines[0])]))
     answer.sentiment = [str(q), str(s), str(h)]
 
     a = s + h
@@ -61,8 +65,8 @@ def sentiment(answer):
 
 def sentiment_learned(answer):
     q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
-    s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentence)]))
-    h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headline)]))
+    s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentences[0])]))
+    h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headlines[0])]))
     answer.sentiment = [str(q), str(s), str(h)]
     clf = joblib.load('sources/models/sentiment.pkl')
     x = np.array([q, s, h])
@@ -72,4 +76,4 @@ def sentiment_learned(answer):
     return 'YES'
 
 if __name__ == "__main__":
-    print get_answer('Did the stock market rally on Sept. 11th 2014?').text
+    print get_answer('Barack Obama').text
