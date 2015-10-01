@@ -1,5 +1,6 @@
 from guardian import get_content_guardian
 from nytimes import get_content_nytimes
+from elastic import get_content_elastic
 from keyword_extract import check_keywords, tokenize
 from answer import Question, Answer
 import numpy as np
@@ -10,7 +11,6 @@ from sklearn.externals import joblib
 
 def get_answer(question):
     a = Answer(Question(question))
-
     checked = check_keywords(a.q)
 
     if not checked:
@@ -18,11 +18,9 @@ def get_answer(question):
         a.text = 'Didn\'t understand the question'
         return a
 
-#    print a.q.keywords
     foundny, smhny = get_content_nytimes(a)
-#    print a.headlines
     foundg, smhg = get_content_guardian(a)
-#    print a.headlines
+#    foundg, smhg = get_content_elastic(a)
 
     if foundg or foundny:
         a.text = sentiment_learned(a)

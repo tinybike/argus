@@ -1,6 +1,6 @@
 from __future__ import print_function
 from flask import Flask, render_template, request
-from main_frame import get_answer
+from argus.main_frame import get_answer
 import re
 
 app = Flask(__name__)

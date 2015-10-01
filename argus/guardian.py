@@ -57,8 +57,6 @@ def search_sentences(a, jobj):
                 a.bodies.append(bodyhtml)
                 a.sentences.append(sentence)
                 a.sources.append('guardian')
-
     if len(a.urls) != 0:
         return True, True
-
     return False, True

@@ -26,7 +26,6 @@ def get_content_nytimes(a):
 #    print json.dumps(data, indent=4)
     return search_sentences(a, jobj)
 
-
 def search_sentences(a, jobj):
     try:
         if len(jobj['response']['docs']) == 0:

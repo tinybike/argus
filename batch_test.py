@@ -1,7 +1,7 @@
 from __future__ import division
 import csv
 import os
-from main_frame import get_answer
+from argus.main_frame import get_answer
 
 #TSVFILE=sys.argv[1]
 CSVFOLDER = "tests/batches"
@@ -121,7 +121,7 @@ def turkstats():
     print 'stock market %.2f%%' % (stock/i*100)
 
 if __name__ == "__main__":
-#    reparse()
+    reparse()
     get_stats()
     turkstats()
 #    parse_yes()
