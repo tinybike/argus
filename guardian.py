@@ -30,19 +30,12 @@ def get_content_guardian(a):
 
 def search_sentences(a, jobj):
     try:
+#        print len(jobj['response']['results'])
         if len(jobj['response']['results']) == 0:
-            a.headlines.append('Absolutely no result')
-            a.urls.append('Absolutely no result')
-            a.bodies.append('Absolutely no result')
-            a.sentences.append('Absolutely no result')
-            return False
+            return False, False
     except KeyError:
         print 'Unknown error occured while answering:',a.q.text
-        a.headlines.append('Absolutely no result')
-        a.urls.append('Absolutely no result')
-        a.bodies.append('Absolutely no result')
-        a.sentences.append('Absolutely no result')
-        return False
+        return False, False
     for i in range(0, len(jobj['response']['results'])):
         try:
             bodyhtml = jobj['response']['results'][i]['fields']['body']
@@ -61,12 +54,11 @@ def search_sentences(a, jobj):
             if j == 0:
                 a.headlines.append(jobj['response']['results'][i]['fields']['headline'])
                 a.urls.append(jobj['response']['results'][i]['webUrl'])
-                a.bodies.append(jobj['response']['results'][i]['fields']['body'])
+                a.bodies.append(bodyhtml)
                 a.sentences.append(sentence)
+                a.sources.append('guardian')
+
     if len(a.urls) != 0:
-        return True
-    a.headlines.append('No result')
-    a.urls.append('No result')
-    a.bodies.append('No result')
-    a.sentences.append('No result')
-    return False
+        return True, True
+
+    return False, True

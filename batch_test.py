@@ -10,15 +10,18 @@ def reparse():
     qnum = 0
 
     with open(OUTFILE, 'wb') as csvfile:
-        writer = csv.writer(csvfile, delimiter='\t',
-                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        writer = csv.writer(csvfile, delimiter='\t')
         for csvfile in os.listdir(CSVFOLDER):
+            if not csvfile.endswith(".csv"):
+                continue
             i = 0
             for line in csv.reader(open(CSVFOLDER+'/'+csvfile), delimiter=',',skipinitialspace=True):
                 if i == 0:
                     i += 1
-                    info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer', 'OurKeywords', 'FoundSentence', 'OurHeadline',
-                            'TurkTopic', 'TurkURL', 'OurURL','QSentiment', 'SSentiment','HSentiment']
+                    info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer',
+                            'OurKeywords', 'FoundSentence', 'OurHeadline',
+                            'TurkTopic', 'TurkURL', 'OurURL','QSentiment',
+                            'SSentiment','HSentiment','Source']
                     if qnum == 0:
                         writer.writerow(info)
                     continue
@@ -27,10 +30,22 @@ def reparse():
 
                 qnum += 1
                 ouranswer = get_answer(line[30])
-                info=[line[0], line[30], line[28],
-                      ouranswer.text, ouranswer.q.query, ouranswer.sentences[0],
-                      ouranswer.headlines[0],line[31],line[29],ouranswer.urls[0],
-                        ouranswer.sentiment[0], ouranswer.sentiment[1], ouranswer.sentiment[2]]
+
+                url = ''
+                headline = ''
+                sentence = ''
+                source = ''
+                if len(ouranswer.urls) != 0:
+                    url = ouranswer.urls[0]
+                    headline = ouranswer.headlines[0]
+                    sentence = ouranswer.sentences[0]
+                    source = ouranswer.sources[0]
+
+                info = [line[0], line[30], line[28],
+                      ouranswer.text, ouranswer.q.query, sentence,
+                      headline,line[31],line[29],url,
+                        ouranswer.sentiment[0], ouranswer.sentiment[1],
+                        ouranswer.sentiment[2],source]
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
                 if qnum % 10 == 1:
@@ -52,13 +67,13 @@ def get_stats():
         if ourans == 'Didn\'t understand the question':
             continue
         understood += 1
-        if ourans in 'Not sure':
+        if ourans == 'Not sure':
             not_sure+=1
         if turkans == ourans:
             correct += 1
         if ourans in 'YES NO':
             answered += 1
-        if line[5] == 'Absolutely no result':
+        if ourans == 'Absolutely not sure':
             anr += 1
 
     precision = correct / answered
@@ -74,8 +89,7 @@ def get_stats():
 def parse_yes():
     i=0
     with open('tests/erroranalysis.tsv', 'wb') as csvfile:
-        writer = csv.writer(csvfile, delimiter='\t',
-                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        writer = csv.writer(csvfile, delimiter='\t')
         for line in csv.reader(open(OUTFILE), delimiter='\t'):
             if (line [2] in 'NO YES' and line[3] in 'YES NO') or i==0:
                 writer.writerow(line)
@@ -107,7 +121,7 @@ def turkstats():
     print 'stock market %.2f%%' % (stock/i*100)
 
 if __name__ == "__main__":
-    reparse()
+#    reparse()
     get_stats()
     turkstats()
-    parse_yes()
+#    parse_yes()

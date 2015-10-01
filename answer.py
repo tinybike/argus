@@ -4,6 +4,7 @@ from guardian import kw_to_query
 
 class Answer(object):
     def __init__(self,q):
+        self.sources = []
         self.text = ''
         self.headlines = []
         self.urls = []

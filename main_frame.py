@@ -2,7 +2,6 @@ from guardian import get_content_guardian
 from nytimes import get_content_nytimes
 from keyword_extract import check_keywords, tokenize
 from answer import Question, Answer
-from sklearn import linear_model
 import numpy as np
 from sklearn.externals import joblib
 #from nltk.corpus import sentiwordnet as swn
@@ -15,21 +14,21 @@ def get_answer(question):
     checked = check_keywords(a.q)
 
     if not checked:
-        a.headlines.append('')
-        a.urls.append('')
-        a.bodies.append('')
-        a.sentences.append('')
         a.q.query += ' ('+str(a.q.not_in_kw)+'not in keywords)'
         a.text = 'Didn\'t understand the question'
         return a
 
-    foundg = get_content_guardian(a)
-    foundny = get_content_nytimes(a)
+#    print a.q.keywords
+    foundny, smhny = get_content_nytimes(a)
+#    print a.headlines
+    foundg, smhg = get_content_guardian(a)
+#    print a.headlines
+
     if foundg or foundny:
         a.text = sentiment_learned(a)
         return a
 
-    if 'bsolutely' in a.headlines[0]:
+    if not smhny and not smhg:
         a.text = 'Absolutely not sure'
     else:
         a.text = 'Not sure'
@@ -38,31 +37,6 @@ def get_answer(question):
 afinn = dict(map(lambda (k,v): (k,int(v)),
                      [ line.split('\t') for line in open("sources/AFINN-111.txt") ]))
 
-def sentiment(answer):
-    ans = ''
-    q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
-    s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentences[0])]))
-    h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headlines[0])]))
-    answer.sentiment = [str(q), str(s), str(h)]
-
-    a = s + h
-    if q == 0:
-        if a < 0:
-            ans = 'NO'
-        else:
-            ans = 'YES'
-    elif q > 0:
-        if a < 0:
-            ans = 'NO'
-        else:
-            ans = 'YES'
-    elif q < 0:
-        if a < 0:
-            ans = 'NO'
-        else:
-            ans = 'YES'
-    return ans
-
 def sentiment_learned(answer):
     q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
     s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentences[0])]))
@@ -70,10 +44,10 @@ def sentiment_learned(answer):
     answer.sentiment = [str(q), str(s), str(h)]
     clf = joblib.load('sources/models/sentiment.pkl')
     x = np.array([q, s, h])
-    a=clf.predict_proba(x)[:,1]
+    a = clf.predict_proba(x)[:,1]
     if a < 0.5:
         return 'NO'
     return 'YES'
 
 if __name__ == "__main__":
-    print get_answer('Barack Obama').text
+    print get_answer('Will the Patriots win the 2015 Superbowl?').text

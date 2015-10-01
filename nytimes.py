@@ -12,7 +12,7 @@ def kw_to_query(keywords):
 def get_content_nytimes(a):
     api_url = 'http://api.nytimes.com/svc/search/v2/articlesearch.json'
     payload = {
-        'fq':                    kw_to_query(a.q.keywords),
+        'q':                    kw_to_query(a.q.keywords),
         'begin_date':           '20140901',
         'end_date':             '20150901',
         'api-key':              'da3f5d9d42b3a9d28f7bc2951909f167:15:73058897',
@@ -30,18 +30,11 @@ def get_content_nytimes(a):
 def search_sentences(a, jobj):
     try:
         if len(jobj['response']['docs']) == 0:
-            a.headlines.append('Absolutely no result')
-            a.urls.append('Absolutely no result')
-            a.bodies.append('Absolutely no result')
-            a.sentences.append('Absolutely no result')
-            return False
+            return False, False
     except KeyError:
         print 'Unknown error occured while answering:',a.q.text
-        a.headlines.append('Absolutely no result')
-        a.urls.append('Absolutely no result')
-        a.bodies.append('Absolutely no result')
-        a.sentences.append('Absolutely no result')
-        return False
+        return False, False
+
     for i in range(0, len(jobj['response']['docs'])):
         try:
             body = jobj['response']['docs'][i]['lead_paragraph']
@@ -65,11 +58,8 @@ def search_sentences(a, jobj):
                 a.urls.append(jobj['response']['docs'][i]['web_url'])
                 a.bodies.append(body)
                 a.sentences.append(sentence)
+                a.sources.append('nytimes')
 
     if len(a.urls) != 0:
-        return True
-    a.headline = 'No result'
-    a.url = 'No result'
-    a.body = 'No result'
-    a.sentence = 'No result'
-    return False
+        return True, True
+    return False, True

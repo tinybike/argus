@@ -70,7 +70,7 @@ def generate_answer():
     for word in a.q.not_in_kw:
        question = highlight_question_wrong(question,word)
 
-    print('<<%s>> -> %s :: [%s :: %s]' % (question, a.text, a.headline, a.url))
+    print('<<%s>> -> %s :: [%s :: %s]' % (question, a.text, a.headlines[0], a.urls[0]))
 
 
     return render_template('form_action.html', content='block', question=question, answer=a.text,
