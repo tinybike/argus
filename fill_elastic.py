@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from elasticsearch import Elasticsearch
-from html_clean import preparse_guardian
+from argus.html_clean import preparse_guardian
 import sys
 import json
 import os
