@@ -7,7 +7,7 @@ import json
 import os
 
 #JSONFOLDER = 'sources/guardian_database'
-es = Elasticsearch()
+es = Elasticsearch(hosts=['localhost', 'pasky.or.cz'])
 #TODO: filter dates, search in headline+summary+body
 def fill_guardian(JSONFOLDER):
     ID = 0

@@ -19,8 +19,8 @@ def get_answer(question):
         return a
 
     foundny, smhny = get_content_nytimes(a)
-    foundg, smhg = get_content_guardian(a)
-#    foundg, smhg = get_content_elastic(a)
+#    foundg, smhg = get_content_guardian(a)
+    foundg, smhg = get_content_elastic(a)
 
     if foundg or foundny:
         a.text = sentiment_learned(a)

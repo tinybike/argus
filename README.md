@@ -31,11 +31,12 @@ We then divide the first found article into sentences and look for a sentence wi
 ElasticSearch
 -------------
 
-After installing elasticsearch  
+Install ElasticSearch .deb from the website https://www.elastic.co/downloads/elasticsearch
+and Python bindings using:
 
 	pip install elasticsearch
 
-start it up (default, runs on localhost:9200)  
+Start it up (default, runs on localhost:9200)
 
 	sudo /etc/init.d/elasticsearch start
 
