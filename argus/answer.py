@@ -10,8 +10,9 @@ class Answer(object):
         self.urls = []
         self.bodies = []
         self.sentences = []
-        self.sentiment = ['0', '0', '0']
+        self.sentiment = []
         self.q = q
+        self.info = ''
 
 class Question(object):
     def __init__(self,question):

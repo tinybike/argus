@@ -6,7 +6,7 @@ import sys
 import json
 import os
 
-#JSONFOLDER = 'sources/guardian_database'
+JSONFOLDER = 'sources/nytimes_database'
 es = Elasticsearch()
 #TODO: filter dates, search in headline+summary+body
 def fill_guardian(JSONFOLDER):
@@ -47,6 +47,41 @@ def fill_guardian(JSONFOLDER):
     return "ok"
 
 
+def fill_nytimes(JSONFOLDER):
+    ID = 0
+    for jsonfile in os.listdir(JSONFOLDER):
+        if not jsonfile.endswith(".json"):
+            continue
+        with open(JSONFOLDER+'/'+jsonfile) as data_file:
+            jobj = json.load(data_file)
+        for i in range(0, len(jobj['response']['docs'])):
+            try:
+#                if jobj['response']['results'][i]['type'] != 'article':
+#                    continue
+                headline = jobj['response']['docs'][i]['headline']['main']
+                date = datetime.strptime(jobj['response']['docs'][i]['pub_date'], "%Y-%m-%dT%H:%M:%SZ").date()
+                url = jobj['response']['docs'][i]['web_url']
+                source = jsonfile.split('_')[0]
+                summary = jobj['response']['docs'][i]['abstract']
+                if summary == None:
+                    summary = jobj['response']['docs'][i]['lead_paragraph']
+            except KeyError:
+                continue
+            doc = {
+                'headline':         headline,
+                'date':             date,
+                'url':              url,
+                'source':           source,
+                'summary':          summary,
+            }
+            ID += 1
+            es.index(index="test-index", doc_type='article', body=doc)
+            if ID % 100 == 0:
+                print 'added article number', ID
+
+    es.indices.refresh(index="test-index")
+    return "ok"
+
 def ask(query):
     q = {"query":{
   "multi_match": {
@@ -70,6 +105,15 @@ def ask(query):
 
 
 if __name__ == "__main__":
-    JSONFOLDER = sys.argv[1]
-    fill_guardian(JSONFOLDER)
-#    ask('Series Yankees')
+    nyf = ''
+    gf = ''
+    for i in range(0,len(sys.argv)):
+        if sys.argv[i][:3] == '-NY':
+            nyf = sys.argv[i][3:]
+        if sys.argv[i][:2] == '-G':
+            gf = sys.argv[i][2:]
+    if len(nyf) != 0:
+        fill_nytimes(nyf)
+    if len(gf) != 0:
+        fill_guardian(gf)
+#    ask('Finney')

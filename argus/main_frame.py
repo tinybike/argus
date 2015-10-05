@@ -7,7 +7,8 @@ import numpy as np
 from sklearn.externals import joblib
 #from nltk.corpus import sentiwordnet as swn
 #import nltk
-
+afinn = dict(map(lambda (k,v): (k,int(v)),
+                     [ line.split('\t') for line in open("sources/AFINN-111.txt") ]))
 
 def get_answer(question):
     a = Answer(Question(question))
@@ -18,32 +19,43 @@ def get_answer(question):
         a.text = 'Didn\'t understand the question'
         return a
 
-    foundny, smhny = get_content_nytimes(a)
+#    get_content_nytimes(a)
 #    foundg, smhg = get_content_guardian(a)
-    foundg, smhg = get_content_elastic(a)
+    found_sources, found_anything = get_content_elastic(a)
 
-    if foundg or foundny:
-        a.text = sentiment_learned(a)
+    if found_sources:
+        load_sentiment(a)
+        a.text = answer_all(a)
         return a
 
-    if not smhny and not smhg:
+    if not found_anything:
         a.text = 'Absolutely not sure'
     else:
         a.text = 'Not sure'
     return a
 
-afinn = dict(map(lambda (k,v): (k,int(v)),
-                     [ line.split('\t') for line in open("sources/AFINN-111.txt") ]))
 
-def sentiment_learned(answer):
+def load_sentiment(answer):
     q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
-    s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentences[0])]))
-    h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headlines[0])]))
-    answer.sentiment = [str(q), str(s), str(h)]
+    for i in range(0,len(answer.headlines)):
+        s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.sentences[i])]))
+        h = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.headlines[i])]))
+        answer.sentiment.append(np.array([q,s,h]))
+
+def answer_all(answer):
+    yes = 0
+    no = 0
     clf = joblib.load('sources/models/sentiment.pkl')
-    x = np.array([q, s, h])
-    a = clf.predict_proba(x)[:,1]
-    if a < 0.5:
+    for i in range(0,len(answer.sentiment)):
+        x = answer.sentiment[i]
+        a = clf.predict_proba(x)[:,1]
+        if a < 0.5:
+            no += 1
+        else:
+            yes += 1
+#    print 'YES answered %d/%d' % (yes,yes+no)
+    answer.info = str(yes)+'/'+str(yes+no)
+    if no > yes:
         return 'NO'
     return 'YES'
 

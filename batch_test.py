@@ -8,7 +8,7 @@ CSVFOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
 def reparse():
     qnum = 0
-
+    x = 0
     with open(OUTFILE, 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t')
         for csvfile in os.listdir(CSVFOLDER):
@@ -16,18 +16,15 @@ def reparse():
                 continue
             i = 0
             for line in csv.reader(open(CSVFOLDER+'/'+csvfile), delimiter=',',skipinitialspace=True):
+                x+=1
                 if i == 0:
                     i += 1
                     info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer',
                             'OurKeywords', 'FoundSentence', 'OurHeadline',
-                            'TurkTopic', 'TurkURL', 'OurURL','QSentiment',
-                            'SSentiment','HSentiment','Source']
+                            'TurkTopic', 'TurkURL', 'OurURL','Sentiment','Source', 'info']
                     if qnum == 0:
                         writer.writerow(info)
                     continue
-                if line[16] == 'Rejected':
-                    continue
-
                 qnum += 1
                 ouranswer = get_answer(line[30])
 
@@ -35,21 +32,23 @@ def reparse():
                 headline = ''
                 sentence = ''
                 source = ''
+                sentiment = ''
                 if len(ouranswer.urls) != 0:
                     url = ouranswer.urls[0]
                     headline = ouranswer.headlines[0]
                     sentence = ouranswer.sentences[0]
                     source = ouranswer.sources[0]
-
+                    for j in range(0,len(ouranswer.sentiment)):
+                        sentiment += str(ouranswer.sentiment[j][0])+" "+str(ouranswer.sentiment[j][1])+" "+str(ouranswer.sentiment[j][2])+":"
+                    sentiment = sentiment[:-1]
                 info = [line[0], line[30], line[28],
                       ouranswer.text, ouranswer.q.query, sentence,
-                      headline,line[31],line[29],url,
-                        ouranswer.sentiment[0], ouranswer.sentiment[1],
-                        ouranswer.sentiment[2],source]
+                      headline,line[31],line[29],url,sentiment,source,ouranswer.info]
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
-                if qnum % 10 == 1:
+                if qnum % 10 == 0:
                     print 'answering question',qnum
+    print x
 
 def get_stats():
     i = -1
