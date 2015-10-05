@@ -59,5 +59,19 @@ def answer_all(answer):
         return 'NO'
     return 'YES'
 
+
+def print_sources(answer):
+    print answer.q.keywords
+    for i in range(0,len(answer.headlines)):
+        print "---------------------------"
+        print answer.headlines[i]
+        print "---------------------------"
+        print answer.sentences[i]
+        print "---------------------------"
+        print answer.bodies[i]
+        print "==========================="
+    print answer.text
+
+
 if __name__ == "__main__":
     print get_answer('Will the Patriots win the 2015 Superbowl?').text

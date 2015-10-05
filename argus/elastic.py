@@ -14,12 +14,24 @@ def kw_to_query(keywords):
     return query
 
 def get_content_elastic(a):
-    q = {"query":{
-  "multi_match": {
-    "query":    kw_to_query(a.q.searchwords),
-    "operator": "and",
-    "fields": [ "headline^5", "summary^3", "body" ]
-  }}}
+    q = {
+  "query": {
+    "filtered": {
+      "query": {
+        "multi_match": {
+            "query":    kw_to_query(a.q.keywords),
+            "operator": "and",
+            "fields": [ "headline^5", "summary^3", "body" ]
+            }
+      },
+      "filter": {
+        "range": { "date": { "gte": "2014-09-01",
+#                             "lte": "2015-09-01"
+                             }}
+      }
+    }
+  }
+}
     res = es.search(index="test-index", size=100, body=q)
     return search_for_keywords(a, res)
 
@@ -62,24 +74,4 @@ def search_body(a, body):
             return True
     return False
 
-def ask(query):
-    q = {"query":{
-  "multi_match": {
-    "query":    query,
-    "operator": "and",
-    "fields": [ "headline^5", "summary^3", "body" ]
-  }}}
-
-    res = es.search(index="test-index", size=100, body=q)
-    print("Got %d Hits:" % res['hits']['total'])
-    for hit in res['hits']['hits']:
-        try:
-            print("%(headline)s " % hit["_source"])
-        except KeyError:
-            print('------------------------')
-            continue
-        print('------------------------')
-    #
-    with open('sources/elastictest.json', 'wb') as f:
-        f.write(json.dumps(res, indent = 4))
 

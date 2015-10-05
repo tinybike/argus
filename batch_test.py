@@ -3,7 +3,6 @@ import csv
 import os
 from argus.main_frame import get_answer
 
-#TSVFILE=sys.argv[1]
 CSVFOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
 def reparse():
@@ -22,6 +21,8 @@ def reparse():
                             'TurkTopic', 'TurkURL', 'OurURL','Sentiment','Source', 'info']
                     if qnum == 0:
                         writer.writerow(info)
+                    continue
+                if line[16] == 'Rejected':
                     continue
                 qnum += 1
                 ouranswer = get_answer(line[30])

@@ -83,18 +83,28 @@ def fill_nytimes(JSONFOLDER):
     return "ok"
 
 def ask(query):
-    q = {"query":{
-  "multi_match": {
-    "query":    query,
-    "operator": "and",
-    "fields": [ "headline^5", "summary^3", "body" ]
-  }}}
-
+    q = {
+  "query": {
+    "filtered": {
+      "query": {
+        "multi_match": {
+            "query":    query,
+            "operator": "and",
+            "fields": [ "headline^5", "summary^3", "body" ]
+            }
+      },
+      "filter": {
+        "range": { "date": { "gte": "2015-06-14",
+                             "lte": "2015-08-01"}}
+      }
+    }
+  }
+}
     res = es.search(index="test-index", size=100, body=q)
     print("Got %d Hits:" % res['hits']['total'])
     for hit in res['hits']['hits']:
         try:
-            print("%(headline)s " % hit["_source"])
+            print("%(headline)s %(date)s" % hit["_source"])
         except KeyError:
             print('------------------------')
             continue
@@ -105,15 +115,15 @@ def ask(query):
 
 
 if __name__ == "__main__":
-    nyf = ''
-    gf = ''
-    for i in range(0,len(sys.argv)):
-        if sys.argv[i][:3] == '-NY':
-            nyf = sys.argv[i][3:]
-        if sys.argv[i][:2] == '-G':
-            gf = sys.argv[i][2:]
-    if len(nyf) != 0:
-        fill_nytimes(nyf)
-    if len(gf) != 0:
-        fill_guardian(gf)
-#    ask('Finney')
+#    nyf = ''
+#    gf = ''
+#    for i in range(0,len(sys.argv)):
+#        if sys.argv[i][:3] == '-NY':
+#            nyf = sys.argv[i][3:]
+#        if sys.argv[i][:2] == '-G':
+#            gf = sys.argv[i][2:]
+#    if len(nyf) != 0:
+#        fill_nytimes(nyf)
+#    if len(gf) != 0:
+#        fill_guardian(gf)
+    ask('Saina Nehwal')
