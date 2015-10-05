@@ -11,39 +11,56 @@ def load():
     h = []
     ans = []
     i = 0
-    qp = 0
     sp = 0
-    hp = 0
     ansp = 0
-    for line in csv.reader(open('tests/outfile.tsv'), delimiter='\t'):
+    for line in csv.reader(open('tests/outfile (copy).tsv'), delimiter='\t'):
         if i == 0:
             i += 1
             for j in range(0,len(line)):
-                if line[j] == 'QSentiment':
-                    qp = j
-                if line[j] == 'SSentiment':
+                if line[j] == 'Sentiment':
                     sp = j
-                if line[j] == 'HSentiment':
-                    hp = j
                 if line[j] == 'TurkAnswer':
                     ansp = j
         else:
-            if line[qp] == '0' and line[sp] == '0' and line[hp] == '0':
+            if line[sp] == '':
                 continue
-            q.append(int(line[qp]))
-            s.append(int(line[sp]))
-            h.append(int(line[hp]))
-            if line[ansp] == 'YES':
-                ans.append(1)
-            else:
-                ans.append(0)
+            sources = line[sp].split(":")
+            for triplet in sources:
+                sentiment = triplet.split()
+                q.append(int(sentiment[0]))
+                s.append(int(sentiment[1]))
+                h.append(int(sentiment[2]))
+                if line[ansp] == 'YES':
+                    ans.append(1)
+                else:
+                    ans.append(0)
+
+
+    q,s,h,ans = filter_yes(q,s,h,ans)
 
     q = np.array(q)
     s = np.array(s)
     h = np.array(h)
     y = np.array(ans)
+    print len(y)
     x = np.vstack((q, s, h)).transpose()
     return (x,y)
+
+
+def filter_yes(q,s,h,y):
+    q2 = []
+    s2 = []
+    h2 = []
+    y2 = []
+    for i in range(0,len(y)):
+        if y[i] == 1:
+            if rand() > 0.3:
+                continue
+        q2.append(q[i])
+        s2.append(s[i])
+        h2.append(h[i])
+        y2.append(y[i])
+    return q2,s2,h2,y2
 
 def train(x,y):
 #    clf = joblib.load('sources/models/sentiment.pkl')
@@ -87,7 +104,7 @@ def train(x,y):
 #            correct += 1
     print 'train: yes = %.2f%%' % (sum(ytrain)/len(ytrain))
     print 'test: yes = %.2f%%' % (sum(ytest)/len(ytest))
-    print 'New sentiment correct %.2f%%' % (correct/len(ytest)*100)
+    print 'Correct %.2f%% from test' % (correct/len(ytest)*100)
 #    print 'New sentiment correct %.2f%%' % (correct/len(y)*100)
     w = clf.coef_
     w = np.append(w, clf.intercept_);

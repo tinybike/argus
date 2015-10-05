@@ -8,7 +8,6 @@ CSVFOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
 def reparse():
     qnum = 0
-    x = 0
     with open(OUTFILE, 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t')
         for csvfile in os.listdir(CSVFOLDER):
@@ -16,7 +15,6 @@ def reparse():
                 continue
             i = 0
             for line in csv.reader(open(CSVFOLDER+'/'+csvfile), delimiter=',',skipinitialspace=True):
-                x+=1
                 if i == 0:
                     i += 1
                     info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer',
@@ -48,7 +46,6 @@ def reparse():
                 writer.writerow(info)
                 if qnum % 10 == 0:
                     print 'answering question',qnum
-    print x
 
 def get_stats():
     i = -1
