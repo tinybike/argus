@@ -29,20 +29,18 @@
             <div id="content" style="display: {{content}}">
 		<p class="answer">{{answer}}</p>
 		<p class="query">Search query: <tt class="query">{{query}}</tt></p>
+		{% for source in sources %}
 		<div class="article">
-			<h2><a href={{url}}>{{headline}}</a></h2>
-			<div class="body">{{body|safe}}</div>
+			<h2><a href={{source.url}}>{{source.headline|safe}}</a> ({{source.sentiment_sign}})</h2>
+			<div class="body">
+				<p>{{source.body|safe}}</p>
+				<p>{{source.bodysnippet|safe}}</p>
+			</div>
 		</div>
-		<div class="article">
-			<h2><a href={{url1}}>{{headline1}}</a></h2>
-			<div class="body">{{body1|safe}}</div>
-		</div>
-		<div class="article">
-			<h2><a href={{url2}}>{{headline2}}</a></h2>
-			<div class="body">{{body2|safe}}</div>
-		</div>
+		{% endfor %}
             </div>
         </div>
     </body>
 </html>
+
 

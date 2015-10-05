@@ -50,8 +50,10 @@ def answer_all(answer):
         x = answer.sentiment[i]
         a = clf.predict_proba(x)[:,1]
         if a < 0.5:
+            answer.sentiment_sign.append('-')
             no += 1
         else:
+            answer.sentiment_sign.append('+')
             yes += 1
 #    print 'YES answered %d/%d' % (yes,yes+no)
     answer.info = str(yes)+'/'+str(yes+no)

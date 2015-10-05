@@ -2,8 +2,8 @@
 from bs4 import BeautifulSoup
 import nltk.data
 
+tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 def sentence_split(article):
-    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 #    print '\n-----\n'.join(tokenizer.tokenize(article))
     return tokenizer.tokenize(article)
 

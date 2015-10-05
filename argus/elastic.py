@@ -44,12 +44,12 @@ def search_for_keywords(a,jobj):
         source = jobj['hits']['hits'][i]['_source']['source']
 
         if not search_short(a, headline):
-            if not search_short(a, summary):
+            if not search_sentences(a, summary):
                 try:
                     body = jobj['hits']['hits'][i]['_source']['body']
                 except KeyError:
                     continue
-                if not search_body(a, body):
+                if not search_sentences(a, body):
                     continue
         a.headlines.append(jobj['hits']['hits'][i]['_source']['headline'])
         a.urls.append(jobj['hits']['hits'][i]['_source']['url'])
@@ -60,13 +60,14 @@ def search_for_keywords(a,jobj):
     return False, True
 
 def search_short(a,text):
+
     for word in a.q.keywords:
         if word.lower() not in text.lower():
             return False
     a.sentences.append(text)
     return True
 
-def search_body(a, body):
+def search_sentences(a, body):
     sentences = sentence_split(body)
     for sentence in sentences:
         if search_short(a, sentence):

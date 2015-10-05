@@ -13,6 +13,7 @@ class Answer(object):
         self.sentiment = []
         self.q = q
         self.info = ''
+        self.sentiment_sign = []
 
 class Question(object):
     def __init__(self,question):
@@ -21,5 +22,5 @@ class Question(object):
         self.not_in_kw = []
         self.text = question
         self.keywords = extract(self)
-        self.query = kw_to_query(self.searchwords)
+        self.query = kw_to_query(self.keywords)
 
