@@ -31,8 +31,8 @@ def load():
                 if line[j] == 'TurkAnswer':
                     ansp = j
             continue
-
-        if rand() > 0.5:
+        i += 1
+        if i % 2 == 0:
             trainIDs.append(line[1])
         if line[sp] == '':
             continue
