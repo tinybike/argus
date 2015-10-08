@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from keyword_extract import extract
 from guardian import kw_to_query
+from features import Features
 
 class Answer(object):
     def __init__(self,q):
@@ -10,10 +11,9 @@ class Answer(object):
         self.urls = []
         self.bodies = []
         self.sentences = []
-        self.sentiment = []
+        self.features = Features()
         self.q = q
         self.info = ''
-        self.sentiment_sign = []
 
 class Question(object):
     def __init__(self,question):

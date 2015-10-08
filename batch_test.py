@@ -2,9 +2,11 @@ from __future__ import division
 import csv
 import os
 from argus.main_frame import get_answer
+import numpy as np
 
 CSVFOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
+trainIDs = np.load('tests/trainIDs/trainIDs.npy')
 def reparse():
     qnum = 0
     with open(OUTFILE, 'wb') as csvfile:
@@ -37,8 +39,8 @@ def reparse():
                     headline = ouranswer.headlines[0]
                     sentence = ouranswer.sentences[0]
                     source = ouranswer.sources[0]
-                    for j in range(0,len(ouranswer.sentiment)):
-                        sentiment += str(ouranswer.sentiment[j][0])+" "+str(ouranswer.sentiment[j][1])+" "+str(ouranswer.sentiment[j][2])+":"
+                    for j in range(0,len(ouranswer.features.sentiments)):
+                        sentiment += str(ouranswer.features.sentiments[j].qsh[0])+" "+str(ouranswer.features.sentiments[j].qsh[1])+" "+str(ouranswer.features.sentiments[j].qsh[2])+":"
                     sentiment = sentiment[:-1]
                 info = [line[0], line[30], line[28],
                       ouranswer.text, ouranswer.q.query, sentence,
@@ -55,23 +57,31 @@ def get_stats():
     answered = 0
     anr = 0
     understood = 0
+    trainedon = 0
+    yes = 0
     for line in csv.reader(open(OUTFILE), delimiter='\t'):
         i += 1
         if i == 0:
+            continue
+        if line[1] in trainIDs:
+            trainedon += 1
+            i-=1
             continue
         turkans = line[2]
         ourans = line[3]
         if ourans == 'Didn\'t understand the question':
             continue
         understood += 1
+        if ourans in 'YES NO':
+            answered += 1
         if ourans == 'Not sure':
             not_sure+=1
         if turkans == ourans:
             correct += 1
-        if ourans in 'YES NO':
-            answered += 1
         if ourans == 'Absolutely not sure':
             anr += 1
+        if turkans == 'YES':
+            yes +=1
 
     precision = correct / answered
     recall = correct / understood
@@ -82,6 +92,7 @@ def get_stats():
     print 'We were able to answer %d-%d-%d = %d (%.2f%%) questions' % (understood, anr, not_sure, answered, answered/understood*100)
     print 'Recall =', recall
     print 'Precision =', precision
+    print 'YES answered in %.2f%% of test answers' % (yes/i*100)
 
 def parse_yes():
     i=0

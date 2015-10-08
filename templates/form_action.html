@@ -1,5 +1,9 @@
 <html>
-    <head>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <title>Answered</title>
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 	<style type=text/css>
@@ -31,15 +35,28 @@
 		<p class="query">Search query: <tt class="query">{{query}}</tt></p>
 		{% for source in sources %}
 		<div class="article">
-			<h2><a href={{source.url}}>{{source.headline|safe}}</a> ({{source.sentiment_sign}})</h2>
+<h2><a href={{source.url}}>{{source.headline|safe}}</a>
+<span class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"><h2>{{source.sign}}</h2>
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a role="menuitem" tabindex="-1"><h4>{{source.info|safe}}</h4></a></li>
+
+    </ul></h2>
+  
+
+
+
 			<div class="body">
 				<p>{{source.body|safe}}</p>
 				<p>{{source.bodysnippet|safe}}</p>
 			</div>
-		</div>
+		</span>
+ </div>
 		{% endfor %}
-            </div>
+           
         </div>
+</div>
     </body>
 </html>
 

@@ -5,15 +5,24 @@ import numpy as np
 from sklearn import linear_model
 from sklearn.externals import joblib
 
+class QuestionFeatures(object):
+    def __init__(self):
+        self.q = []
+        self.s = []
+        self.h = []
+        self.ans = []
+        self.ID = ''
+
+numfeatures = 3
+trainIDs = []
+
 def load():
-    q = []
-    s = []
-    h = []
-    ans = []
+    qf = []
     i = 0
     sp = 0
     ansp = 0
-    for line in csv.reader(open('tests/outfile (copy).tsv'), delimiter='\t'):
+
+    for line in csv.reader(open('tests/outfile.tsv'), delimiter='\t'):
         if i == 0:
             i += 1
             for j in range(0,len(line)):
@@ -21,70 +30,96 @@ def load():
                     sp = j
                 if line[j] == 'TurkAnswer':
                     ansp = j
+            continue
+
+        if rand() > 0.5:
+            trainIDs.append(line[1])
+        if line[sp] == '':
+            continue
+
+        sources = line[sp].split(":")
+        f = QuestionFeatures()
+        f.ID = line[1]
+        for j in range(0,len(sources)):
+            sentiment = sources[j].split()
+            f.q.append(int(sentiment[0]))
+            f.s.append(int(sentiment[1]))
+            f.h.append(int(sentiment[2]))
+            if line[ansp] == 'YES':
+                f.ans.append(1)
+            else:
+                f.ans.append(0)
+        qf.append(f)
+
+    return qf
+
+def split_train(qf):
+    trainqf = []
+    testqf = []
+    for i in range(0,len(qf)):
+        if qf[i].ID in trainIDs:
+            trainqf.append(qf[i])
         else:
-            if line[sp] == '':
-                continue
-            sources = line[sp].split(":")
-            for triplet in sources:
-                sentiment = triplet.split()
-                q.append(int(sentiment[0]))
-                s.append(int(sentiment[1]))
-                h.append(int(sentiment[2]))
-                if line[ansp] == 'YES':
-                    ans.append(1)
-                else:
-                    ans.append(0)
+            testqf.append(qf[i])
+    tesx,tesy = fill(testqf)
+    trax,tray = fill(trainqf)
+    return (tesx,tesy,trax,tray)
 
-
-    q,s,h,ans = filter_yes(q,s,h,ans)
-
+def fill(qf):
+    q = []
+    s = []
+    h = []
+    ans = []
+    for f in qf:
+        q += f.q
+        s += f.s
+        h += f.h
+        ans += f.ans
     q = np.array(q)
     s = np.array(s)
     h = np.array(h)
     y = np.array(ans)
-    print len(y)
     x = np.vstack((q, s, h)).transpose()
-    return (x,y)
+    return x,y
 
+def even_out(x,y):
+    indexes = []
+    while sum(y) < len(y)/2:
+        added = 0
+        for i in range(0,len(y)):
+            if y[i] == 1 and i not in indexes:
+                y = np.hstack((y,y[i]))
+                x = np.vstack((x,x[i]))
+                indexes.append(i)
+                added += 1
+                break
+        if added == 0:
+            indexes = []
 
-def filter_yes(q,s,h,y):
-    q2 = []
-    s2 = []
-    h2 = []
-    y2 = []
-    for i in range(0,len(y)):
-        if y[i] == 1:
-            if rand() > 0.3:
-                continue
-        q2.append(q[i])
-        s2.append(s[i])
-        h2.append(h[i])
-        y2.append(y[i])
-    return q2,s2,h2,y2
+    while sum(y) > len(y)/2:
+        added = 0
+        for i in range(0,len(y)):
+            if y[i] == 0 and i not in indexes:
+                y = np.hstack((y,y[i]))
+                x = np.vstack((x,x[i]))
+                indexes.append(i)
+                added += 1
+                break
+        if added == 0:
+            indexes = []
+    return x,y
 
-def train(x,y):
+def train(qf):
 #    clf = joblib.load('sources/models/sentiment.pkl')
     clf = linear_model.LogisticRegression(C=1, penalty='l2', tol=1e-4)
-    testsize = int(len(y)/2)
-    trainsize = len(y)-testsize
-    xtrain = np.zeros((trainsize,3))
-    ytrain = np.zeros(trainsize)
-    xtest = np.zeros((testsize,3))
-    ytest = np.zeros(testsize)
-    for i in range(0, len(y)):
-        if i % 2 == 0:
-            ytrain[int(i/2)] = y[i]
-            xtrain[int(i/2),:] = x[i,:]
-        else:
-            ytest[int(i/2)] = y[i]
-            xtest[int(i/2),:] = x[i,:]
 
+    xtest,ytest,xtrain,ytrain = split_train(qf)
+
+    xtrain,ytrain = even_out(xtrain,ytrain)
     clf.fit(xtrain, ytrain)
-#    clf.fit(x, y)
 
     joblib.dump(clf, 'sources/models/sentiment.pkl')
     counttest=clf.predict_proba(xtest)[:,1]
-#    counttest=clf.predict_proba(x)[:,1]
 
     correct = 0
     for i in range(0,len(ytest)):
@@ -110,6 +145,12 @@ def train(x,y):
     w = np.append(w, clf.intercept_);
     print w
 
+def saveIDs():
+    ids = np.array(trainIDs)
+    np.save('tests/trainIDs/trainIDs.npy',ids)
+
 if __name__ == "__main__":
-    x,y = load()
-    train(x,y)
+    np.random.seed(171517173)
+    qf = load()
+    train(qf)
+    saveIDs()
