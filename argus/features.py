@@ -9,15 +9,10 @@ class Features(object):  # all features for all sources
         self.sentiments = []
         self.model = joblib.load('sources/models/sentiment.pkl')
         self.prob = []
-        self.signs = []
 
     def predict(self):
         for i in range(0,len(self.sentiments)):
             self.prob.append(self.model.predict_proba(self.sentiments[i].qsh)[0,1])
-            if self.prob[i] > 0.5:
-                self.signs.append('+')
-            else:
-                self.signs.append('-')
 
 class Sentiment(object):
     def __init__(self,q,s,h):
