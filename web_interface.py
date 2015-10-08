@@ -49,9 +49,8 @@ def generate_answer():
         return render_template('form_action.html', content='none')
 
     a = get_answer(question)
-    print("FOUND:", len(a.urls))
+    print("FOUND: %d (<<%s>> -> %s)" % (len(a.urls), question, a.text))
 
-#    print('<<%s>> -> %s :: [%s :: %s]' % (question, a.text, a.headlines[0] if len(a.headlines) > 0 else '', a.urls[0] if len(a.urls) > 0 else ''))
     higlighted_question = a.q.text
     for word in a.q.not_in_kw:
             higlighted_question = highlight_question_wrong(higlighted_question,word)
