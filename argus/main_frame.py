@@ -10,7 +10,7 @@ def get_answer(question):
     checked = check_keywords(a.q)
 
     if not checked:
-        a.q.query += ' ('+str(a.q.not_in_kw)+'not in keywords)'
+        a.q.query += ' ('+','.join(a.q.not_in_kw)+' not in keywords)'
         a.text = 'Didn\'t understand the question'
         return a
 
@@ -22,9 +22,9 @@ def get_answer(question):
         return a
 
     if not found_anything:
-        a.text = 'Absolutely not sure'
+        a.text = 'Absolutely no result'
     else:
-        a.text = 'Not sure'
+        a.text = 'No result'
     return a
 
 

@@ -15,14 +15,13 @@ class QuestionFeatures(object):
 
 numfeatures = 3
 trainIDs = []
-
 def load():
     qf = []
     i = 0
     sp = 0
     ansp = 0
 
-    for line in csv.reader(open('tests/outfile.tsv'), delimiter='\t'):
+    for line in csv.reader(open(OUTFILE), delimiter='\t'):
         if i == 0:
             i += 1
             for j in range(0,len(line)):
@@ -57,9 +56,13 @@ def split_train(qf):
     trainqf = []
     testqf = []
     for i in range(0,len(qf)):
-        if qf[i].ID in trainIDs:
-            trainqf.append(qf[i])
+        if validation:
+            if qf[i].ID in trainIDs:
+                trainqf.append(qf[i])
+            else:
+                testqf.append(qf[i])
         else:
+            trainqf.append(qf[i])
             testqf.append(qf[i])
     tesx,tesy = fill(testqf)
     trax,tray = fill(trainqf)
@@ -149,8 +152,17 @@ def saveIDs():
     ids = np.array(trainIDs)
     np.save('tests/trainIDs/trainIDs.npy',ids)
 
+validation = False
+OUTFILE = 'tests/outfile.tsv'
+import sys
 if __name__ == "__main__":
-    np.random.seed(171517173)
+    for i in range(0,len(sys.argv)):
+        if sys.argv[i] == '-train':
+            OUTFILE = "tests/outfile_train.tsv"
+        if sys.argv[i] == '-test':
+            OUTFILE = "tests/outfile_test.tsv"
+        if sys.argv[i] == '-val':
+            validation = True
     qf = load()
     train(qf)
     saveIDs()

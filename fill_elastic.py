@@ -115,15 +115,15 @@ def ask(query):
 
 
 if __name__ == "__main__":
-#    nyf = ''
-#    gf = ''
-#    for i in range(0,len(sys.argv)):
-#        if sys.argv[i][:3] == '-NY':
-#            nyf = sys.argv[i][3:]
-#        if sys.argv[i][:2] == '-G':
-#            gf = sys.argv[i][2:]
-#    if len(nyf) != 0:
-#        fill_nytimes(nyf)
-#    if len(gf) != 0:
-#        fill_guardian(gf)
-    ask('Saina Nehwal')
+    nyf = ''
+    gf = ''
+    for i in range(0,len(sys.argv)):
+        if sys.argv[i][:3] == '-NY':
+            nyf = sys.argv[i][3:]
+        if sys.argv[i][:2] == '-G':
+            gf = sys.argv[i][2:]
+    if len(nyf) != 0:
+        fill_nytimes(nyf)
+    if len(gf) != 0:
+        fill_guardian(gf)
+#    ask('Saina Nehwal')
