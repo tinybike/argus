@@ -11,6 +11,8 @@ Setup
 -----
 
 	python -m nltk.downloader maxent_treebank_pos_tagger
+	pip install spacy
+	python -m spacy.en.download all
 
 Testing
 -------
