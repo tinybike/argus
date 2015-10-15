@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from elasticsearch import Elasticsearch
 from html_clean import sentence_split
-import sys
-import json
+from dateutil.parser import parse
+import datetime
+
 
 #JSONFOLDER = 'sources/guardian_database'
 es = Elasticsearch(hosts=['localhost', 'pasky.or.cz'])
@@ -14,6 +15,13 @@ def kw_to_query(keywords):
     return query
 
 def get_content_elastic(a):
+    to_date = "2015-10-01"
+    try:
+        to_date = parse(a.q.date_text, ignoretz=True, fuzzy=True).date()+datetime.timedelta(days=3)
+    except ValueError:
+        print 'Caught ValueError: wrong date format of:',a.q.date_text
+        pass
+    print a.q.date_text,'----->',to_date
     q = {
   "query": {
     "filtered": {
@@ -26,7 +34,7 @@ def get_content_elastic(a):
       },
       "filter": {
         "range": { "date": { "gte": "2014-09-01",
-#                             "lte": "2015-09-01"
+                             "lte": to_date
                              }}
       }
     }

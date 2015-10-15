@@ -163,7 +163,7 @@ if __name__ == "__main__":
             OUTFILE = "tests/outfile_test.tsv"
         if sys.argv[i] == '-val':
             validation = True
-#    reparse()
+    reparse()
     get_stats()
     print '\n----------\n'
     turkstats()

@@ -59,7 +59,13 @@ def get_terms(tree):
 
 from spacy.en import English
 nlp = English()
+print 'SpaCy loaded'
 def extract(question):
+    spaced = nlp(unicode(question.text))
+    for ent in spaced.ents:
+        if ent.label_ == 'DATE':
+            question.date_text += ent.orth_+' '
+
     chunker = nltk.RegexpParser(grammar)
     tokens = nltk.regexp_tokenize(question.text, sentence_re)
     question.postokens = nltk.tag.pos_tag(tokens)
@@ -70,17 +76,14 @@ def extract(question):
     keywords = []
     for term in terms:
         for word in term:
-            keywords.append(word)
+            if word not in question.date_text:
+                keywords.append(word)
     question.searchwords = set(keywords)
     # add non-stop verbs
     for word,pos in question.postokens:
         if word not in keywords and word.lower() not in stop_words and 'VB' in pos:
                 keywords.append(word)
 
-    spaced = nlp(question.text)
-    for ent in spaced.ents:
-        if ent.label_ == 'DATE':
-            question.date_text += ent.orth_
     return set(keywords)
 
 def check_keywords(question):
