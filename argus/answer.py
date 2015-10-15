@@ -21,6 +21,9 @@ class Question(object):
         self.postokens = []
         self.not_in_kw = []
         self.text = question
+        self.date_text = ''
         self.keywords = extract(self)
         self.query = kw_to_query(self.keywords)
+        if len(self.date_text) > 0:
+            self.query += ' (relevant \"'+self.date_text+'\")'
 

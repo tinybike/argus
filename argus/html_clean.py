@@ -1,10 +1,25 @@
 # -*- coding: utf-8 -*-
 from bs4 import BeautifulSoup
 import nltk.data
-
+#from spacy.en import English
+#nlp = English()
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+#import time
+
+
 def sentence_split(article):
-#    print '\n-----\n'.join(tokenizer.tokenize(article))
+#    startsp = time.time()
+#    doc = nlp(article, entity=False)
+#    endsp = time.time()
+#    startnl = time.time()
+#    tokenizer.tokenize(article)
+#    endnl = time.time()
+#
+#    print '%.5f vs %.5f' % (endnl-startnl,endsp-startsp)
+#    sentences = []
+#    for sent in doc.sents:
+#        sentences.append(sent.orth_)
+#    return sentences
     return tokenizer.tokenize(article)
 
 def preparse_guardian(html):

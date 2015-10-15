@@ -57,7 +57,8 @@ def get_terms(tree):
         term = [ normalise(w) for w,t in leaf if acceptable_word(w) ]
         yield term
 
-
+from spacy.en import English
+nlp = English()
 def extract(question):
     chunker = nltk.RegexpParser(grammar)
     tokens = nltk.regexp_tokenize(question.text, sentence_re)
@@ -75,14 +76,19 @@ def extract(question):
     for word,pos in question.postokens:
         if word not in keywords and word.lower() not in stop_words and 'VB' in pos:
                 keywords.append(word)
+
+    spaced = nlp(question.text)
+    for ent in spaced.ents:
+        if ent.label_ == 'DATE':
+            question.date_text += ent.orth_
     return set(keywords)
 
 def check_keywords(question):
-    allowed = '2014 2015 2016'
+#    allowed = '2014 2015 2016'
     allowedpos = '. , \'\' :'
     nikw = [word for word,pos in question.postokens if pos not in allowedpos and pos!= 'POS'
     and word.lower() not in stop_words and word not in question.keywords
-    and word not in allowed]
+    and word not in question.date_text]
     question.not_in_kw = nikw
     if len(nikw) > 0:
 #        print "not in keywords:",nikw
