@@ -58,13 +58,24 @@ def get_terms(tree):
         yield term
 
 from spacy.en import English
+from spacy.parts_of_speech import ADP, PUNCT, VERB
 nlp = English()
 print 'SpaCy loaded'
+
+def in_stop_words(word):
+    return word.lower() in stop_words
+#    return word.prob < probs[-1000]
+
 def extract(question):
     spaced = nlp(unicode(question.text))
     for ent in spaced.ents:
         if ent.label_ == 'DATE':
-            question.date_text += ent.orth_+' '
+            date = ''
+            if ent[0].nbor(-1).pos == ADP:
+                date += ent[0].nbor(-1).orth_ + ' '
+            if len(question.date_text) > 0:
+                date = ' + ' + date
+            question.date_text += date + ent.orth_
 
     chunker = nltk.RegexpParser(grammar)
     tokens = nltk.regexp_tokenize(question.text, sentence_re)
