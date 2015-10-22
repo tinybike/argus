@@ -58,13 +58,78 @@ def get_terms(tree):
         yield term
 
 from spacy.en import English
+from spacy.parts_of_speech import ADP, PUNCT, VERB
 nlp = English()
 print 'SpaCy loaded'
+probs = [lex.prob for lex in nlp.vocab]
+probs.sort()
+
+def in_stop_words(word):
+    return word.lower() in stop_words
+#    return word.prob < probs[-1000]
+
+def more_nouns(ents,noun_chunks,keywords):
+    for n_ch in noun_chunks:
+        i = 0
+        for ent in ents:
+            if n_ch.orth_ in ent.string:
+                i += 1
+                break
+        if i == 0:
+#            noun = ''
+#            for tok in n_ch:
+#                if not in_stop_words(tok.orth_):
+#                    noun += tok.text_with_ws
+            keywords.append(n_ch.text)
+
+#is_adverb = lambda tok: tok.pos == ADV and tok.prob < probs[-1000]
+def extract_spacy(question):
+    spaced = nlp(unicode(question.text))
+    keywords = []
+    sent = []
+    for sentence in spaced.sents:
+        sent = sentence
+        break
+#    if not in_stop_words(sent.root.text):
+
+    for ent in spaced.ents:
+        if ent.label_ == 'DATE':
+            date = ''
+            if ent[0].nbor(-1).pos == ADP:
+                date += ent[0].nbor(-1).orth_ + ' '
+            if len(question.date_text) > 0:
+                date = ' + '+date
+            question.date_text += date + ent.orth_
+        else:
+            kw = ''
+            for word in ent:
+                if word.lower_ not in 'the a':
+                    kw += word.text_with_ws
+            keywords.append(kw)
+
+    more_nouns(spaced.ents,spaced.noun_chunks,keywords)
+    question.searchwords = set(keywords)
+
+    keywords.append(sent.root.lemma_)
+    question.root_verb.append(sent.root)
+    tree = sent.root.rights
+    for branch in tree:
+        if branch.pos == VERB:
+            question.root_verb.append(branch)
+            keywords.append(branch.lemma_)
+
+    return set(keywords)
+
 def extract(question):
     spaced = nlp(unicode(question.text))
     for ent in spaced.ents:
         if ent.label_ == 'DATE':
-            question.date_text += ent.orth_+' '
+            date = ''
+            if ent[0].nbor(-1).pos == ADP:
+                date += ent[0].nbor(-1).orth_ + ' '
+            if len(question.date_text) > 0:
+                date = ' + ' + date
+            question.date_text += date + ent.orth_
 
     chunker = nltk.RegexpParser(grammar)
     tokens = nltk.regexp_tokenize(question.text, sentence_re)
@@ -85,6 +150,26 @@ def extract(question):
                 keywords.append(word)
 
     return set(keywords)
+
+def check_keywords_spacy(question):
+    nikw = []
+    spaced = nlp(unicode(question.text))
+    for token in spaced:
+        if in_stop_words(token.lower_) or token.pos == PUNCT or token.lower_ in question.date_text.lower():
+            continue
+        i = 0
+        for kw in question.keywords:
+            if token.lower_ in kw.lower():
+                i += 1
+                break
+        if i == 0:
+            nikw.append(token.text)
+    question.not_in_kw = nikw
+    if len(nikw) > 0:
+#        print "not in keywords:",nikw
+        return False
+    return True
+
 
 def check_keywords(question):
 #    allowed = '2014 2015 2016'

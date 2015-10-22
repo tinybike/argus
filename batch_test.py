@@ -75,14 +75,15 @@ def get_stats():
         understood += 1
         if ourans in 'YES NO':
             answered += 1
+            if turkans == 'YES':
+                yes +=1
         if ourans == 'No result':
             no_result += 1
         if turkans == ourans:
             correct += 1
         if ourans == 'Absolutely no result':
             anr += 1
-        if turkans == 'YES':
-            yes +=1
+
 
     precision = correct / answered
     recall = correct / understood
@@ -93,7 +94,7 @@ def get_stats():
     print 'We were able to answer %d-%d-%d = %d (%.2f%%) questions' % (understood, anr, no_result, answered, answered/understood*100)
     print 'Recall =', recall
     print 'Precision =', precision
-    print 'YES correct in %.2f%% of answered' % (yes/i*100)
+    print 'YES correct in %.2f%% of answered' % (yes/answered*100)
 
 def turkstats():
     i = -1
