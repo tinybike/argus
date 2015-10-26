@@ -1,6 +1,14 @@
 import nltk
 from nltk.corpus import stopwords
 import csv
+from spacy.en import English
+from spacy.parts_of_speech import ADP, PUNCT, VERB, PART, ADV
+nlp = English()
+print 'SpaCy loaded'
+probs = [lex.prob for lex in nlp.vocab]
+probs.sort()
+
+
 # Used when tokenizing words
 sentence_re = r'''(?x)      # set flag to allow verbose regexps
       ([A-Z])(\.[A-Z])+\.?  # abbreviations, e.g. U.S.A.
@@ -9,16 +17,6 @@ sentence_re = r'''(?x)      # set flag to allow verbose regexps
     | \.\.\.                # ellipsis
     | [][.,;"'?():-_`]      # these are separate tokens
 '''
-#Taken from Su Nam Kim Paper...
-grammar = r"""
-    NBAR:
-        {<NN.*|JJ>*<NN.*>}  # Nouns and Adjectives, terminated with Nouns
-
-    NP:
-        {<NBAR>}
-        {<NBAR><IN><NBAR>}  # Above, connected with in/of/etc...
-"""
-
 
 def tokenize(string):
     return nltk.regexp_tokenize(string, sentence_re)
@@ -29,58 +27,34 @@ def load_sw():
         for word in line:
             sw.append(word)
     return sw
+
 stop_words = stopwords.words('english')
-stop_words = stop_words+load_sw()
-
-def leaves(tree):
-    """Finds NP (nounphrase) leaf nodes of a chunk tree."""
-    for subtree in tree.subtrees(filter = lambda t: t.label() == 'NP'):
-        yield subtree.leaves()
-
-def normalise(word):
-    """Normalises words to lowercase and stems and lemmatizes it."""
-#    lemmatizer = nltk.WordNetLemmatizer()
-#    stemmer = nltk.stem.porter.PorterStemmer()
-#    word = word.lower()
-#    word = stemmer.stem_word(word)
-#    word = lemmatizer.lemmatize(word)
-    return word
-
-def acceptable_word(word):
-    """Checks conditions for acceptable word: length, stopword."""
-    accepted = bool(2 <= len(word) <= 40
-        and word.lower() not in stop_words)
-    return accepted
-
-def get_terms(tree):
-    for leaf in leaves(tree):
-        term = [ normalise(w) for w,t in leaf if acceptable_word(w) ]
-        yield term
-
-from spacy.en import English
-from spacy.parts_of_speech import ADP, PUNCT, VERB
-nlp = English()
-print 'SpaCy loaded'
-probs = [lex.prob for lex in nlp.vocab]
-probs.sort()
+stop_words = stop_words + load_sw()
 
 def in_stop_words(word):
     return word.lower() in stop_words
 #    return word.prob < probs[-1000]
 
+def is_unimportant(token):
+    unimportant = 'the a and'
+    return (token.lower_ in unimportant) or (token.pos == PART) or (token.pos == PUNCT)
+
 def more_nouns(ents,noun_chunks,keywords):
     for n_ch in noun_chunks:
-        i = 0
-        for ent in ents:
-            if n_ch.orth_ in ent.string:
-                i += 1
-                break
-        if i == 0:
-#            noun = ''
-#            for tok in n_ch:
-#                if not in_stop_words(tok.orth_):
-#                    noun += tok.text_with_ws
-            keywords.append(n_ch.text)
+        chunk = []
+        for token in n_ch:
+            if is_unimportant(token):
+                continue
+            i = 0
+            for ent in ents:
+                if token.lower_ in ent.string.lower():
+                    i += 1
+                    break
+            if i == 0:
+#                print 'new word \'%s\'' % (token.text)
+                chunk.append(token.text)
+        if len(chunk) > 0:
+            keywords.append(' '.join(chunk))
 
 #is_adverb = lambda tok: tok.pos == ADV and tok.prob < probs[-1000]
 def extract_spacy(question):
@@ -91,8 +65,10 @@ def extract_spacy(question):
         sent = sentence
         break
 #    if not in_stop_words(sent.root.text):
-
+    non_keywords = ['TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']
     for ent in spaced.ents:
+        if ent.label_ in non_keywords:
+            continue
         if ent.label_ == 'DATE':
             date = ''
             if ent[0].nbor(-1).pos == ADP:
@@ -107,55 +83,26 @@ def extract_spacy(question):
                     kw += word.text_with_ws
             keywords.append(kw)
 
-    more_nouns(spaced.ents,spaced.noun_chunks,keywords)
+    more_nouns(spaced.ents, spaced.noun_chunks, keywords)
     question.searchwords = set(keywords)
 
-    keywords.append(sent.root.lemma_)
+    keywords.append(sent.root.lower_)
     question.root_verb.append(sent.root)
-    tree = sent.root.rights
-    for branch in tree:
+
+    for branch in sent.root.rights:
         if branch.pos == VERB:
             question.root_verb.append(branch)
-            keywords.append(branch.lemma_)
+            keywords.append(branch.lower_)
 
-    return set(keywords)
-
-def extract(question):
-    spaced = nlp(unicode(question.text))
-    for ent in spaced.ents:
-        if ent.label_ == 'DATE':
-            date = ''
-            if ent[0].nbor(-1).pos == ADP:
-                date += ent[0].nbor(-1).orth_ + ' '
-            if len(question.date_text) > 0:
-                date = ' + ' + date
-            question.date_text += date + ent.orth_
-
-    chunker = nltk.RegexpParser(grammar)
-    tokens = nltk.regexp_tokenize(question.text, sentence_re)
-    question.postokens = nltk.tag.pos_tag(tokens)
-#    print postoks
-    tree = chunker.parse(question.postokens)
-
-    terms = get_terms(tree)
-    keywords = []
-    for term in terms:
-        for word in term:
-            if word not in question.date_text:
-                keywords.append(word)
-    question.searchwords = set(keywords)
-    # add non-stop verbs
-    for word,pos in question.postokens:
-        if word not in keywords and word.lower() not in stop_words and 'VB' in pos:
-                keywords.append(word)
-
-    return set(keywords)
+    return keywords
 
 def check_keywords_spacy(question):
     nikw = []
     spaced = nlp(unicode(question.text))
     for token in spaced:
-        if in_stop_words(token.lower_) or token.pos == PUNCT or token.lower_ in question.date_text.lower():
+#        print token.text,token.pos_
+        if (in_stop_words(token.lower_) or is_unimportant(token) or
+        token.lower_ in question.date_text.lower() or token.pos == ADV):
             continue
         i = 0
         for kw in question.keywords:
@@ -169,19 +116,3 @@ def check_keywords_spacy(question):
 #        print "not in keywords:",nikw
         return False
     return True
-
-
-def check_keywords(question):
-#    allowed = '2014 2015 2016'
-    allowedpos = '. , \'\' :'
-    nikw = [word for word,pos in question.postokens if pos not in allowedpos and pos!= 'POS'
-    and word.lower() not in stop_words and word not in question.keywords
-    and word not in question.date_text]
-    question.not_in_kw = nikw
-    if len(nikw) > 0:
-#        print "not in keywords:",nikw
-        return False
-    return True
-
-
-#print [word.lower() for word in tokenize('Bad idea')]

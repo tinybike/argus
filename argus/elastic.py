@@ -21,7 +21,7 @@ def get_content_elastic(a):
     except ValueError:
         print 'Caught ValueError: wrong date format of:',a.q.date_text
         pass
-    print a.q.date_text,'----->',to_date
+#    print a.q.date_text,'----->',to_date
     q = {
   "query": {
     "filtered": {

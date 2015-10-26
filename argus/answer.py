@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from keyword_extract import extract_spacy, extract
+from keyword_extract import extract_spacy
 from guardian import kw_to_query
 from features import Features
 
@@ -24,6 +24,10 @@ class Question(object):
         self.date_text = ''
         self.root_verb = []
         self.keywords = extract_spacy(self)
+#        print '>>>>>>>>>>>>>>'
+#        print self.text
+#        print self.keywords
+#        print '<<<<<<<<<<<<<<'
         self.query = kw_to_query(self.keywords)
         if len(self.date_text) > 0:
             self.query += ' (relevant \"'+self.date_text+'\")'
