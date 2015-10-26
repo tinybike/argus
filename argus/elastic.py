@@ -21,13 +21,13 @@ def get_content_elastic(a):
     except ValueError:
         print 'Caught ValueError: wrong date format of:',a.q.date_text
         pass
-    print a.q.date_text,'----->',to_date
+#    print a.q.date_text,'----->',to_date
     q = {
   "query": {
     "filtered": {
       "query": {
         "multi_match": {
-            "query":    kw_to_query(a.q.keywords),
+            "query":    kw_to_query(a.q.searchwords),
             "operator": "and",
             "fields": [ "headline^5", "summary^3", "body" ]
             }
@@ -69,7 +69,7 @@ def search_for_keywords(a,jobj):
 
 def search_short(a,text):
 
-    for word in a.q.keywords:
+    for word in a.q.searchwords:
         if word.lower() not in text.lower():
             return False
     a.sentences.append(text)

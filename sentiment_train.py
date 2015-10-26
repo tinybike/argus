@@ -9,7 +9,7 @@ class QuestionFeatures(object):
     def __init__(self):
         self.q = []
         self.s = []
-        self.h = []
+        self.verb_sim = []
         self.ans = []
         self.ID = ''
 
@@ -20,30 +20,34 @@ def load():
     i = 0
     sp = 0
     ansp = 0
-
+    vsp = 0
     for line in csv.reader(open(OUTFILE), delimiter='\t'):
         if i == 0:
             i += 1
             for j in range(0,len(line)):
                 if line[j] == 'Sentiment':
                     sp = j
+                if line[j] == 'Verb Similarity':
+                    vsp = j
                 if line[j] == 'TurkAnswer':
                     ansp = j
             continue
         i += 1
-        if i % 2 == 0:
+        if i % 2 == 1:
             trainIDs.append(line[1])
         if line[sp] == '':
             continue
 
-        sources = line[sp].split(":")
+        sentiment = line[sp].split(":")
+        verb_sim = line[vsp].split(":")
         f = QuestionFeatures()
         f.ID = line[1]
-        for j in range(0,len(sources)):
-            sentiment = sources[j].split()
-            f.q.append(int(sentiment[0]))
-            f.s.append(int(sentiment[1]))
-            f.h.append(int(sentiment[2]))
+        for j in range(0,len(sentiment)):
+            sent = sentiment[j].split()
+            f.q.append(int(sent[0]))
+            f.s.append(int(sent[1]))
+            f.verb_sim.append(float(verb_sim[j]))
+#            f.h.append(int(sentiment[2]))
             if line[ansp] == 'YES':
                 f.ans.append(1)
             else:
@@ -71,18 +75,18 @@ def split_train(qf):
 def fill(qf):
     q = []
     s = []
-    h = []
+    sim = []
     ans = []
     for f in qf:
         q += f.q
         s += f.s
-        h += f.h
+        sim += f.verb_sim
         ans += f.ans
     q = np.array(q)
     s = np.array(s)
-    h = np.array(h)
+    sim = np.array(sim)
     y = np.array(ans)
-    x = np.vstack((q, s, h)).transpose()
+    x = np.vstack((q, s, sim)).transpose()
     return x,y
 
 def even_out(x,y):
@@ -140,8 +144,8 @@ def train(qf):
 #            an = 1
 #        if an == y[i]:
 #            correct += 1
-    print 'train: yes = %.2f%%' % (sum(ytrain)/len(ytrain))
-    print 'test: yes = %.2f%%' % (sum(ytest)/len(ytest))
+    print 'train: yes = %.2f%%' % (sum(ytrain)/len(ytrain)*100)
+    print 'test: yes = %.2f%%' % (sum(ytest)/len(ytest)*100)
     print 'Correct %.2f%% from test' % (correct/len(ytest)*100)
 #    print 'New sentiment correct %.2f%%' % (correct/len(y)*100)
     w = clf.coef_
@@ -155,6 +159,7 @@ def saveIDs():
 validation = False
 OUTFILE = 'tests/outfile.tsv'
 import sys
+validation = True
 if __name__ == "__main__":
     for i in range(0,len(sys.argv)):
         if sys.argv[i] == '-train':

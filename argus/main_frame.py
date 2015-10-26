@@ -1,13 +1,13 @@
 from elastic import get_content_elastic
-from keyword_extract import check_keywords
+from keyword_extract import check_keywords_spacy
 from answer import Question, Answer
-from features import load_sentiment
+from features import load_features
 #from nltk.corpus import sentiwordnet as swn
 #import nltk
 
 def get_answer(question):
     a = Answer(Question(question))
-    checked = check_keywords(a.q)
+    checked = check_keywords_spacy(a.q)
 
     if not checked:
         a.q.query += ' ('+','.join(a.q.not_in_kw)+' not in keywords)'
@@ -17,7 +17,7 @@ def get_answer(question):
     found_sources, found_anything = get_content_elastic(a)
 
     if found_sources:
-        load_sentiment(a)
+        load_features(a)
         a.text = answer_all(a)
         return a
 
@@ -56,7 +56,3 @@ def print_sources(answer):
         print answer.bodies[i]
         print "==========================="
     print answer.text
-
-
-if __name__ == "__main__":
-    print get_answer('Will the Patriots win the 2015 Superbowl?').text

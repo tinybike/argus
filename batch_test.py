@@ -20,7 +20,7 @@ def reparse():
                     i += 1
                     info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer',
                             'OurKeywords', 'FoundSentence', 'OurHeadline',
-                            'TurkTopic', 'TurkURL', 'OurURL','Sentiment','Source', 'info']
+                            'TurkTopic', 'TurkURL', 'OurURL','Sentiment','Verb Similarity','Source', 'info']
                     if qnum == 0:
                         writer.writerow(info)
                     continue
@@ -34,6 +34,7 @@ def reparse():
                 sentence = ''
                 source = ''
                 sentiment = ''
+                verb_sim = ''
                 if len(ouranswer.urls) != 0:
                     url = ouranswer.urls[0]
                     headline = ouranswer.headlines[0]
@@ -42,9 +43,12 @@ def reparse():
                     for j in range(0,len(ouranswer.features.sentiments)):
                         sentiment += str(ouranswer.features.sentiments[j].qsh[0])+" "+str(ouranswer.features.sentiments[j].qsh[1])+" "+str(ouranswer.features.sentiments[j].qsh[2])+":"
                     sentiment = sentiment[:-1]
+                    for j in range(len(ouranswer.features.verb_sim)):
+                        verb_sim += str(ouranswer.features.verb_sim[j].sim)+":"
+                    verb_sim = verb_sim[:-1]
                 info = [line[0], line[30], line[28],
                       ouranswer.text, ouranswer.q.query, sentence,
-                      headline,line[31],line[29],url,sentiment,source,ouranswer.info]
+                      headline,line[31],line[29],url,sentiment,verb_sim,source,ouranswer.info]
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
                 if qnum % 10 == 0:
@@ -75,14 +79,15 @@ def get_stats():
         understood += 1
         if ourans in 'YES NO':
             answered += 1
+            if turkans == 'YES':
+                yes +=1
         if ourans == 'No result':
             no_result += 1
         if turkans == ourans:
             correct += 1
         if ourans == 'Absolutely no result':
             anr += 1
-        if turkans == 'YES':
-            yes +=1
+
 
     precision = correct / answered
     recall = correct / understood
@@ -93,7 +98,7 @@ def get_stats():
     print 'We were able to answer %d-%d-%d = %d (%.2f%%) questions' % (understood, anr, no_result, answered, answered/understood*100)
     print 'Recall =', recall
     print 'Precision =', precision
-    print 'YES correct in %.2f%% of answered' % (yes/i*100)
+    print 'Turk answered YES in %.2f%% of answered' % (yes/answered*100)
 
 def turkstats():
     i = -1
@@ -122,31 +127,15 @@ def turkstats():
 
 def more_stats():
     i = 0
-    duyes = 0
-    du = 0
-    anr = 0
-    anryes = 0
-    nr = 0
-    nryes = 0
+    y = 0
     for line in csv.reader(open(OUTFILE), delimiter='\t'):
-        i += 1
-        if i == 0:
-            continue
-        if line[3] == 'Didn\'t understand the question':
-            du += 1
-            if line[2] == 'YES':
-                duyes += 1
-        if line[3] == 'Absolutely no result':
-            anr += 1
-            if line[2] == 'YES':
-                anryes += 1
-        if line[3] == 'No result':
-            nr += 1
-            if line[2] == 'YES':
-                nryes += 1
-    print 'YES correct in %.2f%% of du (%d)' % (duyes/du*100,du)
-    print 'YES correct in %.2f%% of anr (%d)' % (anryes/anr*100,anr)
-    print 'YES correct in %.2f%% of nr (%d)' % (nryes/nr*100,nr)
+
+        if line[3] == 'YES' or line[3] == 'NO':
+            i += 1
+            if line[3] == 'YES':
+                y += 1
+
+    print 'We answered YES in %.2f%% of answered (%d)' % (y/i*100,i)
 
 import sys
 validation = False
@@ -165,7 +154,7 @@ if __name__ == "__main__":
             validation = True
     reparse()
     get_stats()
-    print '\n----------\n'
-    turkstats()
 #    print '\n----------\n'
-#    more_stats()
+#    turkstats()
+    print '\n----------\n'
+    more_stats()
