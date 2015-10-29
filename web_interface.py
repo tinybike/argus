@@ -66,7 +66,7 @@ def create_sources(a):
         sources.append(Source(a,i))
     return sources
 
-
+from argus.features import feature_list_official as flo
 class Source(object):
     def __init__(self,a,i):
         self.sentence = a.sentences[i]
@@ -88,13 +88,11 @@ class Source(object):
         self.percentage = str('%.2f%% %s' % (proc,a.text))
         w = a.features.model.coef_
         b = a.features.model.intercept_
-        qsh = a.features.sentiments[i].qsh
-        v_sim = a.features.verb_sim[i].sim
-#        self.info = 'Probability = sigm((question sentiment)*weight + (headline sentiment)*weight + (sentence sentiment)*weight + constant)<br />\n'
-#        self.info += str('%.2f = sigm(%d*%.2f+%d*%.2f+%d*%.2f+%.2f)' %
-#        (a.features.prob[i],qsh[0],w[0][0],qsh[1],w[0][1],qsh[2],w[0][2],b))
-
-        self.info = str('Question sentiment: %+d * %.2f = %+.2f <br />Sentence sentiment: %+d * %.2f = %+.2f <br />Verb similarity: %+.2f * %.2f = %+.2f' % (qsh[0],w[0][0],qsh[0]*w[0][0],qsh[1],w[0][1],qsh[1]*w[0][1],v_sim,w[0][2],v_sim*w[0][2]))
+        feats = a.features.features[i]
+        self.info = ''
+        for j in range(len(flo)):
+            self.info += flo[j]+str(': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_feature(),w[0][j],feats[j].get_feature()*w[0][j]))
+#        self.info = str('Question sentiment: %+d * %.2f = %+.2f <br />Sentence sentiment: %+d * %.2f = %+.2f <br />Verb similarity: %+.2f * %.2f = %+.2f' % (,qsh[1],w[0][1],qsh[1]*w[0][1],v_sim,w[0][2],v_sim*w[0][2]))
 
 if __name__ == '__main__':
   app.run(port=5500, host='0.0.0.0', debug=True, use_reloader=False)

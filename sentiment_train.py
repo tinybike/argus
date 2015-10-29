@@ -7,47 +7,38 @@ from sklearn.externals import joblib
 
 class QuestionFeatures(object):
     def __init__(self):
-        self.q = []
-        self.s = []
-        self.verb_sim = []
+        self.features = [] # 1 item for 1 feature (all sources)
         self.ans = []
         self.ID = ''
 
-numfeatures = 3
+feature_index = 12
 trainIDs = []
 def load():
     qf = []
     i = 0
-    sp = 0
     ansp = 0
-    vsp = 0
     for line in csv.reader(open(OUTFILE), delimiter='\t'):
         if i == 0:
             i += 1
             for j in range(0,len(line)):
-                if line[j] == 'Sentiment':
-                    sp = j
-                if line[j] == 'Verb Similarity':
-                    vsp = j
                 if line[j] == 'TurkAnswer':
                     ansp = j
             continue
         i += 1
         if i % 2 == 1:
             trainIDs.append(line[1])
-        if line[sp] == '':
+        if len(line) <= feature_index:
             continue
 
-        sentiment = line[sp].split(":")
-        verb_sim = line[vsp].split(":")
         f = QuestionFeatures()
         f.ID = line[1]
-        for j in range(0,len(sentiment)):
-            sent = sentiment[j].split()
-            f.q.append(int(sent[0]))
-            f.s.append(int(sent[1]))
-            f.verb_sim.append(float(verb_sim[j]))
-#            f.h.append(int(sentiment[2]))
+        for j in range(feature_index,feature_index+len(line[feature_index:])):
+#            print line[j].split(':')
+            floats = [float(x) for x in line[j].split(':')]
+            feat = np.array(floats)
+            f.features.append(feat)
+
+        for j in range(len(f.features[0])):
             if line[ansp] == 'YES':
                 f.ans.append(1)
             else:
@@ -73,20 +64,18 @@ def split_train(qf):
     return (tesx,tesy,trax,tray)
 
 def fill(qf):
-    q = []
-    s = []
-    sim = []
     ans = []
+    list_of_sources = []
     for f in qf:
-        q += f.q
-        s += f.s
-        sim += f.verb_sim
         ans += f.ans
-    q = np.array(q)
-    s = np.array(s)
-    sim = np.array(sim)
+        x = np.zeros((len(f.features[0]),len(f.features)))
+        for j in range(len(f.features)):
+            x[:,j] = f.features[j]
+        list_of_sources.append(x)
+    x = list_of_sources[0]
+    for i in range(1,len(list_of_sources)):
+        x = np.vstack((x,list_of_sources[i]))
     y = np.array(ans)
-    x = np.vstack((q, s, sim)).transpose()
     return x,y
 
 def even_out(x,y):

@@ -3,6 +3,8 @@ import csv
 import os
 from argus.main_frame import get_answer
 import numpy as np
+from argus.features import feature_list
+
 
 CSVFOLDER = "tests/batches"
 trainIDs = np.load('tests/trainIDs/trainIDs.npy')
@@ -20,7 +22,8 @@ def reparse():
                     i += 1
                     info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer',
                             'OurKeywords', 'FoundSentence', 'OurHeadline',
-                            'TurkTopic', 'TurkURL', 'OurURL','Sentiment','Verb Similarity','Source', 'info']
+                            'TurkTopic', 'TurkURL', 'OurURL','Source', 'info']
+                    info += feature_list
                     if qnum == 0:
                         writer.writerow(info)
                     continue
@@ -33,22 +36,22 @@ def reparse():
                 headline = ''
                 sentence = ''
                 source = ''
-                sentiment = ''
-                verb_sim = ''
+                feat = ''
                 if len(ouranswer.urls) != 0:
                     url = ouranswer.urls[0]
                     headline = ouranswer.headlines[0]
                     sentence = ouranswer.sentences[0]
                     source = ouranswer.sources[0]
-                    for j in range(0,len(ouranswer.features.sentiments)):
-                        sentiment += str(ouranswer.features.sentiments[j].qsh[0])+" "+str(ouranswer.features.sentiments[j].qsh[1])+" "+str(ouranswer.features.sentiments[j].qsh[2])+":"
-                    sentiment = sentiment[:-1]
-                    for j in range(len(ouranswer.features.verb_sim)):
-                        verb_sim += str(ouranswer.features.verb_sim[j].sim)+":"
-                    verb_sim = verb_sim[:-1]
                 info = [line[0], line[30], line[28],
                       ouranswer.text, ouranswer.q.query, sentence,
-                      headline,line[31],line[29],url,sentiment,verb_sim,source,ouranswer.info]
+                      headline,line[31],line[29],url,source,ouranswer.info]
+                if len(ouranswer.features.features) != 0:
+                    for j in range(len(ouranswer.features.features[0])):
+                        for k in range(len(ouranswer.features.features)):
+                            feat += str(ouranswer.features.features[k][j].get_feature())+":"
+                        feat = feat[:-1]
+                        info.append(feat)
+                        feat = ''
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
                 if qnum % 10 == 0:
@@ -129,7 +132,8 @@ def more_stats():
     i = 0
     y = 0
     for line in csv.reader(open(OUTFILE), delimiter='\t'):
-
+        if line[1] in trainIDs:
+            continue
         if line[3] == 'YES' or line[3] == 'NO':
             i += 1
             if line[3] == 'YES':
