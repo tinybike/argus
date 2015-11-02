@@ -5,7 +5,7 @@ import urllib2
 import os
 import HTMLParser
 import sre
-
+import time
 
 class HTMLLinkScanner(HTMLParser.HTMLParser):
   tags = {'a':'href','img':'src','frame':'src','base':'href'}
@@ -72,7 +72,8 @@ class MirrorRetriever:
         contents = open(filename, 'r').read()
       else:
         try:
-          contents = self.retrieveurl(url)
+            time.sleep(1)
+            contents = self.retrieveurl(url)
         except urllib2.URLError, e:
           print 'could not retrieve url %s: %s' % (url, e)
           return
@@ -146,5 +147,10 @@ if __name__ == '__main__':
         while datestr <= enddate:
             print 'retrieving',url,'<-------->',datestr
             m = WaybackRetriever(os.path.abspath('.'), datestr+'000000')
-            m.mirror(url,m.datestring)
-            datestr = (parse(datestr).date()+datetime.timedelta(days=1)).strftime("%Y%m%d")
+            try:
+                m.mirror(url,m.datestring)
+                datestr = (parse(datestr).date()+datetime.timedelta(days=1)).strftime("%Y%m%d")
+            except Exception:
+                time.sleep(5)
+                continue
+

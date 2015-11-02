@@ -45,7 +45,7 @@ Start it up (default, runs on localhost:9200)
 
 to fill it up run (from argus)
 
-	python fill_elastic.py [-G{path to folder with guardian jsons}] [-NY{path to folder with nytimes jsons}]
+	python fill_elastic.py [-G{path to folder with guardian jsons}] [-NY{path to folder with nytimes jsons} -RSS{path to root of rss folders}]
 
 note: to clear the database run  
 
