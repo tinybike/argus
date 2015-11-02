@@ -22,6 +22,11 @@ def sentence_split(article):
 #    return sentences
     return tokenizer.tokenize(article)
 
+def clean(html):
+    soup = BeautifulSoup(html, "lxml")
+    texts = soup.findAll(text=True)
+    return ''.join(texts)
+
 def preparse_guardian(html):
     html = html.replace(u"\\u201c", "\"")
     html = html.replace(u"\\u201d", "\"")

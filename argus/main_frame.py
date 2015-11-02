@@ -48,11 +48,11 @@ def answer_all(answer):
 def print_sources(answer):
     print answer.q.keywords
     for i in range(0,len(answer.headlines)):
+        print 'H:',answer.headlines[i]
         print "---------------------------"
-        print answer.headlines[i]
+        print 'S:',answer.sentences[i]
         print "---------------------------"
-        print answer.sentences[i]
-        print "---------------------------"
-        print answer.bodies[i]
+        print 'B:',answer.bodies[i]
         print "==========================="
+    print 'hlen',len(answer.headlines),'slen',len(answer.sentences),'blen',len(answer.bodies)
     print answer.text

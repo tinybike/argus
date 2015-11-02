@@ -7,7 +7,6 @@ import datetime
 
 #JSONFOLDER = 'sources/guardian_database'
 es = Elasticsearch(hosts=['localhost', 'pasky.or.cz'])
-#TODO: filter dates, search in headline+summary+body
 def kw_to_query(keywords):
     query = ''
     for word in keywords:
@@ -67,6 +66,7 @@ def search_for_keywords(a,jobj):
         return True, True
     return False, True
 
+#XXX:appends sentence
 def search_short(a,text):
 
     for word in a.q.searchwords:
@@ -79,7 +79,6 @@ def search_sentences(a, body):
     sentences = sentence_split(body)
     for sentence in sentences:
         if search_short(a, sentence):
-            a.sentences.append(sentence)
             return True
     return False
 

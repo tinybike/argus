@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from elasticsearch import Elasticsearch
-from argus.html_clean import preparse_guardian
+from argus.html_clean import preparse_guardian, clean
+from dateutil.parser import parse
+import feedparser
+import hashlib
 import sys
 import json
 import os
@@ -38,8 +41,9 @@ def fill_guardian(JSONFOLDER):
                 'source':           source,
                 'summary':          summary,
             }
+            uniqueid = hashlib.md5((headline+summary).encode('utf-8')).hexdigest()
             ID += 1
-            es.index(index="test-index", doc_type='article', body=doc)
+            es.index(index="test-index", doc_type='article', body=doc, id=uniqueid)
             if ID % 100 == 0:
                 print 'added article number', ID
 
@@ -74,56 +78,62 @@ def fill_nytimes(JSONFOLDER):
                 'source':           source,
                 'summary':          summary,
             }
+            uniqueid = hashlib.md5((headline+summary).encode('utf-8')).hexdigest()
             ID += 1
-            es.index(index="test-index", doc_type='article', body=doc)
+            es.index(index="test-index", doc_type='article', body=doc, id=uniqueid)
             if ID % 100 == 0:
                 print 'added article number', ID
 
     es.indices.refresh(index="test-index")
     return "ok"
 
-def ask(query):
-    q = {
-  "query": {
-    "filtered": {
-      "query": {
-        "multi_match": {
-            "query":    query,
-            "operator": "and",
-            "fields": [ "headline^5", "summary^3", "body" ]
-            }
-      },
-      "filter": {
-        "range": { "date": { "gte": "2015-06-14",
-                             "lte": "2015-08-01"}}
-      }
-    }
-  }
-}
-    res = es.search(index="test-index", size=100, body=q)
-    print("Got %d Hits:" % res['hits']['total'])
-    for hit in res['hits']['hits']:
-        try:
-            print("%(headline)s %(date)s" % hit["_source"])
-        except KeyError:
-            print('------------------------')
-            continue
-        print('------------------------')
-    #
-    with open('sources/elastictest.json', 'wb') as f:
-        f.write(json.dumps(res, indent = 4))
 
+def fill_rss(RSSFOLDER):
+    ID = 0
+    for root, dirs, files in os.walk(RSSFOLDER):
+        for name in files:
+            if not name.endswith(('.rss', '.xml')):
+                continue
+            d = feedparser.parse(os.path.join(root, name))
+            for entry in d.entries:
+                headline = entry.title
+                date = parse(entry.published).date()
+                url = entry.link
+                source = 'CNN'
+                summary = clean(entry.description)
+                if len(summary) == 0 or summary.isspace():
+                    continue
+                doc = {
+                    'headline':         headline,
+                    'date':             date,
+                    'url':              url,
+                    'source':           source,
+                    'summary':          summary,
+                }
+                uniqueid = hashlib.md5((headline+summary).encode('utf-8')).hexdigest()
+                ID += 1
+                es.index(index="test-index", doc_type='article', body=doc, id=uniqueid)
+                if ID % 100 == 0:
+                    print 'added article number', ID
+
+    es.indices.refresh(index="test-index")
+    return "ok"
 
 if __name__ == "__main__":
     nyf = ''
     gf = ''
-    for i in range(0,len(sys.argv)):
+    rssf = ''
+    for i in range(len(sys.argv)):
+        print sys.argv[i]
         if sys.argv[i][:3] == '-NY':
             nyf = sys.argv[i][3:]
         if sys.argv[i][:2] == '-G':
             gf = sys.argv[i][2:]
+        if sys.argv[i][:4] == '-RSS':
+            rssf = sys.argv[i][4:]
     if len(nyf) != 0:
         fill_nytimes(nyf)
     if len(gf) != 0:
         fill_guardian(gf)
-#    ask('Saina Nehwal')
+    if len(rssf) != 0:
+        fill_rss(rssf)
