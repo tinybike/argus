@@ -1,13 +1,14 @@
 from elastic import get_content_elastic
-from keyword_extract import check_keywords_spacy
+from keyword_extract import check_keywords, preprocess_question
 from answer import Question, Answer
 from features import load_features
 #from nltk.corpus import sentiwordnet as swn
 #import nltk
 
+
 def get_answer(question):
-    a = Answer(Question(question))
-    checked = check_keywords_spacy(a.q)
+    a = Answer(Question(preprocess_question(question)))
+    checked = check_keywords(a.q)
 
     if not checked:
         a.q.query += ' ('+','.join(a.q.not_in_kw)+' not in keywords)'

@@ -5,8 +5,8 @@ from spacy.en import English
 from spacy.parts_of_speech import ADP, PUNCT, VERB, PART, ADV
 nlp = English()
 print 'SpaCy loaded'
-probs = [lex.prob for lex in nlp.vocab]
-probs.sort()
+#probs = [lex.prob for lex in nlp.vocab]
+#probs.sort()
 
 
 # Used when tokenizing words
@@ -37,7 +37,10 @@ def in_stop_words(word):
 
 def is_unimportant(token):
     unimportant = 'the a and'
-    return (token.lower_ in unimportant) or (token.pos == PART) or (token.pos == PUNCT)
+    return ((token.lower_ in unimportant) or
+    (token.pos == PART) or
+    (token.pos == PUNCT) or
+    (token.orth_ in stop_words))
 
 def more_nouns(ents,noun_chunks,keywords):
     for n_ch in noun_chunks:
@@ -56,9 +59,8 @@ def more_nouns(ents,noun_chunks,keywords):
         if len(chunk) > 0:
             keywords.append(' '.join(chunk))
 
-
 #is_adverb = lambda tok: tok.pos == ADV and tok.prob < probs[-1000]
-def extract_spacy(question):
+def extract(question):
     spaced = nlp(unicode(question.text))
     keywords = []
     sent = []
@@ -94,10 +96,18 @@ def extract_spacy(question):
         if branch.pos == VERB:
             question.root_verb.append(branch)
             keywords.append(branch.lower_)
-
     return keywords
 
-def check_keywords_spacy(question):
+
+def verbs(sent):
+    verbs = [sent.root]
+    for branch in sent.root.rights:
+        if branch.pos == VERB:
+            verbs.append(branch)
+    return verbs
+
+
+def check_keywords(question):
     nikw = []
     spaced = nlp(unicode(question.text))
     for token in spaced:
@@ -117,3 +127,10 @@ def check_keywords_spacy(question):
 #        print "not in keywords:",nikw
         return False
     return True
+
+
+def preprocess_question(text):
+    newtext = []
+    for word in text.split():
+        newtext.append(word.split('/')[0])
+    return ' '.join(newtext)

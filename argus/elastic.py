@@ -37,7 +37,8 @@ def get_content_elastic(a):
                              }}
       }
     }
-  }
+  },
+  "sort": { "date": { "order": "desc" }}
 }
     res = es.search(index="test-index", size=100, body=q)
     return search_for_keywords(a, res)

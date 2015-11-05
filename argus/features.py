@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 from sklearn.externals import joblib
-from keyword_extract import tokenize, nlp
+from keyword_extract import tokenize, nlp, verbs
 
 
 
@@ -47,20 +47,29 @@ class Sentiment_s(Feature):
         s = float(s)/len(sentence.split())
         Feature.set_feature(self,s)
 
+def bow(l):
+    vector = np.zeros(l[0].vector.shape)
+    for token in l:
+        vector += token.vector
+    return vector/len(l)
 
+import math
 class Verb_sim(Feature):
     def __init__(self, answer, i):
         q = answer.q
         sentence = answer.sentences[i]
-        self.q_verb = q.root_verb[0]
+        q_vec = bow(q.root_verb)
         doc = nlp(sentence)
         s1 = []
         for s in doc.sents:
             s1.append(s)
-        self.s_verb = s1[0].root
-        self.sim = self.q_verb.similarity(self.s_verb)
-        Feature.set_feature(self,self.sim)
-#        print 'similarity: %s XXX %s = %.3f' % (self.q_verb.text, self.s_verb.text, self.sim)
+        s_verbs = verbs(s1[0])
+        s_vec = bow(s_verbs)
+#        print q_vec,s_vec
+        sim = np.dot(q_vec,s_vec)/(np.linalg.norm(q_vec)*np.linalg.norm(s_vec))
+        if math.isnan(sim):
+            sim = 0
+        Feature.set_feature(self, sim)
 
 from nltk.corpus import wordnet as wn
 from keyword_extract import stop_words

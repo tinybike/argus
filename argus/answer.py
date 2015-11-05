@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from keyword_extract import extract_spacy
+from keyword_extract import extract
 from guardian import kw_to_query
 from features import Features
 
@@ -23,7 +23,7 @@ class Question(object):
         self.text = question
         self.date_text = ''
         self.root_verb = []
-        self.keywords = extract_spacy(self)
+        self.keywords = extract(self)
 #        print '>>>>>>>>>>>>>>'
 #        print self.text
 #        print self.keywords

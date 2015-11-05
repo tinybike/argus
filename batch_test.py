@@ -141,6 +141,15 @@ def more_stats():
 
     print 'We answered YES in %.2f%% of answered (%d)' % (y/i*100,i)
 
+def bad_only():
+    BADFILE = 'tests/bad_outfile.tsv'
+    with open(BADFILE, 'wb') as csvfile:
+        writer = csv.writer(csvfile, delimiter='\t')
+        for line in csv.reader(open(OUTFILE), delimiter='\t'):
+            if line[2] != line[3]:
+                writer.writerow(line)
+
+
 import sys
 validation = False
 CSVFOLDER = "tests/batches"
@@ -162,3 +171,4 @@ if __name__ == "__main__":
 #    turkstats()
     print '\n----------\n'
     more_stats()
+    bad_only()
