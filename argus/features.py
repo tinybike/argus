@@ -36,6 +36,7 @@ class Sentiment_q(Feature):
 
     def __init__(self, answer, i):
         q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
+        q = float(q)/len(answer.q.text.split())
         Feature.set_feature(self,q)
 
 
@@ -43,6 +44,7 @@ class Sentiment_s(Feature):
     def __init__(self, answer, i):
         sentence = answer.sentences[i]
         s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(sentence)]))
+        s = float(s)/len(sentence.split())
         Feature.set_feature(self,s)
 
 

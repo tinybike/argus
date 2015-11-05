@@ -2,4 +2,4 @@
 * run python downloader.py
 * run bash cleaner.sh to remove duplicates
 
-* when downloading finishes, run python fill_elastic.py -RSSsources/rss_database
+* when downloading finishes, run python fill_elastic.py -RSSsources/rss_database/data

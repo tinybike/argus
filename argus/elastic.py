@@ -6,7 +6,7 @@ import datetime
 
 
 #JSONFOLDER = 'sources/guardian_database'
-es = Elasticsearch(hosts=['localhost', 'pasky.or.cz'])
+es = Elasticsearch(hosts=['localhost']) #, 'pasky.or.cz'
 def kw_to_query(keywords):
     query = ''
     for word in keywords:

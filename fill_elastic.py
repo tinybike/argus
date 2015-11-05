@@ -92,14 +92,14 @@ def fill_rss(RSSFOLDER):
     ID = 0
     for root, dirs, files in os.walk(RSSFOLDER):
         for name in files:
-            if not name.endswith(('.rss', '.xml')):
-                continue
+#            if not name.endswith(('.rss', '.xml')):
+#                continue
             d = feedparser.parse(os.path.join(root, name))
             for entry in d.entries:
                 headline = entry.title
                 date = parse(entry.published).date()
                 url = entry.link
-                source = 'CNN'
+                source = 'RSS'
                 summary = clean(entry.description)
                 if len(summary) == 0 or summary.isspace():
                     continue

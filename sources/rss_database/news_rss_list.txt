@@ -1,3 +1,4 @@
+# note starts with '#'
 http://rss.cnn.com/rss/edition.rss
 http://rss.cnn.com/rss/edition_world.rss
 http://rss.cnn.com/rss/edition_europe.rss
@@ -29,11 +30,11 @@ http://feeds.abcnews.com/abcnews/sportsheadlines
 http://feeds.abcnews.com/abcnews/worldnewsheadlines
 http://www.cnet.com/rss/news/
 http://www.ft.com/rss/world
-http://feeds.skynews.com/feeds/rss/home.xml
-http://feeds.skynews.com/feeds/rss/world.xml
-http://feeds.skynews.com/feeds/rss/us.xml
-http://feeds.skynews.com/feeds/rss/business.xml
-http://feeds.skynews.com/feeds/rss/politics.xml
+# robots.txt http://feeds.skynews.com/feeds/rss/home.xml
+#http://feeds.skynews.com/feeds/rss/world.xml
+#http://feeds.skynews.com/feeds/rss/us.xml
+#http://feeds.skynews.com/feeds/rss/business.xml
+#http://feeds.skynews.com/feeds/rss/politics.xml
 http://feeds.washingtonpost.com/rss/politics
 http://feeds.washingtonpost.com/rss/sports
 http://feeds.washingtonpost.com/rss/world

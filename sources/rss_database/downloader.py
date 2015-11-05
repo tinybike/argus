@@ -40,7 +40,7 @@ class MirrorRetriever:
     if scheme.lower() != 'http':
       location = os.path.join(scheme, location)
     # ignore query for the meantime
-    return os.path.join(self.archivedir, location, path)
+    return os.path.join(self.archivedir, 'data', location, path)
 
   def testinclude(self, url):
     scheme, location, path, query, fragment = urlparse.urlsplit(url)
@@ -133,24 +133,36 @@ def urllist():
     source = 'news_rss_list.txt'
     urls = []
     for line in open(source):
+        if line.startswith('#') or line.isspace() or len(line) == 0:
+            continue
         urls.append(line[:-1])
     return urls
 
 
 if __name__ == '__main__':
+    print 'main entered'
 #    startdate = '20150928'
     startdate = '20141001'
     enddate = '20151001'
     urls = urllist()
     for url in urls:
+        failed = False
         datestr = startdate
         while datestr <= enddate:
-            print 'retrieving',url,'<-------->',datestr
             m = WaybackRetriever(os.path.abspath('.'), datestr+'000000')
             try:
                 m.mirror(url,m.datestring)
-                datestr = (parse(datestr).date()+datetime.timedelta(days=1)).strftime("%Y%m%d")
+                print 'retrieving',url,'<-------->',datestr
             except Exception:
+                if failed:
+                    failed = False
+                    datestr = (parse(datestr).date()+datetime.timedelta(days=1)).strftime("%Y%m%d")
+                    continue
+                failed = True
+                print 'FAILED',url,'<-------->',datestr
                 time.sleep(5)
                 continue
+            failed = False
+            datestr = (parse(datestr).date()+datetime.timedelta(days=1)).strftime("%Y%m%d")
+
 

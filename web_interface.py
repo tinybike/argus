@@ -11,7 +11,7 @@ def highlight_body(body, sentence):
         match = re.search(sentence, body)
         start, end = match.start(), match.end()
         body = body[:start]+starttag+body[start:end]+endtag+body[end:]
-    except AttributeError:
+    except Exception:
         pass
     return body
 
