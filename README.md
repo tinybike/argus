@@ -51,3 +51,16 @@ note: to clear the database run
 
 	curl -XDELETE localhost:9200/test-index
 
+Training
+--------
+
+With mTurk output files present in tests/batches, run
+
+	python batch_test.py [-valoff if you dont want to use train/validate split]
+
+to create new output.tsv file. Then run
+
+	python train.py
+
+To reevaluate on real data run batch_test.py again
+

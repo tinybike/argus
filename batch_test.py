@@ -132,8 +132,9 @@ def more_stats():
     i = 0
     y = 0
     for line in csv.reader(open(OUTFILE), delimiter='\t'):
-        if line[1] in trainIDs:
-            continue
+        if validation:
+            if line[1] in trainIDs:
+                continue
         if line[3] == 'YES' or line[3] == 'NO':
             i += 1
             if line[3] == 'YES':
@@ -151,7 +152,6 @@ def bad_only():
 
 
 import sys
-validation = False
 CSVFOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
 validation = True
@@ -163,12 +163,12 @@ if __name__ == "__main__":
         if sys.argv[i] == '-test':
             CSVFOLDER += '/batch_test'
             OUTFILE = "tests/outfile_test.tsv"
-        if sys.argv[i] == '-val':
-            validation = True
+        if sys.argv[i] == '-valoff':
+            validation = False
     reparse()
     get_stats()
-#    print '\n----------\n'
-#    turkstats()
-    print '\n----------\n'
+    print '----------'
+    turkstats()
+    print '----------'
     more_stats()
     bad_only()
