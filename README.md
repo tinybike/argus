@@ -49,7 +49,7 @@ to fill it up run (from argus)
 
 note: to clear the database run  
 
-	curl -XDELETE localhost:9200/test-index
+	curl -XDELETE localhost:9200/argus
 
 Training
 --------

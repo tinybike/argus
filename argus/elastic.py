@@ -6,7 +6,7 @@ import datetime
 
 
 #JSONFOLDER = 'sources/guardian_database'
-es = Elasticsearch(hosts=['localhost']) #, 'pasky.or.cz'
+es = Elasticsearch(hosts=['localhost']) #, pasky.or.cz
 def kw_to_query(keywords):
     query = ''
     for word in keywords:
@@ -38,9 +38,9 @@ def get_content_elastic(a):
       }
     }
   },
-  "sort": { "date": { "order": "desc" }}
+#  "sort": { "date": { "order": "desc" }}
 }
-    res = es.search(index="test-index", size=100, body=q)
+    res = es.search(index="argus", size=100, body=q)
     return search_for_keywords(a, res)
 
 def search_for_keywords(a,jobj):
@@ -83,4 +83,54 @@ def search_sentences(a, body):
             return True
     return False
 
+def check_unknowns(a):
+    for keyword in a.q.keywords:
+        words = keyword.split()
+        for word in words:
+            q = {
+  "query": {
+    "filtered": {
+      "query": {
+        "multi_match": {
+            "query":    word,
+            "operator": "and",
+            "fields": [ "headline^5", "summary^3", "body" ]
+            }
+      }
+    }
+  }
+}
+            res = es.search(index="argus", size=100, body=q)
+#            print 'searching for',word,', found:', len(res['hits']['hits'])
+            if len(res['hits']['hits']) == 0:
+                a.q.unknown.append(word)
 
+def ask(a,query):
+    q = {
+  "query": {
+    "filtered": {
+      "query": {
+        "multi_match": {
+            "query":    query,
+            "operator": "and",
+            "fields": [ "headline^5", "summary^3", "body" ]
+            }
+      }
+    }
+  }
+}
+    jobj = es.search(index="argus", size=100, body=q)
+    if len(jobj['hits']['hits']) == 0:
+            return False, False
+    for i in range(0, len(jobj['hits']['hits'])):
+        headline = jobj['hits']['hits'][i]['_source']['headline']
+        summary = jobj['hits']['hits'][i]['_source']['summary']
+        source = jobj['hits']['hits'][i]['_source']['source']
+        a.headlines.append(headline)
+        a.sentences.append(headline)
+        a.urls.append(jobj['hits']['hits'][i]['_source']['url'])
+        a.bodies.append(summary)
+        a.sources.append(source)
+    if len(a.urls) != 0:
+        return True, True
+    return False, True

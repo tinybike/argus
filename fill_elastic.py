@@ -27,7 +27,7 @@ def fill_guardian(JSONFOLDER):
                 date = datetime.strptime(jobj['response']['results'][i]['webPublicationDate'], "%Y-%m-%dT%H:%M:%SZ").date()
                 url = jobj['response']['results'][i]['webUrl']
                 bodyhtml = jobj['response']['results'][i]['fields']['body']
-                source = jsonfile.split('_')[0]
+                source = 'Guardian'
                 summaryhtml = jobj['response']['results'][i]['fields']['standfirst']
             except KeyError:
                 continue
@@ -43,11 +43,11 @@ def fill_guardian(JSONFOLDER):
             }
             uniqueid = hashlib.md5((headline+summary).encode('utf-8')).hexdigest()
             ID += 1
-            es.index(index="test-index", doc_type='article', body=doc, id=uniqueid)
+            es.index(index="argus", doc_type='article', body=doc, id=uniqueid)
             if ID % 100 == 0:
                 print 'added article number', ID
 
-    es.indices.refresh(index="test-index")
+    es.indices.refresh(index="argus")
     return "ok"
 
 
@@ -65,7 +65,7 @@ def fill_nytimes(JSONFOLDER):
                 headline = jobj['response']['docs'][i]['headline']['main']
                 date = datetime.strptime(jobj['response']['docs'][i]['pub_date'], "%Y-%m-%dT%H:%M:%SZ").date()
                 url = jobj['response']['docs'][i]['web_url']
-                source = jsonfile.split('_')[0]
+                source = 'NY Times'
                 summary = jobj['response']['docs'][i]['abstract']
                 if summary == None:
                     summary = jobj['response']['docs'][i]['lead_paragraph']
@@ -80,11 +80,11 @@ def fill_nytimes(JSONFOLDER):
             }
             uniqueid = hashlib.md5((headline+summary).encode('utf-8')).hexdigest()
             ID += 1
-            es.index(index="test-index", doc_type='article', body=doc, id=uniqueid)
+            es.index(index="argus", doc_type='article', body=doc, id=uniqueid)
             if ID % 100 == 0:
                 print 'added article number', ID
 
-    es.indices.refresh(index="test-index")
+    es.indices.refresh(index="argus")
     return "ok"
 
 
@@ -95,11 +95,14 @@ def fill_rss(RSSFOLDER):
 #            if not name.endswith(('.rss', '.xml')):
 #                continue
             d = feedparser.parse(os.path.join(root, name))
+            try:
+                source = d.channel.title
+            except AttributeError:
+                source = 'rss'
             for entry in d.entries:
                 headline = entry.title
                 date = parse(entry.published).date()
                 url = entry.link
-                source = 'RSS'
                 summary = clean(entry.description)
                 if len(summary) == 0 or summary.isspace():
                     continue
@@ -112,11 +115,11 @@ def fill_rss(RSSFOLDER):
                 }
                 uniqueid = hashlib.md5((headline+summary).encode('utf-8')).hexdigest()
                 ID += 1
-                es.index(index="test-index", doc_type='article', body=doc, id=uniqueid)
+                es.index(index="argus", doc_type='article', body=doc, id=uniqueid)
                 if ID % 100 == 0:
                     print 'added article number', ID
 
-    es.indices.refresh(index="test-index")
+    es.indices.refresh(index="argus")
     return "ok"
 
 if __name__ == "__main__":

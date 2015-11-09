@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from keyword_extract import extract
-from guardian import kw_to_query
 from features import Features
 
+
 class Answer(object):
-    def __init__(self,q):
+    def __init__(self, q):
         self.sources = []
         self.text = ''
         self.headlines = []
@@ -15,8 +15,9 @@ class Answer(object):
         self.q = q
         self.info = ''
 
+
 class Question(object):
-    def __init__(self,question):
+    def __init__(self, question):
         self.searchwords = []
         self.postokens = []
         self.not_in_kw = []
@@ -24,6 +25,7 @@ class Question(object):
         self.date_text = ''
         self.root_verb = []
         self.keywords = extract(self)
+        self.unknown = []
 #        print '>>>>>>>>>>>>>>'
 #        print self.text
 #        print self.keywords
@@ -32,3 +34,10 @@ class Question(object):
         if len(self.date_text) > 0:
             self.query += ' (relevant \"'+self.date_text+'\")'
 
+
+def kw_to_query(keywords):
+    query = ''
+    for word in keywords:
+            query += word + " AND "
+    query = query[:-5]
+    return query

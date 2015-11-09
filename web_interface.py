@@ -81,6 +81,7 @@ class Source(object):
         self.body = highlight_body(a.bodies[i], a.sentences[i])
         self.query = a.q.query
         self.q = a.q.text
+        self.source = a.sources[i]
         if a.text == 'YES':
             proc = a.features.prob[i]*100
         else:
