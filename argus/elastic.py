@@ -63,6 +63,7 @@ def search_for_keywords(a,jobj):
         a.urls.append(jobj['hits']['hits'][i]['_source']['url'])
         a.bodies.append(summary)
         a.sources.append(source)
+        a.elastic.append(float(jobj['hits']['hits'][i]['_score']))
     if len(a.urls) != 0:
         return True, True
     return False, True

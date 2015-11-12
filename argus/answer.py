@@ -14,6 +14,7 @@ class Answer(object):
         self.features = Features()
         self.q = q
         self.info = ''
+        self.elastic = []
 
 
 class Question(object):

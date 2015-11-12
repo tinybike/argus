@@ -133,8 +133,7 @@ afinn = dict(map(lambda (k,v): (k,int(v)),
 [ line.split('\t') for line in open("sources/AFINN-111.txt") ]))
 
 feature_list = ['Sentiment_q', 'Sentiment_s', 'Verb_sim', 'Verb_sim_wn']
-feature_list_official = ['Question Sentiment', 'Sentence Sentiment',
-                         'Verb similarity (spaCy)', 'Verb similarity (WordNet)']
+feature_list_official = ['Question Sentiment', 'Sentence Sentiment', 'Verb similarity (spaCy)', 'Verb similarity (WordNet)']
 
 
 def load_features(answer):

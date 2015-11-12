@@ -32,20 +32,14 @@ def get_answer(question):
         a.text = 'No result'
     return a
 
-
+import numpy as np
 def answer_all(answer):
     answer.features.predict()
-    yes = 0
-    no = 0
-    for i in range(0,len(answer.features.prob)):
-        a = answer.features.prob[i]
-        if a < 0.5:
-            no += 1
-        else:
-            yes += 1
-#    print 'YES answered %d/%d' % (yes,yes+no)
-    answer.info = str(yes)+'/'+str(yes+no)
-    if no > yes:
+    ans = np.array(answer.features.prob)
+    relevance = np.array(answer.elastic)
+    a = np.sum(ans*relevance)/np.sum(relevance)
+    answer.info = str(a)
+    if a < 0.5:
         return 'NO'
     return 'YES'
 
