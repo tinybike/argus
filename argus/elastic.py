@@ -14,9 +14,18 @@ def kw_to_query(keywords):
     return query
 
 def get_content_elastic(a):
-    to_date = "2015-10-01"
+    the_date = "2015-10-01"
     try:
-        to_date = parse(a.q.date_text, ignoretz=True, fuzzy=True).date()+datetime.timedelta(days=3)
+        if len(a.q.date) > 0:
+            d = a.q.date
+            the_date = parse(d, ignoretz=True, fuzzy=True).date()
+            from_date = the_date - datetime.timedelta(days=14)
+            if the_date.day == 31 and the_date.month == 12:
+                from_date = datetime.date(the_date.year, 1, 1)
+            to_date = the_date + datetime.timedelta(days=14)
+        else:
+            from_date = datetime.date(2013,1,1)
+            to_date = datetime.date(2016,1,1)
     except ValueError:
         print 'Caught ValueError: wrong date format of:',a.q.date_text
         pass
@@ -32,7 +41,7 @@ def get_content_elastic(a):
             }
       },
       "filter": {
-        "range": { "date": { "gte": "2014-09-01",
+        "range": { "date": { "gte": from_date,
                              "lte": to_date
                              }}
       }

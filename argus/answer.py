@@ -24,6 +24,7 @@ class Question(object):
         self.not_in_kw = []
         self.text = question
         self.date_text = ''
+        self.date = ''
         self.root_verb = []
         self.keywords = extract(self)
         self.unknown = []
