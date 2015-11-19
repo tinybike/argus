@@ -3,7 +3,7 @@ import csv
 import os
 from argus.main_frame import get_answer
 import numpy as np
-from argus.features import feature_list
+from argus.features import feature_list_official
 
 
 CSVFOLDER = "tests/batches"
@@ -23,7 +23,7 @@ def reparse():
                     info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer',
                             'OurKeywords', 'FoundSentence', 'OurHeadline',
                             'TurkTopic', 'TurkURL', 'OurURL','Source', 'info']
-                    info += feature_list
+                    info += feature_list_official
                     if qnum == 0:
                         writer.writerow(info)
                     continue
@@ -48,7 +48,7 @@ def reparse():
                 if len(ouranswer.features.features) != 0:
                     for j in range(len(ouranswer.features.features[0])):
                         for k in range(len(ouranswer.features.features)):
-                            feat += str(ouranswer.features.features[k][j].get_feature())+":"
+                            feat += str(ouranswer.features.features[k][j].get_value())+":"
                         feat = feat[:-1]
                         info.append(feat)
                         feat = ''

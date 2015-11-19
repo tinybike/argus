@@ -1,40 +1,65 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-from sklearn.externals import joblib
 from keyword_extract import tokenize, nlp, verbs
+from relevance import Relevance
 
+clas = '#'
+rel = '@'
+
+feature_list = ['Sentiment_q', 'Sentiment_s', 'Verb_sim', 'Verb_sim_wn']
+feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
+                         '#@Verb similarity (spaCy)',
+                         '#@Verb similarity (WordNet)']
+def count_flo(string):
+    i = 0
+    for item in feature_list_official:
+        i += item.count(string)
+    return i
 
 
 class Features(object):  # all features for all sources
     def __init__(self):
-        self.model = joblib.load('sources/models/sentiment.pkl')
+        R = Relevance(0,0)
+        R.load('sources/models')
+        self.model = R
         self.features = [] # list of lists of Feature. shape=(sources, features)
         self.prob = []
 
     def predict(self):
-        feats = np.zeros((len(self.features), len(self.features[0])))
-        for i in range(len(self.features)):
-            for j in range(len(self.features[0])):
-                feats[i][j] = self.features[i][j].get_feature()
-            if len(self.model.coef_[0]) != len(feats[0]):
-                self.prob.append(0.)
-            else:
-                self.prob.append(self.model.predict_proba(feats[i])[0,1])
 
-
+        f = np.zeros((len(self.features), count_flo(clas)))
+        f = []
+        r = []
+        r = np.zeros((len(self.features), count_flo(rel)))
+        for source in self.features:
+            for feat in source:
+                if clas in feat.get_type():
+                    f.append(feat.get_value())
+                if rel in feat.get_type():
+                    f.append(feat.get_value())
+        try:
+            f = np.array(f).reshape((len(self.features), count_flo(clas)))
+            r = np.array(r).reshape((len(self.features), count_flo(rel)))
+            self.prob.append(self.model.forward_propagation(f.T, r.T))
+        except ValueError:
+            self.prob.append(0.)
 
 class Feature(object):  # one feature for one source
 
     def set_feature(self, feature):
         self.feature = feature
 
-    def get_feature(self):
+    def get_value(self):
         return self.feature
+
+    def get_type(self):
+        return self.type
 
 
 class Sentiment_q(Feature):
 
     def __init__(self, answer, i):
+        Feature.type = clas
         q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
         q = float(q)/len(answer.q.text.split())
         Feature.set_feature(self,q)
@@ -42,6 +67,7 @@ class Sentiment_q(Feature):
 
 class Sentiment_s(Feature):
     def __init__(self, answer, i):
+        Feature.type = clas
         sentence = answer.sentences[i]
         s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(sentence)]))
         s = float(s)/len(sentence.split())
@@ -56,6 +82,7 @@ def bow(l):
 import math
 class Verb_sim(Feature):
     def __init__(self, answer, i):
+        Feature.type = clas+rel
         q = answer.q
         sentence = answer.sentences[i]
         q_vec = bow(q.root_verb)
@@ -76,6 +103,7 @@ from keyword_extract import stop_words
 class Verb_sim_wn(Feature):
 
     def __init__(self, answer, i):
+        Feature.type = clas
         q = answer.q
         sentence = answer.sentences[i]
         q_verb = q.root_verb[0].lemma_
@@ -105,6 +133,7 @@ class Verb_sim_wn(Feature):
 class Antonyms(Feature):
 
     def __init__(self, answer, i):
+        Feature.type = clas
         q = answer.q
         sentence = answer.sentences[i]
         q_verb = q.root_verb[0].lemma_
@@ -131,9 +160,6 @@ class Antonyms(Feature):
 
 afinn = dict(map(lambda (k,v): (k,int(v)),
 [ line.split('\t') for line in open("sources/AFINN-111.txt") ]))
-
-feature_list = ['Sentiment_q', 'Sentiment_s', 'Verb_sim', 'Verb_sim_wn']
-feature_list_official = ['Question Sentiment', 'Sentence Sentiment', 'Verb similarity (spaCy)', 'Verb similarity (WordNet)']
 
 
 def load_features(answer):

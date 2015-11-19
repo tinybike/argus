@@ -82,17 +82,26 @@ class Source(object):
         self.query = a.q.query
         self.q = a.q.text
         self.source = a.sources[i]
+        # XXX: probability only for one final
         if a.text == 'YES':
-            proc = a.features.prob[i]*100
+            proc = a.features.prob[0]*100
         else:
-            proc = (1-a.features.prob[i])*100
+            proc = (1-a.features.prob[0])*100
         self.percentage = str('%.2f%% %s' % (proc,a.text))
-        w = a.features.model.coef_
-        b = a.features.model.intercept_
+        w = a.features.model.W
+        q = a.features.model.Q
         feats = a.features.features[i]
         self.info = ''
+        fi = 0
+        ri = 0
         for j in range(len(flo)):
-            self.info += flo[j]+str(': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_feature(),w[0][j],feats[j].get_feature()*w[0][j]))
+            if feats[j].get_type() in flo[j]:
+                if '#' in flo[j]:
+                    self.info += flo[j]+str(': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(),w[fi],feats[j].get_value()*w[fi]))
+                    fi += 1
+                if '@' in flo[j]:
+                    self.info += flo[j]+str(': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(),q[ri],feats[j].get_value()*q[ri]))
+                    ri += 1
 #        self.info = str('Question sentiment: %+d * %.2f = %+.2f <br />Sentence sentiment: %+d * %.2f = %+.2f <br />Verb similarity: %+.2f * %.2f = %+.2f' % (,qsh[1],w[0][1],qsh[1]*w[0][1],v_sim,w[0][2],v_sim*w[0][2]))
 
 if __name__ == '__main__':
