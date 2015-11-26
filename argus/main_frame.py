@@ -33,24 +33,23 @@ def get_answer(question):
     return a
 
 def answer_all(answer):
-    answer.features.predict()
-    a = answer.features.ansprob
-    answer.info = str(a)
-    if a < 0.5:
+    answer.model.predict()
+    answer.info = str(answer.prob)
+    if answer.prob < 0.5:
         return 'NO'
     return 'YES'
 
 
 def print_sources(answer):
     print answer.q.keywords
-    for i in range(0,len(answer.headlines)):
-        print 'H:',answer.headlines[i]
+    for source in answer.sources:
+        print 'H:', source.headline
         print "---------------------------"
-        print 'S:',answer.sentences[i]
+        print 'S:', source.sentence
         print "---------------------------"
-        print 'B:',answer.bodies[i]
+        print 'B:', source.summary
         print "==========================="
-    print 'hlen',len(answer.headlines),'slen',len(answer.sentences),'blen',len(answer.bodies)
+    print 'Number of sources:', len(answer.sources)
     print answer.text
 
 def ask_only(query):

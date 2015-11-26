@@ -2,12 +2,15 @@
 import numpy as np
 from keyword_extract import tokenize, nlp, verbs
 from relevance import Relevance
+from nltk.corpus import wordnet as wn
 
 clas = '#'
 rel = '@'
 
-feature_list = ['Sentiment_q', 'Sentiment_s', 'Verb_sim', 'Verb_sim_wn']
+feature_list = ['Sentiment_q', 'Sentiment_s', 'Subj_match', 'Obj_match', 'Verb_sim',
+                'Verb_sim_wn']
 feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
+                         '#@Subject match','#@Object match',
                          '#@Verb similarity (spaCy)',
                          '#@Verb similarity (WordNet)']
 def count_flo(string):
@@ -17,30 +20,31 @@ def count_flo(string):
     return i
 
 
-class Features(object):  # all features for all sources
-    def __init__(self):
-        R = Relevance(0,0)
+class Model(object):  # all features for all sources
+    def __init__(self, answer):
+        R = Relevance(0, 0)
         R.load('sources/models')
         self.model = R
-        self.features = [] # list of lists of Feature. shape=(sources, features)
-        self.prob = []
-        self.rel = []
         self.ansprob = 0
+        self.answer = answer
 
     def predict(self):
         f = []
         r = []
-        for source in self.features:
-            for feat in source:
+        for source in self.answer.sources:
+            for feat in source.features:
                 if clas in feat.get_type():
                     f.append(feat.get_value())
                 if rel in feat.get_type():
                     r.append(feat.get_value())
         try:
-            f = np.array(f).reshape((len(self.features), count_flo(clas)))
-            r = np.array(r).reshape((len(self.features), count_flo(rel)))
-            self.ansprob = self.model.forward_propagation(f.T, r.T)
-            self.prob, self.rel = self.model.probs_rels(f.T, r.T)
+            f = np.array(f).reshape((len(self.answer.sources), count_flo(clas)))
+            r = np.array(r).reshape((len(self.answer.sources), count_flo(rel)))
+            self.answer.prob = self.model.forward_propagation(f.T, r.T)
+            probs, rels = self.model.probs_rels(f.T, r.T)
+            for i in range(len(self.answer.sources)):
+                self.answer.sources[i].prob = probs[i]
+                self.answer.sources[i].rel = rels[i]
         except ValueError:
             self.ansprob = 0.
 
@@ -60,7 +64,6 @@ class Feature(object):  # one feature for one source
 
 
 class Sentiment_q(Feature):
-
     def __init__(self, answer, i):
         Feature.set_type(self, clas)
         q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
@@ -71,10 +74,10 @@ class Sentiment_q(Feature):
 class Sentiment_s(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, clas)
-        sentence = answer.sentences[i]
+        sentence = answer.sources[i].sentence
         s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(sentence)]))
         s = float(s)/len(sentence.split())
-        Feature.set_value(self,s)
+        Feature.set_value(self, s)
 
 def bow(l):
     vector = np.zeros(l[0].vector.shape)
@@ -87,7 +90,7 @@ class Verb_sim(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, clas+rel)
         q = answer.q
-        sentence = answer.sentences[i]
+        sentence = answer.sources[i].sentence
         q_vec = bow(q.root_verb)
         doc = nlp(sentence)
         s1 = []
@@ -95,20 +98,66 @@ class Verb_sim(Feature):
             s1.append(s)
         s_verbs = verbs(s1[0])
         s_vec = bow(s_verbs)
-#        print q_vec,s_vec
         sim = np.dot(q_vec,s_vec)/(np.linalg.norm(q_vec)*np.linalg.norm(s_vec))
         if math.isnan(sim):
             sim = 0
         Feature.set_value(self, sim)
 
-from nltk.corpus import wordnet as wn
-from keyword_extract import stop_words
-class Verb_sim_wn(Feature):
+class Subj_match(Feature):
+    def __init__(self, answer, i):
+        Feature.set_type(self, clas+rel)
+        sentence = answer.sources[i].sentence
+        q = answer.q.root_verb[0]
+        qobj = self.get_subj(q)
+        sobj = self.get_subj(list(nlp(sentence).sents)[0].root)
 
+        if qobj is None or sobj is None:
+            Feature.set_value(self, 0.)
+            return
+
+        if qobj.lower_ in sobj.lower_ or sobj.lower_ in qobj.lower_:
+            Feature.set_value(self, 1.)
+        else:
+            Feature.set_value(self, 0.)
+
+    def get_subj(self, root):
+        for child in root.children:
+            if child.dep_ == 'nsubj':
+                return child
+
+
+class Obj_match(Feature):
+    def __init__(self, answer, i):
+        Feature.set_type(self, clas+rel)
+        sentence = answer.sources[i].sentence
+        q = answer.q.root_verb[0]
+        qsubj = self.get_subj(q)
+        sobj = self.get_obj(list(nlp(sentence).sents)[0].root)
+
+        if qsubj is None or sobj is None:
+            Feature.set_value(self, 0.)
+            return
+
+        if qsubj.lower_ in sobj.lower_ or sobj.lower_ in qsubj.lower_:
+            Feature.set_value(self, 1.)
+        else:
+            Feature.set_value(self, 0.)
+
+    def get_subj(self, root):
+        for child in root.children:
+            if child.dep_ == 'nsubj':
+                return child
+    def get_obj(self, root):
+        for child in root.children:
+            if child.dep_ == 'dobj':
+                return child
+
+
+class Verb_sim_wn(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, clas+rel)
         q = answer.q
-        sentence = answer.sentences[i]
+        sentence = answer.sources[i].sentence
         q_verb = q.root_verb[0].lemma_
         doc = nlp(sentence)
         s1 = []
@@ -116,10 +165,6 @@ class Verb_sim_wn(Feature):
             s1.append(s)
         s_verb = s1[0].root.lemma_
         sim = self.max_sim(s_verb, q_verb)
-#        print 'question=',q.text
-#        print 'sentence=',sentence
-#        print 'matching',q_verb,s_verb,'score=',sim
-#        print '-----------------------------------------'
         Feature.set_value(self, sim)
 
     def max_sim(self, v1, v2):
@@ -166,8 +211,8 @@ afinn = dict(map(lambda (k,v): (k,int(v)),
 
 
 def load_features(answer):
-    for i in range(len(answer.sentences)):
-        features_source = []
+    for i in range(len(answer.sources)):
+#        features_source = []
         for func in feature_list:
-            features_source.append(eval(func)(answer, i))
-        answer.features.features.append(features_source)
+            answer.sources[i].features.append(eval(func)(answer, i))
+#        answer.features.features.append(features_source)

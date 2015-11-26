@@ -1,20 +1,16 @@
 # -*- coding: utf-8 -*-
 from keyword_extract import extract
-from features import Features
+from features import Model
 
 
 class Answer(object):
     def __init__(self, q):
         self.sources = []
         self.text = ''
-        self.headlines = []
-        self.urls = []
-        self.bodies = []
-        self.sentences = []
-        self.features = Features()
         self.q = q
         self.info = ''
-        self.elastic = []
+        self.model = Model(self)
+        self.prob = 0
 
 
 class Question(object):
@@ -28,13 +24,22 @@ class Question(object):
         self.root_verb = []
         self.keywords = extract(self)
         self.unknown = []
-#        print '>>>>>>>>>>>>>>'
-#        print self.text
-#        print self.keywords
-#        print '<<<<<<<<<<<<<<'
         self.query = kw_to_query(self.keywords)
         if len(self.date_text) > 0:
             self.query += ' (relevant \"'+self.date_text+'\")'
+
+
+class Source():
+    def __init__(self, source, url, headline, summary, sentence):
+        self.features = []
+        self.prob = 0
+        self.rel = 0
+
+        self.sentence = sentence
+        self.headline = headline
+        self.url = url
+        self.summary = summary
+        self.source = source
 
 
 def kw_to_query(keywords):

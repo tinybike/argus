@@ -74,7 +74,7 @@ def train():
     w_dim = qstest[0].f.shape[0]
     q_dim = qstest[0].r.shape[0]
     R = Relevance(w_dim, q_dim)
-    R.train(qstrain, learning_rate=0.08, nepoch=500, evaluate_loss_after=10,
+    R.train(qstrain, learning_rate=0.01, nepoch=500, evaluate_loss_after=10,
             batch_size=200, reg=1e-3)
     R.save('sources/models')
     print '---------------test'

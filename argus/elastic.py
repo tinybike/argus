@@ -3,7 +3,7 @@ from elasticsearch import Elasticsearch
 from html_clean import sentence_split
 from dateutil.parser import parse
 import datetime
-
+from answer import Source
 
 #JSONFOLDER = 'sources/guardian_database'
 es = Elasticsearch(hosts=['localhost']) #, pasky.or.cz
@@ -59,21 +59,22 @@ def search_for_keywords(a,jobj):
         headline = jobj['hits']['hits'][i]['_source']['headline']
         summary = jobj['hits']['hits'][i]['_source']['summary']
         source = jobj['hits']['hits'][i]['_source']['source']
+        url = jobj['hits']['hits'][i]['_source']['url']
 
-        if not search_short(a, headline):
-            if not search_sentences(a, summary):
+        found, sentence = search_short(a, headline)
+        if not found:
+            found, sentence = search_sentences(a, summary)
+            if not found:
                 try:
                     body = jobj['hits']['hits'][i]['_source']['body']
                 except KeyError:
                     continue
-                if not search_sentences(a, body):
+                found, sentence = search_sentences(a, body)
+                if not found:
                     continue
-        a.headlines.append(jobj['hits']['hits'][i]['_source']['headline'])
-        a.urls.append(jobj['hits']['hits'][i]['_source']['url'])
-        a.bodies.append(summary)
-        a.sources.append(source)
-        a.elastic.append(float(jobj['hits']['hits'][i]['_score']))
-    if len(a.urls) != 0:
+        a.sources.append(Source(source, url, headline, summary, sentence))
+
+    if len(a.sources) != 0:
         return True, True
     return False, True
 
@@ -82,16 +83,16 @@ def search_short(a,text):
 
     for word in a.q.searchwords:
         if word.lower() not in text.lower():
-            return False
-    a.sentences.append(text)
-    return True
+            return False, ''
+    return True, text
 
 def search_sentences(a, body):
     sentences = sentence_split(body)
     for sentence in sentences:
-        if search_short(a, sentence):
-            return True
-    return False
+        found, text = search_short(a, sentence)
+        if found:
+            return True, text
+    return False, ''
 
 def check_unknowns(a):
     for keyword in a.q.keywords:
@@ -132,15 +133,12 @@ def ask(a,query):
     jobj = es.search(index="argus", size=100, body=q)
     if len(jobj['hits']['hits']) == 0:
             return False, False
-    for i in range(0, len(jobj['hits']['hits'])):
+    for i in range(len(jobj['hits']['hits'])):
         headline = jobj['hits']['hits'][i]['_source']['headline']
         summary = jobj['hits']['hits'][i]['_source']['summary']
         source = jobj['hits']['hits'][i]['_source']['source']
-        a.headlines.append(headline)
-        a.sentences.append(headline)
-        a.urls.append(jobj['hits']['hits'][i]['_source']['url'])
-        a.bodies.append(summary)
-        a.sources.append(source)
-    if len(a.urls) != 0:
+        url = jobj['hits']['hits'][i]['_source']['url']
+        a.sources.append(Source(source, url, headline, summary, headline))
+    if len(a.sources) != 0:
         return True, True
     return False, True

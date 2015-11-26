@@ -37,21 +37,22 @@ def reparse():
                 sentence = ''
                 source = ''
                 feat = ''
-                if len(ouranswer.urls) != 0:
-                    url = ouranswer.urls[0]
-                    headline = ouranswer.headlines[0]
-                    sentence = ouranswer.sentences[0]
-                    source = ouranswer.sources[0]
-                info = [line[0], line[30], line[28],
-                      ouranswer.text, ouranswer.q.query, sentence,
-                      headline,line[31],line[29],url,source,ouranswer.info]
-                if len(ouranswer.features.features) != 0:
-                    for j in range(len(ouranswer.features.features[0])):
-                        for k in range(len(ouranswer.features.features)):
-                            feat += str(ouranswer.features.features[k][j].get_value())+":"
+                info = []
+                if len(ouranswer.sources) != 0:
+                    url = ouranswer.sources[0].url
+                    headline = ouranswer.sources[0].headline
+                    sentence = ouranswer.sources[0].sentence
+                    source = ouranswer.sources[0].source
+                    for j in range(len(ouranswer.sources[0].features)):
+                        for s in ouranswer.sources:
+                            feat += str(s.features[j].get_value())+":"
                         feat = feat[:-1]
                         info.append(feat)
                         feat = ''
+                info = [line[0], line[30], line[28],
+                        ouranswer.text, ouranswer.q.query, sentence,
+                        headline, line[31], line[29], url, source,
+                        ouranswer.info]+info
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
                 if qnum % 10 == 0:

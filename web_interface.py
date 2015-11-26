@@ -49,7 +49,7 @@ def generate_answer():
         return render_template('form_action.html', content='none')
 
     a = get_answer(question)
-    print("FOUND: %d (<<%s>> -> %s)" % (len(a.urls), question, a.text))
+    print("FOUND: %d (<<%s>> -> %s)" % (len(a.sources), question, a.text))
 
     higlighted_question = a.q.text
     for word in a.q.not_in_kw:
@@ -62,37 +62,38 @@ def generate_answer():
 
 def create_sources(a):
     sources = []
-    for i in range(0,len(a.urls)):
-        sources.append(Source(a,i))
+    for i in range(len(a.sources)):
+        sources.append(Web_Source(a, i))
     return sources
 
 from argus.features import feature_list_official as flo
-class Source(object):
+class Web_Source(object):
     def __init__(self,a,i):
-        self.sentence = a.sentences[i]
+        s = a.sources[i]
+        self.sentence = s.sentence
         self.bodysnippet = ''
-        if (self.sentence not in a.bodies[i]) and (self.sentence not in a.headlines[i]):
+        if (self.sentence not in s.summary) and (self.sentence not in s.headline):
             self.bodysnippet = '...'+highlight_body(self.sentence,self.sentence)+'...'
         for word in a.q.keywords:
             self.question = highlight_question(a.q.text,word)
 
-        self.headline = highlight_body(a.headlines[i], a.sentences[i])
-        self.url = a.urls[i]
-        self.body = highlight_body(a.bodies[i], a.sentences[i])
+        self.headline = highlight_body(s.headline, s.sentence)
+        self.url = s.url
+        self.body = highlight_body(s.summary, s.sentence)
         self.query = a.q.query
         self.q = a.q.text
-        self.source = a.sources[i]
+        self.source = s.source
         # XXX: probability only for one final
 #        if a.text == 'YES':
 #            proc = a.features.prob[i]*100
 #        else:
 #            proc = (1-a.features.prob[i])*100
-        proc = a.features.prob[i]*100
-        rel = a.features.rel[i]*100
+        proc = s.prob*100
+        rel = s.rel*100
         self.percentage = str('%.2f%% (rel %.2f%%)' % (proc,rel))
-        w = a.features.model.W
-        q = a.features.model.Q
-        feats = a.features.features[i]
+        w = a.model.model.W
+        q = a.model.model.Q
+        feats = s.features
         self.info = ''
         fi = 0
         ri = 0
