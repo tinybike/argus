@@ -32,12 +32,9 @@ def get_answer(question):
         a.text = 'No result'
     return a
 
-import numpy as np
 def answer_all(answer):
     answer.features.predict()
-    ans = np.array(answer.features.prob)
-    relevance = np.array(answer.elastic)
-    a = np.sum(ans*relevance)/np.sum(relevance)
+    a = answer.features.ansprob
     answer.info = str(a)
     if a < 0.5:
         return 'NO'

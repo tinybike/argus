@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import numpy as np
+import random
 
 def sig(x):
         return 1./(1+np.exp(-x))
@@ -38,7 +39,22 @@ class Relevance:
         yt = np.inner(s, t)/np.sum(t)
         return yt
 
-    def grad(self, f, r, y):
+    def probs_rels(self, f, r):
+        try:
+            f = np.vstack((f, np.ones(f.shape[1])))
+            r = np.vstack((r, np.ones(r.shape[1])))
+        except IndexError:
+            f = np.hstack((f, 1))
+            r = np.hstack((r, 1))
+        u = np.dot(self.W, f)
+        v = np.dot(self.Q, r)
+        t = sigm(v)
+        s = sigm(u)
+        probs = s
+        rels = t/max(t)
+        return probs, rels
+
+    def grad(self, f, r, y, reg):
         try:
             f = np.vstack((f, np.ones(f.shape[1])))
             r = np.vstack((r, np.ones(r.shape[1])))
@@ -51,7 +67,6 @@ class Relevance:
         t = sigm(v)
         s = sigm(u)
         yt = np.inner(s, t)/np.sum(t)
-#        print r, self.Q, t, s
         if y == 1:
             dLdyt = 1./yt
         else:
@@ -62,29 +77,30 @@ class Relevance:
         dsdu = s*(1-s)
         try:
             A = np.diag(dstds*dsdu)
-            dsudw = np.dot(f,A)
-            dsumdw = np.sum(dsudw,1)
+            dsudw = np.dot(f, A)
+            dsumdw = np.sum(dsudw, 1)
         except ValueError:
             A = dstds*dsdu
-            dsudw = np.dot(f,A)
+            dsudw = np.dot(f, A)
             dsumdw = np.sum(dsudw)
 
         dLdW = dLdyt*dytdsum*dsumdw
         #################################
         try:
             B = np.diag(t*(1-t))
-            dtdq = np.dot(r,B)
-            I = np.dot(dtdq,s)/np.sum(t)
-            II = np.sum(t*s)*np.sum(dtdq,1)/(np.sum(t)**2)
+            dtdq = np.dot(r, B)
+            I = np.dot(dtdq, s)/np.sum(t)
+            II = np.sum(t*s)*np.sum(dtdq, 1)/(np.sum(t)**2)
         except ValueError:
             B = t*(1-t)
-            dtdq = np.dot(r,B)
-            I = np.dot(dtdq,s)/np.sum(t)
+            dtdq = np.dot(r, B)
+            I = np.dot(dtdq, s)/np.sum(t)
             II = np.sum(t*s)*np.sum(dtdq)/np.sum(t)**2
 
         dytdq = I-II
-        dLdQ = dLdyt*dytdq
-#        dLdQ = np.ones_like(self.Q)*10
+        dLdQ = dLdyt * dytdq
+        dLdQ -= reg * self.Q
+        dLdW -= reg * self.W
         return dLdW, dLdQ
 
 
@@ -102,17 +118,18 @@ class Relevance:
             loss += self.loss_one(q.f, q.r, q.y)
         return loss/len(qs)
 
-    def save(self,path):
-        np.save(path+'/'+'W.npy',self.W)
-        np.save(path+'/'+'Q.npy',self.Q)
+    def save(self, path):
+        np.save(path+'/'+'W.npy', self.W)
+        np.save(path+'/'+'Q.npy', self.Q)
 
-    def load(self,path):
+    def load(self, path):
         self.W = np.load(path+'/'+'W.npy')
         self.Q = np.load(path+'/'+'Q.npy')
         self.w_dim = np.size(self.W)
         self.q_dim = np.size(self.Q)
 
-    def train(self, qs, learning_rate=0.1, nepoch=500, evaluate_loss_after=5):
+    def train(self, qs, learning_rate=0.1, nepoch=500, evaluate_loss_after=5,
+              batch_size=10, reg=1e-3):
         # We keep track of the losses so we can plot them later
         losses = []
         num_examples_seen = 0
@@ -128,11 +145,18 @@ class Relevance:
 #                    print "Setting learning rate to %f" % learning_rate
             dLdW = np.zeros(np.size(self.W))
             dLdQ = np.zeros(np.size(self.Q))
+            i = 1
+            random.shuffle(qs)
             for q in qs:
-                dldw, dldq = self.grad(q.f, q.r, q.y)
+                dldw, dldq = self.grad(q.f, q.r, q.y, reg)
                 dLdW += dldw
                 dLdQ += dldq
-
+                if i % batch_size == 0:
+                    self.W += dLdW * learning_rate * 1
+                    self.Q += dLdQ * learning_rate * 1
+                    dLdW = np.zeros(np.size(self.W))
+                    dLdQ = np.zeros(np.size(self.Q))
+                i += 1
             self.W += dLdW * learning_rate * 1
             self.Q += dLdQ * learning_rate * 1
 
@@ -159,6 +183,7 @@ if __name__ == '__main__':
 #    R.Q = np.array([3, 1])
 #    print R.forward_propagation(f,r)
 #    print R.calculate_loss(qs)
+    print R.probs_rels(f,r)
 
     print R.W
     print R.Q

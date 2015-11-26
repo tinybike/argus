@@ -24,30 +24,33 @@ class Features(object):  # all features for all sources
         self.model = R
         self.features = [] # list of lists of Feature. shape=(sources, features)
         self.prob = []
+        self.rel = []
+        self.ansprob = 0
 
     def predict(self):
-
-        f = np.zeros((len(self.features), count_flo(clas)))
         f = []
         r = []
-        r = np.zeros((len(self.features), count_flo(rel)))
         for source in self.features:
             for feat in source:
                 if clas in feat.get_type():
                     f.append(feat.get_value())
                 if rel in feat.get_type():
-                    f.append(feat.get_value())
+                    r.append(feat.get_value())
         try:
             f = np.array(f).reshape((len(self.features), count_flo(clas)))
             r = np.array(r).reshape((len(self.features), count_flo(rel)))
-            self.prob.append(self.model.forward_propagation(f.T, r.T))
+            self.ansprob = self.model.forward_propagation(f.T, r.T)
+            self.prob, self.rel = self.model.probs_rels(f.T, r.T)
         except ValueError:
-            self.prob.append(0.)
+            self.ansprob = 0.
 
 class Feature(object):  # one feature for one source
 
-    def set_feature(self, feature):
+    def set_value(self, feature):
         self.feature = feature
+
+    def set_type(self, t):
+        self.type = t
 
     def get_value(self):
         return self.feature
@@ -59,19 +62,19 @@ class Feature(object):  # one feature for one source
 class Sentiment_q(Feature):
 
     def __init__(self, answer, i):
-        Feature.type = clas
+        Feature.set_type(self, clas)
         q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
         q = float(q)/len(answer.q.text.split())
-        Feature.set_feature(self,q)
+        Feature.set_value(self,q)
 
 
 class Sentiment_s(Feature):
     def __init__(self, answer, i):
-        Feature.type = clas
+        Feature.set_type(self, clas)
         sentence = answer.sentences[i]
         s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(sentence)]))
         s = float(s)/len(sentence.split())
-        Feature.set_feature(self,s)
+        Feature.set_value(self,s)
 
 def bow(l):
     vector = np.zeros(l[0].vector.shape)
@@ -82,7 +85,7 @@ def bow(l):
 import math
 class Verb_sim(Feature):
     def __init__(self, answer, i):
-        Feature.type = clas+rel
+        Feature.set_type(self, clas+rel)
         q = answer.q
         sentence = answer.sentences[i]
         q_vec = bow(q.root_verb)
@@ -96,14 +99,14 @@ class Verb_sim(Feature):
         sim = np.dot(q_vec,s_vec)/(np.linalg.norm(q_vec)*np.linalg.norm(s_vec))
         if math.isnan(sim):
             sim = 0
-        Feature.set_feature(self, sim)
+        Feature.set_value(self, sim)
 
 from nltk.corpus import wordnet as wn
 from keyword_extract import stop_words
 class Verb_sim_wn(Feature):
 
     def __init__(self, answer, i):
-        Feature.type = clas
+        Feature.set_type(self, clas+rel)
         q = answer.q
         sentence = answer.sentences[i]
         q_verb = q.root_verb[0].lemma_
@@ -117,7 +120,7 @@ class Verb_sim_wn(Feature):
 #        print 'sentence=',sentence
 #        print 'matching',q_verb,s_verb,'score=',sim
 #        print '-----------------------------------------'
-        Feature.set_feature(self, sim)
+        Feature.set_value(self, sim)
 
     def max_sim(self, v1, v2):
         sim = []
@@ -133,7 +136,7 @@ class Verb_sim_wn(Feature):
 class Antonyms(Feature):
 
     def __init__(self, answer, i):
-        Feature.type = clas
+        Feature.set_type(self, clas)
         q = answer.q
         sentence = answer.sentences[i]
         q_verb = q.root_verb[0].lemma_
@@ -143,7 +146,7 @@ class Antonyms(Feature):
             s1.append(s)
         s_verb = s1[0].root.lemma_
         sim = self.antonym(s_verb, q_verb)
-        Feature.set_feature(self, sim)
+        Feature.set_value(self, sim)
 
     def antonym(self, v1, v2):
         for aa in wn.synsets(v1):

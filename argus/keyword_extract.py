@@ -133,6 +133,7 @@ def check_keywords(question):
 
 
 def preprocess_question(text):
+    return text
     newtext = []
     for word in text.split():
         newtext.append(word.split('/')[0])

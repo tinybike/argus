@@ -83,11 +83,13 @@ class Source(object):
         self.q = a.q.text
         self.source = a.sources[i]
         # XXX: probability only for one final
-        if a.text == 'YES':
-            proc = a.features.prob[0]*100
-        else:
-            proc = (1-a.features.prob[0])*100
-        self.percentage = str('%.2f%% %s' % (proc,a.text))
+#        if a.text == 'YES':
+#            proc = a.features.prob[i]*100
+#        else:
+#            proc = (1-a.features.prob[i])*100
+        proc = a.features.prob[i]*100
+        rel = a.features.rel[i]*100
+        self.percentage = str('%.2f%% (rel %.2f%%)' % (proc,rel))
         w = a.features.model.W
         q = a.features.model.Q
         feats = a.features.features[i]
