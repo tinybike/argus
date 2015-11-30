@@ -8,11 +8,11 @@ clas = '#'
 rel = '@'
 
 feature_list = ['Sentiment_q', 'Sentiment_s', 'Subj_match', 'Obj_match', 'Verb_sim',
-                'Verb_sim_wn']
+                'Verb_sim_wn', 'Relevant_date']
 feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '#@Subject match','#@Object match',
                          '#@Verb similarity (spaCy)',
-                         '#@Verb similarity (WordNet)']
+                         '#@Verb similarity (WordNet)', '@Relevant date']
 def count_flo(string):
     i = 0
     for item in feature_list_official:
@@ -56,11 +56,20 @@ class Feature(object):  # one feature for one source
     def set_type(self, t):
         self.type = t
 
+    def set_info(self, info):
+        self.info = info
+
     def get_value(self):
         return self.feature
 
     def get_type(self):
         return self.type
+
+    def get_info(self):
+        try:
+            return self.info
+        except AttributeError:
+            return ''
 
 
 class Sentiment_q(Feature):
@@ -86,6 +95,33 @@ def bow(l):
     return vector/len(l)
 
 import math
+from dateutil.parser import parse
+
+class Relevant_date(Feature):
+    def __init__(self, answer, i):
+        Feature.set_type(self, rel)
+        sdate = answer.sources[i].date
+        qdate = answer.q.date
+#        print type(sdate), type(qdate)
+        try:
+            sdate = parse(sdate, ignoretz=True, fuzzy=True).date()
+            qdate = parse(qdate, ignoretz=True, fuzzy=True).date()
+            info = sdate + qdate
+#            print sdate, qdate
+            delta = qdate-sdate
+            f = self.gauss(delta.days)
+#            print 'gaus(timedelta) =', f
+            Feature.set_value(self, f)
+            Feature.set_info(self, info)
+        except TypeError:
+            Feature.set_value(self, 0.)
+
+    def gauss(self, x):
+        mu = 2
+        delta = math.sqrt(3)
+        return math.exp(-(x-mu)**2/(2*delta**2))
+
+
 class Verb_sim(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, clas+rel)
@@ -108,14 +144,14 @@ class Subj_match(Feature):
         Feature.set_type(self, clas+rel)
         sentence = answer.sources[i].sentence
         q = answer.q.root_verb[0]
-        qobj = self.get_subj(q)
-        sobj = self.get_subj(list(nlp(sentence).sents)[0].root)
-
-        if qobj is None or sobj is None:
+        qsubj = self.get_subj(q)
+        ssubj = self.get_subj(list(nlp(sentence).sents)[0].root)
+        if qsubj is None or ssubj is None:
             Feature.set_value(self, 0.)
             return
-
-        if qobj.lower_ in sobj.lower_ or sobj.lower_ in qobj.lower_:
+        info = 'Qsubject=%s, Ssubject=%s' % (qsubj.text, ssubj.text)
+        Feature.set_info(self, info)
+        if qsubj.lower_ in ssubj.lower_ or ssubj.lower_ in qsubj.lower_:
             Feature.set_value(self, 1.)
         else:
             Feature.set_value(self, 0.)
@@ -137,7 +173,8 @@ class Obj_match(Feature):
         if qsubj is None or sobj is None:
             Feature.set_value(self, 0.)
             return
-
+        info = 'Qsubbject=%s, Sobject=%s' % (qsubj.text, sobj.text)
+        Feature.set_info(self, info)
         if qsubj.lower_ in sobj.lower_ or sobj.lower_ in qsubj.lower_:
             Feature.set_value(self, 1.)
         else:
@@ -164,6 +201,8 @@ class Verb_sim_wn(Feature):
         for s in doc.sents:
             s1.append(s)
         s_verb = s1[0].root.lemma_
+        info = 'Qverb=%s, Sverb=%s' % (q_verb, s_verb)
+        Feature.set_info(self, info)
         sim = self.max_sim(s_verb, q_verb)
         Feature.set_value(self, sim)
 

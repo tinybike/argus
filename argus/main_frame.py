@@ -39,15 +39,16 @@ def answer_all(answer):
         return 'NO'
     return 'YES'
 
-
+from features import feature_list_official as flo
 def print_sources(answer):
     print answer.q.keywords
     for source in answer.sources:
-        print 'H:', source.headline
-        print "---------------------------"
+        print 'Q:', answer.q.text
         print 'S:', source.sentence
+        for i in range(len(source.features)):
+            print flo[i], ':', source.features[i].get_value(), ':', source.features[i].get_info()
+        print 'prob=%.2f, rel=%.2f' % (source.prob, source.rel)
         print "---------------------------"
-        print 'B:', source.summary
         print "==========================="
     print 'Number of sources:', len(answer.sources)
     print answer.text

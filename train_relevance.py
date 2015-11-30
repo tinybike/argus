@@ -26,7 +26,6 @@ def fill():
                 if '@' in field:
                     rel.append(line.index(field))
                     rtext.append(field)
-            print ctext,rtext
             continue
         if len(line) <= clas[0]:
             continue
@@ -69,23 +68,67 @@ def stats(R, qs):
             corr += 1
     print '%.2f%% correct (%d/%d)' % (float(corr)/i*100, corr, i)
 
+def multip_features(qs, ctext=None, rtext=None):
+    k = 0
+    for q in qs:
+        flen = len(q.f)
+        for i in range(flen):
+            for j in range(flen):
+                if i >= j:
+                    continue
+                newf = q.f[i,:]*q.f[j,:]
+                q.f = np.vstack((q.f, newf))
+                if k == 0 and ctext is not None:
+                    ctext.append(ctext[i]+'_X_'+ctext[j])
+        k = 1
+    k = 0
+    for q in qs:
+        rlen = len(q.r)
+        for i in range(rlen):
+            for j in range(rlen):
+                if i >= j:
+                    continue
+                newr = q.r[i,:]*q.r[j,:]
+                q.r = np.vstack((q.r, newr))
+                if k == 0 and rtext is not None:
+                    rtext.append(rtext[i]+'_X_'+rtext[j])
+        k = 1
+
+
+def list_weights(R, ctext, rtext):
+    for i in range(len(ctext)):
+        dots = max(3,50-len(ctext[i]))
+        print '(class) %s%s%.2f' % (ctext[i], '.'*dots, R.W[i])
+    print '(class) bias........%.2f' % (R.W[-1])
+    for i in range(len(rtext)):
+        dots = max(3,50-len(rtext[i]))
+        print '(rel) %s%s%.2f' % (rtext[i], '.'*dots, R.Q[i])
+    print '(rel) bias........%.2f' % (R.Q[-1])
+
 def train():
     qstrain, qstest, ctext, rtext = fill()
+#    multip_features(qstrain, ctext, rtext)
+#    multip_features(qstest)
     w_dim = qstest[0].f.shape[0]
     q_dim = qstest[0].r.shape[0]
     R = Relevance(w_dim, q_dim)
-    R.train(qstrain, learning_rate=0.01, nepoch=500, evaluate_loss_after=10,
+    for i in range(50):
+        R.train(qstrain, learning_rate=0.01, nepoch=10, evaluate_loss_after=10,
             batch_size=200, reg=1e-3)
+        print '---------------test'
+        stats(R, qstest)
+        print '---------------train'
+        stats(R, qstrain)
+        print i
+
     R.save('sources/models')
     print '---------------test'
     stats(R, qstest)
     print '---------------train'
     stats(R, qstrain)
     print '\n========================\n'
-    print ' '.join(ctext)
-    print R.W
-    print ' '.join(rtext)
-    print R.Q
+    list_weights(R, ctext, rtext)
+
 
 if __name__ == '__main__':
     np.random.seed(17151711)

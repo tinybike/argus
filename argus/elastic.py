@@ -60,7 +60,7 @@ def search_for_keywords(a,jobj):
         summary = jobj['hits']['hits'][i]['_source']['summary']
         source = jobj['hits']['hits'][i]['_source']['source']
         url = jobj['hits']['hits'][i]['_source']['url']
-
+        date = jobj['hits']['hits'][i]['_source']['date']
         found, sentence = search_short(a, headline)
         if not found:
             found, sentence = search_sentences(a, summary)
@@ -72,7 +72,8 @@ def search_for_keywords(a,jobj):
                 found, sentence = search_sentences(a, body)
                 if not found:
                     continue
-        a.sources.append(Source(source, url, headline, summary, sentence))
+        a.sources.append(Source(source, url, headline, summary,
+                                sentence, date))
 
     if len(a.sources) != 0:
         return True, True

@@ -30,7 +30,7 @@ class Question(object):
 
 
 class Source():
-    def __init__(self, source, url, headline, summary, sentence):
+    def __init__(self, source, url, headline, summary, sentence, date):
         self.features = []
         self.prob = 0
         self.rel = 0
@@ -40,6 +40,7 @@ class Source():
         self.url = url
         self.summary = summary
         self.source = source
+        self.date = date
 
 
 def kw_to_query(keywords):
