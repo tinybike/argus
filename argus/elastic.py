@@ -74,6 +74,7 @@ def search_for_keywords(a,jobj):
                     continue
         a.sources.append(Source(source, url, headline, summary,
                                 sentence, date))
+        a.sources[-1].elastic = float(jobj['hits']['hits'][i]['_score'])
 
     if len(a.sources) != 0:
         return True, True

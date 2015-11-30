@@ -42,6 +42,8 @@ class Source():
         self.source = source
         self.date = date
 
+        self.elastic = 0.
+
 
 def kw_to_query(keywords):
     query = ''

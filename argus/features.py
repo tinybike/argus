@@ -8,11 +8,11 @@ clas = '#'
 rel = '@'
 
 feature_list = ['Sentiment_q', 'Sentiment_s', 'Subj_match', 'Obj_match', 'Verb_sim',
-                'Verb_sim_wn', 'Relevant_date']
+                'Verb_sim_wn', 'Relevant_date', 'Elastic_score']
 feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '#@Subject match','#@Object match',
                          '#@Verb similarity (spaCy)',
-                         '#@Verb similarity (WordNet)', '@Relevant date']
+                         '#@Verb similarity (WordNet)', '@Relevant date', '@Elastic score']
 def count_flo(string):
     i = 0
     for item in feature_list_official:
@@ -72,6 +72,12 @@ class Feature(object):  # one feature for one source
             return ''
 
 
+
+class Elastic_score(Feature):
+    def __init__(self, answer, i):
+        Feature.set_type(self, rel)
+        Feature.set_value(self, answer.sources[i].elastic)
+
 class Sentiment_q(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, clas)
@@ -106,7 +112,7 @@ class Relevant_date(Feature):
         try:
             sdate = parse(sdate, ignoretz=True, fuzzy=True).date()
             qdate = parse(qdate, ignoretz=True, fuzzy=True).date()
-            info = sdate + qdate
+            info = 'Qdate=%s, Sdate=%s' % (qdate, sdate)
 #            print sdate, qdate
             delta = qdate-sdate
             f = self.gauss(delta.days)
@@ -160,6 +166,50 @@ class Subj_match(Feature):
         for child in root.children:
             if child.dep_ == 'nsubj':
                 return child
+
+
+#class Subj_match(Feature):
+#    def __init__(self, answer, i):
+#        Feature.set_type(self, clas+rel)
+#        sentence = answer.sources[i].sentence
+#        q = answer.q.root_verb[0]
+#
+#        sentencel = unicode(answer.sources[i].sentence.lower())
+#        ql = unicode(answer.q.text.lower())
+#        qsubjl = self.get_subj(list(nlp(ql).sents)[0].root)
+#        ssubjl = self.get_subj(list(nlp(sentencel).sents)[0].root)
+#
+#
+#        qsubj = self.get_subj(q)
+#        ssubj = self.get_subj(list(nlp(sentence).sents)[0].root)
+#        if not crossmatch(qsubj, ssubj, qsubjl, ssubjl):
+#            Feature.set_value(self, 0.)
+#        else:
+#            Feature.set_value(self, 1.)
+##        info = 'Qsubject=%s, Ssubject=%s' % (qsubj.text, ssubj.text)
+##        Feature.set_info(self, info)
+##        if qsubj.lower_ in ssubj.lower_ or ssubj.lower_ in qsubj.lower_:
+##            Feature.set_value(self, 1.)
+##        else:
+##            Feature.set_value(self, 0.)
+#
+#    def get_subj(self, root):
+#        for child in root.children:
+#            if child.dep_ == 'nsubj':
+#                return child
+#
+#
+#def crossmatch(a1, b1, a2, b2):
+#    y = [a1, b1, a2, b2]
+#    x = []
+#    for ab in y:
+#        if ab is None:
+#            x.append('xxxxxxx')
+#        else:
+#            x.append(ab.lower_)
+#    if (x[0] == x[1] or x[0] == x[3]) or (x[2] == x[1] or x[2] == x[3]):
+#        return True
+#    return False
 
 
 class Obj_match(Feature):

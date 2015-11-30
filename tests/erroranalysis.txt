@@ -1,0 +1,78 @@
+Q:Will the Lightning win the Stanley Cup in 2015?
+
+	(win, Lightning, Stanley Cup)
+
+A: YES (correct NO)
+OK:
+Blackhawks blank Lightning to claim Stanley Cup (50.9x89.12)
+
+	(blank, Blackhwaks, Lightning)
+
+Blackhawks Beats Lightning 2-0 for Stanley Cup Title (49.2x98)
+
+	(beat, Blackhawks, Lightning)
+
+Chicago Blackhawks beat Tampa Bay Lightning, 2-0, winning Stanley Cup series, 4-2; victory marks Chicago's third NHL championship title in six years; series stands as one of most closely contested in hockey history, with neither team winning by more than one goal until Game 6.(64.76x84.6)\
+
+	(beat, Chicago Blackhawks, Tampa Bay Lightning)
+
+And not a moment too soon.The red-clad Hawks who skated to a 2-0 victory to clinch the Stanley Cup against the Tampa Bay Lightning on Monday night are heading for a summer shakeup that figures to drastically recast the roster around center Jonathan Toews, sniper Patrick Kane and defenseman Duncan Keith. (49.3x97)
+The Chicago Blackhaws defeated the Tampa Bay Lightning 2-0 on Monday night to win their third Stanley Cup in six seasons(62x70)
+
+	(defeat, Chicakgo Blackhaws?, Tampa Bay Lightning)
+
+NOT RELEVANT:
+34/39
+##################################
+Q:Will the Seattle Seahawks defeat the New England Patriots in Super Bowl XLIX?
+A: YES (correct NO)
+OK:
+Super Bowl XLIX: New England Patriots 28-24 Seattle Seahawks – as it happened!(72x100)
+New England Patriots 28-24 Seattle SeahawksQuarterback wins fourth Super BowlSeattle Seahawks held 10-point leadSuper Bowl XLIX – as it happened(81x80)
+Seattle Seahawks quarterback Russell Wilson said Tuesday he had no problem with the call to throw a pass that became the ill-fated interception in Super Bowl XLIX and gave the New England Patriots a 28-24 victory.(59x85)
+For some New England Patriots fans, Sunday night’s 28-24 victory over the Seattle Seahawks in Super Bowl XLIX must have felt like a replay of the end of the 2007 season(69x88)
+NOT RELEVANT:
+7/11
+#################################
+Q:Will the Lakers make the Nba Finals in 2015?
+A: YES (correct NO)
+nedostali se do finals, clanky srovnavaji toto finale se starymi (kde lakers figurovali)
+#################################
+Q:Did Barack Obama get impeached in november 2014?
+nedetekujeme impeached jako keyword (root sloveso), vse nerelevantni
+#################################
+Q:Do the Democrats take control of the Senate after the 2014 midterm elections?
+A: YES (correct NO)
+In the November midterm elections, Democrats ceded control of the Senate to Republicans, ending Reid’s tenure as majority leader, which began in 2007(69x89)
+Meanwhile, in his first interview since Tuesday’s midterm elections, Obama acknowledged partial responsibility for Democrats losing control of the Senate and several gubernatorial seats(60x91)
+NOT RELEVANT: 4/6
+#################################
+Q:Will LaMarcus Aldridge stay in Portland?
+A: YES (correct NO)
+Working with the understanding that LaMarcus Aldridge was already gone, Portland has spent the last week waving goodbye to roughly half their team(68x100)
+NOT RELEVANT: 0/1
+#################################
+Q:Will Rick Perry win the Republican presidential nomination for 2016?
+A: YES (correct NO)
+not answerable :(
+#################################
+Q:Will Roger Federer win the 2015 Wimbledon Championship?
+A: YES (correct NO)
+When Novak Djokovic pounded a cross-court winner past Roger Federer on Sunday afternoon to seal his third Wimbledon championship and ninth grand slam title, the four-way hegemony that has long defined the tour never appeared more like a spot in the rear view mirror(60x100)
+###############################
+Q:Will the conservatives win the 2015 UK election?
+A: YES (correct YES)
+Dominic Bryant, UK economist at BNP Paribas, provides a handy summary: The Conservatives look to have won an unexpected majority in the UK general election(55.6x98)
+But the company was cautious about the outlook, especially for the UK defence industry with the prospect of further austerity measures now the Conservatives have won the general election(57x87)
+rel 2/7
+###############################
+Q:Will oil prices drop steeply in late 2014?
+yes/yes
+Low Oil Prices Slam Transocean(44*96)
+Crude oil prices continue rebound(75*79)
+Fall in oil prices 'temporary'(76*71)
+Oil prices see further declines(74*85)
+rel ~100/100
+
+
+

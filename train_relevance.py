@@ -2,6 +2,8 @@
 import numpy as np
 from argus.relevance import Relevance, Q
 import csv
+from multiprocessing import Pool
+
 outfile = 'tests/outfile.tsv'
 trainIDs = np.load('tests/trainIDs/trainIDs.npy')
 
@@ -67,6 +69,7 @@ def stats(R, qs):
         if q.y == yt:
             corr += 1
     print '%.2f%% correct (%d/%d)' % (float(corr)/i*100, corr, i)
+    return float(corr)/i*100
 
 def multip_features(qs, ctext=None, rtext=None):
     k = 0
@@ -94,6 +97,21 @@ def multip_features(qs, ctext=None, rtext=None):
                     rtext.append(rtext[i]+'_X_'+rtext[j])
         k = 1
 
+def inverse_features(qs, ctext=None, rtext=None):
+    k = 0
+    for q in qs:
+        flen = len(q.f)
+        for i in range(flen):
+            newf = q.f[i,:] == 0.
+            q.f = np.vstack((q.f, newf.astype(float)))
+            if k == 0 and ctext is not None:
+                ctext.append(ctext[i]+'==0')
+        k = 1
+#    for q in qs:
+#        rlen = len(q.f)
+#        for i in range(rlen):
+#            newr = q.r[i,:] == 0.
+#            q.r = np.vstack((q.r, newr.astype(float)))
 
 def list_weights(R, ctext, rtext):
     for i in range(len(ctext)):
@@ -109,18 +127,17 @@ def train():
     qstrain, qstest, ctext, rtext = fill()
 #    multip_features(qstrain, ctext, rtext)
 #    multip_features(qstest)
+    inverse_features(qstrain, ctext, rtext)
+    inverse_features(qstest)
+
+#    cross_validate_all(qstrain+qstest)
+
     w_dim = qstest[0].f.shape[0]
     q_dim = qstest[0].r.shape[0]
     R = Relevance(w_dim, q_dim)
-    for i in range(50):
-        R.train(qstrain, learning_rate=0.01, nepoch=10, evaluate_loss_after=10,
-            batch_size=200, reg=1e-3)
-        print '---------------test'
-        stats(R, qstest)
-        print '---------------train'
-        stats(R, qstrain)
-        print i
 
+    R.train(qstrain, learning_rate=0.01, nepoch=500, evaluate_loss_after=10,
+            batch_size=200, reg=1e-3)
     R.save('sources/models')
     print '---------------test'
     stats(R, qstest)
@@ -129,6 +146,49 @@ def train():
     print '\n========================\n'
     list_weights(R, ctext, rtext)
 
+
+
+
+
+def cross_validate_one(idx):
+    global gdata
+    (qs, threads) = gdata
+    w_dim = qs[0].f.shape[0]
+    q_dim = qs[0].r.shape[0]
+    R = Relevance(w_dim, q_dim)
+    np.random.seed(17151711+idx*2+1)
+    if idx==0:
+        R.train(qs, learning_rate=0.01, nepoch=500, evaluate_loss_after=100,
+            batch_size=200, reg=1e-3)
+        res=0
+    else:
+        np.random.shuffle(qs)
+        trainvalborder = len(qs)*(threads-2)/(threads-1)
+        R.train(qs[:trainvalborder], learning_rate=0.01, nepoch=500, evaluate_loss_after=100,
+            batch_size=200, reg=1e-3)
+        res = stats(R, qs[trainvalborder:])
+        print 'Loss after training on train(idx=%d): %.2f' % (idx, R.calculate_loss(qs[:trainvalborder]))
+        print 'Stats after training on test(idx=%d): %.2f' % (idx, res)
+    return (res, R)
+
+def cross_validate_all(qstrain):
+    global gdata
+    threads = 4
+    gdata = (qstrain, threads+1)
+    i = 0
+    pool = Pool()
+    percs = []
+    for res in pool.imap(cross_validate_one, range(threads+1)):
+        perc, R = res
+        if i == 0:
+            retR = R
+            i += 1
+        else:
+            percs.append(perc)
+    pool.close()
+    print percs
+    print 'mean perc after val =', sum(percs)/threads
+    return retR
 
 if __name__ == '__main__':
     np.random.seed(17151711)

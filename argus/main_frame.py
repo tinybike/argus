@@ -48,7 +48,6 @@ def print_sources(answer):
         for i in range(len(source.features)):
             print flo[i], ':', source.features[i].get_value(), ':', source.features[i].get_info()
         print 'prob=%.2f, rel=%.2f' % (source.prob, source.rel)
-        print "---------------------------"
         print "==========================="
     print 'Number of sources:', len(answer.sources)
     print answer.text
