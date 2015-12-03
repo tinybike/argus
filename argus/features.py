@@ -194,6 +194,7 @@ def root_sentiment(root):
     return 1
 
 import re
+from feature_functs import load, patterns
 class Match_score(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, clas)
@@ -211,41 +212,46 @@ class Match_score(Feature):
                 Feature.set_value(self, 0.)
                 return
             qsubj = qsubj.text
-            subjpos = -1
-            for i in range(len(sentence_kw)):
-                if qsubj in sentence_kw[i] or sentence_kw[i] in qsubj:
-                    subjpos = i
-            res = 1
-            if subjpos == -1:
-                Feature.set_info(self, 'subjpos wasnt recognised')
+            result = 1
+            if int(s1)<int(s2):
+                result = -1
+
+            try:
+                hs = load(sentence, sentence_kw, s1+'-'+s2)
+                score = float(patterns(hs, qsubj))
+#                print 'Q:',answer.q.text
+#                print 'S:', sentence
+#                print 'SCORE=', score*result
+                Feature.set_value(self, score*result)
+            except Exception:
+#                print 'EXCEPTION'
                 Feature.set_value(self, 0.)
-                return
-            if (int(s1)>int(s2) and subjpos == 0) or (int(s1)<int(s2) and subjpos != 0):
-                print 'Q:',answer.q.text
-                print 'S:', sentence
-                print 'Feat=1, pos=',subjpos
-                res *= 1
-            else:
-                print 'Q:', answer.q.text
-                print 'S:', sentence
-                print 'Feat=-1, pos=',subjpos
-                res *= -1
-
-            Feature.set_value(self, res)
         else:
-            Feature.set_info(self, 'no score found')
             Feature.set_value(self, 0.)
-
-    def is_sim(self, v1, v2):
-        sim = []
-        if (v1 == 'be') or (v2 == 'be'):
-            return 0
-        for kk in wn.synsets(v1):
-            for ss in wn.synsets(v2):
-                sim.append(ss.path_similarity(kk))
-        if len(sim) == 0:
-            return 0
-        return max(0, *sim)
+#            subjpos = -1
+#            for i in range(len(sentence_kw)):
+#                if qsubj in sentence_kw[i] or sentence_kw[i] in qsubj:
+#                    subjpos = i
+#            res = 1
+#            if subjpos == -1:
+#                Feature.set_info(self, 'subjpos wasnt recognised')
+#                Feature.set_value(self, 0.)
+#                return
+#            if (int(s1)>int(s2) and subjpos == 0) or (int(s1)<int(s2) and subjpos != 0):
+#                print 'Q:',answer.q.text
+#                print 'S:', sentence
+#                print 'Feat=1, pos=',subjpos
+#                res *= 1
+#            else:
+#                print 'Q:', answer.q.text
+#                print 'S:', sentence
+#                print 'Feat=-1, pos=',subjpos
+#                res *= -1
+#
+#            Feature.set_value(self, res)
+#        else:
+#            Feature.set_info(self, 'no score found')
+#            Feature.set_value(self, 0.)
 
 #class Subj_match(Feature):
 #    def __init__(self, answer, i):

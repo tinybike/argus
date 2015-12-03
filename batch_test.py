@@ -43,7 +43,7 @@ def reparse():
                     headline = ouranswer.sources[0].headline
                     sentence = ouranswer.sources[0].sentence
                     source = ouranswer.sources[0].source
-                    for j in range(len(ouranswer.sources[0].features)):
+                    for j in range(len(feature_list_official)):
                         for s in ouranswer.sources:
                             feat += str(s.features[j].get_value())+":"
                         feat = feat[:-1]
