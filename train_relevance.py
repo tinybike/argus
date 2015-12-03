@@ -97,7 +97,7 @@ def multip_features(qs, ctext=None, rtext=None):
                     rtext.append(rtext[i]+'_X_'+rtext[j])
         k = 1
 
-def inverse_features(qs, ctext=None, rtext=None):
+def zero_features(qs, ctext=None, rtext=None):
     k = 0
     for q in qs:
         flen = len(q.f)
@@ -113,6 +113,24 @@ def inverse_features(qs, ctext=None, rtext=None):
 #            newr = q.r[i,:] == 0.
 #            q.r = np.vstack((q.r, newr.astype(float)))
 
+
+def inverse_features(qs, ctext=None, rtext=None):
+    k = 0
+    for q in qs:
+        flen = len(q.f)
+        for i in range(flen):
+            newf = q.f[i,:]-1
+            q.f = np.vstack((q.f, newf))
+            if k == 0 and ctext is not None:
+                ctext.append('1-'+ctext[i])
+        k = 1
+#    for q in qs:
+#        rlen = len(q.f)
+#        for i in range(rlen):
+#            newr = q.r[i,:] == 0.
+#            q.r = np.vstack((q.r, newr.astype(float)))
+
+
 def list_weights(R, ctext, rtext):
     for i in range(len(ctext)):
         dots = max(3,50-len(ctext[i]))
@@ -125,29 +143,32 @@ def list_weights(R, ctext, rtext):
 
 def train():
     qstrain, qstest, ctext, rtext = fill()
+#    inverse_features(qstrain, ctext, rtext)
+#    inverse_features(qstest)
 #    multip_features(qstrain, ctext, rtext)
 #    multip_features(qstest)
-    inverse_features(qstrain, ctext, rtext)
-    inverse_features(qstest)
+    zero_features(qstrain, ctext, rtext)
+    zero_features(qstest)
 
-#    cross_validate_all(qstrain+qstest)
+
+#    R = cross_validate_all(qstrain+qstest)
 
     w_dim = qstest[0].f.shape[0]
     q_dim = qstest[0].r.shape[0]
     R = Relevance(w_dim, q_dim)
 
-    R.train(qstrain, learning_rate=0.01, nepoch=500, evaluate_loss_after=10,
+    R.train(qstrain, learning_rate=0.02, nepoch=500, evaluate_loss_after=10,
             batch_size=200, reg=1e-3)
-    R.save('sources/models')
+
+    print '\n========================\n'
+    list_weights(R, ctext, rtext)
+    print 'W_shape =', R.W.shape
+    print 'Q_shape =', R.Q.shape
     print '---------------test'
     stats(R, qstest)
     print '---------------train'
     stats(R, qstrain)
-    print '\n========================\n'
-    list_weights(R, ctext, rtext)
-
-
-
+    R.save('sources/models')
 
 
 def cross_validate_one(idx):

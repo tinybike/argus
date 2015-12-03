@@ -146,3 +146,22 @@ def load_dates(question):
             question.date = line[1]
 #            print 'date found'
             break
+
+
+
+def extract_from_string(question):
+    spaced = nlp(unicode(question))
+    keywords = []
+    non_keywords = ['TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']
+    for ent in spaced.ents:
+        if ent.label_ in non_keywords:
+            continue
+        if ent.label_ != 'DATE':
+            kw = ''
+            for word in ent:
+                if word.lower_ not in 'the a':
+                    kw += word.text_with_ws
+            keywords.append(kw)
+
+    more_nouns(spaced.ents, spaced.noun_chunks, keywords)
+    return keywords

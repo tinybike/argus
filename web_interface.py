@@ -64,9 +64,9 @@ def create_sources(a):
     sources = []
     for i in range(len(a.sources)):
         sources.append(Web_Source(a, i))
+    sources.sort(key=lambda x: x.rel, reverse=True)
     return sources
 
-from argus.features import feature_list_official as flo
 class Web_Source(object):
     def __init__(self,a,i):
         s = a.sources[i]
@@ -89,22 +89,25 @@ class Web_Source(object):
 #        else:
 #            proc = (1-a.features.prob[i])*100
         proc = s.prob*100
-        rel = s.rel*100
-        self.percentage = str('%.2f%% (rel %.2f%%)' % (proc,rel))
+        self.rel = s.rel*100
+        self.percentage = str('%.2f%% (rel %.2f%%)' % (proc, self.rel))
         w = a.model.model.W
         q = a.model.model.Q
         feats = s.features
         self.info = ''
         fi = 0
         ri = 0
-        for j in range(len(flo)):
-            if feats[j].get_type() in flo[j]:
-                if '#' in flo[j]:
-                    self.info += flo[j]+str(': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(),w[fi],feats[j].get_value()*w[fi]))
-                    fi += 1
-                if '@' in flo[j]:
-                    self.info += flo[j]+str(': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(),q[ri],feats[j].get_value()*q[ri]))
-                    ri += 1
+        for j in range(len(feats)):
+            f = feats[j]
+            if '#' in f.get_type():
+                self.info += f.get_name()+str(': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(),w[fi],feats[j].get_value()*w[fi]))
+                fi += 1
+        self.info += '---------------<br />'
+        for j in range(len(feats)):
+            f = feats[j]
+            if '@' in f.get_type():
+                self.info += f.get_name()+str(': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(),q[ri],feats[j].get_value()*q[ri]))
+                ri += 1
 #        self.info = str('Question sentiment: %+d * %.2f = %+.2f <br />Sentence sentiment: %+d * %.2f = %+.2f <br />Verb similarity: %+.2f * %.2f = %+.2f' % (,qsh[1],w[0][1],qsh[1]*w[0][1],v_sim,w[0][2],v_sim*w[0][2]))
 
 if __name__ == '__main__':
