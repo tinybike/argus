@@ -97,8 +97,6 @@ def extract(question):
             question.root_verb.append(branch)
             keywords.append(branch.lower_)
 
-    load_dates(question)
-
     return keywords
 
 
