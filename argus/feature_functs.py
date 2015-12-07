@@ -7,11 +7,15 @@ class Holder:
         self.is_score = is_score
         self.is_kw = is_kw
 
-
+import re
 def load(sentence, kws, score):
     hs = []
     for kw in kws:
-        hs.append(Holder(kw, sentence.index(kw), True))
+        try:
+            hs.append(Holder(kw, sentence.index(kw), True))
+        except ValueError:
+#            print 'INDEX OF',re.sub('[\W_]+', ' ',kw),'IN',re.sub('[\W_]+', ' ', sentence)
+            hs.append(Holder(kw, re.sub('[\W_]+', ' ', sentence).index(re.sub('[\W_]+', ' ',kw)), True))
     hs.append(Holder(score, sentence.index(score), False, True))
     hs.sort(key=lambda x: x.pos)
     pos = 0
@@ -27,16 +31,20 @@ def load(sentence, kws, score):
     hs.sort(key=lambda x: x.pos)
     return hs
 
+
 def patterns(hs, subj):
     kw = [h.is_kw for h in hs]
     score = [h.is_score for h in hs]
     s_ix = score.index(True)
-    if kw[s_ix-1] and kw[s_ix+1]:
-        if hs[s_ix-1].text in subj or subj in hs[s_ix-1].text:
-            return 1
-        elif hs[s_ix+1].text in subj or subj in hs[s_ix+1].text:
-            return -1
-        return 0
+    try:
+        if kw[s_ix-1] and kw[s_ix+1]:
+            if hs[s_ix-1].text in subj or subj in hs[s_ix-1].text:
+                return 1
+            elif hs[s_ix+1].text in subj or subj in hs[s_ix+1].text:
+                return -1
+            return 0
+    except IndexError:
+        pass
 
     k = []
     for i in range(s_ix-1, -1, -1):
@@ -49,3 +57,12 @@ def patterns(hs, subj):
     elif k[1].text in subj or subj in k[1].text:
         return 1
     return 0
+
+
+
+if __name__ == '__main__':
+    sent = 'The buildup to Super Bowl XLIX may have been dominated by talk of deflated footballs but the denouement was anything but flat as the New England Patriots held off the Seattle Seahawks to win 28-24 in Phoenix.'
+    kws = ['New England Patriots','Super Bowl XLIX','Seattle Seahawks']
+    score = '28-24'
+    hs = load(sent,kws,score)
+    print patterns(hs, 'New England Patriots')

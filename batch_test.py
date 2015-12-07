@@ -11,6 +11,8 @@ trainIDs = np.load('tests/trainIDs/trainIDs.npy')
 
 def reparse():
     qnum = 0
+    info_file = open(INFOFILE, 'wb')
+    info_writer = csv.writer(info_file, delimiter='\t')
     with open(OUTFILE, 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t')
         for csvfile in os.listdir(CSVFOLDER):
@@ -26,11 +28,23 @@ def reparse():
                     info += feature_list_official
                     if qnum == 0:
                         writer.writerow(info)
+                        info_writer.writerow(['Question', 'Sentence','verbs','wn','spacy'])
                     continue
                 if line[16] == 'Rejected':
                     continue
                 qnum += 1
                 ouranswer = get_answer(line[30])
+
+                for source in ouranswer.sources:
+                    info = []
+                    info.append(ouranswer.q.text)
+                    info.append(source.sentence)
+                    info.append(source.features[5].get_info())
+                    info.append(str(source.features[5].get_value()))
+                    info.append(str(source.features[4].get_value()))
+                    info = [field.encode('utf-8') for field in info]
+                    info_writer.writerow(info)
+
 
                 url = ''
                 headline = ''
@@ -56,7 +70,8 @@ def reparse():
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
                 if qnum % 10 == 0:
-                    print 'answering question',qnum
+                    print 'answering question', qnum
+    info_file.close()
 
 def get_stats():
     i = -1
@@ -155,6 +170,7 @@ def bad_only():
 import sys
 CSVFOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
+INFOFILE = "tests/infofile.tsv"
 validation = True
 if __name__ == "__main__":
     for i in range(0,len(sys.argv)):

@@ -13,7 +13,7 @@ def kw_to_query(keywords):
             query += " "+word
     return query
 
-def get_content_elastic(a):
+def get_content_elastic(a, search_all=True):
     the_date = "2015-10-01"
     try:
         if len(a.q.date) > 0:
@@ -50,7 +50,10 @@ def get_content_elastic(a):
 #  "sort": { "date": { "order": "desc" }}
 }
     res = es.search(index="argus", size=100, body=q)
-    return search_for_keywords(a, res)
+    if search_all:
+        return search_for_keywords(a, res)
+    else:
+        return search_for_some_keywords(a, res)
 
 def search_for_keywords(a,jobj):
     if len(jobj['hits']['hits']) == 0:
@@ -144,3 +147,54 @@ def ask(a,query):
     if len(a.sources) != 0:
         return True, True
     return False, True
+
+
+
+def search_for_some_keywords(a,jobj):
+    if len(jobj['hits']['hits']) == 0:
+            return False, False
+    for i in range(0, len(jobj['hits']['hits'])):
+        headline = jobj['hits']['hits'][i]['_source']['headline']
+        summary = jobj['hits']['hits'][i]['_source']['summary']
+        source = jobj['hits']['hits'][i]['_source']['source']
+        url = jobj['hits']['hits'][i]['_source']['url']
+        date = jobj['hits']['hits'][i]['_source']['date']
+        found, sentence = search_some_short(a, headline)
+        if not found:
+            found, sentence = search_some_sentences(a, summary)
+            if not found:
+                try:
+                    body = jobj['hits']['hits'][i]['_source']['body']
+                except KeyError:
+                    continue
+                found, sentence = search_some_sentences(a, body)
+                if not found:
+                    continue
+        a.sources.append(Source(source, url, headline, summary,
+                                sentence, date))
+        a.sources[-1].elastic = float(jobj['hits']['hits'][i]['_score'])
+
+    if len(a.sources) != 0:
+        return True, True
+    return False, True
+
+
+#XXX:appends sentence
+def search_some_short(a,text):
+#    some = min(3, len(a.q.searchwords))
+    some = float(len(a.q.searchwords))/4*3
+    i = 0
+    for word in a.q.searchwords:
+        if word.lower() in text.lower():
+            i += 1
+    if i < some:
+        return False, ''
+    return True, text
+
+def search_some_sentences(a, body):
+    sentences = sentence_split(body)
+    for sentence in sentences:
+        found, text = search_some_short(a, sentence)
+        if found:
+            return True, text
+    return False, ''

@@ -8,12 +8,12 @@ clas = '#'
 rel = '@'
 
 feature_list = ['Sentiment_q', 'Sentiment_s', 'Subj_match', 'Obj_match', 'Verb_sim',
-                'Verb_sim_wn', 'Relevant_date', 'Elastic_score', 'Match_score']
+                'Verb_sim_wn', 'Relevant_date', 'Elastic_score', 'Match_score', 'Verb_sim_wn_bin']
 feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '#@Subject match', '#@Object match',
                          '#@Verb similarity (spaCy)',
                          '#@Verb similarity (WordNet)', '@Relevant date',
-                         '@Elastic score', '#Match score']
+                         '@Elastic score', '#Match score', '#@Verb_sim_wn_bin']
 def count_flo(string):
     i = 0
     for item in feature_list_official:
@@ -112,6 +112,7 @@ def bow(l):
     vector = np.zeros(l[0].vector.shape)
     for token in l:
         vector += token.vector
+#        return vector ###############
     return vector/len(l)
 
 import math
@@ -129,19 +130,20 @@ class Relevant_date(Feature):
             qdate = parse(qdate, ignoretz=True, fuzzy=True).date()
             info = 'Qdate=%s, Sdate=%s' % (qdate, sdate)
 #            print sdate, qdate
-            delta = qdate-sdate
-            f = self.gauss(delta.days)
-#            print 'gaus(timedelta) =', f
+            delta = sdate-qdate
+            f = self.g(delta.days)
+#            print 'g(timedelta) =', f
             Feature.set_value(self, f)
             Feature.set_info(self, info)
         except TypeError:
             Feature.set_value(self, 0.)
 
-    def gauss(self, x):
-        mu = 2
-        delta = math.sqrt(3)
-        return math.exp(-(x-mu)**2/(2*delta**2))
-
+    def g(self, x):
+        if x > 15 or x < 0:
+            return 0.
+        if x >= 0 and x <= 1:
+            return 1.
+        return 15./14. - float(x)/14
 
 class Verb_sim(Feature):
     def __init__(self, answer, i):
@@ -156,6 +158,8 @@ class Verb_sim(Feature):
             s1.append(s)
         s_verbs = verbs(s1[0])
         s_vec = bow(s_verbs)
+        info = 'Qverb=%s, Sverb=%s' % (q.root_verb[0].text, s_verbs[0].text)
+        Feature.set_info(self, info)
         sim = np.dot(q_vec,s_vec)/(np.linalg.norm(q_vec)*np.linalg.norm(s_vec))
         if math.isnan(sim):
             sim = 0
@@ -189,10 +193,12 @@ def get_obj(root):
         if child.dep_ == 'dobj':
             return child
 
-def root_sentiment(root):
-    s = 0
-    return 1
+#def root_sentiment(root):
+#    s = 0
+#    return 1
 
+
+import traceback
 import re
 from feature_functs import load, patterns
 class Match_score(Feature):
@@ -200,7 +206,7 @@ class Match_score(Feature):
         Feature.set_type(self, clas)
         Feature.set_name(self, 'Match score')
         sentence = answer.sources[i].sentence
-        regex = re.match('\D*(\d+)[-](\d+).*', sentence) # (\d+)\W(\d+) only for multiple scores detection
+        regex = re.match('.*?(\d+)[-](\d+).*', sentence) # (\d+)\W(\d+) only for multiple scores detection
         if regex:
             s1 = regex.group(1)
             s2 = regex.group(2)
@@ -217,85 +223,25 @@ class Match_score(Feature):
                 result = -1
 
             try:
+#                print 'loading',sentence, sentence_kw, s1+'-'+s2
+#                sentence = re.sub('[\W_]+', ' ', sentence)
+#                sentence_kw = [re.sub('[\W_]+', ' ', kw) for kw in sentence_kw]
                 hs = load(sentence, sentence_kw, s1+'-'+s2)
+#                print 'loaded'
                 score = float(patterns(hs, qsubj))
 #                print 'Q:',answer.q.text
 #                print 'S:', sentence
-#                print 'SCORE=', score*result
+#                print 'score=',score
+#                print 'result=',score,s1,s2
+#                print 'SCORE*RESULT=', score*result
                 Feature.set_value(self, score*result)
             except Exception:
 #                print 'EXCEPTION'
+#                traceback.print_exc()
                 Feature.set_value(self, 0.)
         else:
+#            print 'no score found in', sentence
             Feature.set_value(self, 0.)
-#            subjpos = -1
-#            for i in range(len(sentence_kw)):
-#                if qsubj in sentence_kw[i] or sentence_kw[i] in qsubj:
-#                    subjpos = i
-#            res = 1
-#            if subjpos == -1:
-#                Feature.set_info(self, 'subjpos wasnt recognised')
-#                Feature.set_value(self, 0.)
-#                return
-#            if (int(s1)>int(s2) and subjpos == 0) or (int(s1)<int(s2) and subjpos != 0):
-#                print 'Q:',answer.q.text
-#                print 'S:', sentence
-#                print 'Feat=1, pos=',subjpos
-#                res *= 1
-#            else:
-#                print 'Q:', answer.q.text
-#                print 'S:', sentence
-#                print 'Feat=-1, pos=',subjpos
-#                res *= -1
-#
-#            Feature.set_value(self, res)
-#        else:
-#            Feature.set_info(self, 'no score found')
-#            Feature.set_value(self, 0.)
-
-#class Subj_match(Feature):
-#    def __init__(self, answer, i):
-#        Feature.set_type(self, clas+rel)
-#        sentence = answer.sources[i].sentence
-#        q = answer.q.root_verb[0]
-#
-#        sentencel = unicode(answer.sources[i].sentence.lower())
-#        ql = unicode(answer.q.text.lower())
-#        qsubjl = self.get_subj(list(nlp(ql).sents)[0].root)
-#        ssubjl = self.get_subj(list(nlp(sentencel).sents)[0].root)
-#
-#
-#        qsubj = self.get_subj(q)
-#        ssubj = self.get_subj(list(nlp(sentence).sents)[0].root)
-#        if not crossmatch(qsubj, ssubj, qsubjl, ssubjl):
-#            Feature.set_value(self, 0.)
-#        else:
-#            Feature.set_value(self, 1.)
-##        info = 'Qsubject=%s, Ssubject=%s' % (qsubj.text, ssubj.text)
-##        Feature.set_info(self, info)
-##        if qsubj.lower_ in ssubj.lower_ or ssubj.lower_ in qsubj.lower_:
-##            Feature.set_value(self, 1.)
-##        else:
-##            Feature.set_value(self, 0.)
-#
-#    def get_subj(self, root):
-#        for child in root.children:
-#            if child.dep_ == 'nsubj':
-#                return child
-#
-#
-#def crossmatch(a1, b1, a2, b2):
-#    y = [a1, b1, a2, b2]
-#    x = []
-#    for ab in y:
-#        if ab is None:
-#            x.append('xxxxxxx')
-#        else:
-#            x.append(ab.lower_)
-#    if (x[0] == x[1] or x[0] == x[3]) or (x[2] == x[1] or x[2] == x[3]):
-#        return True
-#    return False
-
 
 class Obj_match(Feature):
     def __init__(self, answer, i):
@@ -331,6 +277,37 @@ class Verb_sim_wn(Feature):
         Feature.set_info(self, info)
         sim = self.max_sim(s_verb, q_verb)
         Feature.set_value(self, sim)
+
+    def max_sim(self, v1, v2):
+        sim = []
+        if (v1 == 'be') or (v2 == 'be'):
+            return 0
+        for kk in wn.synsets(v1):
+            for ss in wn.synsets(v2):
+                sim.append(ss.path_similarity(kk))
+        if len(sim) == 0:
+            return 0
+        return max(0, *sim)
+
+
+
+class Verb_sim_wn_bin(Feature):
+    def __init__(self, answer, i):
+        Feature.set_type(self, clas+rel)
+        Feature.set_name(self, 'Verb similarity (WordNet)')
+        q = answer.q
+        sentence = answer.sources[i].sentence
+        q_verb = q.root_verb[0].lemma_
+        doc = nlp(sentence)
+        s1 = list(doc.sents)
+        s_verb = s1[0].root.lemma_
+        info = 'Qverb=%s, Sverb=%s' % (q_verb, s_verb)
+        Feature.set_info(self, info)
+        sim = self.max_sim(s_verb, q_verb)
+        if sim == 1:
+            Feature.set_value(self, sim)
+        else:
+            Feature.set_value(self, 0.)
 
     def max_sim(self, v1, v2):
         sim = []

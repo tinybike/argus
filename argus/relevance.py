@@ -146,7 +146,7 @@ class Relevance:
             dLdW = np.zeros(np.size(self.W))
             dLdQ = np.zeros(np.size(self.Q))
             i = 1
-            random.shuffle(qs)
+            np.random.shuffle(qs)
             for q in qs:
                 dldw, dldq = self.grad(q.f, q.r, q.y, reg)
                 dLdW += dldw
