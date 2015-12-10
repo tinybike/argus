@@ -106,6 +106,9 @@ def verbs(sent):
     for branch in sent.root.rights:
         if branch.pos == VERB:
             verbs.append(branch)
+    for branch in sent.root.lefts:
+        if branch.pos == VERB:
+            verbs.append(branch)
     return verbs
 
 

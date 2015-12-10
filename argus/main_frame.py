@@ -2,8 +2,7 @@ from elastic import get_content_elastic, check_unknowns, ask
 from keyword_extract import check_keywords, preprocess_question
 from answer import Question, Answer
 from features import load_features
-#from nltk.corpus import sentiwordnet as swn
-#import nltk
+
 
 
 def get_answer(question):

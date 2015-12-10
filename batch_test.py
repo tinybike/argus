@@ -3,16 +3,22 @@ import csv
 import os
 from argus.main_frame import get_answer
 import numpy as np
-from argus.features import feature_list_official
+from argus.features import feature_list_official as flo
 
 
 CSVFOLDER = "tests/batches"
 trainIDs = np.load('tests/trainIDs/trainIDs.npy')
 
+first = False
 def reparse():
     qnum = 0
-    info_file = open(INFOFILE, 'wb')
-    info_writer = csv.writer(info_file, delimiter='\t')
+    info_files = [open('tests/feature_prints/'+i_f+'.tsv', 'wb') for i_f in flo]
+    writers = [csv.writer(info_file, delimiter='\t') for info_file in info_files]
+    info_all = open('tests/feature_prints/all_features.tsv', 'wb')
+    writer_all = csv.writer(info_all, delimiter='\t')
+    info_turk = open('tests/feature_prints/turk_sentences.tsv', 'wb')
+    writer_turk = csv.writer(info_turk, delimiter=',')
+    first = False
     with open(OUTFILE, 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t')
         for csvfile in os.listdir(CSVFOLDER):
@@ -25,26 +31,16 @@ def reparse():
                     info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer',
                             'OurKeywords', 'FoundSentence', 'OurHeadline',
                             'TurkTopic', 'TurkURL', 'OurURL','Source', 'info']
-                    info += feature_list_official
+                    info += flo
                     if qnum == 0:
                         writer.writerow(info)
-                        info_writer.writerow(['Question', 'Sentence','verbs','wn','spacy'])
+                        writer_turk.writerow(['question', 'sentence'])
+                        first = True
                     continue
                 if line[16] == 'Rejected':
                     continue
                 qnum += 1
                 ouranswer = get_answer(line[30])
-
-                for source in ouranswer.sources:
-                    info = []
-                    info.append(ouranswer.q.text)
-                    info.append(source.sentence)
-                    info.append(source.features[5].get_info())
-                    info.append(str(source.features[5].get_value()))
-                    info.append(str(source.features[4].get_value()))
-                    info = [field.encode('utf-8') for field in info]
-                    info_writer.writerow(info)
-
 
                 url = ''
                 headline = ''
@@ -53,11 +49,14 @@ def reparse():
                 feat = ''
                 info = []
                 if len(ouranswer.sources) != 0:
+                    feature_print_all(writer_all, ouranswer, first)
+                    feature_print(writers, ouranswer)
+                    turk_print(writer_turk, ouranswer)
                     url = ouranswer.sources[0].url
                     headline = ouranswer.sources[0].headline
                     sentence = ouranswer.sources[0].sentence
                     source = ouranswer.sources[0].source
-                    for j in range(len(feature_list_official)):
+                    for j in range(len(flo)):
                         for s in ouranswer.sources:
                             feat += str(s.features[j].get_value())+":"
                         feat = feat[:-1]
@@ -66,12 +65,38 @@ def reparse():
                 info = [line[0], line[30], line[28],
                         ouranswer.text, ouranswer.q.query, sentence,
                         headline, line[31], line[29], url, source,
-                        ouranswer.info]+info
+                        ouranswer.info] + info
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
                 if qnum % 10 == 0:
                     print 'answering question', qnum
-    info_file.close()
+    for i_f in info_files:
+        i_f.close()
+
+
+def feature_print(writers, answer):
+    for source in answer.sources:
+        for i in range(len(writers)):
+            f = source.features[i]
+            info = [answer.q.text, f.get_info(), str(f.get_value()), source.sentence]
+            info = [field.encode('utf-8') for field in info]
+            writers[i].writerow(info)
+
+def turk_print(writer, answer):
+    for source in answer.sources:
+        info = [answer.q.text, source.sentence]
+        info = [field.encode('utf-8') for field in info]
+        writer.writerow(info)
+
+def feature_print_all(writer, answer, first = False):
+    if first:
+        writer.writerow(['Question'] + [f.get_name() for f in answer.sources[0].features]+['Sentence'])
+        first = False
+    for source in answer.sources:
+        info = [answer.q.text] + [str(f.get_value()) for f in source.features] + [source.sentence]
+        info = [field.encode('utf-8') for field in info]
+        writer.writerow(info)
+
 
 def get_stats():
     i = -1

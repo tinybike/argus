@@ -90,6 +90,7 @@ class Elastic_score(Feature):
         Feature.set_name(self, 'Elastic score')
         Feature.set_value(self, answer.sources[i].elastic)
 
+
 class Sentiment_q(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, clas)
@@ -124,12 +125,10 @@ class Relevant_date(Feature):
         Feature.set_name(self, 'Date relevance')
         sdate = answer.sources[i].date
         qdate = answer.q.date
-#        print type(sdate), type(qdate)
         try:
             sdate = parse(sdate, ignoretz=True, fuzzy=True).date()
             qdate = parse(qdate, ignoretz=True, fuzzy=True).date()
             info = 'Qdate=%s, Sdate=%s' % (qdate, sdate)
-#            print sdate, qdate
             delta = sdate-qdate
             f = self.g(delta.days)
 #            print 'g(timedelta) =', f
@@ -144,58 +143,6 @@ class Relevant_date(Feature):
         if x >= 0 and x <= 1:
             return 1.
         return 15./14. - float(x)/14
-
-class Verb_sim(Feature):
-    def __init__(self, answer, i):
-        Feature.set_type(self, clas+rel)
-        Feature.set_name(self, 'Verb similarity (spacy)')
-        q = answer.q
-        sentence = answer.sources[i].sentence
-        q_vec = bow(q.root_verb)
-        doc = nlp(sentence)
-        s1 = []
-        for s in doc.sents:
-            s1.append(s)
-        s_verbs = verbs(s1[0])
-        s_vec = bow(s_verbs)
-        info = 'Qverb=%s, Sverb=%s' % (q.root_verb[0].text, s_verbs[0].text)
-        Feature.set_info(self, info)
-        sim = np.dot(q_vec,s_vec)/(np.linalg.norm(q_vec)*np.linalg.norm(s_vec))
-        if math.isnan(sim):
-            sim = 0
-        Feature.set_value(self, sim)
-
-class Subj_match(Feature):
-    def __init__(self, answer, i):
-        Feature.set_type(self, clas+rel)
-        Feature.set_name(self, 'Subject match')
-        sentence = answer.sources[i].sentence
-        q = answer.q.root_verb[0]
-        qsubj = get_subj(q)
-        ssubj = get_subj(list(nlp(sentence).sents)[0].root)
-        if qsubj is None or ssubj is None:
-            Feature.set_value(self, 0.)
-            return
-        info = 'Qsubject=%s, Ssubject=%s' % (qsubj.text, ssubj.text)
-        Feature.set_info(self, info)
-        if qsubj.lower_ in ssubj.lower_ or ssubj.lower_ in qsubj.lower_:
-            Feature.set_value(self, 1.)
-        else:
-            Feature.set_value(self, 0.)
-
-def get_subj(root):
-    for child in root.children:
-        if child.dep_ == 'nsubj':
-            return child
-
-def get_obj(root):
-    for child in root.children:
-        if child.dep_ == 'dobj':
-            return child
-
-#def root_sentiment(root):
-#    s = 0
-#    return 1
 
 
 import traceback
@@ -235,6 +182,7 @@ class Match_score(Feature):
 #                print 'result=',score,s1,s2
 #                print 'SCORE*RESULT=', score*result
                 Feature.set_value(self, score*result)
+                Feature.set_info(self, s1+'-'+s2)
             except Exception:
 #                print 'EXCEPTION'
 #                traceback.print_exc()
@@ -242,6 +190,36 @@ class Match_score(Feature):
         else:
 #            print 'no score found in', sentence
             Feature.set_value(self, 0.)
+
+
+class Subj_match(Feature):
+    def __init__(self, answer, i):
+        Feature.set_type(self, clas+rel)
+        Feature.set_name(self, 'Subject match')
+        sentence = answer.sources[i].sentence
+        q = answer.q.root_verb[0]
+        qsubj = get_subj(q)
+        ssubj = get_subj(list(nlp(sentence).sents)[0].root)
+        if qsubj is None or ssubj is None:
+            Feature.set_value(self, 0.)
+            return
+        info = 'Qsubject=%s, Ssubject=%s' % (qsubj.text, ssubj.text)
+        Feature.set_info(self, info)
+        if qsubj.lower_ in ssubj.lower_ or ssubj.lower_ in qsubj.lower_:
+            Feature.set_value(self, 1.)
+        else:
+            Feature.set_value(self, 0.)
+
+def get_subj(root):
+    for child in root.children:
+        if child.dep_ == 'nsubj':
+            return child
+
+def get_obj(root):
+    for child in root.children:
+        if child.dep_ == 'dobj':
+            return child
+
 
 class Obj_match(Feature):
     def __init__(self, answer, i):
@@ -261,6 +239,43 @@ class Obj_match(Feature):
             Feature.set_value(self, 1.)
         else:
             Feature.set_value(self, 0.)
+
+class Verb_sim(Feature):
+    def __init__(self, answer, i):
+        Feature.set_type(self, clas+rel)
+        Feature.set_name(self, 'Verb similarity (spacy)')
+        q = answer.q
+        sentence = answer.sources[i].sentence
+        doc = nlp(sentence)
+        s1 = []
+        for s in doc.sents:
+            s1.append(s)
+        s_verbs = verbs(s1[0])
+
+        q_vec = bow(q.root_verb)
+        s_vec = bow(s_verbs)
+        info = ''
+        for verb in q.root_verb:
+            info += 'Qverb=%s   ' % (verb)
+        for verb in s_verbs:
+            info += 'Sverb=%s   ' % (verb)
+#        info = 'Qverb=%s, Sverb=%s\n' % (q.root_verb[0].text, s_verbs[0].text)
+        Feature.set_info(self, info)
+        sim = np.dot(q_vec,s_vec)/(np.linalg.norm(q_vec)*np.linalg.norm(s_vec))
+        if math.isnan(sim):
+            sim = 0
+        Feature.set_value(self, sim)
+        if self.is_be(s_verbs, q.root_verb):
+            Feature.set_value(self, 0.)
+
+    def is_be(self, s1, s2):
+        if len(s1) == 1:
+            if s1[0].lemma_ == 'be':
+                return True
+        if len(s2) == 1:
+            if s2[0].lemma_ == 'be':
+                return True
+        return False
 
 
 class Verb_sim_wn(Feature):
@@ -288,7 +303,6 @@ class Verb_sim_wn(Feature):
         if len(sim) == 0:
             return 0
         return max(0, *sim)
-
 
 
 class Verb_sim_wn_bin(Feature):
@@ -319,6 +333,7 @@ class Verb_sim_wn_bin(Feature):
         if len(sim) == 0:
             return 0
         return max(0, *sim)
+
 
 class Antonyms(Feature):
 

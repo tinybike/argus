@@ -151,10 +151,8 @@ def train():
     zero_features(qstest)
 
 #    R = cross_validate_all(qstrain+qstest)
-    w_dim = qstest[0].f.shape[0]
-    q_dim = qstest[0].r.shape[0]
-    R = Relevance(w_dim, q_dim)
-    R.train(qstrain, learning_rate=0.03, nepoch=500, evaluate_loss_after=10,
+    R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
+    R.train(qstrain, learning_rate=0.06, nepoch=500, evaluate_loss_after=10,
             batch_size=1, reg=1e-3)
 
     print '\n========================\n'

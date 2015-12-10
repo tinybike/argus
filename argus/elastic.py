@@ -183,7 +183,7 @@ def search_for_some_keywords(a,jobj):
 def search_some_short(a,text):
 #    some = min(3, len(a.q.searchwords))
     some = float(len(a.q.searchwords))/4*3
-    print 'searching for %.2f out of %d kws' % (some, len(a.q.searchwords))
+#    print 'searching for %.2f out of %d kws' % (some, len(a.q.searchwords))
     i = 0
     for word in a.q.searchwords:
         if word.lower() in text.lower():
