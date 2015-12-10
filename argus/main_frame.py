@@ -19,7 +19,7 @@ def get_answer(question):
     check_unknowns(a)
     if len(a.q.unknown) > 0:
         print 'we have no information on these words:', a.q.unknown
-    found_sources, found_anything = get_content_elastic(a, search_all=False)
+    found_sources, found_anything = get_content_elastic(a, search_all=True)
 
     if found_sources:
         load_features(a)

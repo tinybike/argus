@@ -97,6 +97,7 @@ def extract(question):
             question.root_verb.append(branch)
             keywords.append(branch.lower_)
 
+    load_dates(question)
     return keywords
 
 
@@ -142,7 +143,6 @@ def load_dates(question):
     for line in csv.reader(open('tests/filtereddate.tsv'), delimiter='\t'):
         if line[0] == question.text:
             question.date = line[1]
-#            print 'date found'
             break
 
 

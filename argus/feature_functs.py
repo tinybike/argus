@@ -8,7 +8,20 @@ class Holder:
         self.is_kw = is_kw
 
 import re
+
+def fill_blanks(kws, sentence):
+    new_kws = []
+    for kw in kws:
+        if kw not in sentence:
+            words = kw.split()
+            start_ix = sentence.index(words[0])
+            end_ix = sentence.index(words[-1])+len(words[-1])
+            kw = sentence[start_ix:end_ix]
+        new_kws.append(kw)
+    return new_kws
+
 def load(sentence, kws, score):
+    kws = fill_blanks(kws, sentence)
     hs = []
     for kw in kws:
         try:

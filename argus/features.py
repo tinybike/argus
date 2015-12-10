@@ -8,12 +8,12 @@ clas = '#'
 rel = '@'
 
 feature_list = ['Sentiment_q', 'Sentiment_s', 'Subj_match', 'Obj_match', 'Verb_sim',
-                'Verb_sim_wn', 'Relevant_date', 'Elastic_score', 'Match_score', 'Verb_sim_wn_bin']
+                'Verb_sim_wn', 'Relevant_date', 'Elastic_score', 'Match_score']
 feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '#@Subject match', '#@Object match',
                          '#@Verb similarity (spaCy)',
                          '#@Verb similarity (WordNet)', '@Relevant date',
-                         '@Elastic score', '#Match score', '#@Verb_sim_wn_bin']
+                         '@Elastic score', '#Match score']
 def count_flo(string):
     i = 0
     for item in feature_list_official:
@@ -219,7 +219,7 @@ class Match_score(Feature):
                 return
             qsubj = qsubj.text
             result = 1
-            if int(s1)<int(s2):
+            if int(s1)<=int(s2):
                 result = -1
 
             try:
