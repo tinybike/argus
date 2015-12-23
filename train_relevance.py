@@ -107,11 +107,6 @@ def zero_features(qs, ctext=None, rtext=None):
             if k == 0 and ctext is not None:
                 ctext.append(ctext[i]+'==0')
         k = 1
-#    for q in qs:
-#        rlen = len(q.f)
-#        for i in range(rlen):
-#            newr = q.r[i,:] == 0.
-#            q.r = np.vstack((q.r, newr.astype(float)))
 
 
 def inverse_features(qs, ctext=None, rtext=None):
@@ -152,8 +147,12 @@ def train():
 
 #    R = cross_validate_all(qstrain+qstest)
     R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
-    R.train(qstrain, learning_rate=0.06, nepoch=500, evaluate_loss_after=10,
-            batch_size=1, reg=1e-3)
+#    R.Q = np.load('tests/batches/relevance/learned_relevance.npy')
+#    R.Q[-2] = 0\
+#    mask = np.zeros_like(R.Q)
+#    R.Q[-1] = 1
+    R.train(qstrain, learning_rate=0.01, nepoch=500, evaluate_loss_after=10,
+            batch_size=10, reg=1e-3, train_rel=1)
 
     print '\n========================\n'
     list_weights(R, ctext, rtext)

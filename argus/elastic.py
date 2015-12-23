@@ -58,7 +58,11 @@ def get_content_elastic(a, search_all=True):
 def search_for_keywords(a,jobj):
     if len(jobj['hits']['hits']) == 0:
             return False, False
+    max_score = 1
     for i in range(0, len(jobj['hits']['hits'])):
+        if max_score < float(jobj['hits']['hits'][i]['_score']):
+            max_score = float(jobj['hits']['hits'][i]['_score'])
+    for i in range(len(jobj['hits']['hits'])):
         headline = jobj['hits']['hits'][i]['_source']['headline']
         summary = jobj['hits']['hits'][i]['_source']['summary']
         source = jobj['hits']['hits'][i]['_source']['source']
@@ -77,7 +81,7 @@ def search_for_keywords(a,jobj):
                     continue
         a.sources.append(Source(source, url, headline, summary,
                                 sentence, date))
-        a.sources[-1].elastic = float(jobj['hits']['hits'][i]['_score'])
+        a.sources[-1].elastic = float(jobj['hits']['hits'][i]['_score'])/max_score
 
     if len(a.sources) != 0:
         return True, True
@@ -153,6 +157,11 @@ def ask(a,query):
 def search_for_some_keywords(a,jobj):
     if len(jobj['hits']['hits']) == 0:
             return False, False
+    max_score = 1
+    for i in range(0, len(jobj['hits']['hits'])):
+        if max_score < float(jobj['hits']['hits'][i]['_score']):
+            max_score = float(jobj['hits']['hits'][i]['_score'])
+    max_score = 1
     for i in range(0, len(jobj['hits']['hits'])):
         headline = jobj['hits']['hits'][i]['_source']['headline']
         summary = jobj['hits']['hits'][i]['_source']['summary']
@@ -172,7 +181,7 @@ def search_for_some_keywords(a,jobj):
                     continue
         a.sources.append(Source(source, url, headline, summary,
                                 sentence, date))
-        a.sources[-1].elastic = float(jobj['hits']['hits'][i]['_score'])
+        a.sources[-1].elastic = float(jobj['hits']['hits'][i]['_score'])/max_score
 
     if len(a.sources) != 0:
         return True, True

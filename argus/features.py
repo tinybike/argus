@@ -8,12 +8,12 @@ clas = '#'
 rel = '@'
 
 feature_list = ['Sentiment_q', 'Sentiment_s', 'Subj_match', 'Obj_match', 'Verb_sim',
-                'Verb_sim_wn', 'Relevant_date', 'Elastic_score', 'Match_score']
+                'Verb_sim_wn', 'Relevant_date', 'Elastic_score', 'Match_score', 'Antonyms']
 feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '#@Subject match', '#@Object match',
                          '#@Verb similarity (spaCy)',
                          '#@Verb similarity (WordNet)', '@Relevant date',
-                         '@Elastic score', '#Match score']
+                         '@Elastic score', '#Match score', '#@Antonyms']
 def count_flo(string):
     i = 0
     for item in feature_list_official:
@@ -30,6 +30,7 @@ class Model(object):  # all features for all sources
         self.answer = answer
 
     def predict(self):
+        print len(self.model.Q), len(self.model.W)
         f = []
         r = []
         for source in self.answer.sources:
@@ -38,6 +39,7 @@ class Model(object):  # all features for all sources
                     f.append(feat.get_value())
                 if rel in feat.get_type():
                     r.append(feat.get_value())
+
         try:
             cfeats = sum(np.array([clas in x.get_type() for x in self.answer.sources[0].features]).astype(int))
             rfeats = sum(np.array([rel in x.get_type() for x in self.answer.sources[0].features]).astype(int))
@@ -196,7 +198,7 @@ class Subj_match(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, clas+rel)
         Feature.set_name(self, 'Subject match')
-        sentence = answer.sources[i].sentence
+        sentence = answer.sources[i].sentence.split(':')[-1]
         q = answer.q.root_verb[0]
         qsubj = get_subj(q)
         ssubj = get_subj(list(nlp(sentence).sents)[0].root)
@@ -225,7 +227,7 @@ class Obj_match(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, clas+rel)
         Feature.set_name(self, 'Object match')
-        sentence = answer.sources[i].sentence
+        sentence = answer.sources[i].sentence.split(':')[-1]
         q = answer.q.root_verb[0]
         qsubj = get_subj(q)
         sobj = get_obj(list(nlp(sentence).sents)[0].root)
@@ -245,28 +247,42 @@ class Verb_sim(Feature):
         Feature.set_type(self, clas+rel)
         Feature.set_name(self, 'Verb similarity (spacy)')
         q = answer.q
-        sentence = answer.sources[i].sentence
+        sentence = answer.sources[i].sentence.split(':')[-1]
         doc = nlp(sentence)
-        s1 = []
-        for s in doc.sents:
-            s1.append(s)
-        s_verbs = verbs(s1[0])
+        s1 = list(doc.sents)
+        for j in range(len(s1)):
+            if not s1[j].text.isspace():
+                s_verbs = verbs(s1[j])
+                break
 
-        q_vec = bow(q.root_verb)
-        s_vec = bow(s_verbs)
+        q_root = q.root_verb[0]
+        doc = nlp(q_root.lemma_)
+        s1 = list(doc.sents)
+        q_root = s1[0][0]
+
+        if len(s_verbs) == 0 or s_verbs[0].lemma_ == 'be' or q_root.lemma_ == 'be':
+            Feature.set_value(self, 0.)
+            return
+        else:
+            doc = nlp(s_verbs[0].lemma_)
+            s1 = list(doc.sents)
+            s_root = s1[0][0]
+
+
+        q_vec = bow([q_root])
+        s_vec = bow([s_root])
         info = ''
-        for verb in q.root_verb:
+        for verb in [q_root]:
             info += 'Qverb=%s   ' % (verb)
-        for verb in s_verbs:
+        for verb in [s_root]:
             info += 'Sverb=%s   ' % (verb)
-#        info = 'Qverb=%s, Sverb=%s\n' % (q.root_verb[0].text, s_verbs[0].text)
         Feature.set_info(self, info)
         sim = np.dot(q_vec,s_vec)/(np.linalg.norm(q_vec)*np.linalg.norm(s_vec))
         if math.isnan(sim):
             sim = 0
         Feature.set_value(self, sim)
-        if self.is_be(s_verbs, q.root_verb):
-            Feature.set_value(self, 0.)
+#        if self.is_be(s_verbs, q.root_verb):
+#            Feature.set_value(self, 0.)
 
     def is_be(self, s1, s2):
         if len(s1) == 1:
@@ -283,7 +299,7 @@ class Verb_sim_wn(Feature):
         Feature.set_type(self, clas+rel)
         Feature.set_name(self, 'Verb similarity (WordNet)')
         q = answer.q
-        sentence = answer.sources[i].sentence
+        sentence = answer.sources[i].sentence.split(':')[-1]
         q_verb = q.root_verb[0].lemma_
         doc = nlp(sentence)
         s1 = list(doc.sents)
@@ -310,7 +326,7 @@ class Verb_sim_wn_bin(Feature):
         Feature.set_type(self, clas+rel)
         Feature.set_name(self, 'Verb similarity (WordNet)')
         q = answer.q
-        sentence = answer.sources[i].sentence
+        sentence = answer.sources[i].sentence.split(':')[-1]
         q_verb = q.root_verb[0].lemma_
         doc = nlp(sentence)
         s1 = list(doc.sents)
@@ -338,10 +354,10 @@ class Verb_sim_wn_bin(Feature):
 class Antonyms(Feature):
 
     def __init__(self, answer, i):
-        Feature.set_type(self, clas)
+        Feature.set_type(self, clas+rel)
         Feature.set_name(self, 'Antonyms')
         q = answer.q
-        sentence = answer.sentences[i]
+        sentence = answer.sources[i].sentence
         q_verb = q.root_verb[0].lemma_
         doc = nlp(sentence)
         s1 = []
@@ -352,15 +368,14 @@ class Antonyms(Feature):
         Feature.set_value(self, sim)
 
     def antonym(self, v1, v2):
+        if (v1 == 'be') or (v2 == 'be'):
+            return 0
         for aa in wn.synsets(v1):
             for bb in aa.lemmas():
                 if bb.antonyms():
-                    try:
-                        if v2.lower in bb.antonyms()[0].name():
-                            print v1, 'is an antonym of', v2
-                            return 1
-                    except TypeError:
-                        continue
+                    if v2.lower() in bb.antonyms()[0].name():
+                        print v1, 'is an antonym of', v2
+                        return 1
         return 0
 
 

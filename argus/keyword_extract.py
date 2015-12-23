@@ -102,7 +102,9 @@ def extract(question):
 
 
 def verbs(sent):
-    verbs = [sent.root]
+    verbs = []
+    if sent.root.pos == VERB:
+        verbs.append(sent.root)
     for branch in sent.root.rights:
         if branch.pos == VERB:
             verbs.append(branch)

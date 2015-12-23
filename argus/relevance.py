@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-import random
 
 def sig(x):
         return 1./(1+np.exp(-x))
@@ -129,7 +128,7 @@ class Relevance:
         self.q_dim = np.size(self.Q)
 
     def train(self, qs, learning_rate=0.1, nepoch=500, evaluate_loss_after=5,
-              batch_size=10, reg=1e-3):
+              batch_size=10, reg=1e-3, train_rel=1):
         # We keep track of the losses so we can plot them later
         losses = []
         num_examples_seen = 0
@@ -153,12 +152,13 @@ class Relevance:
                 dLdQ += dldq
                 if i % batch_size == 0:
                     self.W += dLdW * learning_rate * 1
-                    self.Q += dLdQ * learning_rate * 1
+                    self.Q += dLdQ * learning_rate * train_rel
+
                     dLdW = np.zeros(np.size(self.W))
                     dLdQ = np.zeros(np.size(self.Q))
                 i += 1
             self.W += dLdW * learning_rate * 1
-            self.Q += dLdQ * learning_rate * 1
+            self.Q += dLdQ * learning_rate * train_rel
 
 
 if __name__ == '__main__':
