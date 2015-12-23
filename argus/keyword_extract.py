@@ -120,6 +120,9 @@ def verbs(sent):
 
 
 def check_keywords(question):
+    """ check whether question keywords cover the question text
+    sufficiently; return False if we've likely missed something
+    important """
     nikw = []
     spaced = nlp(unicode(question.text))
     for token in spaced:
@@ -137,14 +140,6 @@ def check_keywords(question):
     if len(nikw) > 0:
         return False
     return True
-
-
-def preprocess_question(text):
-    return text
-    newtext = []
-    for word in text.split():
-        newtext.append(word.split('/')[0])
-    return ' '.join(newtext)
 
 
 def load_dates(question):

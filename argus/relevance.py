@@ -2,6 +2,8 @@
 """
 ML model combining classification and relevance together:
 YES/NO probability = sum(relevance*classification)/sum(relevance)
+
+FIXME: Rename this module + class, it's not about just relevance anymore.
 """
 import numpy as np
 

@@ -12,7 +12,7 @@ trainIDs = np.load('tests/trainIDs/trainIDs.npy')
 
 
 def train():
-    qstrain, qstest, ctext, rtext = fill()
+    qstrain, qstest, ctext, rtext = load_features()
 #    inverse_features(qstrain, ctext, rtext)
 #    inverse_features(qstest)
     #    multip_features(qstrain, ctext, rtext)
@@ -43,7 +43,7 @@ def train():
     R.save('sources/models')
 
 
-def fill():
+def load_features():
     clas = []
     rel = []
     ctext = []
@@ -110,6 +110,7 @@ def stats(R, qs):
 
 
 def multip_features(qs, ctext=None, rtext=None):
+    """ extend FV with feature powerset (f1*f2 for all f1, f2) metafeatures """
     k = 0
     for q in qs:
         flen = len(q.f)
@@ -137,6 +138,7 @@ def multip_features(qs, ctext=None, rtext=None):
 
 
 def zero_features(qs, ctext=None, rtext=None):
+    """ extend FV with <feature>==0 metafeatures """
     k = 0
     for q in qs:
         flen = len(q.f)
@@ -149,6 +151,7 @@ def zero_features(qs, ctext=None, rtext=None):
 
 
 def inverse_features(qs, ctext=None, rtext=None):
+    """ extend FV with 1-<feature> metafeatures """
     k = 0
     for q in qs:
         flen = len(q.f)

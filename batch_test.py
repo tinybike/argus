@@ -14,7 +14,7 @@ CSV_FOLDER = "tests/batches"
 trainIDs = np.load('tests/trainIDs/trainIDs.npy')
 
 
-def reparse():
+def evaluate():
     q_num = 0
     info_files = [open('tests/feature_prints/' + i_f + '.tsv', 'wb') for i_f in flo]
     writers = [csv.writer(info_file, delimiter='\t') for info_file in info_files]
@@ -35,6 +35,7 @@ def reparse():
             i = 0
             for line in csv.reader(open(CSV_FOLDER + '/' + csvfile), delimiter=',', skipinitialspace=True):
                 if i == 0:
+                    # CSV header
                     i += 1
                     info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer',
                             'OurKeywords', 'FoundSentence', 'OurHeadline',
@@ -48,8 +49,15 @@ def reparse():
                 if line[16] == 'Rejected':
                     continue
                 q_num += 1
+
+                # Generate answer from question
                 ouranswer = get_answer(line[30])
-                # filter_sources(ouranswer)  # toggle comment to filter only relevant sources
+
+                # Toggle comment to keep only sources that were manually
+                # annotated as relevant at mturk
+                # filter_sources(ouranswer)
+
+                # Write details to various auxiliary csv files
                 url = ''
                 headline = ''
                 sentence = ''
@@ -71,13 +79,17 @@ def reparse():
                         feat = feat[:-1]
                         info.append(feat)
                         feat = ''
+
+                # Write details to the output.tsv
                 info = [line[0], line[30], line[28],
                         ouranswer.text, ouranswer.q.query, sentence,
                         headline, line[31], line[29], url, source,
                         ouranswer.info] + info
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
-                # relevance
+
+                # Store relevance features + gs for possible separate classifier
+                # training
                 for triplet in r:
                     if ouranswer.q.text == triplet[0]:
                         for s in ouranswer.sources:
@@ -87,9 +99,11 @@ def reparse():
                                     npy_rel = np.array(fs + [triplet[-1] / 2])
                                 else:
                                     npy_rel = np.vstack((npy_rel, np.array(fs + [triplet[-1] / 2])))
+
                 ###############
                 if q_num % 10 == 0:
                     print 'answering question', q_num
+
     for i_f in info_files:
         i_f.close()
     np.save('tests/batches/relevance/npy_rel', npy_rel)
@@ -269,6 +283,7 @@ def more_stats():
 
 
 def bad_only():
+    """ outfile with only wrongly answered questions """
     BADFILE = 'tests/bad_outfile.tsv'
     with open(BADFILE, 'wb') as csvfile:
         writer = csv.writer(csvfile, delimiter='\t')
@@ -293,7 +308,7 @@ if __name__ == "__main__":
             OUTFILE = "tests/outfile_test.tsv"
         if sys.argv[i] == '-valoff':
             validation = False
-    reparse()
+    evaluate()
     get_stats()
     print '----------'
     turkstats()

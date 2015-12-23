@@ -31,7 +31,11 @@ class Question(object):
         self.date_text = ''
         self.date = ''
         self.root_verb = []
-        self.keywords = extract(self)  # TODO: extract only
+
+        # FIXME: the extract() function modifies self in a lot of other
+        # ways, actually initializing the attributes above
+        self.keywords = extract(self)
+
         self.unknown = []
         self.query = kw_to_query(self.keywords)
         if len(self.date_text) > 0:

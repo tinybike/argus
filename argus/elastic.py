@@ -18,6 +18,7 @@ def kw_to_query(keywords):
 
 
 def get_content_elastic(a, search_all=True):
+    """ fill the Answer object with sources based on elasticsearch query """
     try:
         if len(a.q.date) > 0:
             d = a.q.date

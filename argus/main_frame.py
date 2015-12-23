@@ -1,7 +1,9 @@
+""" The core answer computation component """
+
 from elastic import get_content_elastic, check_unknowns, ask
-from keyword_extract import check_keywords, preprocess_question
+from keyword_extract import check_keywords
 from answer import Question, Answer
-from features import load_features
+from features import gen_features
 
 
 def get_answer(question):
@@ -12,20 +14,24 @@ def get_answer(question):
     """
     if question.startswith('>>>'):
         return ask_only(question[3:])
-    a = Answer(Question(preprocess_question(question)))
-    checked = check_keywords(a.q)
+    a = Answer(Question(question))
 
+    checked = check_keywords(a.q)
     if not checked:
         a.q.query += ' (' + ','.join(a.q.not_in_kw) + ' not in keywords)'
         a.text = 'Didn\'t understand the question'
         return a
+
+    # print warning on weird keywords
+    # (XXX: should we give up on these questions instead?)
     check_unknowns(a)
     if len(a.q.unknown) > 0:
         print 'we have no information on these words:', a.q.unknown
+
     found_sources, found_anything = get_content_elastic(a, search_all=False)
 
     if found_sources:
-        load_features(a)
+        gen_features(a)
         a.text = answer_all(a)
         return a
 
@@ -64,7 +70,7 @@ def ask_only(query):
         print 'we have no information on these words:', a.q.unknown
     found_sources, found_anything = ask(a, query)
     if found_sources:
-        load_features(a)
+        gen_features(a)
         a.text = answer_all(a)
         a.text = 'Query only'
         return a

@@ -432,7 +432,7 @@ def expand_features(answer):
             ex(source)
 
 
-def load_features(answer):
+def gen_features(answer):
     for i in range(len(answer.sources)):
         for func in feature_list:
             answer.sources[i].features.append(eval(func)(answer, i))
