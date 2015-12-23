@@ -1,4 +1,14 @@
 # -*- coding: utf-8 -*-
+"""Important objects are stored here:
+    Answer - contains all information about our answer
+
+    Source - for each found sentence, we create a source
+    containing all information about the source including
+    features.
+
+    Question - all information extractable from the question alone
+
+"""
 from keyword_extract import extract
 from features import Model
 
@@ -16,17 +26,16 @@ class Answer(object):
 class Question(object):
     def __init__(self, question):
         self.searchwords = []
-        self.postokens = []
         self.not_in_kw = []
         self.text = question
         self.date_text = ''
         self.date = ''
         self.root_verb = []
-        self.keywords = extract(self)
+        self.keywords = extract(self)  # TODO: extract only
         self.unknown = []
         self.query = kw_to_query(self.keywords)
         if len(self.date_text) > 0:
-            self.query += ' (relevant \"'+self.date_text+'\")'
+            self.query += ' (relevant \"' + self.date_text + '\")'
 
 
 class Source():
@@ -48,6 +57,6 @@ class Source():
 def kw_to_query(keywords):
     query = ''
     for word in keywords:
-            query += word + " AND "
+        query += word + " AND "
     query = query[:-5]
     return query

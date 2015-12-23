@@ -1,19 +1,23 @@
 # -*- coding: utf-8 -*-
+"""
+Model for relevance only.
+"""
 import numpy as np
 import csv
 from sklearn import linear_model
 from sklearn import svm
 
+
 def train():
     z = np.load('tests/batches/relevance/npy_rel.npy')
     print z.shape
-    x = z[:,:-1]
-    y = z[:,-1]
-    print float(sum(y))/len(y)
+    x = z[:, :-1]
+    y = z[:, -1]
+    print float(sum(y)) / len(y)
     clf = linear_model.LogisticRegression(C=1, penalty='l2', tol=1e-5)
     # clf = svm.SVC(kernel='linear', C=1, probability=True)
     clf.fit(x, y)
-    test = clf.predict_proba(x)[:,1]
+    test = clf.predict_proba(x)[:, 1]
     corr = 0
     fp = 0
     fn = 0
@@ -25,15 +29,16 @@ def train():
         elif y[i] == 0:
             fp += 1.
     print 'accuracy %.3f, false positives %.3f, false negatives %.3f' % (
-        corr/len(y), fp/(fn+fp), fn/(fn+fp)
-        )
-#    test = abs(y-test) < 0.5
-#    print float(sum([int(k) for k in test]))/len(test)
+        corr / len(y), fp / (fn + fp), fn / (fn + fp)
+    )
+    #    test = abs(y-test) < 0.5
+    #    print float(sum([int(k) for k in test]))/len(test)
 
     w = clf.coef_
-    w = np.append(w,clf.intercept_);
-    np.save('tests/batches/relevance/learned_relevance',w)
+    w = np.append(w, clf.intercept_);
+    np.save('tests/batches/relevance/learned_relevance', w)
     print w
+
 
 def relevance_load():
     relevance = []
@@ -41,7 +46,7 @@ def relevance_load():
     questions = []
     rels = []
     i = 0
-    for line in csv.reader(open('tests/batches/relevance/relevance.csv'), delimiter=',',skipinitialspace=True):
+    for line in csv.reader(open('tests/batches/relevance/relevance.csv'), delimiter=',', skipinitialspace=True):
         if i == 0:
             i += 1
             for word in line:
@@ -73,6 +78,7 @@ def filter_sources(answer):
                     if triplet[2] == 2:
                         newsources.append(s)
     answer.sources = newsources
+
 
 if __name__ == '__main__':
     train()

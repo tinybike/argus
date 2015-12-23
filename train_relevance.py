@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+Training Relevance model happens here, you can change various parameters in train().
+"""
 import numpy as np
 from argus.relevance import Relevance, Q
 import csv
@@ -6,6 +9,39 @@ from multiprocessing import Pool
 
 outfile = 'tests/outfile.tsv'
 trainIDs = np.load('tests/trainIDs/trainIDs.npy')
+
+
+def train():
+    qstrain, qstest, ctext, rtext = fill()
+    #    inverse_features(qstrain, ctext, rtext)
+    #    inverse_features(qstest)
+    #    multip_features(qstrain, ctext, rtext)
+    #    multip_features(qstest)
+    zero_features(qstrain, ctext, rtext)
+    zero_features(qstest)
+
+    #    R = cross_validate_all(qstrain+qstest)
+    R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
+    #    R.Q = np.load('tests/batches/relevance/learned_relevance.npy')
+    #    R.Q[-2] = 0\
+    #    mask = np.zeros_like(R.Q)
+    #    R.Q[-1] = 1
+    R.train(qstrain, learning_rate=0.01, nepoch=500, evaluate_loss_after=10,
+            batch_size=10, reg=1e-3, train_rel=1)
+
+    print '\n========================\n'
+    list_weights(R, ctext, rtext)
+    print 'W_shape =', R.W.shape
+    print 'Q_shape =', R.Q.shape
+    #    R.Q[5] *= -1
+    #    R.W[6] *= -1
+    #    list_weights(R, ctext, rtext)
+    print '---------------test'
+    stats(R, qstest)
+    print '---------------train'
+    stats(R, qstrain)
+    R.save('sources/models')
+
 
 def fill():
     clas = []
@@ -16,7 +52,7 @@ def fill():
     i = 0
     qstest = []
     qstrain = []
-    for line in csv.reader(open(outfile), delimiter='\t',skipinitialspace=True):
+    for line in csv.reader(open(outfile), delimiter='\t', skipinitialspace=True):
         if i == 0:
             i += 1
             for field in line:
@@ -51,10 +87,11 @@ def fill():
         else:
             y = 0
         if line[1] in trainIDs:
-            qstrain.append(Q(f,r,y))
+            qstrain.append(Q(f, r, y))
         else:
-            qstest.append(Q(f,r,y))
+            qstest.append(Q(f, r, y))
     return qstrain, qstest, ctext, rtext
+
 
 def stats(R, qs):
     corr = 0
@@ -68,8 +105,9 @@ def stats(R, qs):
             yt = 0
         if q.y == yt:
             corr += 1
-    print '%.2f%% correct (%d/%d)' % (float(corr)/i*100, corr, i)
-    return float(corr)/i*100
+    print '%.2f%% correct (%d/%d)' % (float(corr) / i * 100, corr, i)
+    return float(corr) / i * 100
+
 
 def multip_features(qs, ctext=None, rtext=None):
     k = 0
@@ -79,10 +117,10 @@ def multip_features(qs, ctext=None, rtext=None):
             for j in range(flen):
                 if i >= j:
                     continue
-                newf = q.f[i,:]*q.f[j,:]
+                newf = q.f[i, :] * q.f[j, :]
                 q.f = np.vstack((q.f, newf))
                 if k == 0 and ctext is not None:
-                    ctext.append(ctext[i]+'_X_'+ctext[j])
+                    ctext.append(ctext[i] + '_X_' + ctext[j])
         k = 1
     k = 0
     for q in qs:
@@ -91,21 +129,22 @@ def multip_features(qs, ctext=None, rtext=None):
             for j in range(rlen):
                 if i >= j:
                     continue
-                newr = q.r[i,:]*q.r[j,:]
+                newr = q.r[i, :] * q.r[j, :]
                 q.r = np.vstack((q.r, newr))
                 if k == 0 and rtext is not None:
-                    rtext.append(rtext[i]+'_X_'+rtext[j])
+                    rtext.append(rtext[i] + '_X_' + rtext[j])
         k = 1
+
 
 def zero_features(qs, ctext=None, rtext=None):
     k = 0
     for q in qs:
         flen = len(q.f)
         for i in range(flen):
-            newf = q.f[i,:] == 0.
+            newf = q.f[i, :] == 0.
             q.f = np.vstack((q.f, newf.astype(float)))
             if k == 0 and ctext is not None:
-                ctext.append(ctext[i]+'==0')
+                ctext.append(ctext[i] + '==0')
         k = 1
 
 
@@ -114,12 +153,14 @@ def inverse_features(qs, ctext=None, rtext=None):
     for q in qs:
         flen = len(q.f)
         for i in range(flen):
-            newf = q.f[i,:]-1
+            newf = q.f[i, :] - 1
             q.f = np.vstack((q.f, newf))
             if k == 0 and ctext is not None:
-                ctext.append('1-'+ctext[i])
+                ctext.append('1-' + ctext[i])
         k = 1
-#    for q in qs:
+
+
+# for q in qs:
 #        rlen = len(q.f)
 #        for i in range(rlen):
 #            newr = q.r[i,:] == 0.
@@ -128,44 +169,13 @@ def inverse_features(qs, ctext=None, rtext=None):
 
 def list_weights(R, ctext, rtext):
     for i in range(len(ctext)):
-        dots = max(3,50-len(ctext[i]))
-        print '(class) %s%s%.2f' % (ctext[i], '.'*dots, R.W[i])
+        dots = max(3, 50 - len(ctext[i]))
+        print '(class) %s%s%.2f' % (ctext[i], '.' * dots, R.W[i])
     print '(class) bias........%.2f' % (R.W[-1])
     for i in range(len(rtext)):
-        dots = max(3,50-len(rtext[i]))
-        print '(rel) %s%s%.2f' % (rtext[i], '.'*dots, R.Q[i])
+        dots = max(3, 50 - len(rtext[i]))
+        print '(rel) %s%s%.2f' % (rtext[i], '.' * dots, R.Q[i])
     print '(rel) bias........%.2f' % (R.Q[-1])
-
-def train():
-    qstrain, qstest, ctext, rtext = fill()
-#    inverse_features(qstrain, ctext, rtext)
-#    inverse_features(qstest)
-#    multip_features(qstrain, ctext, rtext)
-#    multip_features(qstest)
-    zero_features(qstrain, ctext, rtext)
-    zero_features(qstest)
-
-#    R = cross_validate_all(qstrain+qstest)
-    R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
-#    R.Q = np.load('tests/batches/relevance/learned_relevance.npy')
-#    R.Q[-2] = 0\
-#    mask = np.zeros_like(R.Q)
-#    R.Q[-1] = 1
-    R.train(qstrain, learning_rate=0.01, nepoch=500, evaluate_loss_after=10,
-            batch_size=10, reg=1e-3, train_rel=1)
-
-    print '\n========================\n'
-    list_weights(R, ctext, rtext)
-    print 'W_shape =', R.W.shape
-    print 'Q_shape =', R.Q.shape
-#    R.Q[5] *= -1
-#    R.W[6] *= -1
-#    list_weights(R, ctext, rtext)
-    print '---------------test'
-    stats(R, qstest)
-    print '---------------train'
-    stats(R, qstrain)
-    R.save('sources/models')
 
 
 def cross_validate_one(idx):
@@ -174,29 +184,30 @@ def cross_validate_one(idx):
     w_dim = qs[0].f.shape[0]
     q_dim = qs[0].r.shape[0]
     R = Relevance(w_dim, q_dim)
-    np.random.seed(17151711+idx*2+1)
-    if idx==0:
+    np.random.seed(17151711 + idx * 2 + 1)
+    if idx == 0:
         R.train(qs, learning_rate=0.01, nepoch=500, evaluate_loss_after=100,
-            batch_size=200, reg=1e-3)
-        res=0
+                batch_size=200, reg=1e-3)
+        res = 0
     else:
         np.random.shuffle(qs)
-        trainvalborder = len(qs)*(threads-2)/(threads-1)
+        trainvalborder = len(qs) * (threads - 2) / (threads - 1)
         R.train(qs[:trainvalborder], learning_rate=0.01, nepoch=500, evaluate_loss_after=100,
-            batch_size=200, reg=1e-3)
+                batch_size=200, reg=1e-3)
         res = stats(R, qs[trainvalborder:])
         print 'Loss after training on train(idx=%d): %.2f' % (idx, R.calculate_loss(qs[:trainvalborder]))
         print 'Stats after training on test(idx=%d): %.2f' % (idx, res)
     return (res, R)
 
+
 def cross_validate_all(qstrain):
     global gdata
     threads = 4
-    gdata = (qstrain, threads+1)
+    gdata = (qstrain, threads + 1)
     i = 0
     pool = Pool()
     percs = []
-    for res in pool.imap(cross_validate_one, range(threads+1)):
+    for res in pool.imap(cross_validate_one, range(threads + 1)):
         perc, R = res
         if i == 0:
             retR = R
@@ -205,8 +216,9 @@ def cross_validate_all(qstrain):
             percs.append(perc)
     pool.close()
     print percs
-    print 'mean perc after val =', sum(percs)/threads
+    print 'mean perc after val =', sum(percs) / threads
     return retR
+
 
 if __name__ == '__main__':
     np.random.seed(17151711)

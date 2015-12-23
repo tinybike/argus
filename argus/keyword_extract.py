@@ -1,13 +1,14 @@
+"""
+Keyword-extraction using Spacy.
+"""
 import nltk
 from nltk.corpus import stopwords
 import csv
 from spacy.en import English
 from spacy.parts_of_speech import ADP, PUNCT, VERB, PART, ADV
+
 nlp = English()
 print 'SpaCy loaded'
-#probs = [lex.prob for lex in nlp.vocab]
-#probs.sort()
-
 
 # Used when tokenizing words
 sentence_re = r'''(?x)      # set flag to allow verbose regexps
@@ -18,8 +19,10 @@ sentence_re = r'''(?x)      # set flag to allow verbose regexps
     | [][.,;"'?():-_`]      # these are separate tokens
 '''
 
+
 def tokenize(string):
     return nltk.regexp_tokenize(string, sentence_re)
+
 
 def load_sw():
     sw = []
@@ -28,21 +31,24 @@ def load_sw():
             sw.append(word)
     return sw
 
+
 stop_words = stopwords.words('english')
 stop_words = stop_words + load_sw()
 
+
 def in_stop_words(word):
     return word.lower() in stop_words
-#    return word.prob < probs[-1000]
+
 
 def is_unimportant(token):
     unimportant = 'the a and'
     return ((token.lower_ in unimportant) or
-    (token.pos == PART) or
-    (token.pos == PUNCT) or
-    (token.orth_ in stop_words))
+            (token.pos == PART) or
+            (token.pos == PUNCT) or
+            (token.orth_ in stop_words))
 
-def more_nouns(ents,noun_chunks,keywords):
+
+def more_nouns(ents, noun_chunks, keywords):
     for n_ch in noun_chunks:
         chunk = []
         for token in n_ch:
@@ -54,12 +60,11 @@ def more_nouns(ents,noun_chunks,keywords):
                     i += 1
                     break
             if i == 0:
-#                print 'new word \'%s\'' % (token.text)
                 chunk.append(token.text)
         if len(chunk) > 0:
             keywords.append(' '.join(chunk))
 
-#is_adverb = lambda tok: tok.pos == ADV and tok.prob < probs[-1000]
+
 def extract(question):
     spaced = nlp(unicode(question.text))
     keywords = []
@@ -67,7 +72,7 @@ def extract(question):
     for sentence in spaced.sents:
         sent = sentence
         break
-#    if not in_stop_words(sent.root.text):
+    #    if not in_stop_words(sent.root.text):
     non_keywords = ['TIME', 'PERCENT', 'MONEY', 'QUANTITY', 'ORDINAL', 'CARDINAL']
     for ent in spaced.ents:
         if ent.label_ in non_keywords:
@@ -77,7 +82,7 @@ def extract(question):
             if ent[0].nbor(-1).pos == ADP:
                 date += ent[0].nbor(-1).orth_ + ' '
             if len(question.date_text) > 0:
-                date = ' + '+date
+                date = ' + ' + date
             question.date_text += date + ent.orth_
         else:
             kw = ''
@@ -118,9 +123,8 @@ def check_keywords(question):
     nikw = []
     spaced = nlp(unicode(question.text))
     for token in spaced:
-#        print token.text,token.pos_
         if (in_stop_words(token.lower_) or is_unimportant(token) or
-        token.lower_ in question.date_text.lower() or token.pos == ADV):
+                    token.lower_ in question.date_text.lower() or token.pos == ADV):
             continue
         i = 0
         for kw in question.keywords:
@@ -131,7 +135,6 @@ def check_keywords(question):
             nikw.append(token.text)
     question.not_in_kw = nikw
     if len(nikw) > 0:
-#        print "not in keywords:",nikw
         return False
     return True
 
@@ -149,7 +152,6 @@ def load_dates(question):
         if line[0] == question.text:
             question.date = line[1]
             break
-
 
 
 def extract_from_string(question):

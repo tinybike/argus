@@ -60,7 +60,19 @@ With mTurk output files present in tests/batches, run
 
 to create new output.tsv file. Then run
 
-	python train.py
+	python train_relevance.py
 
 To reevaluate on real data run batch_test.py again
+If you want to train with some features off, open output.tsv and delete the classification
+ or relevance symbol in the feature name. To reevaluate on real data, read on.
 
+Adding Features
+---------------
+
+1. Each feature must inherit from the Feature object and must set its type (clas and/or rel) and value
+ (name and info are also desirable). Look for already implemented features in argus/features.py
+2. To make the system use new feature, add string with the feature object name to feature_list list AND
+to the feature_list_official with its type symbols (you can change the name, only the types are important).
+3. Then run batch_test.py to retrieve the feature, then train
+4. To stop using the feature, simply erase it from feature_list and feature_list_official
+currently used symbols: classification = '#', relevance = '@'

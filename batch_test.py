@@ -1,3 +1,7 @@
+"""
+Main testing using questions from Mturk done from here, lots of printouts.
+"""
+
 from __future__ import division
 import csv
 import os
@@ -6,14 +10,12 @@ import numpy as np
 from argus.features import feature_list_official as flo
 from separate_relevance import relevance_load, filter_sources
 
-CSVFOLDER = "tests/batches"
+CSV_FOLDER = "tests/batches"
 trainIDs = np.load('tests/trainIDs/trainIDs.npy')
-
-first = False
 
 
 def reparse():
-    qnum = 0
+    q_num = 0
     info_files = [open('tests/feature_prints/' + i_f + '.tsv', 'wb') for i_f in flo]
     writers = [csv.writer(info_file, delimiter='\t') for info_file in info_files]
     info_all = open('tests/feature_prints/all_features.tsv', 'wb')
@@ -25,29 +27,29 @@ def reparse():
     first = False
     r = relevance_load()
     npy_rel = []
-    with open(OUTFILE, 'wb') as csvfile:
-        writer = csv.writer(csvfile, delimiter='\t')
-        for csvfile in os.listdir(CSVFOLDER):
+    with open(OUTFILE, 'wb') as csv_file:
+        writer = csv.writer(csv_file, delimiter='\t')
+        for csvfile in os.listdir(CSV_FOLDER):
             if not csvfile.endswith(".csv"):
                 continue
             i = 0
-            for line in csv.reader(open(CSVFOLDER + '/' + csvfile), delimiter=',', skipinitialspace=True):
+            for line in csv.reader(open(CSV_FOLDER + '/' + csvfile), delimiter=',', skipinitialspace=True):
                 if i == 0:
                     i += 1
                     info = ['HITID', 'Question', 'TurkAnswer', 'OurAnswer',
                             'OurKeywords', 'FoundSentence', 'OurHeadline',
                             'TurkTopic', 'TurkURL', 'OurURL', 'Source', 'info']
                     info += flo
-                    if qnum == 0:
+                    if q_num == 0:
                         writer.writerow(info)
                         writer_turk.writerow(['question', 'sentence'])
                         first = True
                     continue
                 if line[16] == 'Rejected':
                     continue
-                qnum += 1
+                q_num += 1
                 ouranswer = get_answer(line[30])
-                #                filter_sources(ouranswer)
+                # filter_sources(ouranswer)  # toggle comment to filter only relevant sources
                 url = ''
                 headline = ''
                 sentence = ''
@@ -86,8 +88,8 @@ def reparse():
                                 else:
                                     npy_rel = np.vstack((npy_rel, np.array(fs + [triplet[-1] / 2])))
                 ###############
-                if qnum % 10 == 0:
-                    print 'answering question', qnum
+                if q_num % 10 == 0:
+                    print 'answering question', q_num
     for i_f in info_files:
         i_f.close()
     np.save('tests/batches/relevance/npy_rel', npy_rel)
@@ -218,9 +220,9 @@ def get_stats():
     print 'Out of these %d questions:' % understood
     print 'We didnt find any articles containing all searchwords in %d (%.2f%%) cases' % (anr, anr / understood * 100)
     print 'We didnt find any sentences containing all keywords in %d (%.2f%%) cases' % (
-    no_result, no_result / understood * 100)
+        no_result, no_result / understood * 100)
     print 'We were able to answer %d-%d-%d = %d (%.2f%%) questions' % (
-    understood, anr, no_result, answered, answered / understood * 100)
+        understood, anr, no_result, answered, answered / understood * 100)
     print 'Recall =', recall
     print 'Precision =', precision
     print 'Turk answered YES in %.2f%% of answered' % (yes / answered * 100)
@@ -277,17 +279,17 @@ def bad_only():
 
 import sys
 
-CSVFOLDER = "tests/batches"
+CSV_FOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
 INFOFILE = "tests/infofile.tsv"
 validation = True
 if __name__ == "__main__":
     for i in range(0, len(sys.argv)):
         if sys.argv[i] == '-train':
-            CSVFOLDER += '/batch_train'
+            CSV_FOLDER += '/batch_train'
             OUTFILE = "tests/outfile_train.tsv"
         if sys.argv[i] == '-test':
-            CSVFOLDER += '/batch_test'
+            CSV_FOLDER += '/batch_test'
             OUTFILE = "tests/outfile_test.tsv"
         if sys.argv[i] == '-valoff':
             validation = False

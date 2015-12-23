@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+Fills elastic database using various news sources.
+"""
 from datetime import datetime
 from elasticsearch import Elasticsearch
 from argus.html_clean import preparse_guardian, clean
@@ -11,20 +14,22 @@ import os
 
 JSONFOLDER = 'sources/nytimes_database'
 es = Elasticsearch()
-#TODO: filter dates, search in headline+summary+body
+
+
 def fill_guardian(JSONFOLDER):
     ID = 0
     for jsonfile in os.listdir(JSONFOLDER):
         if not jsonfile.endswith(".json"):
             continue
-        with open(JSONFOLDER+'/'+jsonfile) as data_file:
+        with open(JSONFOLDER + '/' + jsonfile) as data_file:
             jobj = json.load(data_file)
         for i in range(0, len(jobj['response']['results'])):
             try:
                 if jobj['response']['results'][i]['type'] != 'article':
                     continue
                 headline = jobj['response']['results'][i]['fields']['headline']
-                date = datetime.strptime(jobj['response']['results'][i]['webPublicationDate'], "%Y-%m-%dT%H:%M:%SZ").date()
+                date = datetime.strptime(jobj['response']['results'][i]['webPublicationDate'],
+                                         "%Y-%m-%dT%H:%M:%SZ").date()
                 url = jobj['response']['results'][i]['webUrl']
                 bodyhtml = jobj['response']['results'][i]['fields']['body']
                 source = 'Guardian'
@@ -34,14 +39,14 @@ def fill_guardian(JSONFOLDER):
             body = preparse_guardian(bodyhtml)
             summary = preparse_guardian(summaryhtml)
             doc = {
-                'headline':         headline,
-                'date':             date,
-                'url':              url,
-                'body':             body,
-                'source':           source,
-                'summary':          summary,
+                'headline': headline,
+                'date': date,
+                'url': url,
+                'body': body,
+                'source': source,
+                'summary': summary,
             }
-            uniqueid = hashlib.md5((headline+summary).encode('utf-8')).hexdigest()
+            uniqueid = hashlib.md5((headline + summary).encode('utf-8')).hexdigest()
             ID += 1
             es.index(index="argus", doc_type='article', body=doc, id=uniqueid)
             if ID % 100 == 0:
@@ -56,12 +61,12 @@ def fill_nytimes(JSONFOLDER):
     for jsonfile in os.listdir(JSONFOLDER):
         if not jsonfile.endswith(".json"):
             continue
-        with open(JSONFOLDER+'/'+jsonfile) as data_file:
+        with open(JSONFOLDER + '/' + jsonfile) as data_file:
             jobj = json.load(data_file)
         for i in range(0, len(jobj['response']['docs'])):
             try:
-#                if jobj['response']['results'][i]['type'] != 'article':
-#                    continue
+                #                if jobj['response']['results'][i]['type'] != 'article':
+                #                    continue
                 headline = jobj['response']['docs'][i]['headline']['main']
                 date = datetime.strptime(jobj['response']['docs'][i]['pub_date'], "%Y-%m-%dT%H:%M:%SZ").date()
                 url = jobj['response']['docs'][i]['web_url']
@@ -72,13 +77,13 @@ def fill_nytimes(JSONFOLDER):
             except KeyError:
                 continue
             doc = {
-                'headline':         headline,
-                'date':             date,
-                'url':              url,
-                'source':           source,
-                'summary':          summary,
+                'headline': headline,
+                'date': date,
+                'url': url,
+                'source': source,
+                'summary': summary,
             }
-            uniqueid = hashlib.md5((headline+summary).encode('utf-8')).hexdigest()
+            uniqueid = hashlib.md5((headline + summary).encode('utf-8')).hexdigest()
             ID += 1
             es.index(index="argus", doc_type='article', body=doc, id=uniqueid)
             if ID % 100 == 0:
@@ -92,8 +97,8 @@ def fill_rss(RSSFOLDER):
     ID = 0
     for root, dirs, files in os.walk(RSSFOLDER):
         for name in files:
-#            if not name.endswith(('.rss', '.xml')):
-#                continue
+            #            if not name.endswith(('.rss', '.xml')):
+            #                continue
             d = feedparser.parse(os.path.join(root, name))
             try:
                 source = d.channel.title
@@ -107,13 +112,13 @@ def fill_rss(RSSFOLDER):
                 if len(summary) == 0 or summary.isspace():
                     continue
                 doc = {
-                    'headline':         headline,
-                    'date':             date,
-                    'url':              url,
-                    'source':           source,
-                    'summary':          summary,
+                    'headline': headline,
+                    'date': date,
+                    'url': url,
+                    'source': source,
+                    'summary': summary,
                 }
-                uniqueid = hashlib.md5((headline+summary).encode('utf-8')).hexdigest()
+                uniqueid = hashlib.md5((headline + summary).encode('utf-8')).hexdigest()
                 ID += 1
                 es.index(index="argus", doc_type='article', body=doc, id=uniqueid)
                 if ID % 100 == 0:
@@ -121,6 +126,7 @@ def fill_rss(RSSFOLDER):
 
     es.indices.refresh(index="argus")
     return "ok"
+
 
 if __name__ == "__main__":
     nyf = ''

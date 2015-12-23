@@ -4,15 +4,19 @@ from answer import Question, Answer
 from features import load_features
 
 
-
 def get_answer(question):
+    """
+    :param question: String with the question.
+    :return: Filled Answer object.
+    note: if question starts with '>>>', just ask elasticsearch
+    """
     if question.startswith('>>>'):
         return ask_only(question[3:])
     a = Answer(Question(preprocess_question(question)))
     checked = check_keywords(a.q)
 
     if not checked:
-        a.q.query += ' ('+','.join(a.q.not_in_kw)+' not in keywords)'
+        a.q.query += ' (' + ','.join(a.q.not_in_kw) + ' not in keywords)'
         a.text = 'Didn\'t understand the question'
         return a
     check_unknowns(a)
@@ -31,12 +35,14 @@ def get_answer(question):
         a.text = 'No result'
     return a
 
+
 def answer_all(answer):
     answer.model.predict()
     answer.info = str(answer.prob)
     if answer.prob < 0.5:
         return 'NO'
     return 'YES'
+
 
 def print_sources(answer):
     print answer.q.keywords
@@ -50,12 +56,13 @@ def print_sources(answer):
     print 'Number of sources:', len(answer.sources)
     print answer.text
 
+
 def ask_only(query):
     a = Answer(Question(preprocess_question(query)))
     check_unknowns(a)
     if len(a.q.unknown) > 0:
         print 'we have no information on these words:', a.q.unknown
-    found_sources, found_anything = ask(a,query)
+    found_sources, found_anything = ask(a, query)
     if found_sources:
         load_features(a)
         a.text = answer_all(a)

@@ -1,27 +1,33 @@
 # -*- coding: utf-8 -*-
+"""
+All features are created from here.
+"""
 import numpy as np
 from keyword_extract import tokenize, nlp, verbs, extract_from_string
 from relevance import Relevance
 from nltk.corpus import wordnet as wn
+import re
+from feature_functs import load, patterns
+import math
+from dateutil.parser import parse
 
 clas = '#'
 rel = '@'
 
-feature_list = ['Sentiment_q', 'Sentiment_s', 'Subj_match', 'Obj_match', 'Verb_sim',
-                'Verb_sim_wn', 'Relevant_date', 'Elastic_score', 'Match_score', 'Antonyms']
+feature_list = ['SentimentQ', 'SentimentS', 'SubjectMatch', 'ObjectMatch', 'VerbSimSpacy',
+                'VerbSimWordNet', 'RelevantDate', 'ElasticScore', 'SportScore', 'Antonyms']
 feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '#@Subject match', '#@Object match',
                          '#@Verb similarity (spaCy)',
                          '#@Verb similarity (WordNet)', '@Relevant date',
-                         '@Elastic score', '#Match score', '#@Antonyms']
-def count_flo(string):
-    i = 0
-    for item in feature_list_official:
-        i += item.count(string)
-    return i
+                         '@Elastic score', '#Sport score', '#@Antonyms']
 
 
-class Model(object):  # all features for all sources
+class Model(object):
+    """
+    Relevance model for prediction used in answers.
+    """
+
     def __init__(self, answer):
         R = Relevance(0, 0)
         R.load('sources/models')
@@ -54,7 +60,15 @@ class Model(object):  # all features for all sources
             self.ansprob = 0.
 
 
-class Feature(object):  # one feature for one source
+class Feature(object):
+    """
+    Represents a single feature from a single source.
+    Features are inherited from this object with the exception of
+    bonus features such as f==0 or multiplications.
+    All features have to set its value and type in constructor.
+
+    """
+
     def set_value(self, feature):
         self.feature = feature
 
@@ -86,42 +100,51 @@ class Feature(object):  # one feature for one source
             return '--feature_name--'
 
 
-class Elastic_score(Feature):
+class ElasticScore(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, rel)
         Feature.set_name(self, 'Elastic score')
         Feature.set_value(self, answer.sources[i].elastic)
 
 
-class Sentiment_q(Feature):
+class SentimentQ(Feature):
+    """
+    Sum of emotionally colored words from the question.
+    """
+
     def __init__(self, answer, i):
         Feature.set_type(self, clas)
         Feature.set_name(self, 'Question sentiment')
         q = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(answer.q.text)]))
-        q = float(q)/len(answer.q.text.split())
-        Feature.set_value(self,q)
+        q = float(q) / len(answer.q.text.split())
+        Feature.set_value(self, q)
 
 
-class Sentiment_s(Feature):
+class SentimentS(Feature):
+    """
+    Sum of emotionally colored words from source sentence.
+    """
+
     def __init__(self, answer, i):
         Feature.set_type(self, clas)
         Feature.set_name(self, 'Sentence sentiment')
         sentence = answer.sources[i].sentence
         s = sum(map(lambda word: afinn.get(word, 0), [word.lower() for word in tokenize(sentence)]))
-        s = float(s)/len(sentence.split())
+        s = float(s) / len(sentence.split())
         Feature.set_value(self, s)
+
 
 def bow(l):
     vector = np.zeros(l[0].vector.shape)
     for token in l:
         vector += token.vector
-#        return vector ###############
-    return vector/len(l)
+    return vector / len(l)
 
-import math
-from dateutil.parser import parse
 
-class Relevant_date(Feature):
+class RelevantDate(Feature):
+    """
+    1 if source date matches question date, linear decrease next 14 days, 0 otherwise.
+    """
     def __init__(self, answer, i):
         Feature.set_type(self, rel)
         Feature.set_name(self, 'Date relevance')
@@ -131,9 +154,9 @@ class Relevant_date(Feature):
             sdate = parse(sdate, ignoretz=True, fuzzy=True).date()
             qdate = parse(qdate, ignoretz=True, fuzzy=True).date()
             info = 'Qdate=%s, Sdate=%s' % (qdate, sdate)
-            delta = sdate-qdate
+            delta = sdate - qdate
             f = self.g(delta.days)
-#            print 'g(timedelta) =', f
+            #            print 'g(timedelta) =', f
             Feature.set_value(self, f)
             Feature.set_info(self, info)
         except TypeError:
@@ -142,20 +165,20 @@ class Relevant_date(Feature):
     def g(self, x):
         if x > 15 or x < 0:
             return 0.
-        if x >= 0 and x <= 1:
+        if 0 <= x <= 1:
             return 1.
-        return 15./14. - float(x)/14
+        return 15. / 14. - float(x) / 14
 
 
-import traceback
-import re
-from feature_functs import load, patterns
-class Match_score(Feature):
+class SportScore(Feature):
+    """
+    Finds [num-num] in the sentence and tries to find out if subject was on the winning side.
+    """
     def __init__(self, answer, i):
         Feature.set_type(self, clas)
         Feature.set_name(self, 'Match score')
         sentence = answer.sources[i].sentence
-        regex = re.match('.*?(\d+)[-](\d+).*', sentence) # (\d+)\W(\d+) only for multiple scores detection
+        regex = re.match('.*?(\d+)[-](\d+).*', sentence)  # (\d+)\W(\d+) only for multiple scores detection
         if regex:
             s1 = regex.group(1)
             s2 = regex.group(2)
@@ -168,35 +191,38 @@ class Match_score(Feature):
                 return
             qsubj = qsubj.text
             result = 1
-            if int(s1)<=int(s2):
+            if int(s1) <= int(s2):
                 result = -1
 
             try:
-#                print 'loading',sentence, sentence_kw, s1+'-'+s2
-#                sentence = re.sub('[\W_]+', ' ', sentence)
-#                sentence_kw = [re.sub('[\W_]+', ' ', kw) for kw in sentence_kw]
-                hs = load(sentence, sentence_kw, s1+'-'+s2)
-#                print 'loaded'
+                #                print 'loading',sentence, sentence_kw, s1+'-'+s2
+                #                sentence = re.sub('[\W_]+', ' ', sentence)
+                #                sentence_kw = [re.sub('[\W_]+', ' ', kw) for kw in sentence_kw]
+                hs = load(sentence, sentence_kw, s1 + '-' + s2)
+                #                print 'loaded'
                 score = float(patterns(hs, qsubj))
-#                print 'Q:',answer.q.text
-#                print 'S:', sentence
-#                print 'score=',score
-#                print 'result=',score,s1,s2
-#                print 'SCORE*RESULT=', score*result
-                Feature.set_value(self, score*result)
-                Feature.set_info(self, s1+'-'+s2)
+                #                print 'Q:',answer.q.text
+                #                print 'S:', sentence
+                #                print 'score=',score
+                #                print 'result=',score,s1,s2
+                #                print 'SCORE*RESULT=', score*result
+                Feature.set_value(self, score * result)
+                Feature.set_info(self, s1 + '-' + s2)
             except Exception:
-#                print 'EXCEPTION'
-#                traceback.print_exc()
+                #                print 'EXCEPTION'
+                #                traceback.print_exc()
                 Feature.set_value(self, 0.)
         else:
-#            print 'no score found in', sentence
+            #            print 'no score found in', sentence
             Feature.set_value(self, 0.)
 
 
-class Subj_match(Feature):
+class SubjectMatch(Feature):
+    """
+    1 if source sentence and question match subjects.
+    """
     def __init__(self, answer, i):
-        Feature.set_type(self, clas+rel)
+        Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Subject match')
         sentence = answer.sources[i].sentence.split(':')[-1]
         q = answer.q.root_verb[0]
@@ -212,10 +238,12 @@ class Subj_match(Feature):
         else:
             Feature.set_value(self, 0.)
 
+
 def get_subj(root):
     for child in root.children:
         if child.dep_ == 'nsubj':
             return child
+
 
 def get_obj(root):
     for child in root.children:
@@ -223,9 +251,12 @@ def get_obj(root):
             return child
 
 
-class Obj_match(Feature):
+class ObjectMatch(Feature):
+    """
+    1 if question subject matches sentence object.
+    """
     def __init__(self, answer, i):
-        Feature.set_type(self, clas+rel)
+        Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Object match')
         sentence = answer.sources[i].sentence.split(':')[-1]
         q = answer.q.root_verb[0]
@@ -242,9 +273,13 @@ class Obj_match(Feature):
         else:
             Feature.set_value(self, 0.)
 
-class Verb_sim(Feature):
+
+class VerbSimSpacy(Feature):
+    """
+    Cosine distance of question-sentence root verbs using Spacy w2v model.
+    """
     def __init__(self, answer, i):
-        Feature.set_type(self, clas+rel)
+        Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Verb similarity (spacy)')
         q = answer.q
         sentence = answer.sources[i].sentence.split(':')[-1]
@@ -268,7 +303,6 @@ class Verb_sim(Feature):
             s1 = list(doc.sents)
             s_root = s1[0][0]
 
-
         q_vec = bow([q_root])
         s_vec = bow([s_root])
         info = ''
@@ -277,12 +311,13 @@ class Verb_sim(Feature):
         for verb in [s_root]:
             info += 'Sverb=%s   ' % (verb)
         Feature.set_info(self, info)
-        sim = np.dot(q_vec,s_vec)/(np.linalg.norm(q_vec)*np.linalg.norm(s_vec))
+        sim = np.dot(q_vec, s_vec) / (np.linalg.norm(q_vec) * np.linalg.norm(s_vec))
         if math.isnan(sim):
             sim = 0
         Feature.set_value(self, sim)
-#        if self.is_be(s_verbs, q.root_verb):
-#            Feature.set_value(self, 0.)
+
+    #        if self.is_be(s_verbs, q.root_verb):
+    #            Feature.set_value(self, 0.)
 
     def is_be(self, s1, s2):
         if len(s1) == 1:
@@ -294,9 +329,12 @@ class Verb_sim(Feature):
         return False
 
 
-class Verb_sim_wn(Feature):
+class VerbSimWordNet(Feature):
+    """
+    Similarity of question-sentence root verbs using WordNet.
+    """
     def __init__(self, answer, i):
-        Feature.set_type(self, clas+rel)
+        Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Verb similarity (WordNet)')
         q = answer.q
         sentence = answer.sources[i].sentence.split(':')[-1]
@@ -306,24 +344,28 @@ class Verb_sim_wn(Feature):
         s_verb = s1[0].root.lemma_
         info = 'Qverb=%s, Sverb=%s' % (q_verb, s_verb)
         Feature.set_info(self, info)
-        sim = self.max_sim(s_verb, q_verb)
+        sim = max_sim(s_verb, q_verb)
         Feature.set_value(self, sim)
 
-    def max_sim(self, v1, v2):
-        sim = []
-        if (v1 == 'be') or (v2 == 'be'):
-            return 0
-        for kk in wn.synsets(v1):
-            for ss in wn.synsets(v2):
-                sim.append(ss.path_similarity(kk))
-        if len(sim) == 0:
-            return 0
-        return max(0, *sim)
+
+def max_sim(v1, v2):
+    sim = []
+    if (v1 == 'be') or (v2 == 'be'):
+        return 0
+    for kk in wn.synsets(v1):
+        for ss in wn.synsets(v2):
+            sim.append(ss.path_similarity(kk))
+    if len(sim) == 0:
+        return 0
+    return max(0, *sim)
 
 
-class Verb_sim_wn_bin(Feature):
+class VerbSimWordNetBinary(Feature):
+    """
+    1 if VerbSimWordNet is 1 (basically if verbs are synonyms).
+    """
     def __init__(self, answer, i):
-        Feature.set_type(self, clas+rel)
+        Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Verb similarity (WordNet)')
         q = answer.q
         sentence = answer.sources[i].sentence.split(':')[-1]
@@ -333,28 +375,16 @@ class Verb_sim_wn_bin(Feature):
         s_verb = s1[0].root.lemma_
         info = 'Qverb=%s, Sverb=%s' % (q_verb, s_verb)
         Feature.set_info(self, info)
-        sim = self.max_sim(s_verb, q_verb)
+        sim = max_sim(s_verb, q_verb)
         if sim == 1:
             Feature.set_value(self, sim)
         else:
             Feature.set_value(self, 0.)
 
-    def max_sim(self, v1, v2):
-        sim = []
-        if (v1 == 'be') or (v2 == 'be'):
-            return 0
-        for kk in wn.synsets(v1):
-            for ss in wn.synsets(v2):
-                sim.append(ss.path_similarity(kk))
-        if len(sim) == 0:
-            return 0
-        return max(0, *sim)
-
 
 class Antonyms(Feature):
-
     def __init__(self, answer, i):
-        Feature.set_type(self, clas+rel)
+        Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Antonyms')
         q = answer.q
         sentence = answer.sources[i].sentence
@@ -364,23 +394,25 @@ class Antonyms(Feature):
         for s in doc.sents:
             s1.append(s)
         s_verb = s1[0].root.lemma_
-        sim = self.antonym(s_verb, q_verb)
+        sim = antonym(s_verb, q_verb)
         Feature.set_value(self, sim)
 
-    def antonym(self, v1, v2):
-        if (v1 == 'be') or (v2 == 'be'):
-            return 0
-        for aa in wn.synsets(v1):
-            for bb in aa.lemmas():
-                if bb.antonyms():
-                    if v2.lower() in bb.antonyms()[0].name():
-                        print v1, 'is an antonym of', v2
-                        return 1
+
+def antonym(v1, v2):
+    if (v1 == 'be') or (v2 == 'be'):
         return 0
+    for aa in wn.synsets(v1):
+        for bb in aa.lemmas():
+            if bb.antonyms():
+                if v2.lower() in bb.antonyms()[0].name():
+                    print v1, 'is an antonym of', v2
+                    return 1
+    return 0
 
 
-afinn = dict(map(lambda (k,v): (k,int(v)),
-[ line.split('\t') for line in open("sources/AFINN-111.txt") ]))
+afinn = dict(map(lambda (k, v): (k, int(v)),
+                 [line.split('\t') for line in open("sources/AFINN-111.txt")]))
+
 
 def zero_features(source):
     l = len(source.features)
@@ -389,12 +421,12 @@ def zero_features(source):
         if clas in f.get_type():
             newf = Feature()
             newf.set_type(clas)
-            newf.set_name(f.get_name()+'==0')
+            newf.set_name(f.get_name() + '==0')
             newf.set_value(float(f.get_value() == 0.))
             source.features.append(newf)
 
 
-expand_features_list = [zero_features]
+expand_features_list = [zero_features]  # list of used bonus-feature methods
 
 
 def expand_features(answer):
@@ -405,9 +437,7 @@ def expand_features(answer):
 
 def load_features(answer):
     for i in range(len(answer.sources)):
-#        features_source = []
         for func in feature_list:
             answer.sources[i].features.append(eval(func)(answer, i))
     expand_features(answer)
 
-#        answer.features.features.append(features_source)

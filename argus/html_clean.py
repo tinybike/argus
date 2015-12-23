@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from bs4 import BeautifulSoup
 import nltk.data
+
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-import re
 
 
 def sentence_split(article):
@@ -10,12 +10,8 @@ def sentence_split(article):
     sentences = []
     for sentence in tokenized:
         sentences.append(sentence)
-#        regex = re.match('^[A-Z]{2,}(.*)', sentence)
-#        if regex:
-#            sentences.append(regex.group(1))
-#        else:
-#            sentences.append(sentence)
     return sentences
+
 
 def clean(html):
     soup = BeautifulSoup(html, "lxml")
@@ -44,4 +40,3 @@ def preparse_guardian(html):
 
 def sentence_split_guardian(html):
     return sentence_split(preparse_guardian(html))
-#sentence_split_guardian(html)
