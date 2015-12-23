@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from flask import Flask, render_template, request
 from argus.main_frame import get_answer
 import re

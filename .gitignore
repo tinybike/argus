@@ -1,0 +1,11 @@
+*.pyc
+.*
+
+guardian_database.zip
+guardian_database/
+nytimes_database.zip
+nytimes_database/
+rss_data.zip
+data
+
+/log-*
