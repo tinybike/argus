@@ -23,7 +23,7 @@ def train():
 #    R = cross_validate_all(qstrain+qstest)
     R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
     #    R.Q = np.load('tests/batches/relevance/learned_relevance.npy')
-    #    R.Q[-2] = 0\
+    #    R.Q[-2] = 0
     #    mask = np.zeros_like(R.Q)
     #    R.Q[-1] = 1
     R.train(qstrain, learning_rate=0.02, nepoch=500, evaluate_loss_after=10,

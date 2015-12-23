@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Model for relevance only.
+Model for relevance only. To apply the model first train it,
+then input
+``R.Q = np.load('tests/batches/relevance/learned_relevance.npy')``
+to train_relevance train() function. Then create a mask for these features,
+more information in Relevance.train() function.
 """
 import numpy as np
 import csv

@@ -82,3 +82,9 @@ to the feature_list_official with its type symbols (you can change the name, onl
 4. To stop using the feature, simply erase it from ``feature_list`` and ``feature_list_official``
 
 Currently used symbols: classification = '#', relevance = '@'
+
+Error analysis
+--------------
+
+After running batch_test, system generates various error analysis files in tests/feature prints, 
+most notably all_features.tsv which contains gold standard + information about all features.
