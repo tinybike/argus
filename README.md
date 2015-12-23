@@ -30,10 +30,12 @@ Algorithm
 We extract keywords (mostly names and other nouns) from given question, then ask our database of various news articles (Guardian, NYtimes, ABCnews, Reuters, etc) for articles containing all keywords.  
 We expand the keywords by adding non-stop-words verbs. Then we check if we covered all non-stop-words; if we didn't the answer is "Didn't understand the question". Otherwise we continue evaluating.  
 We then divide the found sources (headlines, summaries and articles) into sentences and look for a sentence with all the non-verb keywords in it. If we can't find one, our answer is 'No result'. 
-If we do, we continue evaluating: 
+
+If we find some matching news sentences, we estimate the yes/no probability based on their content.
 Various features extracted from both question and each found sentence are the inputs to our special classifier.
-The classifier utilizes two types of features: classification and relevance.
-The final output probability is function of all features from all sources. [More detailed description here.]
+The classifier utilizes two types of features: classification (yes/no) and relevance (relevant/nonrelevant).
+Each sentence gets classification and relevance score assigned by the classifier.
+The final answer is then composed as sum of the classification scores of individual sentences, weighed by their relevance scores.
 
 ElasticSearch
 -------------
