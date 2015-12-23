@@ -141,7 +141,7 @@ def search_for_keywords(a, jobj, search_all):
 
 def search_short(a, text, search_all=True):
     if not search_all:
-        some = float(len(a.q.searchwords)) / 4 * 3  # change the fraction to search fore more/less kws
+        some = float(len(a.q.searchwords)) / 3 * 2  # change the fraction to search fore more/less kws
     else:
         some = len(a.q.searchwords)
     i = 0

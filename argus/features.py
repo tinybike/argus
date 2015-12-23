@@ -7,7 +7,7 @@ from keyword_extract import tokenize, nlp, verbs, extract_from_string
 from relevance import Relevance
 from nltk.corpus import wordnet as wn
 import re
-from feature_functs import load, patterns
+from feature_functs import load, patterns, patterns_string
 import math
 from dateutil.parser import parse
 
@@ -15,12 +15,13 @@ clas = '#'
 rel = '@'
 
 feature_list = ['SentimentQ', 'SentimentS', 'SubjectMatch', 'ObjectMatch', 'VerbSimSpacy',
-                'VerbSimWordNet', 'RelevantDate', 'ElasticScore', 'SportScore', 'Antonyms']
+                'VerbSimWordNet', 'RelevantDate', 'ElasticScore', 'SportScore', 'Antonyms',
+                'VerbSimWordNetBinary']
 feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '#@Subject match', '#@Object match',
                          '#@Verb similarity (spaCy)',
                          '#@Verb similarity (WordNet)', '@Relevant date',
-                         '@Elastic score', '#Sport score', '#@Antonyms']
+                         '@Elastic score', '#Sport score', '#@Antonyms', '@#VerbSimWordNetBinary']
 
 
 class Model(object):
@@ -36,7 +37,6 @@ class Model(object):
         self.answer = answer
 
     def predict(self):
-        print len(self.model.Q), len(self.model.W)
         f = []
         r = []
         for source in self.answer.sources:
@@ -145,6 +145,7 @@ class RelevantDate(Feature):
     """
     1 if source date matches question date, linear decrease next 14 days, 0 otherwise.
     """
+
     def __init__(self, answer, i):
         Feature.set_type(self, rel)
         Feature.set_name(self, 'Date relevance')
@@ -174,6 +175,7 @@ class SportScore(Feature):
     """
     Finds [num-num] in the sentence and tries to find out if subject was on the winning side.
     """
+
     def __init__(self, answer, i):
         Feature.set_type(self, clas)
         Feature.set_name(self, 'Match score')
@@ -195,25 +197,15 @@ class SportScore(Feature):
                 result = -1
 
             try:
-                #                print 'loading',sentence, sentence_kw, s1+'-'+s2
-                #                sentence = re.sub('[\W_]+', ' ', sentence)
-                #                sentence_kw = [re.sub('[\W_]+', ' ', kw) for kw in sentence_kw]
                 hs = load(sentence, sentence_kw, s1 + '-' + s2)
-                #                print 'loaded'
-                score = float(patterns(hs, qsubj))
-                #                print 'Q:',answer.q.text
-                #                print 'S:', sentence
-                #                print 'score=',score
-                #                print 'result=',score,s1,s2
-                #                print 'SCORE*RESULT=', score*result
+                score = patterns_string(sentence, qsubj, s1 + '-' + s2, answer.q.searchwords)
+                if score == 0:
+                    score = float(patterns(hs, qsubj))
                 Feature.set_value(self, score * result)
                 Feature.set_info(self, s1 + '-' + s2)
             except Exception:
-                #                print 'EXCEPTION'
-                #                traceback.print_exc()
                 Feature.set_value(self, 0.)
         else:
-            #            print 'no score found in', sentence
             Feature.set_value(self, 0.)
 
 
@@ -221,6 +213,7 @@ class SubjectMatch(Feature):
     """
     1 if source sentence and question match subjects.
     """
+
     def __init__(self, answer, i):
         Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Subject match')
@@ -255,6 +248,7 @@ class ObjectMatch(Feature):
     """
     1 if question subject matches sentence object.
     """
+
     def __init__(self, answer, i):
         Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Object match')
@@ -278,6 +272,7 @@ class VerbSimSpacy(Feature):
     """
     Cosine distance of question-sentence root verbs using Spacy w2v model.
     """
+
     def __init__(self, answer, i):
         Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Verb similarity (spacy)')
@@ -333,6 +328,7 @@ class VerbSimWordNet(Feature):
     """
     Similarity of question-sentence root verbs using WordNet.
     """
+
     def __init__(self, answer, i):
         Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Verb similarity (WordNet)')
@@ -364,6 +360,7 @@ class VerbSimWordNetBinary(Feature):
     """
     1 if VerbSimWordNet is 1 (basically if verbs are synonyms).
     """
+
     def __init__(self, answer, i):
         Feature.set_type(self, clas + rel)
         Feature.set_name(self, 'Verb similarity (WordNet)')
@@ -440,4 +437,3 @@ def load_features(answer):
         for func in feature_list:
             answer.sources[i].features.append(eval(func)(answer, i))
     expand_features(answer)
-

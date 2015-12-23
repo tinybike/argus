@@ -31,13 +31,14 @@ def load(sentence, kws, score):
     """
     Fills list of Holder objects for finding patterns
     """
+    kws = [kw.rstrip().lstrip() for kw in kws]
     kws = fill_blanks(kws, sentence)
     hs = []
     for kw in kws:
         try:
             hs.append(Holder(kw, sentence.index(kw), True))
         except ValueError:
-            #            print 'INDEX OF',re.sub('[\W_]+', ' ',kw),'IN',re.sub('[\W_]+', ' ', sentence)
+            # print 'INDEX OF',re.sub('[\W_]+', ' ',kw),'IN',re.sub('[\W_]+', ' ', sentence)
             hs.append(Holder(kw, re.sub('[\W_]+', ' ', sentence).index(re.sub('[\W_]+', ' ', kw)), True))
     hs.append(Holder(score, sentence.index(score), False, True))
     hs.sort(key=lambda x: x.pos)
@@ -91,9 +92,25 @@ def patterns(hs, subject):
     return 0
 
 
+def patterns_string(sentence, subject, score, kws):
+    for kw in kws:
+        if subject in kw:
+            subject = kw
+    s_ix = sentence.index(score)
+    su_ix = sentence.index(subject)
+    if s_ix > su_ix:
+        if s_ix <= su_ix + len(subject) + 2:
+            return 1
+    else:
+        if su_ix <= s_ix + len(score) + 2:
+            return -1
+    return 0
+
+
 if __name__ == '__main__':
-    sent = 'The buildup to Super Bowl XLIX may have been dominated by talk of deflated footballs but the denouement was anything but flat as the New England Patriots held off the Seattle Seahawks to win 28-24 in Phoenix.'
-    kws = ['New England Patriots', 'Super Bowl XLIX', 'Seattle Seahawks']
-    score = '28-24'
-    hs = load(sent, kws, score)
-    print patterns(hs, 'New England Patriots')
+#    sent = 'The buildup to Super Bowl XLIX may have been dominated by talk of deflated footballs but the denouement was anything but flat as the New England Patriots held off the Seattle Seahawks to win 28-24 in Phoenix.'
+#    kws = ['New England Patriots', 'Super Bowl XLIX', 'Seattle Seahawks']
+#    score = '28-24'
+#    hs = load(sent, kws, score)
+#    print patterns(hs, 'New England Patriots')
+    print patterns_string('asdh kuk 3-2 buk asdaf', 'kuk', '3-2')

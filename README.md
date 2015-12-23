@@ -28,8 +28,11 @@ Algorithm
 
 We extract keywords (mostly names and other nouns) from given question, then ask our database of various news articles (Guardian, NYtimes, ABCnews, Reuters, etc) for articles containing all keywords.  
 We expand the keywords by adding non-stop-words verbs. Then we check if we covered all non-stop-words; if we didn't the answer is "Didn't understand the question". Otherwise we continue evaluating.  
-We then divide the found sources (headlines, summaries and articles) into sentences and look for a sentence with all the non-verb keywords in it. If we can't find one, our answer is 'No result'. If we do, we evaluate sentiment (sum of emotionaly colored words) and verb similarity (using word embeddings and WordNet) for each question and found sentence. These features are then input to a logistic regression classifier.  
-We do this for each found article, then the answer is 'NO' if we answered 'NO' for most of the sources. Otherwise the answer is 'YES'. 
+We then divide the found sources (headlines, summaries and articles) into sentences and look for a sentence with all the non-verb keywords in it. If we can't find one, our answer is 'No result'. 
+If we do, we continue evaluating: 
+Various features extracted from both question and each found sentence are the inputs to our special classifier.
+The classifier utilizes two types of features: classification and relevance.
+The final output probability is function of all features from all sources. [More detailed description here.]
 
 ElasticSearch
 -------------
@@ -64,7 +67,7 @@ to create new output.tsv file. Then run
 
 To reevaluate on real data run batch_test.py again
 If you want to train with some features off, open output.tsv and delete the classification
- or relevance symbol in the feature name. To reevaluate on real data, read on.
+ or relevance symbol in the feature name.
 
 Adding Features
 ---------------
@@ -75,4 +78,5 @@ Adding Features
 to the feature_list_official with its type symbols (you can change the name, only the types are important).
 3. Then run batch_test.py to retrieve the feature, then train
 4. To stop using the feature, simply erase it from feature_list and feature_list_official
+
 currently used symbols: classification = '#', relevance = '@'
