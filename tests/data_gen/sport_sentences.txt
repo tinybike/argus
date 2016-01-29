@@ -1,0 +1,2 @@
+Will <team> win the <event> <year>?
+Did <team> win the <event> <year>?

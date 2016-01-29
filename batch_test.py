@@ -9,6 +9,10 @@ from argus.main_frame import get_answer
 import numpy as np
 from argus.features import feature_list_official as flo
 from separate_relevance import relevance_load, filter_sources
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 CSV_FOLDER = "tests/batches"
 trainIDs = np.load('tests/trainIDs/trainIDs.npy')
