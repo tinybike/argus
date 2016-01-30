@@ -1,6 +1,7 @@
 import json
 import csv
-
+import random
+random.seed(1234567)
 
 def replace(sentence, old_l, new_l):
     for (old, new) in zip(old_l, new_l):
@@ -52,18 +53,36 @@ for sentence in open('sport_sentences.txt'):
                         print q1, ans
                 else:
                     ans = 'NO'
+                    if random.random() > 0.8:
+                        continue
                 questions.append((q, ans))
                 print q, ans
                 i += 1
 
 for sentence in open('politics_sentences.txt'):
     question = sentence[:-1]
+    names = []
     for line in open('politics'):
         new = line.split('\n')[0].split('\t')
+        names.append(new[1])
         old = ['<state>', '<name>', '<position>', '<election>']
         q = replace(question, old, new)
         ans = 'YES'
         y += 1
+        questions.append((q, ans))
+        print q, ans
+        i += 1
+
+    for line in open('politics'):
+        new = line.split('\n')[0].split('\t')
+        while True:
+            name = random.choice(names)
+            if name != new[1]:
+                break
+        new[1] = name
+        old = ['<state>', '<name>', '<position>', '<election>']
+        q = replace(question, old, new)
+        ans = 'NO'
         questions.append((q, ans))
         print q, ans
         i += 1

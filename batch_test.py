@@ -15,7 +15,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 CSV_FOLDER = "tests/batches"
-trainIDs = np.load('tests/trainIDs/trainIDs.npy')
+trainIDs = list(np.load('tests/trainIDs/trainIDs.npy'))
 
 
 def evaluate():
@@ -214,6 +214,7 @@ def get_stats():
         if validation:
             if line[1] in trainIDs:
                 trainedon += 1
+                trainIDs.remove(line[1])
                 i -= 1
                 continue
         turkans = line[2]
@@ -231,7 +232,6 @@ def get_stats():
             correct += 1
         if ourans == 'Absolutely no result':
             anr += 1
-
     precision = correct / answered
     recall = correct / understood
     print 'Out of %d questions we understand %d (%.2f%%)' % (i, understood, understood / i * 100)
@@ -243,6 +243,7 @@ def get_stats():
         understood, anr, no_result, answered, answered / understood * 100)
     print 'Recall =', recall
     print 'Precision =', precision
+    print 'f1 =', 2*recall*precision/(recall+precision)
     print 'Turk answered YES in %.2f%% of answered' % (yes / answered * 100)
 
 
@@ -265,10 +266,10 @@ def turkstats():
         if line[7] == 'politics':
             politics += 1
     print 'YES answered in %.2f%% of turk answers' % (yes / i * 100)
-    print 'Topics:'
-    print 'sport %.2f%%' % (sport / i * 100)
-    print 'politics %.2f%%' % (politics / i * 100)
-    print 'stock market %.2f%%' % (stock / i * 100)
+    # print 'Topics:'
+    # print 'sport %.2f%%' % (sport / i * 100)
+    # print 'politics %.2f%%' % (politics / i * 100)
+    # print 'stock market %.2f%%' % (stock / i * 100)
 
 
 def more_stats():

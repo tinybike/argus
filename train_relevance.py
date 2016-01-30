@@ -18,34 +18,29 @@ def saveIDs():
 
 def train():
     qstrain, qstest, ctext, rtext = load_features()
-#    inverse_features(qstrain, ctext, rtext)
-#    inverse_features(qstest)
-    #    multip_features(qstrain, ctext, rtext)
-    #    multip_features(qstest)
+    # inverse_features(qstrain, ctext, rtext)
+    # inverse_features(qstest)
+    # multip_features(qstrain, ctext, rtext)
+    # multip_features(qstest)
     zero_features(qstrain, ctext, rtext)
     zero_features(qstest)
 
-#    R = cross_validate_all(qstrain+qstest)
-    R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
-    #    R.Q = np.load('tests/batches/relevance/learned_relevance.npy')
-    #    R.Q[-2] = 0
-    #    mask = np.zeros_like(R.Q)
-    #    R.Q[-1] = 1
-    R.train(qstrain, learning_rate=0.01, nepoch=500, evaluate_loss_after=10,
-            batch_size=100, reg=1e-3, train_rel=1)
+    R = cross_validate_all(qstrain+qstest)
+
+    # R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
+    # R.load('sources/models')
+    # R.train(qstrain, learning_rate=0.02, nepoch=300, evaluate_loss_after=10,
+    #         batch_size=10, reg=1e-3, train_rel=1)
 
     print '\n========================\n'
     list_weights(R, ctext, rtext)
     print 'W_shape =', R.W.shape
     print 'Q_shape =', R.Q.shape
-    #    R.Q[5] *= -1
-    #    R.W[6] *= -1
-    #    list_weights(R, ctext, rtext)
     print '---------------test'
     stats(R, qstest)
     print '---------------train'
     stats(R, qstrain)
-    R.save('sources/models')
+    # R.save('sources/models')
 
 
 def load_features():
@@ -173,13 +168,6 @@ def inverse_features(qs, ctext=None, rtext=None):
         k = 1
 
 
-# for q in qs:
-#        rlen = len(q.f)
-#        for i in range(rlen):
-#            newr = q.r[i,:] == 0.
-#            q.r = np.vstack((q.r, newr.astype(float)))
-
-
 def list_weights(R, ctext, rtext):
     for i in range(len(ctext)):
         dots = max(3, 50 - len(ctext[i]))
@@ -199,18 +187,18 @@ def cross_validate_one(idx):
     R = Relevance(w_dim, q_dim)
     np.random.seed(17151711 + idx * 2 + 1)
     if idx == 0:
-        R.train(qs, learning_rate=0.02, nepoch=500, evaluate_loss_after=100,
-                batch_size=1, reg=1e-3)
+        R.train(qs, learning_rate=0.01, nepoch=500, evaluate_loss_after=100,
+                batch_size=10, reg=1e-3)
         res = 0
     else:
         np.random.shuffle(qs)
         trainvalborder = len(qs) * (threads - 2) / (threads - 1)
-        R.train(qs[:trainvalborder], learning_rate=0.04, nepoch=500, evaluate_loss_after=100,
-                batch_size=1, reg=1e-3)
+        R.train(qs[:trainvalborder], learning_rate=0.01, nepoch=500, evaluate_loss_after=100,
+                batch_size=10, reg=1e-3)
         res = stats(R, qs[trainvalborder:])
         print 'Loss after training on train(idx=%d): %.2f' % (idx, R.calculate_loss(qs[:trainvalborder]))
         print 'Stats after training on test(idx=%d): %.2f' % (idx, res)
-    return (res, R)
+    return res, R
 
 
 def cross_validate_all(qstrain):
