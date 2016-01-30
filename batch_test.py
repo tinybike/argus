@@ -3,13 +3,13 @@ Main testing using questions from Mturk done from here, lots of printouts.
 """
 
 from __future__ import division
+import sys
 import csv
 import os
-from argus.main_frame import get_answer
 import numpy as np
+from separate_relevance import relevance_load
+from argus.main_frame import get_answer
 from argus.features import feature_list_official as flo
-from separate_relevance import relevance_load, filter_sources
-import sys
 
 reload(sys)
 sys.setdefaultencoding('utf8')

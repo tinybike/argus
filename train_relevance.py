@@ -8,7 +8,12 @@ import csv
 from multiprocessing import Pool
 
 outfile = 'tests/outfile.tsv'
-trainIDs = np.load('tests/trainIDs/trainIDs.npy')
+trainIDs = []
+
+
+def saveIDs():
+    ids = np.array(trainIDs)
+    np.save('tests/trainIDs/trainIDs.npy', ids)
 
 
 def train():
@@ -26,8 +31,8 @@ def train():
     #    R.Q[-2] = 0
     #    mask = np.zeros_like(R.Q)
     #    R.Q[-1] = 1
-    R.train(qstrain, learning_rate=0.02, nepoch=500, evaluate_loss_after=10,
-            batch_size=1, reg=1e-3, train_rel=1)
+    R.train(qstrain, learning_rate=0.01, nepoch=500, evaluate_loss_after=10,
+            batch_size=100, reg=1e-3, train_rel=1)
 
     print '\n========================\n'
     list_weights(R, ctext, rtext)
@@ -65,6 +70,9 @@ def load_features():
                     rel.append(line.index(field))
                     rtext.append(field)
             continue
+        i += 1
+        if i % 2 == 1:
+            trainIDs.append(line[1])
         if len(line) <= clas[0]:
             continue
         r = []
@@ -86,10 +94,12 @@ def load_features():
             y = 1
         else:
             y = 0
-        if line[1] in trainIDs:
+        if i % 2 == 1:
             qstrain.append(Q(f, r, y))
         else:
             qstest.append(Q(f, r, y))
+
+    saveIDs()
     return qstrain, qstest, ctext, rtext
 
 
