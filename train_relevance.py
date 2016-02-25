@@ -22,15 +22,19 @@ def train():
     # inverse_features(qstest)
     # multip_features(qstrain, ctext, rtext)
     # multip_features(qstest)
-    zero_features(qstrain, ctext, rtext)
-    zero_features(qstest)
+    # zero_features(qstrain, ctext, rtext)
+    # zero_features(qstest)
 
-    R = cross_validate_all(qstrain+qstest)
+    # R = cross_validate_all(qstrain+qstest)
 
-    # R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
+    R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
+    R.Q = np.zeros_like(R.Q)
+    R.W = np.zeros_like(R.W)
+    R.W[1] = 1.
+    R.Q[-1] = 1.
     # R.load('sources/models')
-    # R.train(qstrain, learning_rate=0.02, nepoch=300, evaluate_loss_after=10,
-    #         batch_size=10, reg=1e-3, train_rel=1)
+    # R.train(qstrain, learning_rate=0.01, nepoch=1, evaluate_loss_after=10,
+    #         batch_size=10, reg=1e-5, train_rel=[[0,1,1],[0,1,1]])
 
     print '\n========================\n'
     list_weights(R, ctext, rtext)
@@ -104,6 +108,7 @@ def stats(R, qs):
     for q in qs:
         i += 1
         yt = R.forward_propagation(q.f, q.r)
+        print yt
         if yt > 0.5:
             yt = 1
         else:
@@ -188,13 +193,13 @@ def cross_validate_one(idx):
     np.random.seed(17151711 + idx * 2 + 1)
     if idx == 0:
         R.train(qs, learning_rate=0.01, nepoch=500, evaluate_loss_after=100,
-                batch_size=10, reg=1e-3)
+                batch_size=10, reg=1e-4)
         res = 0
     else:
         np.random.shuffle(qs)
         trainvalborder = len(qs) * (threads - 2) / (threads - 1)
         R.train(qs[:trainvalborder], learning_rate=0.01, nepoch=500, evaluate_loss_after=100,
-                batch_size=10, reg=1e-3)
+                batch_size=10, reg=1e-4)
         res = stats(R, qs[trainvalborder:])
         print 'Loss after training on train(idx=%d): %.2f' % (idx, R.calculate_loss(qs[:trainvalborder]))
         print 'Stats after training on test(idx=%d): %.2f' % (idx, res)

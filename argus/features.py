@@ -16,12 +16,13 @@ rel = '@'
 
 feature_list = ['SentimentQ', 'SentimentS', 'SubjectMatch', 'ObjectMatch', 'VerbSimSpacy',
                 'VerbSimWordNet', 'RelevantDate', 'ElasticScore', 'SportScore', 'Antonyms',
-                'VerbSimWordNetBinary']
+                'VerbSimWordNetBinary', 'STS_NN']
 feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '#@Subject match', '#@Object match',
                          '#@Verb similarity (spaCy)',
                          '#@Verb similarity (WordNet)', '@Relevant date',
-                         '@Elastic score', '#Sport score', '#@Antonyms', '@#VerbSimWordNetBinary']
+                         '@Elastic score', '#Sport score', '#@Antonyms',
+                         '@#VerbSimWordNetBinary', '@#STS_NN']
 
 
 class Model(object):
@@ -105,6 +106,32 @@ class ElasticScore(Feature):
         Feature.set_type(self, rel)
         Feature.set_name(self, 'Elastic score')
         Feature.set_value(self, answer.sources[i].elastic)
+
+
+import pickle
+import importlib
+import pysts.embedding as emb
+from argus_tests import config, build_model, load_sent
+module = importlib.import_module('.'+'rnn', 'models')
+conf, ps, h = config(module.config, [])
+print 'loading sts model, glove'
+glove = emb.GloVe(N=conf['embdim'])
+print 'glove loaded'
+vocab = pickle.load(open('vocab'))
+model = build_model(glove, vocab, module.prep_model, conf)
+model.load_weights('sources/models/rnn.h5')
+print 'sts model loaded'
+class STS_NN(Feature):
+    """
+    Keras models from brmson/dataset-sts
+    """
+
+    def __init__(self, answer, i):
+        Feature.set_type(self, clas + rel)
+        Feature.set_name(self, 'STS_NN')
+        gr = load_sent(answer.q.text, answer.sources[i].sentence, vocab)
+        val = model.predict(gr)['score'][:, 0][0]
+        Feature.set_value(self, val)
 
 
 class SentimentQ(Feature):

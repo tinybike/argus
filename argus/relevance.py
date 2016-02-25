@@ -135,7 +135,7 @@ class Relevance:
         self.q_dim = np.size(self.Q)
 
     def train(self, qs, learning_rate=0.1, nepoch=500, evaluate_loss_after=5,
-              batch_size=10, reg=1e-3, train_rel=1):
+              batch_size=10, reg=1e-3, train_rel=[1, 1]):
         """
         :param qs: list of Q objects
         :param learning_rate:
@@ -169,14 +169,14 @@ class Relevance:
                 dLdW += dldw
                 dLdQ += dldq
                 if i % batch_size == 0:
-                    self.W += dLdW * learning_rate * 1
-                    self.Q += dLdQ * learning_rate * train_rel
+                    self.W += dLdW * learning_rate * train_rel[0]
+                    self.Q += dLdQ * learning_rate * train_rel[1]
 
                     dLdW = np.zeros(np.size(self.W))
                     dLdQ = np.zeros(np.size(self.Q))
                 i += 1
-            self.W += dLdW * learning_rate * 1
-            self.Q += dLdQ * learning_rate * train_rel
+            self.W += dLdW * learning_rate * train_rel[0]
+            self.Q += dLdQ * learning_rate * train_rel[1]
 
 
 if __name__ == '__main__':

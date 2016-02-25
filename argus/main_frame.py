@@ -44,6 +44,7 @@ def get_answer(question):
 
 def answer_all(answer):
     answer.model.predict()
+    # sts predict here
     answer.info = str(answer.prob)
     if answer.prob < 0.5:
         return 'NO'
