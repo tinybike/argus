@@ -110,6 +110,23 @@ with open('../batches/generated.csv', 'wb') as csv_file:
         writer.writerow(line)
 
 
+
+
+# Used when tokenizing words
+sentence_re = r'''(?x)      # set flag to allow verbose regexps
+      ([A-Z])(\.[A-Z])+\.?  # abbreviations, e.g. U.S.A.
+    | \w+(-\w+)*            # words with optional internal hyphens
+    | \$?\d+(\.\d+)?%?      # currency and percentages, e.g. $12.40, 82%
+    | \.\.\.                # ellipsis
+    | [][.,;"'?():-_`]      # these are separate tokens
+'''
+import nltk
+
+
+def tokenize(string):
+    return nltk.regexp_tokenize(string, sentence_re)
+
+
 def sts_out():
     trainIDs = list(np.load('../trainIDs/trainIDs.npy'))
 
@@ -125,9 +142,10 @@ def sts_out():
         else:
             continue
         if line[0] in trainIDs:
-            writer_train.writerow([line[0], ans, line[1].rstrip()])
+            writer_train.writerow([' '.join(tokenize(line[0].decode('utf-8'))).encode('utf-8'), ans,
+                                   ' '.join(tokenize(line[1].decode('utf-8'))).encode('utf-8')])
         else:
-            writer_test.writerow([line[0], ans, line[1].rstrip()])
-
+            writer_test.writerow([' '.join(tokenize(line[0].decode('utf-8'))).encode('utf-8'), ans,
+                                  ' '.join(tokenize(line[1].decode('utf-8'))).encode('utf-8')])
 
 sts_out()

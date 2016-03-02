@@ -181,13 +181,13 @@ def cross_validate_one(idx):
     R = Relevance(w_dim, q_dim)
     np.random.seed(17151711 + idx * 2 + 1)
     if idx == 0:
-        R.train(qs, learning_rate=0.01, nepoch=300, evaluate_loss_after=100,
+        R.train(qs, learning_rate=0.02, nepoch=200, evaluate_loss_after=100,
                 batch_size=10, reg=1e-3)
         res = 0
     else:
         np.random.shuffle(qs)
         trainvalborder = len(qs) * (threads - 2) / (threads - 1)
-        R.train(qs[:trainvalborder], learning_rate=0.01, nepoch=300, evaluate_loss_after=100,
+        R.train(qs[:trainvalborder], learning_rate=0.02, nepoch=200, evaluate_loss_after=100,
                 batch_size=10, reg=1e-3)
         res = stats(R, qs[trainvalborder:])
         print 'Loss after training on train(idx=%d): %.2f' % (idx, R.calculate_loss(qs[:trainvalborder]))

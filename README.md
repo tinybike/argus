@@ -14,6 +14,7 @@ Setup
 	python -m nltk.downloader wordnet
 	pip install spacy
 	python -m spacy.en.download all
+	Get glove.6B.50d.txt from http://nlp.stanford.edu/projects/glove/ to sources/
 
 Testing
 -------

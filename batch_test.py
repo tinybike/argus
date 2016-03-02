@@ -15,8 +15,9 @@ sys.setdefaultencoding('utf8')
 CSV_FOLDER = "tests/batches"
 trainIDs = list(np.load('tests/trainIDs/trainIDs.npy'))
 
-#  TODO: remove irrelevant printouts, remove sentence, url, headline,.. from outfile
+
 def evaluate():
+    #  TODO: remove irrelevant printouts, remove sentence, url, headline,.. from outfile
     from argus.main_frame import get_answer
     from separate_relevance import relevance_load
     from argus.features import feature_list_official as flo
