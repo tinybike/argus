@@ -111,15 +111,15 @@ class ElasticScore(Feature):
 import pickle
 import importlib
 import pysts.embedding as emb
-from argus_tests import config, build_model, load_sent
+from train_keras import config, build_model, load_sent
 module = importlib.import_module('.'+'rnn', 'models')
 conf, ps, h = config(module.config, [])
 print 'loading sts model, glove'
 glove = emb.GloVe(N=conf['embdim'])
 print 'glove loaded'
-vocab = pickle.load(open('vocab'))
+vocab = pickle.load(open('sources/vocab.txt'))
 model = build_model(glove, vocab, module.prep_model, conf)
-model.load_weights('sources/models/rnn.h5')
+model.load_weights('sources/models/keras_model.h5')
 print 'sts model loaded'
 class STS_NN(Feature):
     """

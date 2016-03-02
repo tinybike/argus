@@ -16,7 +16,8 @@ sigm = np.vectorize(sig)
 
 
 class Q:
-    def __init__(self, f, r, y):
+    def __init__(self, qtext, f, r, y):
+        self.qtext = qtext
         self.f = f
         self.r = r
         self.y = y

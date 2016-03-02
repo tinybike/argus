@@ -7,9 +7,7 @@ import sys
 import csv
 import os
 import numpy as np
-from separate_relevance import relevance_load
-from argus.main_frame import get_answer
-from argus.features import feature_list_official as flo
+
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -17,8 +15,11 @@ sys.setdefaultencoding('utf8')
 CSV_FOLDER = "tests/batches"
 trainIDs = list(np.load('tests/trainIDs/trainIDs.npy'))
 
-
+#  TODO: remove irrelevant printouts, remove sentence, url, headline,.. from outfile
 def evaluate():
+    from argus.main_frame import get_answer
+    from separate_relevance import relevance_load
+    from argus.features import feature_list_official as flo
     q_num = 0
     info_files = [open('tests/feature_prints/' + i_f + '.tsv', 'wb') for i_f in flo]
     writers = [csv.writer(info_file, delimiter='\t') for info_file in info_files]
@@ -68,8 +69,9 @@ def evaluate():
                 source = ''
                 feat = ''
                 info = []
+                turk_answer = line[28]
                 if len(ouranswer.sources) != 0:
-                    feature_print_all(writer_all, ouranswer, first)
+                    feature_print_all(writer_all, ouranswer, first, turk_answer)
                     feature_print_rel(writer_rel, ouranswer, r, first)
                     feature_print(writers, ouranswer)
                     turk_print(writer_turk, ouranswer)
@@ -85,7 +87,7 @@ def evaluate():
                         feat = ''
 
                 # Write details to the output.tsv
-                info = [line[0], line[30], line[28],
+                info = [line[0], line[30], turk_answer,
                         ouranswer.text, ouranswer.q.query, sentence,
                         headline, line[31], line[29], url, source,
                         ouranswer.info] + info
@@ -123,6 +125,7 @@ def feature_print(writers, answer):
 
 
 def feature_print_rel(writer, answer, r, first=False):
+    from argus.features import feature_list_official as flo
     flen = len(flo)
     if first:
         feats = [f.get_name() for f in answer.sources[0].features if '@' in f.get_type()]
@@ -150,22 +153,21 @@ def turk_print(writer, answer):
         writer.writerow(info)
 
 
-def class_load():
-    c_dict = dict()
-    i = 0
-    for line in csv.reader(open('tests/outfile.tsv'), delimiter='\t', skipinitialspace=True):
-        if i == 0:
-            i += 1
-            continue
-        c_dict[line[1]] = str(int(line[2] == 'YES'))
-    return c_dict
+# def class_load():
+#     c_dict = dict()
+#     i = 0
+#     for line in csv.reader(open('tests/outfile.tsv'), delimiter='\t', skipinitialspace=True):
+#         if i == 0:
+#             i += 1
+#             continue
+#         c_dict[line[1]] = str(int(line[2] == 'YES'))
+#     return c_dict
 
 
-rel_GS = relevance_load()
-class_GS = class_load()
-
-
-def feature_print_all(writer, answer, first=False):
+def feature_print_all(writer, answer, first=False, clas='?'):
+    from separate_relevance import relevance_load
+    from argus.features import feature_list_official as flo
+    rel_GS = relevance_load()
     if first:
         info = ['Question', 'Sentence', 'Class_GS', 'Class', 'Rel_GS', 'Rel']
         for i in range(len(flo)):
@@ -183,9 +185,6 @@ def feature_print_all(writer, answer, first=False):
                     rel = str(triplet[-1])
                     break
 
-        clas = class_GS.get(answer.q.text)
-        if clas is None:
-            clas = '-1'
         info = [answer.q.text, source.sentence]
         info += [clas, str(source.prob), rel, str(source.rel)]
 
@@ -297,12 +296,11 @@ def bad_only():
                 writer.writerow(line)
 
 
-import sys
-
 CSV_FOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
 INFOFILE = "tests/infofile.tsv"
 validation = True
+eval_ = False
 if __name__ == "__main__":
     for i in range(0, len(sys.argv)):
         if sys.argv[i] == '-train':
@@ -313,10 +311,13 @@ if __name__ == "__main__":
             OUTFILE = "tests/outfile_test.tsv"
         if sys.argv[i] == '-valoff':
             validation = False
-    evaluate()
+        if sys.argv[i] == '-eval':
+            eval_ = True
+    if eval_:
+        evaluate()
     get_stats()
     print '----------'
-    turkstats()
-    print '----------'
+    # turkstats()
+    # print '----------'
     more_stats()
     bad_only()

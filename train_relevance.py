@@ -5,6 +5,7 @@ Training Relevance model happens here, you can change various parameters in trai
 import numpy as np
 from argus.relevance import Relevance, Q
 import csv
+import sys
 from multiprocessing import Pool
 
 outfile = 'tests/outfile.tsv'
@@ -22,19 +23,19 @@ def train():
     # inverse_features(qstest)
     # multip_features(qstrain, ctext, rtext)
     # multip_features(qstest)
-    # zero_features(qstrain, ctext, rtext)
-    # zero_features(qstest)
+    zero_features(qstrain, ctext, rtext)
+    zero_features(qstest)
 
-    # R = cross_validate_all(qstrain+qstest)
+    R = cross_validate_all(qstrain+qstest)
 
-    R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
-    R.Q = np.zeros_like(R.Q)
-    R.W = np.zeros_like(R.W)
-    R.W[1] = 1.
-    R.Q[-1] = 1.
+    # R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
+    # R.Q = np.zeros_like(R.Q)
+    # R.W = np.zeros_like(R.W)
+    # R.W[-2] = 1.
+    # R.Q[-1] = 1.
     # R.load('sources/models')
-    # R.train(qstrain, learning_rate=0.01, nepoch=1, evaluate_loss_after=10,
-    #         batch_size=10, reg=1e-5, train_rel=[[0,1,1],[0,1,1]])
+    # R.train(qstrain+qstest, learning_rate=0.02, nepoch=20, evaluate_loss_after=10,
+    #         batch_size=10, reg=1e-3)
 
     print '\n========================\n'
     list_weights(R, ctext, rtext)
@@ -44,7 +45,9 @@ def train():
     stats(R, qstest)
     print '---------------train'
     stats(R, qstrain)
-    # R.save('sources/models')
+    if query_yes_no('Save model and rewrite output.tsv?'):
+        R.save('sources/models')
+        rewrite_output()
 
 
 def load_features():
@@ -70,7 +73,7 @@ def load_features():
                     rtext.append(field)
             continue
         i += 1
-        if i % 2 == 1:
+        if split(i):
             trainIDs.append(line[1])
         if len(line) <= clas[0]:
             continue
@@ -93,31 +96,17 @@ def load_features():
             y = 1
         else:
             y = 0
-        if i % 2 == 1:
-            qstrain.append(Q(f, r, y))
+        if split(i):
+            qstrain.append(Q(line[1], f, r, y))
         else:
-            qstest.append(Q(f, r, y))
+            qstest.append(Q(line[1], f, r, y))
 
     saveIDs()
     return qstrain, qstest, ctext, rtext
 
 
-def stats(R, qs):
-    corr = 0
-    i = 0
-    for q in qs:
-        i += 1
-        yt = R.forward_propagation(q.f, q.r)
-        print yt
-        if yt > 0.5:
-            yt = 1
-        else:
-            yt = 0
-        if q.y == yt:
-            corr += 1
-    print '%.2f%% correct (%d/%d)' % (float(corr) / i * 100, corr, i)
-    return float(corr) / i * 100
-
+def split(i):
+    return i % 4 < 2
 
 def multip_features(qs, ctext=None, rtext=None):
     """ extend FV with feature powerset (f1*f2 for all f1, f2) metafeatures """
@@ -192,14 +181,14 @@ def cross_validate_one(idx):
     R = Relevance(w_dim, q_dim)
     np.random.seed(17151711 + idx * 2 + 1)
     if idx == 0:
-        R.train(qs, learning_rate=0.01, nepoch=500, evaluate_loss_after=100,
-                batch_size=10, reg=1e-4)
+        R.train(qs, learning_rate=0.01, nepoch=300, evaluate_loss_after=100,
+                batch_size=10, reg=1e-3)
         res = 0
     else:
         np.random.shuffle(qs)
         trainvalborder = len(qs) * (threads - 2) / (threads - 1)
-        R.train(qs[:trainvalborder], learning_rate=0.01, nepoch=500, evaluate_loss_after=100,
-                batch_size=10, reg=1e-4)
+        R.train(qs[:trainvalborder], learning_rate=0.01, nepoch=300, evaluate_loss_after=100,
+                batch_size=10, reg=1e-3)
         res = stats(R, qs[trainvalborder:])
         print 'Loss after training on train(idx=%d): %.2f' % (idx, R.calculate_loss(qs[:trainvalborder]))
         print 'Stats after training on test(idx=%d): %.2f' % (idx, res)
@@ -225,6 +214,55 @@ def cross_validate_all(qstrain):
     print 'mean perc after val =', sum(percs) / threads
     return retR
 
+results = []
+
+
+def stats(R, qs):
+    corr = 0
+    i = 0
+    for q in qs:
+        i += 1
+        yt = R.forward_propagation(q.f, q.r)
+        if yt > 0.5:
+            yt = 1
+        else:
+            yt = 0
+        results.append((q.qtext, yt))
+        if q.y == yt:
+            corr += 1
+    print '%.2f%% correct (%d/%d)' % (float(corr) / i * 100, corr, i)
+    return float(corr) / i * 100
+
+
+def rewrite_output():
+    lines = []
+    for line in csv.reader(open(outfile), delimiter='\t', skipinitialspace=True):
+        for qtext, yt in results:
+            if line[1] == qtext:
+                if yt == 1:
+                    line[3] = 'YES'
+                else:
+                    line[3] = 'NO'
+        lines.append(line)
+    writer = csv.writer(open(outfile, 'wr'), delimiter='\t')
+    for line in lines:
+        writer.writerow(line)
+
+
+def query_yes_no(question, default="yes"):
+    valid = {"yes": True, "y": True, "ye": True,
+             "no": False, "n": False}
+    prompt = " [y/n] "
+    while True:
+        sys.stdout.write(question + prompt)
+        choice = raw_input().lower()
+        if default is not None and choice == '':
+            return valid[default]
+        elif choice in valid:
+            return valid[choice]
+        else:
+            sys.stdout.write("Please respond with 'yes' or 'no' "
+                             "(or 'y' or 'n').\n")
 
 if __name__ == '__main__':
     np.random.seed(17151711)
