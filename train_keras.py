@@ -166,14 +166,14 @@ if __name__ == "__main__":
 
     print('Dataset')
 
-    q = 'Will the New England Patriots qualify for the Super Bowl?'
-    a = 'Why a Seattle Seahawks Super Bowl win would be a win for weed'
+    q = 'Will Donald Trump run for president of the united states ?'
+    a = 'Neil Young , a Canadian citizen , is a supporter of Bernie Sanders for president of the United States of America , manager Elliot Roberts said .'
     vocab = pickle.load(open('sources/vocab.txt'))
     gr = load_sent(q, a, vocab)
 
     print('Model')
     model = build_model(glove, vocab, module.prep_model, conf)
-    model.load_weights('sources/models/rnn.h5')
+    model.load_weights('sources/models/keras_model.h5')
     print('Predict')
     prediction = model.predict(gr)['score'][:, 0][0]
     print('PREDICTION', prediction)

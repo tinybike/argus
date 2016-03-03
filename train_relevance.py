@@ -32,7 +32,6 @@ def train():
     # R.Q = np.zeros_like(R.Q)
     # R.W = np.zeros_like(R.W)
     # R.W[-2] = 1.
-    # R.Q[-1] = 1.
     # R.load('sources/models')
     # R.train(qstrain+qstest, learning_rate=0.02, nepoch=20, evaluate_loss_after=10,
     #         batch_size=10, reg=1e-3)
