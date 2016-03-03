@@ -1,20 +1,15 @@
 #!/usr/bin/python3
 """
+Script used for training on argus anssel dataset.
 Prerequisites:
     * Get glove.6B.50d.txt from http://nlp.stanford.edu/projects/glove/
 """
-# TODO: glove 300d, delete this file
 from __future__ import print_function
 from __future__ import division
-
-import importlib
-import sys
-import csv
 
 from keras.layers.core import Activation
 from keras.models import Graph
 
-import pysts.embedding as emb
 import pysts.loader as loader
 import pysts.nlp as nlp
 from pysts.hyperparam import hash_params
@@ -22,7 +17,6 @@ from pysts.vocab import Vocabulary
 
 from pysts.kerasts import graph_input_anssel
 import pysts.kerasts.blocks as B
-from argus.keyword_extract import tokenize
 
 
 s0pad = 60
@@ -45,7 +39,7 @@ def load_set(fname, vocab=None):
 
 
 def load_sent(q, a, vocab=None):
-    s0, s1, y = [tokenize(q)], [tokenize(a)], 1
+    s0, s1, y = [q], [a], 1
     # s0=questions, s1=answers
 
     if vocab is None:
@@ -120,63 +114,6 @@ def build_model(glove, vocab, module_prep_model, c, s0pad=s0pad, s1pad=s1pad):
     model.compile(loss={'score': c['loss']}, optimizer='adam')
     return model
 
-
-def eval_questions(sq, sa, labels, results, text):
-    question = ''
-    label = 1
-    avg = 0
-    avg_all = 0
-    q_num = 0
-    correct = 0
-    n = 0
-    f = open('printout_'+text+'.csv', 'wb')
-    w = csv.writer(f, delimiter=',')
-    for q, y, t, a in zip(sq, labels, results, sa):
-        if q == question:
-            n += 1
-            avg = n/(n+1)*avg+t/(n+1)
-            row = [q, y, t, '', a]
-            w.writerow(row)
-        else:
-            row = [q, y, t, avg, a]
-            w.writerow(row)
-            if q_num != 0 and abs(label-avg) < 0.5:
-                correct += 1
-            question = q
-            label = y
-            avg = t
-            q_num += 1
-            n = 0
-    if q_num != 0 and abs(label-avg) < 0.5:
-        correct += 1
-
-    print('precision on separate questions ('+text+'):', correct/q_num)
-
-import pickle
-if __name__ == "__main__":
-    # modelname, trainf, valf = sys.argv[1:4]
-    modelname, trainf, valf = 'rnn', 'data/hypev/argus/argus_train.csv', 'data/hypev/argus/argus_test.csv'
-    params = sys.argv[4:]
-
-    module = importlib.import_module('.'+modelname, 'models')
-    conf, ps, h = config(module.config, params)
-
-    print('GloVe')
-    glove = emb.GloVe(N=conf['embdim'])
-
-    print('Dataset')
-
-    q = 'Will Donald Trump run for president of the united states ?'
-    a = 'Neil Young , a Canadian citizen , is a supporter of Bernie Sanders for president of the United States of America , manager Elliot Roberts said .'
-    vocab = pickle.load(open('sources/vocab.txt'))
-    gr = load_sent(q, a, vocab)
-
-    print('Model')
-    model = build_model(glove, vocab, module.prep_model, conf)
-    model.load_weights('sources/models/keras_model.h5')
-    print('Predict')
-    prediction = model.predict(gr)['score'][:, 0][0]
-    print('PREDICTION', prediction)
 
 
 
