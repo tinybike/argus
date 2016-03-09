@@ -63,13 +63,13 @@ Training
 
 With mTurk output files present in tests/batches, run
 
-	python batch_test.py [-valoff if you dont want to use train/validate split]
+	python batch_test.py -eval [-valoff if you dont want to use train/validate split]
 
 to create new output.tsv file with up-to-date feature vectors. Then run:
 
 	python train_relevance.py
 
-To reevaluate system performance with retrained classifier, run batch_test.py again.
+To reevaluate system performance with retrained classifier, run batch_test.py.
 
 If you want to train with some features off, open output.tsv and delete the classification
  or relevance symbol in the feature name.
@@ -81,7 +81,7 @@ Adding Features
  (name and info are also desirable). Look for already implemented features in argus/features.py
 2. To make the system use new feature, add string with the feature object name to feature_list list AND
 to the feature_list_official with its type symbols (you can change the name, only the types are important).
-3. Then run batch_test.py to retrieve the feature, then train
+3. Then run batch_test.py -eval to retrieve the feature, then train
 4. To stop using the feature, simply erase it from ``feature_list`` and ``feature_list_official``
 
 Currently used symbols: classification = '#', relevance = '@'
@@ -91,3 +91,9 @@ Error analysis
 
 After running batch_test, system generates various error analysis files in tests/feature prints, 
 most notably all_features.tsv which contains gold standard + information about all features.
+
+Data set
+--------
+
+To generate the data set of question-label-sentence triplets (mainly for use in github/brmson/dataset-sts),
+run running batch_test.py -eval and generate.py hidden in tests/data_gen/ (argus_test[train].csv will be created in tests/data_gen).
