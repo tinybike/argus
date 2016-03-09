@@ -96,4 +96,4 @@ Data set
 --------
 
 To generate the data set of question-label-sentence triplets (mainly for use in github/brmson/dataset-sts),
-run running batch_test.py -eval and generate.py hidden in tests/data_gen/ (argus_test[train].csv will be created in tests/data_gen).
+run ``batch_test.py -eval`` and ``generate.py`` hidden in tests/data_gen/ (argus_test[train].csv will be created in tests/data_gen).
