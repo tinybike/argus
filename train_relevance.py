@@ -26,15 +26,15 @@ def train():
     zero_features(qstrain, ctext, rtext)
     zero_features(qstest)
 
-    R = cross_validate_all(qstrain+qstest)
+    # R = cross_validate_all(qstrain+qstest)
 
-    # R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
+    R = Relevance(qstest[0].f.shape[0], qstest[0].r.shape[0])
     # R.Q = np.zeros_like(R.Q)
     # R.W = np.zeros_like(R.W)
     # R.W[-2] = 1.
     # R.load('sources/models')
-    # R.train(qstrain+qstest, learning_rate=0.02, nepoch=20, evaluate_loss_after=10,
-    #         batch_size=10, reg=1e-3)
+    R.train(qstrain+qstest, learning_rate=0.02, nepoch=200, evaluate_loss_after=10,
+            batch_size=10, reg=0)
 
     print '\n========================\n'
     list_weights(R, ctext, rtext)
@@ -44,8 +44,9 @@ def train():
     stats(R, qstest)
     print '---------------train'
     stats(R, qstrain)
-    if query_yes_no('Save model and rewrite output.tsv?'):
+    if query_yes_no('Save model?'):
         R.save('sources/models')
+    if query_yes_no('Rewrite output.tsv?'):
         rewrite_output()
 
 
@@ -222,11 +223,12 @@ def stats(R, qs):
     for q in qs:
         i += 1
         yt = R.forward_propagation(q.f, q.r)
+        t = yt
         if yt > 0.5:
             yt = 1
         else:
             yt = 0
-        results.append((q.qtext, yt))
+        results.append((q.qtext, yt, t))
         if q.y == yt:
             corr += 1
     print '%.2f%% correct (%d/%d)' % (float(corr) / i * 100, corr, i)
@@ -236,12 +238,13 @@ def stats(R, qs):
 def rewrite_output():
     lines = []
     for line in csv.reader(open(outfile), delimiter='\t', skipinitialspace=True):
-        for qtext, yt in results:
+        for qtext, yt, t in results:
             if line[1] == qtext:
                 if yt == 1:
                     line[3] = 'YES'
                 else:
                     line[3] = 'NO'
+                line[11] = str(t)
         lines.append(line)
     writer = csv.writer(open(outfile, 'wr'), delimiter='\t')
     for line in lines:
