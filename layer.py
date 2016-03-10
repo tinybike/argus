@@ -3,20 +3,20 @@ from keras.layers.wrappers import TimeDistributed as td
 from keras import activations, initializations
 import keras.constraints
 import keras.regularizers
-from keras.layers.core import Layer
+from keras.layers.core import MaskedLayer, Layer, TimeDistributedDense, TimeDistributedMerge, Activation
 import keras.backend as K
 import theano.tensor as T
 
-max_sentences = 100
-class ClasRel(Layer):
+
+class ClasRel(MaskedLayer):
 
     input_ndim = 3
 
-    def __init__(self, w_dim, q_dim, output_dim=1, init='glorot_uniform', activation='linear',
+    def __init__(self, w_dim, q_dim, max_sentences=100, output_dim=1, init='glorot_uniform', activation='linear',
                  activation_w='sigmoid', activation_q='sigmoid', weights=None,
                  regularizers=[None]*4, activity_regularizer=None, constraints=[None]*4,
                  input_dim=None, **kwargs):
-        self.max_words = 100
+        self.max_sentences = max_sentences
         self.w_dim = w_dim
         self.q_dim = q_dim
         self.input_dim = self.w_dim + self.q_dim
@@ -42,7 +42,7 @@ class ClasRel(Layer):
 
         self.initial_weights = weights
 
-        kwargs['input_shape'] = (self.w_dim + self.q_dim, self.max_words,)
+        kwargs['input_shape'] = (self.max_sentences, self.w_dim + self.q_dim,)
         super(ClasRel, self).__init__(**kwargs)
 
     def build(self):
@@ -66,17 +66,24 @@ class ClasRel(Layer):
 
     @property
     def output_shape(self):
-        return () #  TODO: figure out whats this
+        input_shape = self.input_shape
+        return (input_shape[0], input_shape[1], 1)
 
     def get_output(self, train=False):
         X = self.get_input(train)
-        f = X[:, :self.w_dim]
-        r = X[:, self.w_dim:]
-        s = self.activation_w(T.dot(self.W, f) + self.w)
-        t = self.activation_q(T.dot(self.Q, r) + self.q)
-        # print 'X=', X.type, 'f=', f.type, 'r=', r.type, 's=', s.type, 't=', t.type
-        output = self.activation(T.sum(s * t, axis=1) / T.sum(t, axis=1))
-        output = T.reshape(output, (-1, 1))
+        x = K.reshape(X, (-1, self.input_shape[-1]))
+        f = x[:, :self.w_dim]
+        r = x[:, self.w_dim:]
+        s_ = K.dot(f, self.W)
+        t_ = K.dot(r, self.Q)
+        mask = K.switch(s_, 1, 0)
+        s = self.activation_w(s_ + self.w) * mask
+        t = self.activation_q(t_ + self.q) * mask
+        s = K.reshape(s, (-1, self.input_shape[1]))
+        t = K.reshape(t, (-1, self.input_shape[1]))
+
+        output = self.activation(K.sum(s * t, axis=1) / T.sum(t, axis=-1)) # T.sum(t, axis=1))
+        output = K.reshape(output, (-1, 1))
         return output
 
     def get_config(self):
@@ -114,41 +121,75 @@ class ClasRel(Layer):
         return regularizers
 
 
-from keras.models import Sequential
-import keras
+
+def test(X,w_dim,W,Q,q,w):
+    x = K.reshape(X, (-1, w_dim+q_dim))
+    f = x[:, :w_dim]
+    r = x[:, w_dim:]
+    s_ = K.dot(f, W)
+    t_ = K.dot(r, Q)
+    mask = K.switch(s_, 1, 0)
+    s = s_ + w * mask
+    t = 1#self.activation_q(t_ + self.q) * mask
+    s = K.reshape(s, (-1, max_sentences))
+    return mask
 
 
-from keras.layers.core import Dense, Activation
+if __name__ == '__main__':
 
+    from keras.models import Sequential
+    import keras
+    from keras.layers.core import Masking
+    from keras.layers.embeddings import Embedding
+    import numpy as np
 
-import numpy as np
+    np.random.seed(1337)  # for reproducibility
+    w_dim = 20+10
+    q_dim = 20
+    max_sentences = 3
+    nb_questions = 8
+    x = np.random.randint(0, 10, size=(nb_questions, max_sentences, w_dim + q_dim))
+    # x = np.ones_like(x)
+    # x[-1,:,-1] = np.zeros_like(x[-1,:,-1])
+    mask = np.ones((nb_questions, max_sentences))
 
-np.random.seed(1337)  # for reproducibility
+    # size=(questions, q_dim+w_dim, max_sentences)
+    y = np.random.randint(0, 2, size=(nb_questions,))
+    print x, y
 
-x = np.random.normal(size=(10, 13, 100))
-# size=(questions, q_dim+w_dim, J)
-y = np.random.randint(0, 2, size=(10,))
-print y.shape, y
+    import theano
+    theano.config.on_unused_input = 'ignore'
+    # theano.config.exception_verbosity = 'high'
 
-import theano
-theano.config.on_unused_input = 'warn'
+    X = T.tensor3('X')
+    W = T.vector('W')
+    Q = T.vector('Q')
+    q = T.scalar('q')
+    w = T.scalar('w')
 
-model = Sequential()
+    pokus = theano.function(inputs=[X,W,Q,w,q],
+                            outputs=test(X,w_dim,W,Q,q,w),
+                            allow_input_downcast=True)
 
-model.add(ClasRel(w_dim=6, q_dim=7))
-# model.add(Activation("relu"))
-# model.add(Dense(output_dim=10, init="glorot_uniform"))
-# model.add(Activation("softmax"))
+    W = np.random.randint(0,10,size=(w_dim))
+    Q = np.random.randint(0,10,size=(q_dim))
+    w = np.random.randint(0,10,size=())
+    q = np.random.randint(0,10,size=())
 
-model.compile(loss='binary_crossentropy', optimizer='sgd')
+    print 'pokus', pokus(x,W,Q,w,q).shape
+    model = Sequential()
 
-print 'compiled'
+    model.add(ClasRel(w_dim=w_dim, q_dim=q_dim, max_sentences=max_sentences))
+    #model.add(TimeDistributedDense(1, input_shape=(max_sentences, w_dim + q_dim)))
+    #model.add(TimeDistributedMerge(mode='ave'))
+    # model.add(Activation('sigmoid'))
 
-# X = keras.preprocessing.sequence.pad_sequences(sequences, maxlen=100)
+    model.compile(loss='binary_crossentropy', optimizer='sgd',
+                  class_mode='binary')# sample_weight_mode='temporal')
 
-# size=(output_size, max_words, ??)
-print model.predict(x)
-
-model.fit(x, y, batch_size=5, nb_epoch=10)
-print model.predict(x)
+    print 'compiled'
+    print(x)
+    # print model.predict(x).shape
+    model.fit(x, y, batch_size=5, nb_epoch=100, show_accuracy=True)
+    print model.predict(x)
 
