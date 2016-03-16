@@ -390,7 +390,7 @@ class VerbSimWordNetBinary(Feature):
 
     def __init__(self, answer, i):
         Feature.set_type(self, clas + rel)
-        Feature.set_name(self, 'Verb similarity (WordNet)')
+        Feature.set_name(self, 'Verb similarity (WordNetBinary)')
         q = answer.q
         sentence = answer.sources[i].sentence.split(':')[-1]
         q_verb = q.root_verb[0].lemma_
