@@ -3,7 +3,6 @@
 Training Relevance model happens here, you can change various parameters in train().
 """
 import numpy as np
-# from argus.relevance import Relevance, Q
 from keras.models import Sequential, Graph
 from keras.layers.core import Activation
 import keras.backend as K
@@ -25,24 +24,7 @@ outfile = 'tests/feature_prints/all_features.tsv'
 trainIDs = []
 
 
-def extract_xy(qs, max_sentences):
-    # XXX: unnecessary transposing?
-    c = np.array([prep.pad_sequences(q.c.T, maxlen=max_sentences, padding='post',
-                                     truncating='post', dtype='float32') for q in qs])
-    r = np.array([prep.pad_sequences(q.r.T, maxlen=max_sentences, padding='post',
-                                     truncating='post', dtype='float32') for q in qs])
-    x = np.concatenate((c, r), axis=1)
-    x = x.transpose((0, 2, 1))
-    y = np.array([q.y for q in qs])
-    return x, y
-
-
-def relu(x):
-    return K.switch(x > 0, x + 1e-3, 1e-3)
-
-
 def train():
-    max_sentences = 100
     qs_train, qs_test, ctext, rtext = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
     # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
@@ -53,24 +35,32 @@ def train():
     w_dim = qs_train[0].c.shape[-1]
     q_dim = qs_train[0].r.shape[-1]
 
-    sgd = SGD(lr=0.02, decay=1e-6, momentum=0.9, nesterov=True)
-    clr = ClasRel(w_dim=w_dim, q_dim=q_dim, init='normal',
-                  max_sentences=max_sentences,
-                  activation_w='sigmoid',
-                  activation_q='sigmoid')
-    model = Graph()
-    model.add_input('clr_in', (max_sentences, w_dim+q_dim))
-    model.add_node(layer=clr, name='clr', input='clr_in')
-    model.add_output(name='clr_out', input='clr')
-    model.compile(optimizer=sgd, loss={'clr_out': 'binary_crossentropy'})
-    print 'compiled'
+    # ==========================================================
+    epochs = 200
+    optimizer = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+    max_sentences = 50
 
-    x_train, y_train = extract_xy(qs_train, max_sentences)
-    x_test, y_test = extract_xy(qs_test, max_sentences)
+    # ==========================================================
+    modelname = 'rnn'
+    params = []
+    module = importlib.import_module('.'+modelname, 'models')
+    conf, ps, h = config(module.config, params, epochs)
 
-    model.fit({'clr_in': x_train, 'clr_out': y_train}, nb_epoch=200)
-    y_ = model.predict({'clr_in': x_test})['clr_out']
+    runid = '%s-%x' % (modelname, h)
+    print('RunID: %s  (%s)' % (runid, ps))
 
+    print('GloVe')
+    glove = emb.GloVe(N=conf['embdim'])
+
+    print('Dataset')
+    y, vocab, gr = load_sets(qs_train, max_sentences)
+    yt, _, grt = load_sets(qs_test,max_sentences, vocab)
+    pickle.dump(vocab, open('vocab.txt', 'wb'))
+
+    train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grt,
+                   max_sentences, w_dim, q_dim, optimizer)
+
+    ###################################
 
     print '\n========================\n'
     # list_weights(R, ctext, rtext)
@@ -78,8 +68,8 @@ def train():
     # print 'Q_shape =', R.Q.shape
     # print '---------------test'
 
-    stats(model, x_train, y_train)
-    stats(model, x_test, y_test)
+    # stats(model, x_train, y_train)
+    # stats(model, x_test, y_test)
 
     # print '---------------train'
     # stats(R, qstrain)
