@@ -125,7 +125,7 @@ def load_features():
 
 
 def split(i):
-    return i % 4 < 2
+    return i % 2 == 1
 
 
 def zero_features(qs, ctext=None, rtext=None):
