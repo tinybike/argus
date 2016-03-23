@@ -8,7 +8,7 @@ import keras.backend as K
 import theano.tensor as T
 import numpy as np
 
-l2 = keras.regularizers.l2(1e-4)
+l2 = keras.regularizers.l2(1e-2)
 class ClasRel(MaskedLayer):
 
     input_ndim = 3
