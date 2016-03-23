@@ -78,6 +78,10 @@ def load_features():
     GS_ix = 0
     i = 0
     for line in csv.reader(open(outfile), delimiter='\t', skipinitialspace=True):
+        try:
+            line = [s.decode('utf8') for s in line]
+        except AttributeError:  # python3 has no .decode()
+            pass
         if i == 0:
             i += 1
             for field in line:
