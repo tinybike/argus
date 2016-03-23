@@ -33,7 +33,7 @@ def train():
     # R.W = np.zeros_like(R.W)
     # R.W[-2] = 1.
     # R.load('sources/models')
-    R.train(qstrain+qstest, learning_rate=0.02, nepoch=200, evaluate_loss_after=10,
+    R.train(qstrain, learning_rate=0.02, nepoch=50, evaluate_loss_after=10,
             batch_size=10, reg=0)
 
     print '\n========================\n'
@@ -72,11 +72,11 @@ def load_features():
                     rel.append(line.index(field))
                     rtext.append(field)
             continue
+        if len(line) <= clas[0]:
+            continue
         i += 1
         if split(i):
             trainIDs.append(line[1])
-        if len(line) <= clas[0]:
-            continue
         r = []
         f = []
         for index in clas:
@@ -106,7 +106,7 @@ def load_features():
 
 
 def split(i):
-    return i % 4 < 2
+    return i % 2 == 1
 
 def multip_features(qs, ctext=None, rtext=None):
     """ extend FV with feature powerset (f1*f2 for all f1, f2) metafeatures """

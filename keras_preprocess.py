@@ -202,12 +202,13 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
 
+    load_weights(model, 'sources/models/keras_model.h5')
     print('Training')
-    model.fit(gr, validation_data=grt,
-              callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
-                                         save_best_only=True, monitor='acc', mode='max')],
-              batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
-    model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
+    # model.fit(gr, validation_data=grt,
+    #           callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
+    #                                      save_best_only=True, monitor='acc', mode='max')],
+    #           batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
+    # model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
 
     print('Predict&Eval (best epoch)')
     model.load_weights('weights-'+runid+'-bestval.h5')
@@ -218,7 +219,7 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
 
 
 def embedding(model, glove, vocab, s0pad, s1pad, dropout, trainable=True,
-              add_flags=False):  # TODO: start using flags?
+              add_flags=False):
     """ Sts embedding layer, without creating inputs. """
 
     if add_flags:
@@ -241,3 +242,5 @@ def embedding(model, glove, vocab, s0pad, s1pad, dropout, trainable=True,
                           layer=Dropout(dropout, input_shape=(N,)))
 
     return N
+
+

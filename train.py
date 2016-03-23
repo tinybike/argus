@@ -115,7 +115,7 @@ def load_features():
             ixs.append(i)
             q_t = q_text
     for i, i_, j in zip(ixs, ixs[1:]+[len(QS)], range(len(ixs))):
-        if split(Q_text[i]):
+        if split(j):
             qs_train.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
         else:
             qs_test.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
@@ -123,16 +123,9 @@ def load_features():
     np.save('tests/trainIDs/trainIDs.npy', np.array(trainIDs))
     return qs_train, qs_test, c_text, r_text
 
-trainIDs = list(np.load('tests/trainIDs/trainIDs.npy'))
-def split(text):
-    if text in trainIDs:
-        trainIDs.remove(text)
-        return True
-    return False
 
-#
-# def split(i):
-#     return i % 4 < 2
+def split(i):
+    return i % 4 < 2
 
 
 def zero_features(qs, ctext=None, rtext=None):
