@@ -25,9 +25,9 @@ trainIDs = []
 
 
 def train():
-    # qs_train, qs_test, ctext, rtext = load_features()
+    qs_train, qs_test, ctext, rtext = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
-    qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
+    # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
 
     zero_features(qs_train, ctext, rtext)
     zero_features(qs_test)
@@ -42,7 +42,7 @@ def train():
 
     # ==========================================================
     modelname = 'rnn'
-    params = []
+    params = ['dropout=0.0']
     module = importlib.import_module('.'+modelname, 'models')
     conf, ps, h = config(module.config, params, epochs)
 
@@ -116,6 +116,7 @@ def load_features():
             q_t = q_text
     for i, i_, j in zip(ixs, ixs[1:]+[len(QS)], range(len(ixs))):
         if split(j):
+            trainIDs.append(Q_text[i])
             qs_train.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
         else:
             qs_test.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
