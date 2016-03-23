@@ -202,13 +202,13 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
 
-    load_weights(model, 'sources/models/keras_model.h5')
+    # load_weights(model, 'sources/models/keras_model.h5')
     print('Training')
-    # model.fit(gr, validation_data=grt,
-    #           callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
-    #                                      save_best_only=True, monitor='acc', mode='max')],
-    #           batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
-    # model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
+    model.fit(gr, validation_data=grt,
+              callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
+                                         save_best_only=True, monitor='acc', mode='max')],
+              batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
+    model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
 
     print('Predict&Eval (best epoch)')
     model.load_weights('weights-'+runid+'-bestval.h5')
@@ -244,3 +244,71 @@ def embedding(model, glove, vocab, s0pad, s1pad, dropout, trainable=True,
     return N
 
 
+def load_weights(model, filepath):
+    '''Load weights from a HDF5 file.
+    '''
+    import h5py
+    f = h5py.File(filepath, mode='r')
+    g = f['graph']
+    weights = [g['param_{}'.format(p)] for p in range(g.attrs['nb_params'])]
+    print(len(weights))
+    # model.set_weights(weights)
+    f.close()
+
+
+if __name__ == '__main__':
+    load_weights(0, 'sources/models/keras_model.h5')
+
+
+def test_compilation(runid, module_prep_model, c, glove, vocab, gr, grt,
+                   max_sentences, w_dim, q_dim, optimizer='sgd'):
+    clr = ClasRel(w_dim=w_dim+1, q_dim=q_dim, init='normal',
+                  max_sentences=max_sentences,
+                  activation_w='sigmoid', activation_q='sigmoid')
+
+    print('Model')
+    model = Graph()
+
+    # ===================== inputs of size (batch_size, max_sentences, s_pad)
+    model.add_input('si03d', (max_sentences, s0pad), dtype=int)  # XXX: cannot be cast to int->problem?
+    model.add_input('si13d', (max_sentences, s1pad), dtype=int)
+    if True:  # TODO: real check
+        model.add_input('f04d', (max_sentences, s0pad, nlp.flagsdim))
+        model.add_input('f14d', (max_sentences, s1pad, nlp.flagsdim))
+        model.add_node(Reshape_((s0pad, nlp.flagsdim)), 'f0', input='f04d')
+        model.add_node(Reshape_((s1pad, nlp.flagsdim)), 'f1', input='f14d')
+
+    # ===================== reshape to (batch_size * max_sentences, s_pad)
+    model.add_node(Reshape_((s0pad,)), 'si0', input='si03d')
+    model.add_node(Reshape_((s1pad,)), 'si1', input='si13d')
+
+    # ===================== connect to sts model
+    build_model(model, glove, vocab, module_prep_model, c)  # model with no output
+    # ===================== reshape (batch_size * max_sentences,) -> (batch_size, max_sentences, 1)
+    model.add_node(Reshape_((max_sentences, 1)), 'sts_in', input='scoreS')
+
+    # ===================== connect sts output to clr input
+    model.add_input('clr_in', (max_sentences, w_dim+q_dim))
+    model.add_node(Activation('linear'), 'sts_clr', inputs=['sts_in', 'clr_in'],
+                   merge_mode='concat', concat_axis=-1)
+
+    # ===================== connect to clr
+    model.add_node(layer=clr, name='clr', input='sts_clr')  # clr w_dim+=1
+    model.add_output(name='score', input='clr')
+
+    model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
+
+    load_weights(model, 'sources/models/keras_model.h5')
+    print('Training')
+    # model.fit(gr, validation_data=grt,
+    #           callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
+    #                                      save_best_only=True, monitor='acc', mode='max')],
+    #           batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
+    # model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
+
+    print('Predict&Eval (best epoch)')
+    model.load_weights('weights-'+runid+'-bestval.h5')
+    loss, acc = model.evaluate(gr, show_accuracy=True)
+    print('Train: loss=', loss, 'acc=', acc)
+    loss, acc = model.evaluate(grt, show_accuracy=True)
+    print('Train: loss=', loss, 'acc=', acc)

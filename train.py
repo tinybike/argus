@@ -25,9 +25,9 @@ trainIDs = []
 
 
 def train():
-    qs_train, qs_test, ctext, rtext = load_features()
+    # qs_train, qs_test, ctext, rtext = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
-    # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
+    qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
 
     zero_features(qs_train, ctext, rtext)
     zero_features(qs_test)
