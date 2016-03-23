@@ -28,7 +28,7 @@ def train(test_path=None):
     q_dim = qs_train[0].r.shape[-1]
 
     # ==========================================================
-    epochs = 200
+    epochs = 50
     optimizer = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
     max_sentences = 50
 

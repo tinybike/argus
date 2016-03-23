@@ -246,7 +246,7 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
         print('Training')
         model.fit(gr, validation_data=grt,
                   callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
-                                             save_best_only=True, monitor='acc', mode='max')],
+                                             save_best_only=True, monitor='val_loss', mode='min')],
                   batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
         model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
         model.load_weights('weights-'+runid+'-bestval.h5')
