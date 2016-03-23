@@ -27,7 +27,8 @@ from pysts.kerasts import graph_input_anssel
 from pysts.kerasts.callbacks import AnsSelBinCB
 import pysts.kerasts.blocks as B
 from keras.layers.embeddings import Embedding
-from keras.layers.core import Dropout
+from keras.layers.core import Dropout, Dense
+from keras.regularizers import l2
 import numpy as np
 import keras.preprocessing.sequence as prep
 from layer import Reshape_, ClasRel
@@ -136,85 +137,23 @@ def prep_model(model, glove, vocab, module_prep_model, c, oact, s0pad, s1pad):
     # Sentence-aggregate embeddings
     final_outputs = module_prep_model(model, N, s0pad, s1pad, c)
 
-    # Measurement
+    model.add_node(name='scoreS1', inputs=final_outputs, merge_mode='concat',
+                   layer=Dense(output_dim=1, W_regularizer=l2(c['l2reg'])))
 
-    if c['ptscorer'] == '1':
-        # special scoring mode just based on the answer
-        # (assuming that the question match is carried over to the answer
-        # via attention or another mechanism)
-        ptscorer = B.cat_ptscorer
-        final_outputs = final_outputs[1]
-    else:
-        ptscorer = c['ptscorer']
+    model.add_node(name='scoreS2', inputs=final_outputs, merge_mode='concat',
+                   layer=Dense(output_dim=1, W_regularizer=l2(c['l2reg'])))
 
-    kwargs = dict()
-    if ptscorer == B.mlp_ptscorer:
-        kwargs['sum_mode'] = c['mlpsum']
-    model.add_node(name='scoreS', input=ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], **kwargs),
-                   layer=Activation(oact))
+    # kwargs = dict()
+    # if ptscorer == B.mlp_ptscorer:
+    #     kwargs['sum_mode'] = c['mlpsum']
+    # model.add_node(name='scoreS', input=ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], **kwargs),
+    #                layer=Activation(oact))
 
 
 def build_model(model, glove, vocab, module_prep_model, c, s0pad=s0pad, s1pad=s1pad):
-    if c['loss'] == 'binary_crossentropy':
-        oact = 'sigmoid'
-    else:
-        # ranking losses require wide output domain
-        oact = 'linear'
+    oact = 'linear'
 
     prep_model(model, glove, vocab, module_prep_model, c, oact, s0pad, s1pad)
-
-
-def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
-                   max_sentences, w_dim, q_dim, optimizer='sgd'):
-    clr = ClasRel(w_dim=w_dim+1, q_dim=q_dim, init='normal',
-                  max_sentences=max_sentences,
-                  activation_w='sigmoid', activation_q='sigmoid')
-
-    print('Model')
-    model = Graph()
-
-    # ===================== inputs of size (batch_size, max_sentences, s_pad)
-    model.add_input('si03d', (max_sentences, s0pad), dtype=int)  # XXX: cannot be cast to int->problem?
-    model.add_input('si13d', (max_sentences, s1pad), dtype=int)
-    if True:  # if flags
-        model.add_input('f04d', (max_sentences, s0pad, nlp.flagsdim))
-        model.add_input('f14d', (max_sentences, s1pad, nlp.flagsdim))
-        model.add_node(Reshape_((s0pad, nlp.flagsdim)), 'f0', input='f04d')
-        model.add_node(Reshape_((s1pad, nlp.flagsdim)), 'f1', input='f14d')
-
-    # ===================== reshape to (batch_size * max_sentences, s_pad)
-    model.add_node(Reshape_((s0pad,)), 'si0', input='si03d')
-    model.add_node(Reshape_((s1pad,)), 'si1', input='si13d')
-
-    # ===================== connect to sts model
-    build_model(model, glove, vocab, module_prep_model, c)  # model with no output
-    # ===================== reshape (batch_size * max_sentences,) -> (batch_size, max_sentences, 1)
-    model.add_node(Reshape_((max_sentences, 1)), 'sts_in', input='scoreS')
-
-    # ===================== connect sts output to clr input
-    model.add_input('clr_in', (max_sentences, w_dim+q_dim))
-    model.add_node(Activation('linear'), 'sts_clr', inputs=['sts_in', 'clr_in'],
-                   merge_mode='concat', concat_axis=-1)
-
-    # ===================== connect to clr
-    model.add_node(layer=clr, name='clr', input='sts_clr')  # clr w_dim+=1
-    model.add_output(name='score', input='clr')
-
-    model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
-
-    print('Training')
-    model.fit(gr, validation_data=grt,
-              callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
-                                         save_best_only=True, monitor='acc', mode='max')],
-              batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
-    model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
-
-    print('Predict&Eval (best epoch)')
-    model.load_weights('weights-'+runid+'-bestval.h5')
-    loss, acc = model.evaluate(gr, show_accuracy=True)
-    print('Train: loss=', loss, 'acc=', acc)
-    loss, acc = model.evaluate(grt, show_accuracy=True)
-    print('Test: loss=', loss, 'acc=', acc)
 
 
 def embedding(model, glove, vocab, s0pad, s1pad, dropout, trainable=True,
@@ -262,6 +201,61 @@ def load_weights(model, filepath_rnn, filepath_clr):
     model.set_weights(w)
     f_rnn.close()
     f_clr.close()
+
+
+def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
+                       max_sentences, w_dim, q_dim, optimizer='sgd'):
+    clr = ClasRel(w_dim=w_dim+1, q_dim=q_dim+1, init='normal',
+                  max_sentences=max_sentences,
+                  activation_w='sigmoid', activation_q='sigmoid')
+
+    print('Model')
+    model = Graph()
+
+    # ===================== inputs of size (batch_size, max_sentences, s_pad)
+    model.add_input('si03d', (max_sentences, s0pad), dtype=int)  # XXX: cannot be cast to int->problem?
+    model.add_input('si13d', (max_sentences, s1pad), dtype=int)
+    if True:  # if flags
+        model.add_input('f04d', (max_sentences, s0pad, nlp.flagsdim))
+        model.add_input('f14d', (max_sentences, s1pad, nlp.flagsdim))
+        model.add_node(Reshape_((s0pad, nlp.flagsdim)), 'f0', input='f04d')
+        model.add_node(Reshape_((s1pad, nlp.flagsdim)), 'f1', input='f14d')
+
+    # ===================== reshape to (batch_size * max_sentences, s_pad)
+    model.add_node(Reshape_((s0pad,)), 'si0', input='si03d')
+    model.add_node(Reshape_((s1pad,)), 'si1', input='si13d')
+
+    # ===================== connect to sts model
+    build_model(model, glove, vocab, module_prep_model, c)  # model with no output
+    # ===================== reshape (batch_size * max_sentences,) -> (batch_size, max_sentences, 1)
+    model.add_node(Reshape_((max_sentences, 1)), 'sts_in1', input='scoreS1')
+    model.add_node(Reshape_((max_sentences, 1)), 'sts_in2', input='scoreS2')
+
+    # ===================== connect sts outputs to clr input
+    model.add_input('clr_in', (max_sentences, w_dim+q_dim))
+    model.add_node(Activation('linear'), 'sts_x2_clr', inputs=['sts_in1', 'clr_in', 'sts_in2'],
+                   merge_mode='concat', concat_axis=-1)
+
+    # ===================== connect to clr
+    model.add_node(layer=clr, name='clr', input='sts_x2_clr')  # clr w_dim+=1
+    model.add_output(name='score', input='clr')
+
+    model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
+
+    print('Training')
+    model.fit(gr, validation_data=grt,
+              callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
+                                         save_best_only=True, monitor='acc', mode='max')],
+              batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
+    model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
+
+    print('Predict&Eval (best epoch)')
+    model.load_weights('weights-'+runid+'-bestval.h5')
+    loss, acc = model.evaluate(gr, show_accuracy=True)
+    print('Train: loss=', loss, 'acc=', acc)
+    loss, acc = model.evaluate(grt, show_accuracy=True)
+    print('Train: loss=', loss, 'acc=', acc)
+
 
 
 if __name__ == '__main__':

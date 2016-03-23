@@ -3,17 +3,9 @@
 Training Relevance model happens here, you can change various parameters in train().
 """
 import numpy as np
-from keras.models import Sequential, Graph
-from keras.layers.core import Activation
-import keras.backend as K
-from keras.layers.embeddings import Embedding
-from keras.layers.core import Masking, TimeDistributedDense, TimeDistributedMerge
 from keras.optimizers import SGD
 import csv
 import sys
-from layer import ClasRel
-import keras.preprocessing.sequence as prep
-from keras.regularizers import l1, l2
 import pysts.embedding as emb
 from keras_preprocess import config, load_sets, train_and_eval, tokenize, Q
 import importlib
@@ -42,7 +34,7 @@ def train():
 
     # ==========================================================
     modelname = 'rnn'
-    params = ['dropout=0.0']
+    params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']
     module = importlib.import_module('.'+modelname, 'models')
     conf, ps, h = config(module.config, params, epochs)
 
