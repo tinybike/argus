@@ -8,14 +8,14 @@ import keras.backend as K
 import theano.tensor as T
 import numpy as np
 
-
+l2 = keras.regularizers.l2(1e-4)
 class ClasRel(MaskedLayer):
 
     input_ndim = 3
 
     def __init__(self, w_dim, q_dim, max_sentences=100, output_dim=1, init='glorot_uniform', activation='linear',
                  activation_w='sigmoid', activation_q='sigmoid', weights=None,
-                 regularizers=['l2']*4, activity_regularizer=None, constraints=[None]*4,
+                 regularizers=[l2]*4, activity_regularizer=None, constraints=[None]*4,
                  input_dim=None, **kwargs):
         self.max_sentences = max_sentences
         self.w_dim = w_dim
