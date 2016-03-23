@@ -204,7 +204,7 @@ def load_weights(model, filepath_rnn, filepath_clr):
 
 
 def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
-                       max_sentences, w_dim, q_dim, optimizer='sgd'):
+                       max_sentences, w_dim, q_dim, optimizer='sgd', test_path=None):
     clr = ClasRel(w_dim=w_dim+1, q_dim=q_dim+1, init='normal',
                   max_sentences=max_sentences,
                   activation_w='sigmoid', activation_q='sigmoid')
@@ -242,20 +242,22 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
 
-    print('Training')
-    model.fit(gr, validation_data=grt,
-              callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
-                                         save_best_only=True, monitor='acc', mode='max')],
-              batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
-    model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
-
+    if test_path is None:
+        print('Training')
+        model.fit(gr, validation_data=grt,
+                  callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
+                                             save_best_only=True, monitor='acc', mode='max')],
+                  batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
+        model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
+        model.load_weights('weights-'+runid+'-bestval.h5')
+    else:
+        model.load_weights(test_path)
     print('Predict&Eval (best epoch)')
-    model.load_weights('weights-'+runid+'-bestval.h5')
+
     loss, acc = model.evaluate(gr, show_accuracy=True)
     print('Train: loss=', loss, 'acc=', acc)
     loss, acc = model.evaluate(grt, show_accuracy=True)
     print('Train: loss=', loss, 'acc=', acc)
-
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ outfile = 'tests/feature_prints/all_features.tsv'
 trainIDs = []
 
 
-def train():
+def train(test_path=None):
     qs_train, qs_test, ctext, rtext = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
     # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
@@ -50,7 +50,7 @@ def train():
     pickle.dump(vocab, open('vocab.txt', 'wb'))
 
     train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grt,
-                   max_sentences, w_dim, q_dim, optimizer)
+                   max_sentences, w_dim, q_dim, optimizer, test_path=test_path)
 
     ###################################
 
@@ -192,7 +192,10 @@ def query_yes_no(question, default="yes"):
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
 
-
+import argparse
 if __name__ == '__main__':
     np.random.seed(17151711)
-    train()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--test')
+    args = parser.parse_args()
+    train(vars(args)['test'])
