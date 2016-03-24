@@ -17,9 +17,9 @@ trainIDs = []
 
 
 def train(test_path=None):
-    qs_train, qs_test, ctext, rtext = load_features()
+    # qs_train, qs_test, ctext, rtext = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
-    # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
+    qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
 
     zero_features(qs_train, ctext, rtext)
     zero_features(qs_test)
@@ -28,7 +28,7 @@ def train(test_path=None):
     q_dim = qs_train[0].r.shape[-1]
 
     # ==========================================================
-    epochs = 50
+    epochs = 200
     optimizer = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
     max_sentences = 50
 

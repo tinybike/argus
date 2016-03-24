@@ -8,6 +8,12 @@ import keras.backend as K
 import theano.tensor as T
 import numpy as np
 
+
+def relu(x):
+    return K.switch(x > 0, x + 0.01, 0.01)
+
+
+
 l2 = keras.regularizers.l2(1e-2)
 class ClasRel(MaskedLayer):
 
@@ -17,6 +23,8 @@ class ClasRel(MaskedLayer):
                  activation_w='sigmoid', activation_q='sigmoid', weights=None,
                  regularizers=[l2]*4, activity_regularizer=None, constraints=[None]*4,
                  input_dim=None, **kwargs):
+        if activation_q == 'relu':
+            activation_q = relu
         self.max_sentences = max_sentences
         self.w_dim = w_dim
         self.q_dim = q_dim
