@@ -2,30 +2,33 @@
 """
 Training Relevance model happens here, you can change various parameters in train().
 """
-import numpy as np
-from keras.optimizers import SGD
 import csv
-import sys
-import pysts.embedding as emb
-from keras_preprocess import config, load_sets, train_and_eval, tokenize, Q
 import importlib
 import pickle
+import sys
 
+import numpy as np
+from keras.optimizers import SGD
 
-outfile = 'tests/feature_prints/all_features.tsv'
+import pysts.embedding as emb
+from argus.keras_preprocess import config, load_sets, train_and_eval, tokenize, Q
+
+outfile = 'tests/feature_prints/all_features (copy).tsv'
 trainIDs = []
 
 
 def train(test_path=None):
-    # qs_train, qs_test, ctext, rtext = load_features()
-    # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
-    qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
+    qs_train, qs_test, ctext, rtext = load_features()
+    pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
+    # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
 
     zero_features(qs_train, ctext, rtext)
     zero_features(qs_test)
 
     w_dim = qs_train[0].c.shape[-1]
     q_dim = qs_train[0].r.shape[-1]
+    print 'w_dim=', w_dim
+    print 'q_dim=', q_dim
 
     # ==========================================================
     epochs = 50
@@ -45,11 +48,12 @@ def train(test_path=None):
     glove = emb.GloVe(N=conf['embdim'])
 
     print('Dataset')
-    y, vocab, gr = load_sets(qs_train, max_sentences)
-    yt, _, grt = load_sets(qs_test,max_sentences, vocab)
-    pickle.dump(vocab, open('vocab.txt', 'wb'))
+    vocab = pickle.load(open('sources/vocab_doom.txt'))
+    y, _, gr = load_sets(qs_train, max_sentences, vocab)
+    yt, _, grt = load_sets(qs_test, max_sentences, vocab)
+    # pickle.dump(vocab, open('sources/vocab.txt', 'wb'))
 
-    train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grt,
+    model = train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grt,
                    max_sentences, w_dim, q_dim, optimizer, test_path=test_path)
 
     ###################################
@@ -65,8 +69,8 @@ def train(test_path=None):
 
     # print '---------------train'
     # stats(R, qstrain)
-    # if query_yes_no('Save model?'):
-    #     R.save('sources/models')
+    if query_yes_no('Save model?'):
+        model.save_weights('sources/models/full_model.h5', overwrite=True)
     # if query_yes_no('Rewrite output.tsv?'):
     #     rewrite_output()
 

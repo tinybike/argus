@@ -3,7 +3,7 @@
 from elastic import get_content_elastic, check_unknowns, ask
 from keyword_extract import check_keywords
 from answer import Question, Answer
-from features import gen_features
+from features import gen_features, Model_
 
 
 def get_answer(question):
@@ -43,8 +43,8 @@ def get_answer(question):
 
 
 def answer_all(answer):
-    answer.model.predict()
-    # sts predict here
+    answer.prob = answer.model.predict(answer)  # FIXME: predict should be a function of answer
+    print 'FINAL PROBABILITY=', answer.prob
     answer.info = str(answer.prob)
     if answer.prob < 0.5:
         return 'NO'
@@ -65,7 +65,7 @@ def print_sources(answer):
 
 
 def ask_only(query):
-    a = Answer(Question(preprocess_question(query)))
+    a = Answer(Question(query))
     check_unknowns(a)
     if len(a.q.unknown) > 0:
         print 'we have no information on these words:', a.q.unknown

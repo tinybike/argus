@@ -10,7 +10,7 @@
 
 """
 from keyword_extract import extract
-from features import Model
+from features import MODEL
 
 
 class Answer(object):
@@ -19,7 +19,7 @@ class Answer(object):
         self.text = ''
         self.q = q
         self.info = ''
-        self.model = Model(self)
+        self.model = MODEL
         self.prob = 0
 
 

@@ -55,7 +55,7 @@ class ClasRel(MaskedLayer):
         super(ClasRel, self).__init__(**kwargs)
 
     def build(self):
-        # NOTE: w, q cannot be scalar, otherwise some wierd exceptions occur during save_weights
+        # NOTE: w, q cannot be scalar, otherwise some weird exceptions occur during save_weights
         self.W = self.init((self.w_dim, ), name='{}_W'.format(self.name))
         self.w = self.init((1,), name='{}_w'.format(self.name))
         self.Q = self.init((self.q_dim,), name='{}_Q'.format(self.name))

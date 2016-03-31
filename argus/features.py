@@ -61,6 +61,70 @@ class Model(object):
             self.ansprob = 0.
 
 
+from keras_preprocess import load_model, prep, tokenize
+import pysts.nlp as nlp_
+class Model_(object):
+    """
+    RNN+ClasRel model for prediction.
+    """
+
+    def __init__(self):
+        model_path = 'sources/models/full_model.h5'
+        vocab_path = 'sources/vocab.txt'
+        self.w_dim = 20
+        self.q_dim = 9
+        self.max_sentences = 50
+        self.s0pad = 60
+        self.s1pad = 60
+
+        self.model = load_model(model_path, vocab_path, self.w_dim,
+                                self.q_dim, self.max_sentences)
+
+    def predict(self, answer):
+        # try:
+        si03d, si13d, f04d, f14d = [], [], [], []
+        s0 = [tokenize(answer.q.text)] * len(answer.sources)  # TODO: should tokenize
+        s1 = [tokenize(source.sentence) for source in answer.sources]
+        si0 = vocab.vectorize(s0, spad=self.s0pad)
+        si1 = vocab.vectorize(s1, spad=self.s1pad)
+        si0 = prep.pad_sequences(si0.T, maxlen=self.max_sentences).T
+        si1 = prep.pad_sequences(si1.T, maxlen=self.max_sentences).T
+        si03d.append(si0)
+        si13d.append(si1)
+
+        f0, f1 = nlp_.sentence_flags(s0, s1, self.s0pad, self.s1pad)
+        f0 = prep.pad_sequences(f0.transpose((1, 0, 2)), maxlen=self.max_sentences,
+                                padding='post', truncating='post', dtype='bool').transpose((1, 0, 2))
+        f1 = prep.pad_sequences(f1.transpose((1, 0, 2)), maxlen=self.max_sentences,
+                                padding='post', truncating='post', dtype='bool').transpose((1, 0, 2))
+        f04d.append(f0)
+        f14d.append(f1)
+
+        # ==========================================
+
+        f = np.array([[f.get_value() for f in source.features if '#' in f.get_type()]+
+                      [f.get_value() for f in source.features if '@' in f.get_type()]
+                     for source in answer.sources])
+
+        x = np.array([prep.pad_sequences(f.T,
+                                         maxlen=self.max_sentences, padding='post',
+                                         truncating='post', dtype='float32')])
+        clr = x.transpose((0, 2, 1))
+        y = np.zeros((len(answer.sources), 1))
+
+        gr = {'si03d': np.array(si03d), 'si13d': np.array(si13d),
+              'clr_in': clr, 'score': y}
+        if f0 is not None:
+            gr['f04d'] = np.array(f04d)
+            gr['f14d'] = np.array(f14d)
+
+        return self.model.predict(gr)['score'][:, 0][0]
+
+        # except ValueError:
+        #     return 0.
+
+MODEL = Model_()
+
 class Feature(object):
     """
     Represents a single feature from a single source.

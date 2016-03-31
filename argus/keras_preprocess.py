@@ -39,9 +39,9 @@ s1pad = 60
 
 # Used when tokenizing words
 sentence_re = r'''(?x)      # set flag to allow verbose regexps
-      ([A-Z])(\.[A-Z])+\.?  # abbreviations, e.g. U.S.A.
-    | \w+(-\w+)*            # words with optional internal hyphens
-    | \$?\d+(\.\d+)?%?      # currency and percentages, e.g. $12.40, 82%
+      (?:[A-Z])(?:\.[A-Z])+\.?  # abbreviations, e.g. U.S.A.
+    | \w+(?:-\w+)*            # words with optional internal hyphens
+    | \$?\d+(?:\.\d+)?%?      # currency and percentages, e.g. $12.40, 82%
     | \.\.\.                # ellipsis
     | [][.,;"'?():-_`]      # these are separate tokens
 '''
@@ -75,25 +75,26 @@ def load_sets(qs, max_sentences, vocab=None):
         s1 = q.s
         si0 = vocab.vectorize(s0, spad=s0pad)
         si1 = vocab.vectorize(s1, spad=s1pad)
-        si0 = prep.pad_sequences(si0.T, maxlen=max_sentences, padding='post', truncating='post').T
-        si1 = prep.pad_sequences(si1.T, maxlen=max_sentences, padding='post', truncating='post').T
+        si0 = prep.pad_sequences(si0.T, maxlen=max_sentences).T
+        si1 = prep.pad_sequences(si1.T, maxlen=max_sentences).T
         si03d.append(si0)
         si13d.append(si1)
 
         f0, f1 = nlp.sentence_flags(s0, s1, s0pad, s1pad)
         f0 = prep.pad_sequences(f0.transpose((1, 0, 2)), maxlen=max_sentences,
-                                padding='post', truncating='post', dtype='bool').transpose((1, 0, 2))
+                                truncating='post', dtype='bool').transpose((1, 0, 2))
         f1 = prep.pad_sequences(f1.transpose((1, 0, 2)), maxlen=max_sentences,
-                                padding='post', truncating='post', dtype='bool').transpose((1, 0, 2))
+                                truncating='post', dtype='bool').transpose((1, 0, 2))
         f04d.append(f0)
         f14d.append(f1)
 
     # ==========================================
-    c = np.array([prep.pad_sequences(q.c.T, maxlen=max_sentences, padding='post',
+    c = np.array([prep.pad_sequences(q.c.T, maxlen=max_sentences,
                                      truncating='post', dtype='float32') for q in qs])
-    r = np.array([prep.pad_sequences(q.r.T, maxlen=max_sentences, padding='post',
+    r = np.array([prep.pad_sequences(q.r.T, maxlen=max_sentences,
                                      truncating='post', dtype='float32') for q in qs])
     x = np.concatenate((c, r), axis=1)
+    print('x.shape=', x.shape)
     clr = x.transpose((0, 2, 1))
     y = np.array([q.y for q in qs])
 
@@ -203,19 +204,16 @@ def load_weights(model, filepath_rnn, filepath_clr):
     f_clr.close()
 
 
-def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
-                       max_sentences, w_dim, q_dim, optimizer='sgd', test_path=None):
+def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c):
+    print('Model')
+    model = Graph()
     clr = ClasRel(w_dim=w_dim+1, q_dim=q_dim+1, init='normal',
                   max_sentences=max_sentences,
                   activation_w='sigmoid', activation_q='sigmoid')
-
-    print('Model')
-    model = Graph()
-
     # ===================== inputs of size (batch_size, max_sentences, s_pad)
     model.add_input('si03d', (max_sentences, s0pad), dtype=int)  # XXX: cannot be cast to int->problem?
     model.add_input('si13d', (max_sentences, s1pad), dtype=int)
-    if True:  # if flags
+    if True:  # TODO: if flags
         model.add_input('f04d', (max_sentences, s0pad, nlp.flagsdim))
         model.add_input('f14d', (max_sentences, s1pad, nlp.flagsdim))
         model.add_node(Reshape_((s0pad, nlp.flagsdim)), 'f0', input='f04d')
@@ -237,10 +235,17 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
                    merge_mode='concat', concat_axis=-1)
 
     # ===================== connect to clr
-    model.add_node(layer=clr, name='clr', input='sts_x2_clr')  # clr w_dim+=1
+    model.add_node(layer=clr, name='clr', input='sts_x2_clr')
     model.add_output(name='score', input='clr')
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
+    return model
+
+
+def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
+                       max_sentences, w_dim, q_dim, optimizer='sgd', test_path=None):
+
+    model = build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c)
 
     if test_path is None:
         print('Training')
@@ -254,10 +259,30 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
         model.load_weights(test_path)
     print('Predict&Eval (best epoch)')
 
+
     loss, acc = model.evaluate(gr, show_accuracy=True)
     print('Train: loss=', loss, 'acc=', acc)
     loss, acc = model.evaluate(grt, show_accuracy=True)
-    print('Train: loss=', loss, 'acc=', acc)
+    print('Val: loss=', loss, 'acc=', acc)
+    print(model.predict(gr)['score'])
+    return model
+
+
+def load_model(model_path, vocab_path, w_dim, q_dim, max_sentences):
+    print('Building model')
+    epochs = 50
+    optimizer = 'sgd'
+    model_name = 'rnn'
+    params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']
+    module = importlib.import_module('.'+model_name, 'models')
+    conf, ps, h = config(module.config, params, epochs)
+
+    glove = emb.GloVe(N=conf['embdim'])
+    vocab = pickle.load(open(vocab_path))
+    model = build(w_dim, q_dim, max_sentences, optimizer,
+                  glove, vocab, module.prep_model, conf)
+    return model
+
 
 
 if __name__ == '__main__':
