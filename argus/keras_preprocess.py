@@ -70,13 +70,15 @@ def load_sets(qs, max_sentences, vocab=None):
             s1 += q.s
         vocab = Vocabulary(s0 + s1)
     si03d, si13d, f04d, f14d = [], [], [], []
+    q_texts = []
     for q in qs:
+        q_texts.append(q.qtext)
         s0 = q.q
         s1 = q.s
         si0 = vocab.vectorize(s0, spad=s0pad)
         si1 = vocab.vectorize(s1, spad=s1pad)
-        si0 = prep.pad_sequences(si0.T, maxlen=max_sentences).T
-        si1 = prep.pad_sequences(si1.T, maxlen=max_sentences).T
+        si0 = prep.pad_sequences(si0.T, maxlen=max_sentences, padding='post', truncating='post').T
+        si1 = prep.pad_sequences(si1.T, maxlen=max_sentences, padding='post', truncating='post').T
         si03d.append(si0)
         si13d.append(si1)
 
@@ -99,11 +101,14 @@ def load_sets(qs, max_sentences, vocab=None):
     y = np.array([q.y for q in qs])
 
     gr = {'si03d': np.array(si03d), 'si13d': np.array(si13d),
-          'clr_in': clr, 'score': y}
+          'clr_in': clr, 'score': y, 'q_texts': q_texts}
     if f0 is not None:
         gr['f04d'] = np.array(f04d)
         gr['f14d'] = np.array(f14d)
 
+    # print('print from gr:')
+    # print(gr['si03d'][0], gr['si13d'][0])
+    # sys.exit()
     return y, vocab, gr
 
 
@@ -136,6 +141,7 @@ def prep_model(model, glove, vocab, module_prep_model, c, oact, s0pad, s1pad):
     N = embedding(model, glove, vocab, s0pad, s1pad, c['inp_e_dropout'], add_flags=c['e_add_flags'])
 
     # Sentence-aggregate embeddings
+    print('model dropout=', c['dropout'])
     final_outputs = module_prep_model(model, N, s0pad, s1pad, c)
 
     model.add_node(name='scoreS1', inputs=final_outputs, merge_mode='concat',
@@ -243,7 +249,7 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
 
 
 def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
-                       max_sentences, w_dim, q_dim, optimizer='sgd', test_path=None):
+                   max_sentences, w_dim, q_dim, optimizer='sgd', test_path=None):
 
     model = build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c)
 
@@ -260,20 +266,21 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
     print('Predict&Eval (best epoch)')
 
 
-    loss, acc = model.evaluate(gr, show_accuracy=True)
-    print('Train: loss=', loss, 'acc=', acc)
-    loss, acc = model.evaluate(grt, show_accuracy=True)
-    print('Val: loss=', loss, 'acc=', acc)
-    print(model.predict(gr)['score'])
+    # loss, acc = model.evaluate(gr, show_accuracy=True)
+    # print('Train: loss=', loss, 'acc=', acc)
+    # loss, acc = model.evaluate(grt, show_accuracy=True)
+    # print('Val: loss=', loss, 'acc=', acc)
+    for q, gs, s in zip(gr['q_texts'], gr['score'], model.predict(gr)['score']):
+        print('gs=', gs, 'predict=', s, q)
     return model
 
 
 def load_model(model_path, vocab_path, w_dim, q_dim, max_sentences):
+    from train import params
     print('Building model')
     epochs = 50
     optimizer = 'sgd'
     model_name = 'rnn'
-    params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']
     module = importlib.import_module('.'+model_name, 'models')
     conf, ps, h = config(module.config, params, epochs)
 
@@ -281,6 +288,7 @@ def load_model(model_path, vocab_path, w_dim, q_dim, max_sentences):
     vocab = pickle.load(open(vocab_path))
     model = build(w_dim, q_dim, max_sentences, optimizer,
                   glove, vocab, module.prep_model, conf)
+    model.load_weights(model_path)
     return model, vocab
 
 

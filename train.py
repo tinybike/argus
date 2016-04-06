@@ -15,12 +15,13 @@ from argus.keras_preprocess import config, load_sets, train_and_eval, tokenize, 
 
 outfile = 'tests/feature_prints/all_features (copy).tsv'
 trainIDs = []
+params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']
 
 
 def train(test_path=None):
-    # qs_train, qs_test, ctext, rtext = load_features()
+    qs_train, qs_test, ctext, rtext = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
-    qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
+    # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
 
     zero_features(qs_train, ctext, rtext)
     zero_features(qs_test)
@@ -37,7 +38,6 @@ def train(test_path=None):
 
     # ==========================================================
     modelname = 'rnn'
-    params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']
     module = importlib.import_module('.'+modelname, 'models')
     conf, ps, h = config(module.config, params, epochs)
 
