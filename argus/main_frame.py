@@ -3,7 +3,7 @@
 from elastic import get_content_elastic, check_unknowns, ask
 from keyword_extract import check_keywords
 from answer import Question, Answer
-from features import gen_features, Model_
+from features import gen_features
 
 
 def get_answer(question):

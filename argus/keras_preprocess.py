@@ -242,6 +242,8 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     # ===================== connect to clr
     model.add_node(layer=clr, name='clr', input='sts_x2_clr')
     model.add_output(name='score', input='clr')
+    # model.add_output(name='rnn_class_out', input='sts_in1')
+    # model.add_output(name='rnn_rel_out', input='sts_in2')
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
     return model

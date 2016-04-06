@@ -24,46 +24,9 @@ feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '@Elastic score', '#Sport score', '#@Antonyms',
                          '@#VerbSimWordNetBinary']
 
-
-class Model(object):
-    """
-    Relevance model for prediction used in answers.
-    """
-
-    def __init__(self, answer):
-        R = Relevance(0, 0)
-        R.load('sources/models')
-        self.model = R
-        self.ansprob = 0
-        self.answer = answer
-
-    def predict(self):
-        f = []
-        r = []
-        for source in self.answer.sources:
-            for feat in source.features:
-                if clas in feat.get_type():
-                    f.append(feat.get_value())
-                if rel in feat.get_type():
-                    r.append(feat.get_value())
-
-        try:
-            cfeats = sum(np.array([clas in x.get_type() for x in self.answer.sources[0].features]).astype(int))
-            rfeats = sum(np.array([rel in x.get_type() for x in self.answer.sources[0].features]).astype(int))
-            f = np.array(f).reshape((len(self.answer.sources), cfeats))
-            r = np.array(r).reshape((len(self.answer.sources), rfeats))
-            self.answer.prob = self.model.forward_propagation(f.T, r.T)
-            probs, rels = self.model.probs_rels(f.T, r.T)
-            for i in range(len(self.answer.sources)):
-                self.answer.sources[i].prob = probs[i]
-                self.answer.sources[i].rel = rels[i]
-        except ValueError:
-            self.ansprob = 0.
-
-
 from keras_preprocess import load_model, prep, tokenize
 import pysts.nlp as nlp_
-class Model_(object):
+class Model(object):
     """
     RNN+ClasRel model for prediction.
     """
@@ -119,13 +82,13 @@ class Model_(object):
 
         # print('print from gr:')
         # print gr['si03d'][0], gr['si13d'][0]
-
-        return self.model.predict(gr)['score'][:, 0][0]
+        prediction = self.model.predict(gr)
+        return prediction['score'][:, 0][0]
 
         # except ValueError:
         #     return 0.
 
-MODEL = Model_()
+MODEL = Model()
 
 class Feature(object):
     """
