@@ -100,6 +100,7 @@ class Web_Source(object):
         proc = s.prob * 100
         self.rel = s.rel * 100
         self.percentage = str('%.2f%% (rel %.2f%%)' % (proc, self.rel))
+        print 'PERC', self.percentage, proc, self.rel
         w = [0.]*20  # FIXME: real values plz
         q = [0.]*9
         feats = s.features

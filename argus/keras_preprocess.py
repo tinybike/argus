@@ -208,7 +208,8 @@ def load_weights(model, filepath_rnn, filepath_clr):
     f_rnn.close()
     f_clr.close()
 
-
+rnn_class_out = []
+rnn_rel_out = []
 def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c):
     print('Model')
     model = Graph()
@@ -246,7 +247,18 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     # model.add_output(name='rnn_rel_out', input='sts_in2')
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
+    global rnn_class_out, rnn_rel_out
+    rnn_class_out = layer_fun(model, 'sts_in1')
+    rnn_rel_out = layer_fun(model, 'sts_in2')
     return model
+
+import theano
+def layer_fun(model, layer_name):
+    thf = theano.function([model.inputs[name].input for name in model.input_order],
+                          model.nodes[layer_name].get_output(train=False),
+                          on_unused_input='ignore', allow_input_downcast=True)
+    return thf
+    # return thf(*[gr[name] for name in model.input_order])
 
 
 def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,

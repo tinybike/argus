@@ -43,7 +43,7 @@ def get_answer(question):
 
 
 def answer_all(answer):
-    answer.prob = answer.model.predict(answer)  # FIXME: predict should be a function of answer
+    answer.prob = answer.predict()  # FIXME: predict should be a function of answer
     print 'FINAL PROBABILITY=', answer.prob
     answer.info = str(answer.prob)
     if answer.prob < 0.5:

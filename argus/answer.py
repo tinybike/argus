@@ -22,6 +22,13 @@ class Answer(object):
         self.model = MODEL
         self.prob = 0
 
+    def predict(self):
+        outs = self.model.predict(self)
+        for c, r, source in zip(outs['class'], outs['rel'], self.sources):
+            source.prob = c
+            source.rel = r
+        return outs['y']
+
 
 class Question(object):
     def __init__(self, question):

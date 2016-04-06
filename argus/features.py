@@ -82,8 +82,11 @@ class Model(object):
 
         # print('print from gr:')
         # print gr['si03d'][0], gr['si13d'][0]
+        from keras_preprocess import rnn_class_out, rnn_rel_out
         prediction = self.model.predict(gr)
-        return prediction['score'][:, 0][0]
+        return {'y': prediction['score'][:, 0][0],
+                'class': rnn_class_out(*[gr[name] for name in self.model.input_order])[0],
+                'rel': rnn_rel_out(*[gr[name] for name in self.model.input_order])[0]}
 
         # except ValueError:
         #     return 0.
