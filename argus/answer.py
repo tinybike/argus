@@ -24,7 +24,8 @@ class Answer(object):
 
     def predict(self):
         outs = self.model.predict(self)
-        for c, r, source in zip(outs['class'], outs['rel'], self.sources):
+        WwQq = self.model.model.get_weights()[-4:]
+        for c, r, source in zip(outs['class'], outs['rel'], self.sources):  # TODO: correct activations
             source.prob = c
             source.rel = r
         return outs['y']
