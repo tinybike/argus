@@ -141,7 +141,6 @@ def prep_model(model, glove, vocab, module_prep_model, c, oact, s0pad, s1pad):
     N = embedding(model, glove, vocab, s0pad, s1pad, c['inp_e_dropout'], add_flags=c['e_add_flags'])
 
     # Sentence-aggregate embeddings
-    print('model dropout=', c['dropout'])
     final_outputs = module_prep_model(model, N, s0pad, s1pad, c)
 
     model.add_node(name='scoreS1', inputs=final_outputs, merge_mode='concat',
@@ -265,13 +264,12 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
         model.load_weights(test_path)
     print('Predict&Eval (best epoch)')
 
-
-    # loss, acc = model.evaluate(gr, show_accuracy=True)
-    # print('Train: loss=', loss, 'acc=', acc)
-    # loss, acc = model.evaluate(grt, show_accuracy=True)
-    # print('Val: loss=', loss, 'acc=', acc)
-    for q, gs, s in zip(gr['q_texts'], gr['score'], model.predict(gr)['score']):
-        print('gs=', gs, 'predict=', s, q)
+    loss, acc = model.evaluate(gr, show_accuracy=True)
+    print('Train: loss=', loss, 'acc=', acc)
+    loss, acc = model.evaluate(grt, show_accuracy=True)
+    print('Val: loss=', loss, 'acc=', acc)
+    # for q, gs, s in zip(gr['q_texts'], gr['score'], model.predict(gr)['score']):
+    #     print('gs=', gs, 'predict=', s, q)
     return model
 
 
@@ -290,7 +288,6 @@ def load_model(model_path, vocab_path, w_dim, q_dim, max_sentences):
                   glove, vocab, module.prep_model, conf)
     model.load_weights(model_path)
     return model, vocab
-
 
 
 if __name__ == '__main__':

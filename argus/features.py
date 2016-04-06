@@ -76,7 +76,6 @@ class Model_(object):
         self.max_sentences = 50
         self.s0pad = 60
         self.s1pad = 60
-
         self.model, self.vocab = load_model(model_path, vocab_path, self.w_dim,
                                             self.q_dim, self.max_sentences)
 
@@ -85,14 +84,10 @@ class Model_(object):
         si03d, si13d, f04d, f14d = [], [], [], []
         s0 = [tokenize(answer.q.text)] * len(answer.sources)  # TODO: should tokenize
         s1 = [tokenize(source.sentence) for source in answer.sources]
-        print s0, s1
         si0 = self.vocab.vectorize(s0, spad=self.s0pad)
         si1 = self.vocab.vectorize(s1, spad=self.s1pad)
-        print si0, si1
         si0 = prep.pad_sequences(si0.T, maxlen=self.max_sentences, padding='post', truncating='post').T
         si1 = prep.pad_sequences(si1.T, maxlen=self.max_sentences, padding='post', truncating='post').T
-        print si0, si1
-        print si0.shape, si1.shape
         si03d.append(si0)
         si13d.append(si1)
 
@@ -122,8 +117,9 @@ class Model_(object):
             gr['f04d'] = np.array(f04d)
             gr['f14d'] = np.array(f14d)
 
-        print('print from gr:')
-        print gr['si03d'][0], gr['si13d'][0]
+        # print('print from gr:')
+        # print gr['si03d'][0], gr['si13d'][0]
+
         return self.model.predict(gr)['score'][:, 0][0]
 
         # except ValueError:
