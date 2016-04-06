@@ -16,13 +16,13 @@ rel = '@'
 
 feature_list = ['SentimentQ', 'SentimentS', 'SubjectMatch', 'ObjectMatch', 'VerbSimSpacy',
                 'VerbSimWordNet', 'RelevantDate', 'ElasticScore', 'SportScore', 'Antonyms',
-                'VerbSimWordNetBinary', 'STS_NN']
+                'VerbSimWordNetBinary']
 feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '#@Subject match', '#@Object match',
                          '#@Verb similarity (spaCy)',
                          '#@Verb similarity (WordNet)', '@Relevant date',
                          '@Elastic score', '#Sport score', '#@Antonyms',
-                         '@#VerbSimWordNetBinary', '@#STS_NN']
+                         '@#VerbSimWordNetBinary']
 
 
 class Model(object):
@@ -69,7 +69,7 @@ class Model_(object):
     """
 
     def __init__(self):
-        model_path = 'sources/models/full_model.h5'
+        model_path = 'sources/models/full_model_rnn_only.h5'
         vocab_path = 'sources/vocab.txt'
         self.w_dim = 20
         self.q_dim = 9
@@ -77,16 +77,16 @@ class Model_(object):
         self.s0pad = 60
         self.s1pad = 60
 
-        self.model = load_model(model_path, vocab_path, self.w_dim,
-                                self.q_dim, self.max_sentences)
+        self.model, self.vocab = load_model(model_path, vocab_path, self.w_dim,
+                                            self.q_dim, self.max_sentences)
 
     def predict(self, answer):
         # try:
         si03d, si13d, f04d, f14d = [], [], [], []
         s0 = [tokenize(answer.q.text)] * len(answer.sources)  # TODO: should tokenize
         s1 = [tokenize(source.sentence) for source in answer.sources]
-        si0 = vocab.vectorize(s0, spad=self.s0pad)
-        si1 = vocab.vectorize(s1, spad=self.s1pad)
+        si0 = self.vocab.vectorize(s0, spad=self.s0pad)
+        si1 = self.vocab.vectorize(s1, spad=self.s1pad)
         si0 = prep.pad_sequences(si0.T, maxlen=self.max_sentences).T
         si1 = prep.pad_sequences(si1.T, maxlen=self.max_sentences).T
         si03d.append(si0)
@@ -172,30 +172,30 @@ class ElasticScore(Feature):
         Feature.set_value(self, answer.sources[i].elastic)
 
 
-import pickle
-import importlib
-import pysts.embedding as emb
-from argus.keras_build import config, build_model, load_sent
-module = importlib.import_module('.'+'rnn', 'models')
-conf, ps, h = config(module.config, [])
-print 'loading sts model, glove'
-glove = emb.GloVe(N=50)
-vocab = pickle.load(open('sources/vocab.txt'))
-print 'glove loaded'
-model = build_model(glove, vocab, module.prep_model, conf)
-model.load_weights('sources/models/keras_model.h5')
-print 'sts model loaded'
-class STS_NN(Feature):
-    """
-    Keras models from brmson/dataset-sts
-    """
-
-    def __init__(self, answer, i):
-        Feature.set_type(self, clas + rel)
-        Feature.set_name(self, 'STS_NN')
-        gr = load_sent(answer.q.text, answer.sources[i].sentence, vocab)
-        val = model.predict(gr)['score'][:, 0][0]
-        Feature.set_value(self, val)
+# import pickle
+# import importlib
+# import pysts.embedding as emb
+# from argus.keras_build import config, build_model, load_sent
+# module = importlib.import_module('.'+'rnn', 'models')
+# conf, ps, h = config(module.config, [])
+# print 'loading sts model, glove'
+# glove = emb.GloVe(N=50)
+# vocab = pickle.load(open('sources/vocab_sts.txt'))
+# print 'glove loaded'
+# model = build_model(glove, vocab, module.prep_model, conf)
+# model.load_weights('sources/models/keras_model.h5')
+# print 'sts model loaded'
+# class STS_NN(Feature):
+#     """
+#     Keras models from brmson/dataset-sts
+#     """
+#
+#     def __init__(self, answer, i):
+#         Feature.set_type(self, clas + rel)
+#         Feature.set_name(self, 'STS_NN')
+#         gr = load_sent(answer.q.text, answer.sources[i].sentence, vocab)
+#         val = model.predict(gr)['score'][:, 0][0]
+#         Feature.set_value(self, val)
 
 
 class SentimentQ(Feature):

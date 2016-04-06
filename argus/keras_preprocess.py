@@ -81,17 +81,17 @@ def load_sets(qs, max_sentences, vocab=None):
         si13d.append(si1)
 
         f0, f1 = nlp.sentence_flags(s0, s1, s0pad, s1pad)
-        f0 = prep.pad_sequences(f0.transpose((1, 0, 2)), maxlen=max_sentences,
+        f0 = prep.pad_sequences(f0.transpose((1, 0, 2)), maxlen=max_sentences, padding='post',
                                 truncating='post', dtype='bool').transpose((1, 0, 2))
-        f1 = prep.pad_sequences(f1.transpose((1, 0, 2)), maxlen=max_sentences,
+        f1 = prep.pad_sequences(f1.transpose((1, 0, 2)), maxlen=max_sentences, padding='post',
                                 truncating='post', dtype='bool').transpose((1, 0, 2))
         f04d.append(f0)
         f14d.append(f1)
 
     # ==========================================
-    c = np.array([prep.pad_sequences(q.c.T, maxlen=max_sentences,
+    c = np.array([prep.pad_sequences(q.c.T, maxlen=max_sentences, padding='post',
                                      truncating='post', dtype='float32') for q in qs])
-    r = np.array([prep.pad_sequences(q.r.T, maxlen=max_sentences,
+    r = np.array([prep.pad_sequences(q.r.T, maxlen=max_sentences, padding='post',
                                      truncating='post', dtype='float32') for q in qs])
     x = np.concatenate((c, r), axis=1)
     print('x.shape=', x.shape)
@@ -207,7 +207,7 @@ def load_weights(model, filepath_rnn, filepath_clr):
 def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c):
     print('Model')
     model = Graph()
-    clr = ClasRel(w_dim=w_dim+1, q_dim=q_dim+1, init='normal',
+    clr = ClasRel(w_dim=1, q_dim=1, init='normal',
                   max_sentences=max_sentences,
                   activation_w='sigmoid', activation_q='sigmoid')
     # ===================== inputs of size (batch_size, max_sentences, s_pad)
@@ -230,8 +230,8 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     model.add_node(Reshape_((max_sentences, 1)), 'sts_in2', input='scoreS2')
 
     # ===================== connect sts outputs to clr input
-    model.add_input('clr_in', (max_sentences, w_dim+q_dim))
-    model.add_node(Activation('linear'), 'sts_x2_clr', inputs=['sts_in1', 'clr_in', 'sts_in2'],
+    # model.add_input('clr_in', (max_sentences, w_dim+q_dim))
+    model.add_node(Activation('linear'), 'sts_x2_clr', inputs=['sts_in1', 'sts_in2'],  # inputs=['sts_in1', 'clr_in', 'sts_in2']
                    merge_mode='concat', concat_axis=-1)
 
     # ===================== connect to clr
@@ -281,7 +281,7 @@ def load_model(model_path, vocab_path, w_dim, q_dim, max_sentences):
     vocab = pickle.load(open(vocab_path))
     model = build(w_dim, q_dim, max_sentences, optimizer,
                   glove, vocab, module.prep_model, conf)
-    return model
+    return model, vocab
 
 
 

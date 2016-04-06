@@ -18,9 +18,9 @@ trainIDs = []
 
 
 def train(test_path=None):
-    qs_train, qs_test, ctext, rtext = load_features()
-    pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
-    # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
+    # qs_train, qs_test, ctext, rtext = load_features()
+    # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
+    qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
 
     zero_features(qs_train, ctext, rtext)
     zero_features(qs_test)
@@ -48,7 +48,7 @@ def train(test_path=None):
     glove = emb.GloVe(N=conf['embdim'])
 
     print('Dataset')
-    vocab = pickle.load(open('sources/vocab_doom.txt'))
+    vocab = pickle.load(open('sources/vocab.txt'))
     y, _, gr = load_sets(qs_train, max_sentences, vocab)
     yt, _, grt = load_sets(qs_test, max_sentences, vocab)
     # pickle.dump(vocab, open('sources/vocab.txt', 'wb'))
