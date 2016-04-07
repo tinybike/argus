@@ -13,15 +13,15 @@ from keras.optimizers import SGD
 import pysts.embedding as emb
 from argus.keras_preprocess import config, load_sets, train_and_eval, tokenize, Q
 
-outfile = 'tests/feature_prints/all_features (copy).tsv'
+outfile = 'tests/feature_prints/all_features.tsv'
 trainIDs = []
 params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']
 
 
 def train(test_path=None):
-    # qs_train, qs_test, ctext, rtext = load_features()
+    qs_train, qs_test, ctext, rtext = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
-    qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
+    # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
 
     zero_features(qs_train, ctext, rtext)
     zero_features(qs_test)
