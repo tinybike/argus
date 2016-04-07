@@ -3,13 +3,14 @@
 All features are created from here.
 """
 import numpy as np
-from keyword_extract import tokenize, nlp, verbs, extract_from_string
-from relevance import Relevance
+from keyword_extract import nlp, verbs, extract_from_string
 from nltk.corpus import wordnet as wn
 import re
 from feature_functs import load, patterns, patterns_string
 import math
 from dateutil.parser import parse
+from keras_preprocess import load_model, prep, tokenize
+import pysts.nlp as nlp_
 
 clas = '#'
 rel = '@'
@@ -24,18 +25,28 @@ feature_list_official = ['#Question Sentiment', '#Sentence Sentiment',
                          '@Elastic score', '#Sport score', '#@Antonyms',
                          '@#VerbSimWordNetBinary']
 
-from keras_preprocess import load_model, prep, tokenize
-import pysts.nlp as nlp_
+
+def feature_dimensions():
+    w_dim = 0
+    q_dim = 0
+    for f in feature_list_official:
+        if '#' in f:
+            w_dim += 1
+        if '@' in f:
+            q_dim += 1
+    w_dim *= 2  # XXX: must change manually
+    return w_dim, q_dim
+
+
 class Model(object):
     """
     RNN+ClasRel model for prediction.
     """
 
     def __init__(self):
-        model_path = 'sources/models/full_model_rnn_only_new.h5'
+        model_path = 'sources/models/full_model.h5'
         vocab_path = 'sources/vocab.txt'
-        self.w_dim = 20
-        self.q_dim = 9
+        self.w_dim, self.q_dim = feature_dimensions()
         self.max_sentences = 50
         self.s0pad = 60
         self.s1pad = 60
@@ -43,59 +54,58 @@ class Model(object):
                                             self.q_dim, self.max_sentences)
 
     def predict(self, answer):
-        # try:
-        si03d, si13d, f04d, f14d = [], [], [], []
-        s0 = [tokenize(answer.q.text)] * len(answer.sources)  # TODO: should tokenize
-        s1 = [tokenize(source.sentence) for source in answer.sources]
-        si0 = self.vocab.vectorize(s0, spad=self.s0pad)
-        si1 = self.vocab.vectorize(s1, spad=self.s1pad)
-        si0 = prep.pad_sequences(si0.T, maxlen=self.max_sentences, padding='post', truncating='post').T
-        si1 = prep.pad_sequences(si1.T, maxlen=self.max_sentences, padding='post', truncating='post').T
-        si03d.append(si0)
-        si13d.append(si1)
+        try:
+            si03d, si13d, f04d, f14d = [], [], [], []
+            s0 = [tokenize(answer.q.text)] * len(answer.sources)  # TODO: should tokenize
+            s1 = [tokenize(source.sentence) for source in answer.sources]
+            si0 = self.vocab.vectorize(s0, spad=self.s0pad)
+            si1 = self.vocab.vectorize(s1, spad=self.s1pad)
+            si0 = prep.pad_sequences(si0.T, maxlen=self.max_sentences, padding='post', truncating='post').T
+            si1 = prep.pad_sequences(si1.T, maxlen=self.max_sentences, padding='post', truncating='post').T
+            si03d.append(si0)
+            si13d.append(si1)
 
-        f0, f1 = nlp_.sentence_flags(s0, s1, self.s0pad, self.s1pad)
-        f0 = prep.pad_sequences(f0.transpose((1, 0, 2)), maxlen=self.max_sentences,
-                                padding='post', truncating='post', dtype='bool').transpose((1, 0, 2))
-        f1 = prep.pad_sequences(f1.transpose((1, 0, 2)), maxlen=self.max_sentences,
-                                padding='post', truncating='post', dtype='bool').transpose((1, 0, 2))
-        f04d.append(f0)
-        f14d.append(f1)
+            f0, f1 = nlp_.sentence_flags(s0, s1, self.s0pad, self.s1pad)
+            f0 = prep.pad_sequences(f0.transpose((1, 0, 2)), maxlen=self.max_sentences,
+                                    padding='post', truncating='post', dtype='bool').transpose((1, 0, 2))
+            f1 = prep.pad_sequences(f1.transpose((1, 0, 2)), maxlen=self.max_sentences,
+                                    padding='post', truncating='post', dtype='bool').transpose((1, 0, 2))
+            f04d.append(f0)
+            f14d.append(f1)
 
-        # ==========================================
+            # ==========================================
 
-        f = np.array([[f.get_value() for f in source.features if '#' in f.get_type()] +
-                      [f.get_value() for f in source.features if '@' in f.get_type()]
-                     for source in answer.sources])
+            f = np.array([[f.get_value() for f in source.features if '#' in f.get_type()] +
+                          [f.get_value() for f in source.features if '@' in f.get_type()]
+                         for source in answer.sources])
 
-        x = np.array([prep.pad_sequences(f.T,
-                                         maxlen=self.max_sentences, padding='post',
-                                         truncating='post', dtype='float32')])
-        clr = x.transpose((0, 2, 1))
-        y = np.zeros((len(answer.sources), 1))
+            x = np.array([prep.pad_sequences(f.T,
+                                             maxlen=self.max_sentences, padding='post',
+                                             truncating='post', dtype='float32')])
+            clr = x.transpose((0, 2, 1))
+            y = np.zeros((len(answer.sources), 1))
 
-        gr = {'si03d': np.array(si03d), 'si13d': np.array(si13d),
-              'clr_in': clr, 'score': y}
-        if f0 is not None:
-            gr['f04d'] = np.array(f04d)
-            gr['f14d'] = np.array(f14d)
+            gr = {'si03d': np.array(si03d), 'si13d': np.array(si13d),
+                  'clr_in': clr, 'score': y}
+            if f0 is not None:
+                gr['f04d'] = np.array(f04d)
+                gr['f14d'] = np.array(f14d)
 
-        # print('print from gr:')
-        # print gr['si03d'][0], gr['si13d'][0]
-        from keras_preprocess import rnn_class_out, rnn_rel_out
-        prediction = self.model.predict(gr)
-        c_r = rnn_class_out(*[gr[name] for name in self.model.input_order])[0]
-        c = c_r[:, 0]
-        r = c_r[:, 1]
-        r = r  # / np.sum(r)
-        return {'y': prediction['score'][:, 0][0],
-                'class': c,
-                'rel': r}
+            from keras_preprocess import c_r_out
+            prediction = self.model.predict(gr)
+            c_r = c_r_out(*[gr[name] for name in self.model.input_order])[0]
+            c = c_r[:, 0]
+            r = c_r[:, 1]
+            r = r  # / np.sum(r)
+            return {'y': prediction['score'][:, 0][0],
+                    'class': c,
+                    'rel': r}
 
-        # except ValueError:
-        #     return 0.
+        except ValueError:
+            return 0.
 
 MODEL = Model()
+
 
 class Feature(object):
     """

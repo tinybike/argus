@@ -95,13 +95,12 @@ def load_sets(qs, max_sentences, vocab=None):
                                      truncating='post', dtype='float32') for q in qs])
     r = np.array([prep.pad_sequences(q.r.T, maxlen=max_sentences, padding='post',
                                      truncating='post', dtype='float32') for q in qs])
-    x = np.concatenate((c, r), axis=1)
-    print('x.shape=', x.shape)
-    clr = x.transpose((0, 2, 1))
+    c_in = c.transpose((0, 2, 1))
+    r_in = r.transpose((0, 2, 1))
     y = np.array([q.y for q in qs])
 
     gr = {'si03d': np.array(si03d), 'si13d': np.array(si13d),
-          'clr_in': clr, 'score': y, 'q_texts': q_texts}
+          'c_in': c_in, 'r_in': r_in, 'score': y, 'q_texts': q_texts}
     if f0 is not None:
         gr['f04d'] = np.array(f04d)
         gr['f14d'] = np.array(f14d)
@@ -208,8 +207,7 @@ def load_weights(model, filepath_rnn, filepath_clr):
     f_rnn.close()
     f_clr.close()
 
-rnn_class_out = []
-rnn_rel_out = []
+c_r_out = []
 def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c):
     rnn_dim = 1
     w_full_dim = w_dim + rnn_dim
@@ -229,29 +227,33 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     model.add_node(Reshape_((s0pad,)), 'si0', input='si03d')
     model.add_node(Reshape_((s1pad,)), 'si1', input='si13d')
 
-    # ===================== connect to sts model
-    build_model(model, glove, vocab, module_prep_model, c)  # model with no output
+    # ===================== outputs from sts
+    build_model(model, glove, vocab, module_prep_model, c)  # out = ['scoreS1', 'scoreS2']
     # ===================== reshape (batch_size * max_sentences,) -> (batch_size, max_sentences, 1)
     model.add_node(Reshape_((max_sentences, rnn_dim)), 'sts_in1', input='scoreS1')
     model.add_node(Reshape_((max_sentences, rnn_dim)), 'sts_in2', input='scoreS2')
 
-    # ===================== connect sts outputs to clr input
-    model.add_input('clr_in', (max_sentences, w_dim+q_dim))
-    model.add_node(Activation('linear'), 'sts_x2_clr', inputs=['sts_in1', 'clr_in', 'sts_in2'],
+    # ===================== connect sts outputs to c and r inputs
+    model.add_input('c_in', (max_sentences, w_dim))
+    model.add_input('r_in', (max_sentences, q_dim))
+    model.add_node(Activation('linear'), 'c_full', inputs=['sts_in1', 'c_in'],
                    merge_mode='concat', concat_axis=-1)
-
-    # ===================== [class, rel]
-    model.add_node(TimeDistributedDense(2, activation='sigmoid'), 'c_r', input='sts_x2_clr')
+    model.add_node(Activation('linear'), 'r_full', inputs=['r_in', 'sts_in2'],
+                   merge_mode='concat', concat_axis=-1)
+    # ===================== [w_full_dim, q_full_dim] -> [class, rel]
+    model.add_node(TimeDistributedDense(1, activation='sigmoid'), 'c', input='c_full')
+    model.add_node(TimeDistributedDense(1, activation='sigmoid'), 'r', input='r_full')
+    model.add_node(Activation('linear'), 'c_r', inputs=['c', 'r'],
+                   merge_mode='concat', concat_axis=-1)
     # ===================== mean of class over rel
     model.add_node(WeightedMean(w_dim=w_full_dim,
                                 q_dim=q_full_dim,
-                                max_sentences=max_sentences), name='clr', input='c_r')
-    model.add_output(name='score', input='clr')
+                                max_sentences=max_sentences), name='weighted_mean', input='c_r')
+    model.add_output(name='score', input='weighted_mean')
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
-    global rnn_class_out, rnn_rel_out
-    rnn_class_out = layer_fun(model, 'c_r')
-    # rnn_rel_out = layer_fun(model, 'sts_in2')
+    global c_r_out
+    c_r_out = layer_fun(model, 'c_r')
     return model
 
 import theano

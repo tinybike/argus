@@ -75,7 +75,11 @@ def create_sources(a):
     sources.sort(key=lambda x: x.rel, reverse=True)
     return sources
 
-
+from argus.features import MODEL, feature_dimensions
+w_dim, _ = feature_dimensions()
+w_weights = MODEL.model.get_weights()[-2][:w_dim]
+q_weights = MODEL.model.get_weights()[-2][w_dim:]
+print 'WEIGHTS:', w_weights, q_weights
 class Web_Source(object):
     def __init__(self, a, i):
         s = a.sources[i]
@@ -100,8 +104,7 @@ class Web_Source(object):
         proc = s.prob * 100
         self.rel = s.rel * 100
         self.percentage = str('%.2f%% (rel %.2f%%)' % (proc, self.rel))
-        w = [0.]*20  # FIXME: real values plz
-        q = [0.]*9
+
         feats = s.features
         self.info = ''
         fi = 0
@@ -110,14 +113,14 @@ class Web_Source(object):
             f = feats[j]
             if '#' in f.get_type():
                 self.info += f.get_name() + str(
-                    ': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(), w[fi], feats[j].get_value() * w[fi]))
+                    ': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(), w_weights[fi], feats[j].get_value() * w_weights[fi]))
                 fi += 1
         self.info += '---------------<br />'
         for j in range(len(feats)):
             f = feats[j]
             if '@' in f.get_type():
                 self.info += f.get_name() + str(
-                    ': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(), q[ri], feats[j].get_value() * q[ri]))
+                    ': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(), q_weights[ri], feats[j].get_value() * q_weights[ri]))
                 ri += 1
 
 

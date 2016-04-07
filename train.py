@@ -15,7 +15,7 @@ from argus.keras_preprocess import config, load_sets, train_and_eval, tokenize, 
 
 outfile = 'tests/feature_prints/all_features.tsv'
 trainIDs = []
-params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']
+params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"', 'l2reg=0.01']
 
 
 def train(test_path=None):
@@ -33,7 +33,7 @@ def train(test_path=None):
 
     # ==========================================================
     epochs = 50
-    optimizer = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+    optimizer = 'adam'  # SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
     max_sentences = 50
 
     # ==========================================================
