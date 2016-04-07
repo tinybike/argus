@@ -254,8 +254,8 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
     global rnn_class_out, rnn_rel_out
-    rnn_class_out = layer_fun(model, 'sts_in1')
-    rnn_rel_out = layer_fun(model, 'sts_in2')
+    rnn_class_out = layer_fun(model, 'c_r')
+    # rnn_rel_out = layer_fun(model, 'sts_in2')
     return model
 
 import theano

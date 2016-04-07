@@ -32,7 +32,7 @@ class Model(object):
     """
 
     def __init__(self):
-        model_path = 'sources/models/full_model_rnn_only.h5'
+        model_path = 'sources/models/full_model_rnn_only_new.h5'
         vocab_path = 'sources/vocab.txt'
         self.w_dim = 20
         self.q_dim = 9
@@ -84,9 +84,13 @@ class Model(object):
         # print gr['si03d'][0], gr['si13d'][0]
         from keras_preprocess import rnn_class_out, rnn_rel_out
         prediction = self.model.predict(gr)
+        c_r = rnn_class_out(*[gr[name] for name in self.model.input_order])[0]
+        c = c_r[:, 0]
+        r = c_r[:, 1]
+        r = r  # / np.sum(r)
         return {'y': prediction['score'][:, 0][0],
-                'class': rnn_class_out(*[gr[name] for name in self.model.input_order])[0],
-                'rel': rnn_rel_out(*[gr[name] for name in self.model.input_order])[0]}
+                'class': c,
+                'rel': r}
 
         # except ValueError:
         #     return 0.

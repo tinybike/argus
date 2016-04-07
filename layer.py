@@ -32,7 +32,6 @@ class ClasRel(MaskedLayer):
         super(ClasRel, self).__init__(**kwargs)
 
     def build(self):
-        # NOTE: w, q cannot be scalar, otherwise some weird exceptions occur during save_weights
         pass
 
     @property
@@ -41,6 +40,7 @@ class ClasRel(MaskedLayer):
         return (input_shape[0], input_shape[1], 1)
 
     def get_output(self, train=False):
+        e = 1e-6  # constant used for numerical stability
         X = self.get_input(train)
         x = K.reshape(X, (-1, self.input_shape[-1]))
         f = x[:, :self.w_dim]
@@ -53,7 +53,7 @@ class ClasRel(MaskedLayer):
         s = K.reshape(f, (-1, self.input_shape[1]))
         t = K.reshape(r, (-1, self.input_shape[1]))
 
-        output = self.activation(K.sum(s * t, axis=1) / T.sum(t, axis=-1))
+        output = self.activation(K.sum(s * t, axis=1) / (T.sum(t, axis=-1)) + e)
         output = K.reshape(output, (-1, 1))
         return output
 
