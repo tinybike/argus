@@ -77,9 +77,8 @@ def create_sources(a):
 
 from argus.features import MODEL, feature_dimensions
 w_dim, _ = feature_dimensions()
-w_weights = MODEL.model.get_weights()[-2][:w_dim]
-q_weights = MODEL.model.get_weights()[-2][w_dim:]
-print 'WEIGHTS:', MODEL.model.get_weights()[-4:]
+w_weights = MODEL.model.get_weights()[-4][:, 0]
+q_weights = MODEL.model.get_weights()[-2][:, 0]
 class Web_Source(object):
     def __init__(self, a, i):
         s = a.sources[i]
@@ -96,11 +95,7 @@ class Web_Source(object):
         self.query = a.q.query
         self.q = a.q.text
         self.source = s.source
-        # XXX: probability only for one final
-        #        if a.text == 'YES':
-        #            proc = a.features.prob[i]*100
-        #        else:
-        #            proc = (1-a.features.prob[i])*100
+
         proc = s.prob * 100
         self.rel = s.rel * 100
         self.percentage = str('%.2f%% (rel %.2f%%)' % (proc, self.rel))

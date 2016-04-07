@@ -32,7 +32,7 @@ def train(test_path=None):
     print 'q_dim=', q_dim
 
     # ==========================================================
-    epochs = 50
+    epochs = 100
     optimizer = 'adam'  # SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
     max_sentences = 50
 

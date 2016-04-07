@@ -208,6 +208,7 @@ def load_weights(model, filepath_rnn, filepath_clr):
     f_clr.close()
 
 c_r_out = []
+features_outs = []
 def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c):
     rnn_dim = 1
     w_full_dim = w_dim + rnn_dim
@@ -252,8 +253,10 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     model.add_output(name='score', input='weighted_mean')
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
-    global c_r_out
+    global c_r_out, features_outs
     c_r_out = layer_fun(model, 'c_r')
+    features_outs = [layer_fun(model, 'c_full'), layer_fun(model, 'r_full')]
+    # TODO: use for printing sts_outs
     return model
 
 import theano
