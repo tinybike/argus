@@ -290,7 +290,7 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
     loss, acc = model.evaluate(grt, show_accuracy=True)
     print('Val: loss=', loss, 'acc=', acc)
 
-    print('Predicting for output.tsv')
+    print('Predicting for outfile.tsv')
     results = zip(gr['q_texts'], model.predict(gr)['score'][:,0]) + zip(grt['q_texts'], model.predict(grt)['score'][:,0])
     print('Prediction ready')
     return model, results
