@@ -27,7 +27,7 @@ from pysts.kerasts import graph_input_anssel
 from pysts.kerasts.callbacks import AnsSelBinCB
 import pysts.kerasts.blocks as B
 from keras.layers.embeddings import Embedding
-from keras.layers.core import Dropout, Dense
+from keras.layers.core import Dropout, Dense, TimeDistributedDense
 from keras.regularizers import l2
 import numpy as np
 import keras.preprocessing.sequence as prep
@@ -211,11 +211,15 @@ def load_weights(model, filepath_rnn, filepath_clr):
 rnn_class_out = []
 rnn_rel_out = []
 def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c):
+    w_dim = 0
+    q_dim = 0
+
+    rnn_dim = 1
+    w_full_dim = w_dim + rnn_dim
+    q_full_dim = q_dim + rnn_dim
     print('Model')
     model = Graph()
-    clr = ClasRel(w_dim=1, q_dim=1, init='normal',
-                  max_sentences=max_sentences,
-                  activation_w='sigmoid', activation_q='sigmoid')
+    clr = ClasRel(w_dim=w_full_dim, q_dim=q_full_dim, max_sentences=max_sentences)
     # ===================== inputs of size (batch_size, max_sentences, s_pad)
     model.add_input('si03d', (max_sentences, s0pad), dtype=int)  # XXX: cannot be cast to int->problem?
     model.add_input('si13d', (max_sentences, s1pad), dtype=int)
@@ -241,7 +245,9 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
                    merge_mode='concat', concat_axis=-1)
 
     # ===================== connect to clr
-    model.add_node(layer=clr, name='clr', input='sts_x2_clr')
+    model.add_node(TimeDistributedDense(w_full_dim+q_full_dim, activation='sigmoid'), 'c_r', input='sts_x2_clr')
+    # ===================== connect to clr
+    model.add_node(layer=clr, name='clr', input='c_r')
     model.add_output(name='score', input='clr')
     # model.add_output(name='rnn_class_out', input='sts_in1')
     # model.add_output(name='rnn_rel_out', input='sts_in2')

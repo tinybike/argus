@@ -20,58 +20,22 @@ class ClasRel(MaskedLayer):
     input_ndim = 3
 
     def __init__(self, w_dim, q_dim, max_sentences=100, output_dim=1, init='glorot_uniform', activation='linear',
-                 activation_w='sigmoid', activation_q='sigmoid', weights=None,
-                 regularizers=[l2]*4, activity_regularizer=None, constraints=[None]*4,
-                 input_dim=None, **kwargs):
-        if activation_q == 'relu':
-            activation_q = relu
+                 activity_regularizer=None, input_dim=None, **kwargs):
         self.max_sentences = max_sentences
         self.w_dim = w_dim
         self.q_dim = q_dim
         self.input_dim = self.w_dim + self.q_dim
         self.activation = activations.get(activation)
-        self.activation_w = activations.get(activation_w)
-        self.activation_q = activations.get(activation_q)
 
         self.init = initializations.get(init)
         self.output_dim = output_dim
-
-        self.W_regularizer = keras.regularizers.get(regularizers[0])
-        self.w_regularizer = keras.regularizers.get(regularizers[1])
-        self.Q_regularizer = keras.regularizers.get(regularizers[2])
-        self.q_regularizer = keras.regularizers.get(regularizers[3])
-        self.activity_regularizer = keras.regularizers.get(activity_regularizer)
-
-        self.W_constraint = keras.constraints.get(constraints[0])
-        self.w_constraint = keras.constraints.get(constraints[1])
-        self.Q_constraint = keras.constraints.get(constraints[2])
-        self.q_constraint = keras.constraints.get(constraints[3])
-        self.constraints = [self.W_constraint, self.w_constraint,
-                            self.Q_constraint, self.q_constraint]
-
-        self.initial_weights = weights
 
         kwargs['input_shape'] = (self.max_sentences, self.w_dim + self.q_dim,)
         super(ClasRel, self).__init__(**kwargs)
 
     def build(self):
         # NOTE: w, q cannot be scalar, otherwise some weird exceptions occur during save_weights
-        self.W = self.init((self.w_dim, ), name='{}_W'.format(self.name))
-        self.w = self.init((1,), name='{}_w'.format(self.name))
-        self.Q = self.init((self.q_dim,), name='{}_Q'.format(self.name))
-        self.q = self.init((1,), name='{}_q'.format(self.name))
-
-        self.trainable_weights = [self.W, self.w, self.Q, self.q]
-
-        self.regularizers = self.fill_regulizers()
-
-        if self.activity_regularizer:
-            self.activity_regularizer.set_layer(self)
-            self.regularizers.append(self.activity_regularizer)
-
-        if self.initial_weights is not None:
-            self.set_weights(self.initial_weights)
-            del self.initial_weights
+        pass
 
     @property
     def output_shape(self):
@@ -83,15 +47,15 @@ class ClasRel(MaskedLayer):
         x = K.reshape(X, (-1, self.input_shape[-1]))
         f = x[:, :self.w_dim]
         r = x[:, self.w_dim:]
-        s_ = K.dot(f, self.W)
-        t_ = K.dot(r, self.Q)
-        mask = K.switch(s_, 1, 0)
-        s = self.activation_w(s_ + self.w[0]) * mask
-        t = self.activation_q(t_ + self.q[0]) * mask
-        s = K.reshape(s, (-1, self.input_shape[1]))
-        t = K.reshape(t, (-1, self.input_shape[1]))
+        # s_ = K.dot(f, self.W)
+        # t_ = K.dot(r, self.Q)
+        # mask = K.switch(s_, 1, 0)
+        # s = self.activation_w(s_ + self.w[0]) * mask
+        # t = self.activation_q(t_ + self.q[0]) * mask
+        s = K.reshape(f, (-1, self.input_shape[1]))
+        t = K.reshape(r, (-1, self.input_shape[1]))
 
-        output = self.activation(K.sum(s * t, axis=1) / T.sum(t, axis=-1)) # T.sum(t, axis=1))
+        output = self.activation(K.sum(s * t, axis=1) / T.sum(t, axis=-1))
         output = K.reshape(output, (-1, 1))
         return output
 
