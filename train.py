@@ -99,9 +99,9 @@ def load_features():
                     r_text.append(field)
         if line[0] == 'Question':
             continue
-        S.append(tokenize(line[1]))
+        S.append(tokenize(line[1].lower()))  # FIXME: glove should not use lower()
         Q_text.append(line[0])
-        QS.append(tokenize(line[0]))
+        QS.append(tokenize(line[0].lower()))
         R.append([float(line[ix]) for ix in rel_ixs])
         C.append([float(line[ix]) for ix in clas_ixs])
         GS.append(float(line[GS_ix] == 'YES'))

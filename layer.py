@@ -12,8 +12,6 @@ import numpy as np
 def relu(x):
     return K.switch(x > 0, x + 0.01, 0.01)
 
-
-
 l2 = keras.regularizers.l2(1e-2)
 class ClasRel(MaskedLayer):
 
