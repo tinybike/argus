@@ -236,7 +236,7 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     # ===================== connect sts outputs to c and r inputs
     model.add_input('c_in', (max_sentences, w_dim))
     model.add_input('r_in', (max_sentences, q_dim))
-    model.add_node(Activation('linear'), 'c_full', inputs=['sts_in1', 'c_in'],
+    model.add_node(Activation('linear'), 'c_full', inputs=['c_in', 'sts_in1'],
                    merge_mode='concat', concat_axis=-1)
     model.add_node(Activation('linear'), 'r_full', inputs=['r_in', 'sts_in2'],
                    merge_mode='concat', concat_axis=-1)

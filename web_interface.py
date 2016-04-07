@@ -79,7 +79,7 @@ from argus.features import MODEL, feature_dimensions
 w_dim, _ = feature_dimensions()
 w_weights = MODEL.model.get_weights()[-2][:w_dim]
 q_weights = MODEL.model.get_weights()[-2][w_dim:]
-print 'WEIGHTS:', w_weights, q_weights
+print 'WEIGHTS:', MODEL.model.get_weights()[-4:]
 class Web_Source(object):
     def __init__(self, a, i):
         s = a.sources[i]

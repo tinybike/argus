@@ -75,18 +75,23 @@ class Model(object):
 
             # ==========================================
 
-            f = np.array([[f.get_value() for f in source.features if '#' in f.get_type()] +
-                          [f.get_value() for f in source.features if '@' in f.get_type()]
+            c = np.array([[f.get_value() for f in source.features if '#' in f.get_type()]
+                         for source in answer.sources])
+            r = np.array([[f.get_value() for f in source.features if '@' in f.get_type()]
                          for source in answer.sources])
 
-            x = np.array([prep.pad_sequences(f.T,
+            c = np.array([prep.pad_sequences(c.T,
                                              maxlen=self.max_sentences, padding='post',
                                              truncating='post', dtype='float32')])
-            clr = x.transpose((0, 2, 1))
+            r = np.array([prep.pad_sequences(r.T,
+                                             maxlen=self.max_sentences, padding='post',
+                                             truncating='post', dtype='float32')])
+            c = c.transpose((0, 2, 1))
+            r = r.transpose((0, 2, 1))
             y = np.zeros((len(answer.sources), 1))
 
             gr = {'si03d': np.array(si03d), 'si13d': np.array(si13d),
-                  'clr_in': clr, 'score': y}
+                  'c_in': c, 'r_in': r, 'score': y}
             if f0 is not None:
                 gr['f04d'] = np.array(f04d)
                 gr['f14d'] = np.array(f14d)
