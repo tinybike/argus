@@ -278,20 +278,22 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
         model.fit(gr, validation_data=grt,
                   callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
                                              save_best_only=True, monitor='val_loss', mode='min')],
-                  batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
+                  batch_size=10, nb_epoch=c['nb_epoch'])
         model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
         model.load_weights('weights-'+runid+'-bestval.h5')
     else:
         model.load_weights(test_path)
     print('Predict&Eval (best epoch)')
 
-    loss, acc = model.evaluate(gr, show_accuracy=True)
+    loss, acc = model.evaluate(gr)
     print('Train: loss=', loss, 'acc=', acc)
-    loss, acc = model.evaluate(grt, show_accuracy=True)
+    loss, acc = model.evaluate(grt)
     print('Val: loss=', loss, 'acc=', acc)
-    # for q, gs, s in zip(gr['q_texts'], gr['score'], model.predict(gr)['score']):
-    #     print('gs=', gs, 'predict=', s, q)
-    return model
+
+    print('Predicting for output.tsv')
+    results = zip(gr['q_texts'], model.predict(gr)['score'][:,0]) + zip(grt['q_texts'], model.predict(grt)['score'][:,0])
+    print('Prediction ready')
+    return model, results
 
 
 def load_model(model_path, vocab_path, w_dim, q_dim, max_sentences):

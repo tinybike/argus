@@ -53,7 +53,7 @@ def train(test_path=None):
     yt, _, grt = load_sets(qs_test, max_sentences, vocab)
     # pickle.dump(vocab, open('sources/vocab.txt', 'wb'))
 
-    model = train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grt,
+    model, results = train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grt,
                    max_sentences, w_dim, q_dim, optimizer, test_path=test_path)
 
     ###################################
@@ -71,8 +71,8 @@ def train(test_path=None):
     # stats(R, qstrain)
     if query_yes_no('Save model?'):
         model.save_weights('sources/models/full_model.h5', overwrite=True)
-    # if query_yes_no('Rewrite output.tsv?'):
-    #     rewrite_output()
+    if query_yes_no('Rewrite output.tsv?'):
+        rewrite_output(results)
 
 
 def load_features():
@@ -153,9 +153,6 @@ def list_weights(R, ctext, rtext):
     print '(rel) bias........%.2f' % (R.Q[-1])
 
 
-results = []
-
-
 def stats(model, x, y):
     i = len(y)
     y = np.reshape(y, (i, 1))
@@ -165,18 +162,19 @@ def stats(model, x, y):
     return float(corr) / i * 100
 
 
-def rewrite_output():
+def rewrite_output(results):
     lines = []
-    for line in csv.reader(open(outfile), delimiter='\t', skipinitialspace=True):
-        for qtext, yt, t in results:
+    out_tsv = 'tests/outfile.tsv'
+    for line in csv.reader(open(out_tsv), delimiter='\t', skipinitialspace=True):
+        for qtext, y in results:
             if line[1] == qtext:
-                if yt == 1:
+                if y > .5:
                     line[3] = 'YES'
                 else:
                     line[3] = 'NO'
-                line[11] = str(t)
+                line[11] = str(y)
         lines.append(line)
-    writer = csv.writer(open(outfile, 'wr'), delimiter='\t')
+    writer = csv.writer(open(out_tsv, 'wr'), delimiter='\t')
     for line in lines:
         writer.writerow(line)
 
