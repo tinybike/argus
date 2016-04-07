@@ -13,7 +13,7 @@ def relu(x):
     return K.switch(x > 0, x + 0.01, 0.01)
 
 l2 = keras.regularizers.l2(1e-2)
-class ClasRel(MaskedLayer):
+class WeightedMean(MaskedLayer):
 
     input_ndim = 3
 
@@ -29,7 +29,7 @@ class ClasRel(MaskedLayer):
         self.output_dim = output_dim
 
         kwargs['input_shape'] = (self.max_sentences, self.w_dim + self.q_dim,)
-        super(ClasRel, self).__init__(**kwargs)
+        super(WeightedMean, self).__init__(**kwargs)
 
     def build(self):
         pass
@@ -43,8 +43,8 @@ class ClasRel(MaskedLayer):
         e = 1e-6  # constant used for numerical stability
         X = self.get_input(train)
         x = K.reshape(X, (-1, self.input_shape[-1]))
-        f = x[:, :self.w_dim]
-        r = x[:, self.w_dim:]
+        f = x[:, 0]
+        r = x[:, 1]
         # s_ = K.dot(f, self.W)
         # t_ = K.dot(r, self.Q)
         # mask = K.switch(s_, 1, 0)

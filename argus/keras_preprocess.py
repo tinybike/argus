@@ -31,7 +31,7 @@ from keras.layers.core import Dropout, Dense, TimeDistributedDense
 from keras.regularizers import l2
 import numpy as np
 import keras.preprocessing.sequence as prep
-from layer import Reshape_, ClasRel
+from layer import Reshape_, WeightedMean
 
 s0pad = 60
 s1pad = 60
@@ -211,15 +211,11 @@ def load_weights(model, filepath_rnn, filepath_clr):
 rnn_class_out = []
 rnn_rel_out = []
 def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c):
-    w_dim = 0
-    q_dim = 0
-
     rnn_dim = 1
     w_full_dim = w_dim + rnn_dim
     q_full_dim = q_dim + rnn_dim
     print('Model')
     model = Graph()
-    clr = ClasRel(w_dim=w_full_dim, q_dim=q_full_dim, max_sentences=max_sentences)
     # ===================== inputs of size (batch_size, max_sentences, s_pad)
     model.add_input('si03d', (max_sentences, s0pad), dtype=int)  # XXX: cannot be cast to int->problem?
     model.add_input('si13d', (max_sentences, s1pad), dtype=int)
@@ -236,21 +232,21 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     # ===================== connect to sts model
     build_model(model, glove, vocab, module_prep_model, c)  # model with no output
     # ===================== reshape (batch_size * max_sentences,) -> (batch_size, max_sentences, 1)
-    model.add_node(Reshape_((max_sentences, 1)), 'sts_in1', input='scoreS1')
-    model.add_node(Reshape_((max_sentences, 1)), 'sts_in2', input='scoreS2')
+    model.add_node(Reshape_((max_sentences, rnn_dim)), 'sts_in1', input='scoreS1')
+    model.add_node(Reshape_((max_sentences, rnn_dim)), 'sts_in2', input='scoreS2')
 
     # ===================== connect sts outputs to clr input
-    # model.add_input('clr_in', (max_sentences, w_dim+q_dim))
-    model.add_node(Activation('linear'), 'sts_x2_clr', inputs=['sts_in1', 'sts_in2'],  # inputs=['sts_in1', 'clr_in', 'sts_in2']
+    model.add_input('clr_in', (max_sentences, w_dim+q_dim))
+    model.add_node(Activation('linear'), 'sts_x2_clr', inputs=['sts_in1', 'clr_in', 'sts_in2'],
                    merge_mode='concat', concat_axis=-1)
 
-    # ===================== connect to clr
-    model.add_node(TimeDistributedDense(w_full_dim+q_full_dim, activation='sigmoid'), 'c_r', input='sts_x2_clr')
-    # ===================== connect to clr
-    model.add_node(layer=clr, name='clr', input='c_r')
+    # ===================== [class, rel]
+    model.add_node(TimeDistributedDense(2, activation='sigmoid'), 'c_r', input='sts_x2_clr')
+    # ===================== mean of class over rel
+    model.add_node(WeightedMean(w_dim=w_full_dim,
+                                q_dim=q_full_dim,
+                                max_sentences=max_sentences), name='clr', input='c_r')
     model.add_output(name='score', input='clr')
-    # model.add_output(name='rnn_class_out', input='sts_in1')
-    # model.add_output(name='rnn_rel_out', input='sts_in2')
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
     global rnn_class_out, rnn_rel_out
