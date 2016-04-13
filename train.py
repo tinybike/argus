@@ -19,7 +19,7 @@ trainIDs = []
 params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']  # , 'l2reg=0.01']
 
 
-def train(test_path, rnn_args):
+def train(test_path, rnn_args, save_to_argus=False):
     qs_train, qs_val, qs_test, c_text, r_text = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
     # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
@@ -71,10 +71,11 @@ def train(test_path, rnn_args):
 
     # print '---------------train'
     # stats(R, qstrain)
-    if query_yes_no('Save model?'):
-        model.save_weights('sources/models/full_model.h5', overwrite=True)
-    if query_yes_no('Rewrite output.tsv?'):
-        rewrite_output(res_dict)
+    if not save_to_argus:
+        if query_yes_no('Save model?'):
+            model.save_weights('sources/models/full_model.h5', overwrite=True)
+        if query_yes_no('Rewrite output.tsv?'):
+            rewrite_output(res_dict)
 
     return results
 
@@ -234,7 +235,7 @@ def train_full(runs, pars):
     for i in range(runs):
         print 'Full training, run #%i out of %i' % (i, runs)
         np.random.seed(1337+i)
-        results.append(train(None, pars))
+        results.append(train(None, pars, False))
 
     tr_acc = [tr for tr, v, t in results]
     t_acc = [t for tr, v, t in results]
