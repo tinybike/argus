@@ -118,12 +118,6 @@ def load_features():
         if q_t != q_text:
             ixs.append(i)
             q_t = q_text
-    # for i, i_, j in zip(ixs, ixs[1:]+[len(QS)], range(len(ixs))):
-    #     if split(j):
-    #         trainIDs.append(Q_text[i])
-    #         qs_train.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
-    #     else:
-    #         qs_test.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
 
     qs_val = []
     for i, i_, j in zip(ixs, ixs[1:]+[len(QS)], range(len(ixs))):
@@ -135,7 +129,6 @@ def load_features():
             qs_val.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
         else:
             qs_test.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
-
 
     np.save('tests/trainIDs/trainIDs.npy', np.array(trainIDs))
     return qs_train, qs_val, qs_test, c_text, r_text
@@ -232,8 +225,7 @@ def student_distribution_print(fname, r, alpha=0.95, bonferroni=1.):
     return bar
 
 
-def train_full(pars):
-    runs = 16
+def train_full(runs=16, pars=[]):
     results = []
     for i in range(runs):
         print 'Full training, run #%i out of %i' % (i, runs)
@@ -253,9 +245,10 @@ if __name__ == '__main__':
     np.random.seed(17151711)
     parser = argparse.ArgumentParser()
     parser.add_argument('--test')
+    parser.add_argument('--full_runs')
     parser.add_argument('-full', action='store_true')
     args, rnn_args = parser.parse_known_args()
     if vars(args)['full']:
-        train_full(rnn_args)
+        train_full(int(vars(args)['full_runs']), rnn_args)
     else:
         train(vars(args)['test'], rnn_args)
