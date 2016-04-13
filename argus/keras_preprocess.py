@@ -269,14 +269,14 @@ def layer_fun(model, layer_name):
     # return thf(*[gr[name] for name in model.input_order])
 
 
-def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
+def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grv, grt,
                    max_sentences, w_dim, q_dim, optimizer='sgd', test_path=None):
 
     model = build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c)
 
     if test_path is None:
         print('Training')
-        model.fit(gr, validation_data=grt,
+        model.fit(gr, validation_data=grv,
                   callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
                                              save_best_only=True, monitor='val_loss', mode='min')],
                   batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
@@ -286,9 +286,11 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grt,
         model.load_weights(test_path)
     print('Predict&Eval (best epoch)')
 
+    loss, acc = model.evaluate(grt, show_accuracy=True)
+    print('Test: loss=', loss, 'acc=', acc)
     loss, acc = model.evaluate(gr, show_accuracy=True)
     print('Train: loss=', loss, 'acc=', acc)
-    loss, acc = model.evaluate(grt, show_accuracy=True)
+    loss, acc = model.evaluate(grv, show_accuracy=True)
     print('Val: loss=', loss, 'acc=', acc)
 
     print('Predicting for outfile.tsv')

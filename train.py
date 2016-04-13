@@ -19,11 +19,11 @@ params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']  # , 'l2reg=0.01']
 
 
 def train(test_path, rnn_args):
-    qs_train, qs_test, ctext, rtext = load_features()
+    qs_train, qs_val, qs_test, c_text, r_text = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
     # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
 
-    zero_features(qs_train, ctext, rtext)
+    zero_features(qs_train, c_text, r_text)
     zero_features(qs_test)
 
     w_dim = qs_train[0].c.shape[-1]
@@ -50,10 +50,11 @@ def train(test_path, rnn_args):
     print('Dataset')
     vocab = pickle.load(open('sources/vocab.txt'))
     y, _, gr = load_sets(qs_train, max_sentences, vocab)
+    y, _, grv = load_sets(qs_val, max_sentences, vocab)
     yt, _, grt = load_sets(qs_test, max_sentences, vocab)
     # pickle.dump(vocab, open('sources/vocab.txt', 'wb'))
 
-    model, results = train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grt,
+    model, results = train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grv, grt,
                                     max_sentences, w_dim, q_dim, optimizer, test_path=test_path)
 
     ###################################
@@ -114,19 +115,36 @@ def load_features():
         if q_t != q_text:
             ixs.append(i)
             q_t = q_text
+    # for i, i_, j in zip(ixs, ixs[1:]+[len(QS)], range(len(ixs))):
+    #     if split(j):
+    #         trainIDs.append(Q_text[i])
+    #         qs_train.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
+    #     else:
+    #         qs_test.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
+
+    qs_val = []
     for i, i_, j in zip(ixs, ixs[1:]+[len(QS)], range(len(ixs))):
-        if split(j):
+        if split(j) == 'train':
             trainIDs.append(Q_text[i])
             qs_train.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
+        elif split(j) == 'val':
+            trainIDs.append(Q_text[i])
+            qs_val.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
         else:
             qs_test.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
 
+
     np.save('tests/trainIDs/trainIDs.npy', np.array(trainIDs))
-    return qs_train, qs_test, c_text, r_text
+    return qs_train, qs_val, qs_test, c_text, r_text
 
 
 def split(i):
-    return i % 2 == 1
+    if i % 3 == 0:
+        return 'train'
+    elif i % 3 == 1:
+        return 'val'
+    else:
+        return 'test'
 
 
 def zero_features(qs, ctext=None, rtext=None):
