@@ -162,7 +162,7 @@ def build_model(model, glove, vocab, module_prep_model, c, s0pad=s0pad, s1pad=s1
     prep_model(model, glove, vocab, module_prep_model, c, oact, s0pad, s1pad)
 
 
-def embedding(model, glove, vocab, s0pad, s1pad, dropout, trainable=True,
+def embedding(model, glove, vocab, s0pad, s1pad, dropout, trainable=False,
               add_flags=False):
     """ Sts embedding layer, without creating inputs. """
 
