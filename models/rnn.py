@@ -70,7 +70,7 @@ def config(c):
     # anssel-specific:
     c['ptscorer'] = B.mlp_ptscorer
     c['mlpsum'] = 'sum'
-    c['Ddim'] = 2
+
 
 
 def prep_model(model, N, s0pad, s1pad, c):

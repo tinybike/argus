@@ -233,7 +233,7 @@ def train_full(runs, pars):
         runs = int(runs)
     results = []
     for i in range(runs):
-        print 'Full training, run #%i out of %i' % (i, runs)
+        print 'Full training, run #%i out of %i' % (i+1, runs)
         np.random.seed(1337+i)
         results.append(train(None, pars, False))
 
