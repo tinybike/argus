@@ -72,7 +72,6 @@ def config(c):
     c['mlpsum'] = 'sum'
 
 
-
 def prep_model(model, N, s0pad, s1pad, c):
     B.rnn_input(model, N, s0pad,
                 dropout=c['dropout'], sdim=c['sdim'],

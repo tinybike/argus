@@ -169,10 +169,10 @@ def mlp_ptscorer(model, inputs, Ddim, N, l2reg, pfx='out', sum_mode='sum'):
         model.add_node(name=pfx+'sum', inputs=inputs, layer=Activation('linear'), merge_mode='sum')
     model.add_node(name=pfx+'mul', inputs=inputs, layer=Activation('linear'), merge_mode='mul')
 
-    model.add_node(name=pfx+'hdn', inputs=[pfx+'sum', pfx+'mul'], merge_mode='concat',
-                   layer=Dense(output_dim=int(N*Ddim), W_regularizer=l2(l2reg), activation='sigmoid'))
-    model.add_node(name=pfx+'mlp', input=pfx+'hdn',
-                   layer=Dense(output_dim=1, W_regularizer=l2(l2reg)))
+    model.add_node(name=pfx+'mlp', inputs=[pfx+'sum', pfx+'mul'], merge_mode='concat',
+                   layer=Dense(output_dim=1, W_regularizer=l2(l2reg), activation='linear'))
+    #model.add_node(name=pfx+'mlp', input=pfx+'hdn',
+    #               layer=Dense(output_dim=1, W_regularizer=l2(l2reg)))
     return pfx+'mlp'
 
 
