@@ -15,10 +15,10 @@ from argus.keras_preprocess import config, load_sets, train_and_eval, tokenize, 
 
 outfile = 'tests/feature_prints/all_features.tsv'
 trainIDs = []
-params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"', 'l2reg=0.01']
+params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']  # , 'l2reg=0.01']
 
 
-def train(test_path=None):
+def train(test_path, rnn_args):
     qs_train, qs_test, ctext, rtext = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
     # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
@@ -39,7 +39,7 @@ def train(test_path=None):
     # ==========================================================
     modelname = 'rnn'
     module = importlib.import_module('.'+modelname, 'models')
-    conf, ps, h = config(module.config, params, epochs)
+    conf, ps, h = config(module.config, params+rnn_args, epochs)
 
     runid = '%s-%x' % (modelname, h)
     print('RunID: %s  (%s)' % (runid, ps))
@@ -54,7 +54,7 @@ def train(test_path=None):
     # pickle.dump(vocab, open('sources/vocab.txt', 'wb'))
 
     model, results = train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grt,
-                   max_sentences, w_dim, q_dim, optimizer, test_path=test_path)
+                                    max_sentences, w_dim, q_dim, optimizer, test_path=test_path)
 
     ###################################
 
@@ -195,9 +195,10 @@ def query_yes_no(question, default="yes"):
                              "(or 'y' or 'n').\n")
 
 import argparse
+import sys
 if __name__ == '__main__':
     np.random.seed(17151711)
     parser = argparse.ArgumentParser()
     parser.add_argument('--test')
-    args = parser.parse_args()
-    train(vars(args)['test'])
+    args, rnn_args = parser.parse_known_args()
+    train(vars(args)['test'], rnn_args)
