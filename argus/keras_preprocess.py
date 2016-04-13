@@ -142,17 +142,18 @@ def prep_model(model, glove, vocab, module_prep_model, c, oact, s0pad, s1pad):
     # Sentence-aggregate embeddings
     final_outputs = module_prep_model(model, N, s0pad, s1pad, c)
 
-    model.add_node(name='scoreS1', inputs=final_outputs, merge_mode='concat',
-                   layer=Dense(output_dim=1, W_regularizer=l2(c['l2reg'])))
-
-    model.add_node(name='scoreS2', inputs=final_outputs, merge_mode='concat',
-                   layer=Dense(output_dim=1, W_regularizer=l2(c['l2reg'])))
+    # model.add_node(name='scoreS1', inputs=final_outputs, merge_mode='concat',
+    #                layer=Dense(output_dim=1, W_regularizer=l2(c['l2reg'])))
+    #
+    # model.add_node(name='scoreS2', inputs=final_outputs, merge_mode='concat',
+    #                layer=Dense(output_dim=1, W_regularizer=l2(c['l2reg'])))
 
     # kwargs = dict()
-    # if ptscorer == B.mlp_ptscorer:
-    #     kwargs['sum_mode'] = c['mlpsum']
-    # model.add_node(name='scoreS', input=ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], **kwargs),
-    #                layer=Activation(oact))
+    # kwargs['sum_mode'] = c['mlpsum']
+    model.add_node(name='scoreS1', input=B.mlp_ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], pfx='S1_'),
+                   layer=Activation(oact))
+    model.add_node(name='scoreS2', input=B.mlp_ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], pfx='S2_'),
+                   layer=Activation(oact))
 
 
 def build_model(model, glove, vocab, module_prep_model, c, s0pad=s0pad, s1pad=s1pad):
