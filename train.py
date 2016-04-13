@@ -6,7 +6,8 @@ import csv
 import importlib
 import pickle
 import sys
-
+import argparse
+import scipy.stats as ss
 import numpy as np
 from keras.optimizers import SGD
 
@@ -33,14 +34,13 @@ def train(test_path, rnn_args):
     print 'q_dim=', q_dim
 
     # ==========================================================
-    epochs = 100
     optimizer = 'adam'  # SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
     max_sentences = 50
 
     # ==========================================================
     modelname = 'rnn'
     module = importlib.import_module('.'+modelname, 'models')
-    conf, ps, h = config(module.config, params+rnn_args, epochs)
+    conf, ps, h = config(module.config, params+rnn_args)
 
     runid = '%s-%x' % (modelname, h)
     print('RunID: %s  (%s)' % (runid, ps))
@@ -55,8 +55,8 @@ def train(test_path, rnn_args):
     yt, _, grt = load_sets(qs_test, max_sentences, vocab)
     # pickle.dump(vocab, open('sources/vocab.txt', 'wb'))
 
-    model, results = train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grv, grt,
-                                    max_sentences, w_dim, q_dim, optimizer, test_path=test_path)
+    model, res_dict, results = train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grv, grt,
+                                              max_sentences, w_dim, q_dim, optimizer, test_path=test_path)
 
     ###################################
 
@@ -74,7 +74,9 @@ def train(test_path, rnn_args):
     if query_yes_no('Save model?'):
         model.save_weights('sources/models/full_model.h5', overwrite=True)
     if query_yes_no('Rewrite output.tsv?'):
-        rewrite_output(results)
+        rewrite_output(res_dict)
+
+    return results
 
 
 def load_features():
@@ -220,11 +222,40 @@ def query_yes_no(question, default="yes"):
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
 
-import argparse
-import sys
+
+def student_distribution_print(fname, r, alpha=0.95, bonferroni=1.):
+    if len(r) > 0:
+        bar = ss.t.isf((1 - alpha) / bonferroni / 2, len(r) - 1) * np.std(r) / np.sqrt(len(r))
+    else:
+        bar = np.nan
+    print('%s: %f ±%f (%s)' % (fname, np.mean(r), bar, r))
+    return bar
+
+
+def train_full(pars):
+    runs = 16
+    results = []
+    for i in range(runs):
+        print 'Full training, run #%i out of %i' % (i, runs)
+        np.random.seed(1337+i)
+        results.append(train(None, pars))
+
+    tr_acc = [tr for tr, v, t in results]
+    t_acc = [t for tr, v, t in results]
+    v_acc = [v for tr, v, t in results]
+    print '===========RESULTS==========='
+    student_distribution_print('Train', tr_acc)
+    student_distribution_print('Val', v_acc)
+    student_distribution_print('Test', t_acc)
+
+
 if __name__ == '__main__':
     np.random.seed(17151711)
     parser = argparse.ArgumentParser()
     parser.add_argument('--test')
+    parser.add_argument('-full', action='store_true')
     args, rnn_args = parser.parse_known_args()
-    train(vars(args)['test'], rnn_args)
+    if vars(args)['full']:
+        train_full(rnn_args)
+    else:
+        train(vars(args)['test'], rnn_args)

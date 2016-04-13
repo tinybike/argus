@@ -111,7 +111,7 @@ def load_sets(qs, max_sentences, vocab=None):
     return y, vocab, gr
 
 
-def config(module_config, params, epochs=2):
+def config(module_config, params):
     c = dict()
     c['embdim'] = 50
     c['inp_e_dropout'] = 0.
@@ -119,10 +119,10 @@ def config(module_config, params, epochs=2):
 
     c['ptscorer'] = B.mlp_ptscorer
     c['mlpsum'] = 'sum'
-    c['Ddim'] = 1
+    c['Ddim'] = .1
 
     c['loss'] = 'binary_crossentropy'
-    c['nb_epoch'] = epochs
+    c['nb_epoch'] = 100
 
     c['class_mode'] = 'binary'
     module_config(c)
@@ -286,17 +286,18 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grv, grt,
         model.load_weights(test_path)
     print('Predict&Eval (best epoch)')
 
-    loss, acc = model.evaluate(grt, show_accuracy=True)
-    print('Test: loss=', loss, 'acc=', acc)
-    loss, acc = model.evaluate(gr, show_accuracy=True)
-    print('Train: loss=', loss, 'acc=', acc)
-    loss, acc = model.evaluate(grv, show_accuracy=True)
-    print('Val: loss=', loss, 'acc=', acc)
+    loss, acc_t = model.evaluate(grt, show_accuracy=True)
+    print('Test: loss=', loss, 'acc=', acc_t)
+    loss, acc_tr = model.evaluate(gr, show_accuracy=True)
+    print('Train: loss=', loss, 'acc=', acc_tr)
+    loss, acc_v = model.evaluate(grv, show_accuracy=True)
+    print('Val: loss=', loss, 'acc=', acc_v)
+    results = (acc_tr, acc_v, acc_t)
 
     print('Predicting for outfile.tsv')
-    results = zip(gr['q_texts'], model.predict(gr)['score'][:,0]) + zip(grt['q_texts'], model.predict(grt)['score'][:,0])
+    res_dict = zip(gr['q_texts'], model.predict(gr)['score'][:,0]) + zip(grt['q_texts'], model.predict(grt)['score'][:,0])
     print('Prediction ready')
-    return model, results
+    return model, res_dict, results
 
 
 def load_model(model_path, vocab_path, w_dim, q_dim, max_sentences):
