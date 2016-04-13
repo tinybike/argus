@@ -139,10 +139,17 @@ def load_features():
     return qs_train, qs_val, qs_test, c_text, r_text
 
 
+from fractions import gcd
+split_ = [400, 150, 200]  # absolute or fraction of [train, val, test] split
+gcd_ = gcd(split_[0],gcd(split_[1],split_[2]))
+split_ = [x/gcd_ for x in split_]
+s = sum(split_)
+train_split = range(split_[0])
+val_split = [split_[0]+x for x in range(split_[1])]
 def split(i):
-    if i % 3 == 0:
+    if i % s in train_split:
         return 'train'
-    elif i % 3 == 1:
+    elif i % s in val_split:
         return 'val'
     else:
         return 'test'
