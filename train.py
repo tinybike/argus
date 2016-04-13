@@ -225,7 +225,11 @@ def student_distribution_print(fname, r, alpha=0.95, bonferroni=1.):
     return bar
 
 
-def train_full(runs=16, pars=[]):
+def train_full(runs, pars):
+    if runs is None:
+        runs = 16
+    else:
+        runs = int(runs)
     results = []
     for i in range(runs):
         print 'Full training, run #%i out of %i' % (i, runs)
@@ -249,6 +253,6 @@ if __name__ == '__main__':
     parser.add_argument('-full', action='store_true')
     args, rnn_args = parser.parse_known_args()
     if vars(args)['full']:
-        train_full(int(vars(args)['full_runs']), rnn_args)
+        train_full(vars(args)['full_runs'], rnn_args)
     else:
         train(vars(args)['test'], rnn_args)
