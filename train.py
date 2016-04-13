@@ -24,6 +24,7 @@ def train(test_path, rnn_args):
     # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
 
     zero_features(qs_train, c_text, r_text)
+    zero_features(qs_val)
     zero_features(qs_test)
 
     w_dim = qs_train[0].c.shape[-1]
