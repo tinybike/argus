@@ -12,14 +12,14 @@ import numpy as np
 from keras.optimizers import SGD
 
 import pysts.embedding as emb
-from argus.keras_preprocess import config, load_sets, train_and_eval, tokenize, Q
+from argus.keras_preprocess import config, load_sets, load_and_train, tokenize, Q
 
 outfile = 'tests/feature_prints/all_features.tsv'
 trainIDs = []
-params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']  # , 'l2reg=0.01']
+params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"', 'l2reg=0.01']  # can be replaced by script params
 
 
-def train(test_path, rnn_args, save_to_argus=True):
+def train_and_eval(test_path, rnn_args, save_to_argus=True):
     qs_train, qs_val, qs_test, c_text, r_text = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
     # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
@@ -55,10 +55,19 @@ def train(test_path, rnn_args, save_to_argus=True):
     yt, _, grt = load_sets(qs_test, max_sentences, vocab)
     # pickle.dump(vocab, open('sources/vocab.txt', 'wb'))
 
-    model, res_dict, results = train_and_eval(runid, module.prep_model, conf, glove, vocab, gr, grv, grt,
-                                              max_sentences, w_dim, q_dim, optimizer, test_path=test_path)
+    model = load_and_train(runid, module.prep_model, conf, glove, vocab, gr, grv, grt,
+                           max_sentences, w_dim, q_dim, optimizer, test_path=test_path)
 
     ###################################
+
+    print('Predict&Eval (best epoch)')
+    loss, acc_t = model.evaluate(grt, show_accuracy=True)
+    print('Test: loss=', loss, 'acc=', acc_t)
+    loss, acc_tr = model.evaluate(gr, show_accuracy=True)
+    print('Train: loss=', loss, 'acc=', acc_tr)
+    loss, acc_v = model.evaluate(grv, show_accuracy=True)
+    print('Val: loss=', loss, 'acc=', acc_v)
+    results = (acc_tr, acc_v, acc_t)
 
     print '\n========================\n'
     # list_weights(R, ctext, rtext)
@@ -75,6 +84,9 @@ def train(test_path, rnn_args, save_to_argus=True):
         if query_yes_no('Save model?'):
             model.save_weights('sources/models/full_model.h5', overwrite=True)
         if query_yes_no('Rewrite output.tsv?'):
+            print('Predicting for outfile.tsv')
+            res_dict = zip(gr['q_texts'], model.predict(gr)['score'][:,0]) + zip(grt['q_texts'], model.predict(grt)['score'][:,0])
+            print('Prediction ready')
             rewrite_output(res_dict)
 
     return results
@@ -235,7 +247,7 @@ def train_full(runs, pars):
     for i in range(runs):
         print 'Full training, run #%i out of %i' % (i+1, runs)
         np.random.seed(1337+i)
-        results.append(train(None, pars, False))
+        results.append(train_and_eval(None, pars, False))
 
     tr_acc = [tr for tr, v, t in results]
     t_acc = [t for tr, v, t in results]
@@ -256,4 +268,4 @@ if __name__ == '__main__':
     if vars(args)['full']:
         train_full(vars(args)['full_runs'], rnn_args)
     else:
-        train(vars(args)['test'], rnn_args)
+        train_and_eval(vars(args)['test'], rnn_args)

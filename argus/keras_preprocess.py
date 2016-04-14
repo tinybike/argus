@@ -269,7 +269,7 @@ def layer_fun(model, layer_name):
     # return thf(*[gr[name] for name in model.input_order])
 
 
-def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grv, grt,
+def load_and_train(runid, module_prep_model, c, glove, vocab, gr, grv, grt,
                    max_sentences, w_dim, q_dim, optimizer='sgd', test_path=None):
 
     model = build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c)
@@ -284,20 +284,8 @@ def train_and_eval(runid, module_prep_model, c, glove, vocab, gr, grv, grt,
         model.load_weights('weights-'+runid+'-bestval.h5')
     else:
         model.load_weights(test_path)
-    print('Predict&Eval (best epoch)')
 
-    loss, acc_t = model.evaluate(grt, show_accuracy=True)
-    print('Test: loss=', loss, 'acc=', acc_t)
-    loss, acc_tr = model.evaluate(gr, show_accuracy=True)
-    print('Train: loss=', loss, 'acc=', acc_tr)
-    loss, acc_v = model.evaluate(grv, show_accuracy=True)
-    print('Val: loss=', loss, 'acc=', acc_v)
-    results = (acc_tr, acc_v, acc_t)
-
-    print('Predicting for outfile.tsv')
-    res_dict = zip(gr['q_texts'], model.predict(gr)['score'][:,0]) + zip(grt['q_texts'], model.predict(grt)['score'][:,0])
-    print('Prediction ready')
-    return model, res_dict, results
+    return model
 
 
 def load_model(model_path, vocab_path, w_dim, q_dim, max_sentences):
