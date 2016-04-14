@@ -19,7 +19,7 @@ trainIDs = []
 params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"']  # , 'l2reg=0.01']
 
 
-def train(test_path, rnn_args, save_to_argus=False):
+def train(test_path, rnn_args, save_to_argus=True):
     qs_train, qs_val, qs_test, c_text, r_text = load_features()
     # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
     # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
@@ -71,7 +71,7 @@ def train(test_path, rnn_args, save_to_argus=False):
 
     # print '---------------train'
     # stats(R, qstrain)
-    if not save_to_argus:
+    if save_to_argus:
         if query_yes_no('Save model?'):
             model.save_weights('sources/models/full_model.h5', overwrite=True)
         if query_yes_no('Rewrite output.tsv?'):
