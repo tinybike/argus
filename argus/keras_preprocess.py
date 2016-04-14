@@ -202,6 +202,9 @@ def load_weights(model, filepath_rnn, filepath_clr):
 
 c_r_out = []
 features_outs = []
+
+import keras
+l2 = keras.regularizers.l2(1e-2)
 def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_model, c):
     rnn_dim = 1
     w_full_dim = w_dim + rnn_dim
@@ -235,8 +238,8 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     model.add_node(Activation('linear'), 'r_full', inputs=['r_in', 'sts_in2'],
                    merge_mode='concat', concat_axis=-1)
     # ===================== [w_full_dim, q_full_dim] -> [class, rel]
-    model.add_node(TimeDistributedDense(1, activation='sigmoid'), 'c', input='c_full')
-    model.add_node(TimeDistributedDense(1, activation='sigmoid'), 'r', input='r_full')
+    model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'c', input='c_full')
+    model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'r', input='r_full')
     model.add_node(Activation('linear'), 'c_r', inputs=['c', 'r'],
                    merge_mode='concat', concat_axis=-1)
     # ===================== mean of class over rel
