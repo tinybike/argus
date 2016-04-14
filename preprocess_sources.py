@@ -300,21 +300,12 @@ def bad_only():
 CSV_FOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
 INFOFILE = "tests/infofile.tsv"
-validation = True
-eval_ = False
+import argparse
 if __name__ == "__main__":
-    for i in range(0, len(sys.argv)):
-        if sys.argv[i] == '-train':
-            CSV_FOLDER += '/batch_train'
-            OUTFILE = "tests/outfile_train.tsv"
-        if sys.argv[i] == '-test':
-            CSV_FOLDER += '/batch_test'
-            OUTFILE = "tests/outfile_test.tsv"
-        if sys.argv[i] == '-valoff':
-            validation = False
-        if sys.argv[i] == '-eval':
-            eval_ = True
-    if eval_:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-eval', action='store_true')
+    args = parser.parse_args()
+    if vars(args)['eval']:
         evaluate()
     get_stats()
     print '----------'
