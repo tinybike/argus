@@ -15,28 +15,22 @@ Setup
 	pip install spacy
 	python -m spacy.en.download all
 	Get glove.6B.50d.txt from http://nlp.stanford.edu/projects/glove/ to sources/
+	Get our version of keras from https://github.com/brmson/keras
+	
 
 Testing
 -------
 With mTurk output files present in tests/batches, running
 
-	python batch_test.py
+	python preprocess_output.py -eval
 
-will create output.tsv in tests folder, which contains both feature vectors
-and final answers.
+will create bunch of output files in tests/ folder, that contain texts and feature values 
+for all found sources.
 
 Algorithm
 ---------
 
-We extract keywords (mostly names and other nouns) from given question, then ask our database of various news articles (Guardian, NYtimes, ABCnews, Reuters, etc) for articles containing all keywords.  
-We expand the keywords by adding non-stop-words verbs. Then we check if we covered all non-stop-words; if we didn't the answer is "Didn't understand the question". Otherwise we continue evaluating.  
-We then divide the found sources (headlines, summaries and articles) into sentences and look for a sentence with all the non-verb keywords in it. If we can't find one, our answer is 'No result'. 
-
-If we find some matching news sentences, we estimate the yes/no probability based on their content.
-Various features extracted from both question and each found sentence are the inputs to our special classifier.
-The classifier utilizes two types of features: classification (yes/no) and relevance (relevant/nonrelevant).
-Each sentence gets classification and relevance score assigned by the classifier.
-The final answer is then composed as sum of the classification scores of individual sentences, weighed by their relevance scores.
+Described in detail here: https://github.com/AugurProject/argus-paper
 
 ElasticSearch
 -------------
@@ -61,15 +55,15 @@ note: to clear the database run
 Training
 --------
 
-With mTurk output files present in tests/batches, run
+If you didn't already, run
 
-	python batch_test.py -eval [-valoff if you dont want to use train/validate split]
+	python preprocess_output.py -eval
 
-to create new output.tsv file with up-to-date feature vectors. Then run:
+to create new output tsv files with up-to-date feature vectors. Then run:
 
-	python train_relevance.py
+	python train.py
 
-To reevaluate system performance with retrained classifier, run batch_test.py.
+To reevaluate system performance with retrained classifier, run preprocess_output.py.
 
 If you want to train with some features off, open output.tsv and delete the classification
  or relevance symbol in the feature name.
