@@ -68,7 +68,7 @@ class WeightedMean(MaskedLayer):
                   'W_constraint': self.W_constraint.get_config() if self.W_constraint else None,
                   'b_constraint': self.b_constraint.get_config() if self.b_constraint else None,
                   'input_dim': self.input_dim}
-        base_config = super(ClasRel, self).get_config()
+        base_config = super(WeightedMean, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
 
     def fill_regulizers(self):

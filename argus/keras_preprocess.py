@@ -4,34 +4,26 @@ Script used for training on argus anssel dataset.
 Prerequisites:
     * Get glove.6B.50d.txt from http://nlp.stanford.edu/projects/glove/
 """
-from __future__ import print_function
 from __future__ import division
+from __future__ import print_function
 
 import importlib
-import sys
-import csv
 import pickle
 
+import keras.preprocessing.sequence as prep
+import numpy as np
 from keras.callbacks import ModelCheckpoint
 from keras.layers.core import Activation
+from keras.layers.core import Dropout, TimeDistributedDense
+from keras.layers.embeddings import Embedding
 from keras.models import Graph
 
 import pysts.embedding as emb
-import pysts.eval as ev
-import pysts.loader as loader
+import pysts.kerasts.blocks as B
 import pysts.nlp as nlp
+from argus.keras_layers import Reshape_, WeightedMean
 from pysts.hyperparam import hash_params
 from pysts.vocab import Vocabulary
-
-from pysts.kerasts import graph_input_anssel
-from pysts.kerasts.callbacks import AnsSelBinCB
-import pysts.kerasts.blocks as B
-from keras.layers.embeddings import Embedding
-from keras.layers.core import Dropout, Dense, TimeDistributedDense
-from keras.regularizers import l2
-import numpy as np
-import keras.preprocessing.sequence as prep
-from layer import Reshape_, WeightedMean
 
 s0pad = 60
 s1pad = 60
