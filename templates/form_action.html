@@ -24,13 +24,14 @@
             </div>
             <div id="qbox">
                 <form method="post" action="{{ url_for('generate_answer') }}">
+		  <p><em>Ask a yes/no question on whether a noteworthy event happenned (particularly from the sports or politics domain).<br>We cover the time period from Sep 1 2014 to Sep 1 2015.</em></p>
                   <input type="text" name="question" size="60" placeholder="Will Donald Trump announce he is running for President in 2015?" />
                   <input type="submit" name="go" value="Ask" />
-			<p>{{question|safe}}</p>
                 </form>
             </div>
         </div>
             <div id="content" style="display: {{content}}">
+		<h2 align="center">{{question|safe}}</h2>
 		<p class="answer">{{answer}}</p>
 		<p class="query">Search query: <tt class="query">{{query}}</tt></p>
 		{% for source in sources %}
