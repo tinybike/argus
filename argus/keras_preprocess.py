@@ -286,11 +286,10 @@ def load_and_train(runid, module_prep_model, c, glove, vocab, gr, grv, grt,
 def load_model(model_path, vocab_path, w_dim, q_dim, max_sentences):
     from train import params
     print('Building model')
-    epochs = 50
     optimizer = 'sgd'
     model_name = 'rnn'
     module = importlib.import_module('.'+model_name, 'models')
-    conf, ps, h = config(module.config, params, epochs)
+    conf, ps, h = config(module.config, params + ['nb_epoch=50'])
 
     glove = emb.GloVe(N=conf['embdim'])
     vocab = pickle.load(open(vocab_path))
