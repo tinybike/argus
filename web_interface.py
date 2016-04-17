@@ -11,7 +11,7 @@ def highlight_body(body, sentence):
     starttag = '<span style="background-color: #FFFF00">'
     endtag = '</span>'
     try:
-        match = re.search(sentence, body)
+        match = re.search(re.escape(sentence), body)
         start, end = match.start(), match.end()
         body = body[:start] + starttag + body[start:end] + endtag + body[end:]
     except Exception:
@@ -24,7 +24,7 @@ def highlight_question(body, sentence):
     endtag = '</b>'
     #    print (sentence)
     try:
-        match = re.search(sentence, body)
+        match = re.search(re.escape(sentence), body)
         start, end = match.start(), match.end()
         body = body[:start] + starttag + body[start:end] + endtag + body[end:]
     except AttributeError:
@@ -36,7 +36,7 @@ def highlight_question_wrong(body, sentence):
     starttag = '<span style="background-color: #E77471">'
     endtag = '</span>'
     try:
-        match = re.search(sentence, body)
+        match = re.search(re.escape(sentence), body)
         start, end = match.start(), match.end()
         body = body[:start] + starttag + body[start:end] + endtag + body[end:]
     except AttributeError:
