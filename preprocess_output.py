@@ -35,7 +35,7 @@ def evaluate():
     npy_rel = []
     with open(OUTFILE, 'wb') as csv_file:
         writer = csv.writer(csv_file, delimiter='\t')
-        for csvfile in os.listdir(CSV_FOLDER):
+        for csvfile in sorted(os.listdir(CSV_FOLDER)):
             if not csvfile.endswith(".csv"):
                 continue
             i = 0
