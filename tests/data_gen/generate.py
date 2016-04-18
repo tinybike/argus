@@ -39,23 +39,6 @@ def load_sport(fname):
 
 
 def sport_questions(eventset, event):
-    bonus_sport = ["will <team> win the <event> <year> finals?",
-                   "will <team> win the <event> <year> semi-finals?",
-                   "will <team> win the <event> <year> quarter-finals?",
-                   "will <team> qualify for the <event> <year>?",
-                   "will <team> win the <event> finals?",
-                   "will <team> win the <event> semi-finals?",
-                   "will <team> win the <event> quarter-finals?",
-                   "will <team> qualify for the <event>?",
-                   "did <team> win the <event> <year> finals?",
-                   "did <team> win the <event> <year> semi-finals?",
-                   "did <team> win the <event> <year> quarter-finals?",
-                   "did <team> qualify for the <event> <year>?",
-                   "did <team> win the <event> finals?",
-                   "did <team> win the <event> semi-finals?",
-                   "did <team> win the <event> quarter-finals?",
-                   "did <team> qualify for the <event>?"]
-
     for team in eventset['teams']:
         old = ['<event>', '<year>', '<team>']
         new = [eventset['event_name'], event['year'], team]
@@ -65,6 +48,12 @@ def sport_questions(eventset, event):
         for sentence in open('sport_sentences.txt'):
             question = sentence[:-1]
 
+            if question.startswith('@'):
+                # winner-only question
+                if team not in event['winner']:
+                    continue
+                question = question[1:]
+
             q = replace(question, old, new)
             if team in event['winner']:
                 ans = 'YES'
@@ -73,12 +62,6 @@ def sport_questions(eventset, event):
                 if random.random() > 0.8:
                     continue
             yield (q, ans)
-
-        if team in event['winner']:
-            ans = 'YES'
-            for q1 in bonus_sport:
-                q1 = replace(q1, old, new)
-                yield (q1, ans)
 
 
 def load_politics(fname):

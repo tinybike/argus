@@ -1,2 +1,18 @@
 Will <team> win the <event> <year>?
 Did <team> win the <event> <year>?
+@will <team> win the <event> <year> finals?
+@will <team> win the <event> <year> semi-finals?
+@will <team> win the <event> <year> quarter-finals?
+@will <team> qualify for the <event> <year>?
+@will <team> win the <event> finals?
+@will <team> win the <event> semi-finals?
+@will <team> win the <event> quarter-finals?
+@will <team> qualify for the <event>?
+@did <team> win the <event> <year> finals?
+@did <team> win the <event> <year> semi-finals?
+@did <team> win the <event> <year> quarter-finals?
+@did <team> qualify for the <event> <year>?
+@did <team> win the <event> finals?
+@did <team> win the <event> semi-finals?
+@did <team> win the <event> quarter-finals?
+@did <team> qualify for the <event>?
