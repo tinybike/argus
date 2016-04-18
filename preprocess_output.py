@@ -145,17 +145,6 @@ def turk_print(writer, answer):
         writer.writerow(info)
 
 
-# def class_load():
-#     c_dict = dict()
-#     i = 0
-#     for line in csv.reader(open('tests/outfile.tsv'), delimiter='\t', skipinitialspace=True):
-#         if i == 0:
-#             i += 1
-#             continue
-#         c_dict[line[1]] = str(int(line[2] == 'YES'))
-#     return c_dict
-
-
 def feature_print_all(writer, answer, first=False, clas='?'):
     from separate_relevance import relevance_load
     from argus.features import feature_list_official as flo
@@ -237,9 +226,6 @@ def get_stats(ffname):
     print '----------'
     print 'Dataset balance (answered only) - golden YES in %.2f%%, we output YES in %.2f%%' % (turk_yes / answered * 100, we_yes / answered * 100)
 
-
-OUTFILE = "tests/outfile.tsv"
-INFOFILE = "tests/infofile.tsv"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
