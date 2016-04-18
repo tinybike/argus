@@ -178,7 +178,7 @@ def feature_print_all(writer, answer, first=False, clas='?'):
         writer.writerow(info)
 
 
-def get_stats(ffname):
+def get_stats(splitname):
     i = -1
     correct = 0
     no_result = 0
@@ -187,7 +187,7 @@ def get_stats(ffname):
     understood = 0
     turk_yes = 0
     we_yes = 0
-    for line in csv.reader(open(ffname), delimiter='\t'):
+    for line in csv.reader(open('tests/f%s.tsv' % (splitname,)), delimiter='\t'):
         i += 1
         if i == 0:
             continue
@@ -220,9 +220,9 @@ def get_stats(ffname):
     print 'Total Answer Rate: We were willing to answer %d-%d-%d = %d (%.2f%%) questions' % (
         understood, anr, no_result, answered, answered / understood * 100)
     print '----------'
-    print 'Recall =', recall
-    print 'Precision =', precision
-    print 'F1 =', 2*recall*precision/(recall+precision)
+    print '[%s] Recall = %.3f' % (splitname, recall)
+    print '[%s] Precision = %.3f' % (splitname, precision)
+    print '[%s] F1 = %.3f' % (splitname, 2*recall*precision/(recall+precision))
     print '----------'
     print 'Dataset balance (answered only) - golden YES in %.2f%%, we output YES in %.2f%%' % (turk_yes / answered * 100, we_yes / answered * 100)
 
@@ -238,6 +238,6 @@ if __name__ == "__main__":
             regenerate(sname)
 
     if vars(args)['test']:
-        get_stats('tests/ftest.tsv')
+        get_stats('test')
     else:
-        get_stats('tests/fval.tsv')
+        get_stats('val')
