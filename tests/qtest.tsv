@@ -1,84 +1,34 @@
 origin	HITId	Answer.topic	Answer.question	Answer.TF	Answer.URL
-MT	38G0E1M85M0MCU4089JW4ZSF33AUVU	stock market	Will oil prices drop steeply in late 2014?	YES	http://www.eia.gov/todayinenergy/detail.cfm?id=19451
-MT	38G0E1M85M0MCU4089JW4ZSF33AUVU		Will the Seattle Seahawks defeat the New England Patriots in Super Bowl XLIX?	NO	http://www.sbnation.com/nfl/2015/2/1/7936245/superbowl-live-updates-news-patriots-seahawks
-MT	3I01FDIL6M3RY1VCY49WSURGK5ND2W	sport	Will Saina Nehwal become the first Indian to become the World Number 1 in Womens' Badminton in 2015?	YES	http://indianexpress.com/article/sports/badminton/saina-nehwal-becomes-world-no-1-after-carolina-marins-defeat-in-india-open/
-MT	3I01FDIL6M3RY1VCY49WSURGK5ND2W	sport	Will the New York Yankees make the 2014 MLB Playoffs?	NO	http://www.baseball-reference.com/leagues/AL/2014-standings.shtml
-MT	30UZJB2POH7LF6C2NY5IDS8GD20532	sport	Did USA win the 2015 Wrestling World Cup?	NO	https://en.wikipedia.org/wiki/2015_in_sports#January
-MT	3S829FDFT2WSZHY9MTUPIKLCXEZXD2	sport	Will the USA win the 2015 Women's World Cup?	YES	http://www.theatlantic.com/photo/2015/07/usa-wins-the-2015-womens-world-cup/397763/
-MT	3S829FDFT2WSZHY9MTUPIKLCXEZXD2	politics	Will William and Kate's new baby be another boy?	NO	http://www.nbcnews.com/news/world/watch-live-kate-william-leave-hospital-new-baby-girl-n352566
-MT	3S829FDFT2WSZHY9MTUPIKLCXEZXD2	sport	Did Serena Williams win the 2015 Miami Open?	YES	https://en.wikipedia.org/wiki/2015_in_sports#January
-MT	3W3RSPVVGSMJGPS6U5HQHQUDC5KULN	stock market	Will Apple top by adopting stock Buy back?	YES	http://www.marketwatch.com/story/apple-tops-stock-buyback-list-even-as-repurchases-shrink-2015-09-21?link=MW_popular
-MT	3W3RSPVVGSMJGPS6U5HQHQUDC5KULN	sport	Will Seattle make it to the Super Bowl this season?	YES	https://en.wikipedia.org/wiki/Super_Bowl_XLIX
-MT	3W3RSPVVGSMJGPS6U5HQHQUDC5KULN	politics	Can you be arrested for an overdue library book?	YES	http://www.huffingtonpost.com/2015/03/12/johnathan-masters-arrested_n_6859452.html
-MT	3W3RSPVVGSMJGPS6U5HQHQUDC5KULN	politics	Will the Democratic party maintain control of the U.S Senate?	NO	http://www.politico.com/story/2014/11/democrats-lose-2014-midterms-112581
-MT	3PMR2DOWOOW6X2V6NCA1NX0MR2W54N	politics	Will dying keep you from voting?	YES	http://www.huffingtonpost.com/2014/11/13/dale-hopfinger-_n_6154026.html
-MT	3PMR2DOWOOW6X2V6NCA1NX0MR2W54N	sport	Will there be controversy surrounding Chicago Blackhawks star Patrick Kane?	YES	http://sports.yahoo.com/blogs/nhl-puck-daddy/patrick-kane-s-dna-evidence-leaks-in-rape-case--reports-041459026.html
-MT	3OKP4QVBP2SJFO07D93J4XDB9L5GAQ	sport	Will the U.S Women's National Team win the Women's World Cup?	YES	http://www.ussoccer.com/womens-national-team
-MT	3OKP4QVBP2SJFO07D93J4XDB9L5GAQ	sport	Did the New England Patriots win the Super Bowl in 2015?	YES	http://www.cbssports.com/nfl/gametracker/recap/NFL_20150201_NE@SEA/brady-rallies-patriots-to-28-24-super-bowl-win-over-seahawks
-MT	338431Z1FLAZ6I3M332D4WBN0BKORT	sport	Will Andre Iguodala win NBA Finals MVP in 2015?	YES	https://en.m.wikipedia.org/wiki/2015_NBA_Finals
-MT	338431Z1FLAZ6I3M332D4WBN0BKORT	politics	Will Ed Miliband stand down as the leader of the Labour party?	YES	http://www.pinknews.co.uk/2015/05/08/ed-miliband-stands-down-as-labour-leader/
-MT	3NSCTNUR2ZILZRBNWDKS00MMJCSA53	politics	Will the FCC in the US pass Net Neutrality?	YES	http://www.bbc.com/news/technology-31638528
-MT	3NSCTNUR2ZILZRBNWDKS00MMJCSA53	sport	Will Tom Brady win his 4th Super Bowl MVP?	YES	https://en.m.wikipedia.org/wiki/Tom_Brady
-MT	334ZEL5JX6AB7X3ZIS2IU6GJMD3OSH	sport	Did Serena Williams win the 2015 Austrailian Open?	YES	https://en.wikipedia.org/wiki/2015_in_sports#January
-MT	32FESTC2NHLQDLY0HSORE74QIW5UC6	sport	Will the San Antonio Spurs win the NBA championship?	NO	http://www.nba.com/playoffs/2015/finals/
-MT	32FESTC2NHLQDLY0HSORE74QIW5UC6	sport	Will the Giants make it back to the World Series in 2014?	YES	https://en.m.wikipedia.org/wiki/2014_World_Series
-MT	32FESTC2NHLQDLY0HSORE74QIW5UC6	sport	Will Jameis Winston do anything else to embarrass the FSU Seminoles in 2015?	YES	http://www.tomahawknation.com/2014/4/30/5668004/jameis-winston-arrested-shoplifting-crab-legs-publix
-MT	34OWYT6U3WCJ6WWXBRPMTEF7I899IA	stock market	Will the Dow Jones Industrial Average ever close below 16,000 between Sep 1, 2014 and Sep 1, 2015?	YES	http://www.nytimes.com/aponline/2015/08/25/business/ap-financial-markets-box.html
-MT	3DQYSJDTYL6XRNC9IO59O23XXITEXP	stock market	Does the FED raise interest rates in June 2015?	YES	http://money.cnn.com/2015/06/17/news/economy/federal-reserve-interest-rate-janet-yellen/
-MT	3SMIWMMK610ZRJ45YJOSQ1BTA4GUWS	stock market	Was there ever a stock market crash	YES	https://en.m.wikipedia.org/wiki/Stock_market_crash
-MT	3SMIWMMK610ZRJ45YJOSQ1BTA4GUWS	sport	Did the Seahawks win Super Bowl 49?	NO	https://en.m.wikipedia.org/wiki/Super_Bowl_XLIX
-MT	3XEDXEGFX3JSGXY8BYR5DJTR8KPK0U	sport	Will the Tama Bay lightning win the Stanley Cup	NO	www.theblaze.com/stories/2015/06/15/chicago-Blackhawks...
-MT	3XEDXEGFX3JSGXY8BYR5DJTR8KPK0U	sport	Will the Tampa Bay Lightning win the Stanley Cup in 2015?	NO	https://en.wikipedia.org/wiki/2015_Stanley_Cup_Finals
-MT	3XEDXEGFX3JSGXY8BYR5DJTR8KPK0U	politics	Will  Hilary clinton win in coming US Elections?	NO	http://www.theguardian.com/us-news/2015/jun/23/hillary-clinton-presidential-election-poll
-MT	3OCZWXS7ZO22VA2RT49I9E2XES65L4	politics	Will the Democrats maintain their majority in the US Senate after the 2014 elections?	NO	www.abcnews.go.com/Politics/senate-elections-2014
-MT	3HUR21WDDUKVXST0IPH3V5VDG6JXYX		Will Reilly Opelka lose the Wimbledon 2015 boy's singles title?	NO	http://www.watoday.com.au/sport/tennis/wimbledon/wimbledon-2015-reilly-opelka-wins-the-boys-singles-title-20150713-giazv5.html?skin=text-only
-MT	3X52SWXE0X035PN5CS3SWVPN4GUWCU	sport	Will Roger Federer win the 2015 Wimbledon Championship?	NO	www.foxnews.com/world/2015/07/12/novak-djokovic-beats...
-MT	3X52SWXE0X035PN5CS3SWVPN4GUWCU	sport	Will Roger Federer beats Novak Djokovic in Wimbledon 2015 men's singles final ?	NO	http://www.theguardian.com/sport/live/2015/jul/12/novak-djokovic-v-roger-federer-wimbledon-2015-mens-singles-final-live
-MT	3X52SWXE0X035PN5CS3SWVPN4GUWCU	sport	Will the New York Rangers win the Stanley Cup?	NO	http://www.chicagotribune.com/sports/hockey/blackhawks/ct-blackhawks-lightning-spt-0616-20150615-story.html
-MT	3GL25Y6843PV3B4MZMTS1A867W5MXW	politics	Will the US Supreme Court rule marriage should be ONLY between a man and a woman?	NO	http://www.npr.org/sections/thetwo-way/2015/06/26/417717613/supreme-court-rules-all-states-must-allow-same-sex-marriages
-MT	3Y3N5A7N4G4K3GUW4IFUKOFF92ZMY2	sport	Will India win cricket series against Bangladesh in 2015?	NO	http://sports.ndtv.com/bangladesh-vs-india-2015/news/244236-2nd-odi-bangladesh-vs-india
-MT	3Y3N5A7N4G4K3GUW4IFUKOFF92ZMY2	sport	Will the Seattle Seahawks win the 2015 Super Bowl?	NO	www.si.com/.../02/01/super-bowl-2015-patriots-beat-seahawks
-MT	3Y3N5A7N4G4K3GUW4IFUKOFF92ZMY2	sport	Can LeBron bring an NBA championship to Cleveland?	NO	http://www.nba.com/warriors/gameday/20150616/recap
-MT	3L7SUC0TTUPN6LYBWA4LSWLVXPL0MG	politics	Do the Democrats take control of the Senate after the 2014 midterm elections?	NO	http://www.usatoday.com/pages/interactives/elections-results-2014/
-MT	3BC9H1KCYU7G8SOA8KLHTMH674CYW4	politics	Is John Boehner staying as Speaker of the House?	NO	http://www.bbc.co.uk/news/34362675?ocid=socialflow_facebook
-MT	3BC9H1KCYU7G8SOA8KLHTMH674CYW4	sport	Had Roger Federrer  beat Martin Cilic in US OPEN 2014?	NO	http://www.theguardian.com/sport/live/2014/sep/06/us-open-2014-roger-federer-vs-marin-cilic-live
-MT	3BC9H1KCYU7G8SOA8KLHTMH674CYW4	sport	will Serena Williams lose the 2015 Wimbledon women's title?	NO	http://www.sbnation.com/tennis/2015/7/11/8932791/wimbledon-2015-womens-winner-serena-williams
-MT	3W0XM68YZPQSNMJQ7HV5ROC1DCVK1X	sport	Will Tom Brady's suspension remain in effect for deflation of footballs?	NO	http://www.ksbw.com/news/patriots-quarterback-tom-brady-cleared-in-deflategate-scandal/35093468
-MT	3SD15I2WD2PHYACGSHFN5YMGA1Q364	sport	Will the Boston Red Sox win the 2014 World Series?	NO	http://www.nytimes.com/2014/10/30/sports/baseball/world-series-2014-giants-beat-royals-in-game-7-to-win-title.html?_r=0
-MT	3SD15I2WD2PHYACGSHFN5YMGA1Q364	sport	Had Roger Federer  beat Novak Djokovic to win Wimbledon 2014 FINALS?	NO	http://www.theguardian.com/sport/2014/jul/06/novak-djokovic-v-roger-federer-wimbledon-2014-final-live
-MT	3SD15I2WD2PHYACGSHFN5YMGA1Q364	politics	Would Rep. Eric Cantor of Virginia win in his re-election bid to Congress?	NO	http://www.politico.com/story/2014/06/eric-cantor-primary-election-results-virginia-107683
-MT	3OID399FXG2BZV7OMZO3CDL5TCLFDH	politics	Did Democrats win US senate election in Virginia in 2014?	YES	http://ballotpedia.org/United_States_Senate_elections_in_Virginia,_2014
-MT	3OID399FXG2BZV7OMZO3CDL5TCLFDH	politics	Will gay marriage be legalized?	YES	http://www.cnn.com/2015/06/26/politics/supreme-court-same-sex-marriage-ruling/
-MT	3OID399FXG2BZV7OMZO3CDL5TCLFDH	politics	Has Nigel Farage quit as UKIP leader after failing to be elected?	YES	http://www.bbc.com/news/election-2015-32633099
-MT	3OID399FXG2BZV7OMZO3CDL5TCLFDH	stock market	Will UK Interest Rate Rises Crash House Prices ?	YES	http://www.marketoracle.co.uk/Article51903.html
-MT	39KMGHJ4RZ5Q37R475HNUZEITLO006	stock market	Will Apple stock continue to rise even higher?	YES	http://www.fool.com/investing/general/2015/01/05/3-key-reasons-apple-inc-stock-could-continue-to-sh.aspx
-MT	39KMGHJ4RZ5Q37R475HNUZEITLO006	stock market	Was there concern for the stock market in July?	YES	http://money.cnn.com/2015/07/27/investing/stocks-markets-fear-and-greed-index/
-MT	3909MD9T2ZCGR1LOIUZNIV3QTOMFEA	stock market	Was the stock market the worst in August of 2015?	YES	http://money.cnn.com/2015/08/31/investing/august-worst-month-stocks/
-MT	3909MD9T2ZCGR1LOIUZNIV3QTOMFEA	politics	Are the democratic debates rigged in Clinton's favor?	YES	http://www.thenation.com/article/martin-omalley-declares-that-the-democratic-debate-schedule-is-rigged/
-MT	3SX4X51T804771H51SGR96MD0AGAOX	politics	Will Bernie Sanders run for President?	YES	http://www.nytimes.com/2015/04/30/us/politics/bernie-sanders-campaign-for-president.html?_r=0
-MT	3SX4X51T804771H51SGR96MD0AGAOX	politics	Did Kay Hagan win the NC re-election race for senate in 2014?	NO	http://ballotpedia.org/United_States_Senate_elections_in_North_Carolina,_2014
-MT	3SX4X51T804771H51SGR96MD0AGAOX	stock market	Will the Asian stock markets gain in next few months?	NO	http://www.businesstoday.in/markets/stocks/why-the-markets-took-a-deep-plunge-on-august-24/story/223044.html
-MT	3SX4X51T804771H51SGR96MD0AGAOX	politics	Will Marco Rubio run for president in the 2016 race?	YES	http://www.bloomberg.com/politics/articles/2015-04-13/transcript-marco-rubio-announces-run-for-president
-MT	3N5YJ55YXGYPPGHT0DGEUHM8BRTANJ	sport	Will The Seattle Seahawks repeat as Super Bowl Champions?	NO	http://www.nfl.com/superbowl/49
-MT	3N5YJ55YXGYPPGHT0DGEUHM8BRTANJ	sport	Did Lewis Hamilton win the 2015 Italian Grand Prix Formula One?	YES	http://bleacherreport.com/articles/2562090-italian-grand-prix-2015-winners-and-losers-from-monza-race
-MT	3N5YJ55YXGYPPGHT0DGEUHM8BRTANJ	politics	will Aam Aadmi Party get majority results in Delhi Election 2015 ?	YES	http://www.ndtv.com/delhi-news/delhi-election-result-sirf-aap-delhi-picks-arvind-kejriwal-again-738364
-MT	3N5YJ55YXGYPPGHT0DGEUHM8BRTANJ	sport	Does  Serena Williams beat Maria Sharapova in Australian Open Womens final 2015 ?	YES	http://www.theguardian.com/sport/live/2015/jan/31/serena-williams-v-maria-sharapova-australian-open-womens-final-live
-MT	3KWGG5KP6JX70DTR8QX5NXNW633CMK	sport	Does  Novak Djokovic beat Stan Wawrinka in French Open Mens Finals 2015 ?	NO	http://www.telegraph.co.uk/sport/tennis/frenchopen/11657708/French-Open-2015-mens-final-Novak-Djokovic-v-Stan-Wawrinka-live.html
-MT	3KWGG5KP6JX70DTR8QX5NXNW633CMK	sport	Will Tim Duncan retire from the spurs?	NO	http://www.si.com/nba/2015/07/09/tim-duncan-san-antonio-spurs-free-agency-lamarcus-aldridge-grades
-MT	3KWGG5KP6JX70DTR8QX5NXNW633CMK	sport	Will Mumbai Indians Win 2015 Indian Premier League ?	YES	http://www.iplt20.com/teams/mumbai-indians/results
-MT	3DIIW4IV8PQI9QQLUWTVC64RXH24IJ	politics	David Cameron has returned to Downing Street with the Tories having defied polls and won the general election.	NO	"The Conservatives made gains in England and Wales and are forecast by the BBC to secure 331 seats in the Commons, giving them a slender majority.  Labour leader Ed Miliband said he would stand down on Friday, saying his party must ""rebuild"" with a new leader.  Lib Dem leader Nick Clegg has also said he will quit, with his party set to be reduced from 57 to eight MPs.  UKIP leader Nigel Farage is also quitting after he failed to win Thanet South, losing by nearly 2,800 votes to the Conservatives"
-MT	33IXYHIZB5DWQ79CUZKGYC91LB02EF	stock market	Is a country's economic performance can affect the stock market price?	YES	http://www.getsmarteraboutmoney.ca/en/managing-your-money/investing/stocks/Pages/Factors-that-can-affect-stock-prices.aspx#.Vhid5_lVhHw
-MT	33IXYHIZB5DWQ79CUZKGYC91LB02EF	stock market	Will chines stockmarket collapse	YES	https://www.washingtonpost.com/opinions/will-china-crash/2015/09/06/dcff179a-533c-11e5-9812-92d5948a40f8_story.html
-MT	33IXYHIZB5DWQ79CUZKGYC91LB02EF	politics	Will Scotland choose independence from the UK in Sept. 2014?	NO	http://www.nytimes.com/2014/09/19/world/europe/scotland-independence-vote.html?_r=0
-MT	3LVTFB9DE5DB247O2505UXSGEWSQGV	sport	will Serena win championship Australian Open Women's single 2015 ?	YES	http://www.sbnation.com/tennis/2015/1/31/7955931/serena-williams-australian-open-winner-2015-womens-champion
-MT	3LVTFB9DE5DB247O2505UXSGEWSQGV	sport	Does Leander Paes and Martina Hingis Won in Wimbledon 2015 Mixed Doubles Final?	YES	http://www.wimbledon.com/en_GB/news/articles/2015-07-12/hingis_and_paes_enjoying_the_moment.html
-MT	3LVTFB9DE5DB247O2505UXSGEWSQGV	sport	Will the Patriots win the Super Bowl in 2015?	YES	http://www.nytimes.com/2015/02/02/sports/football/patriots-win-super-bowl-xlix-defeating-seahawks.html?_r=0
-MT	3LVTFB9DE5DB247O2505UXSGEWSQGV	sport	Will Kobe Bryant return to the L.A. Lakers?	YES	https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CB0QFjAAahUKEwihu7Sph7bIAhWGpx4KHarLCGA&url=http%3A%2F%2Fwww.si.com%2Fnba%2F2015%2F01%2F28%2Fkobe-bryant-lakers-injury-knicks-phil-jackson&usg=AFQjCNHsVa-pcm5sTal_AQ_e1vf0XU2-zg&sig2=gEU-XRdkbjBsdDpqkYJYFw&bvm=bv.104819420,d.dmo
-MT	3RIHDBQ1NETYHL47UIB6YOKCJV8HMY	politics	Will stricter gun control laws be in effect in the next year?	NO	http://www.foxnews.com/politics/2015/10/09/obama-reportedly-considering-executive-action-on-gun-control/
-MT	3RIHDBQ1NETYHL47UIB6YOKCJV8HMY	sport	Will Novak Djokovic win the 2015 men's Australian Open?	YES	www.theguardian.com>Sports>Novak Djokovic
-MT	3RIHDBQ1NETYHL47UIB6YOKCJV8HMY	politics	will Bharatiya Janata Party win the Haryana assembly Election 2015 ?	YES	http://indiatoday.intoday.in/story/haryana-election-results-2014-live/1/396501.html
-MT	3BFF0DJK8X7RKP87E9OHOGM6MELSTV	sport	Does Martina Hingis and Sania Mirza Won in Wimbledon 2015 Women's Doubles Final?	YES	http://www.wimbledon.com/en_GB/news/articles/2015-07-11/hingis_and_mirza_claim_ladies_doubles_crown.html
-MT	36QZ6V158986K2NWEEERTC885SSSUM	sport	Did Stanford win the college NIT tournament?	YES	www.sbnation.com/college-basketball/2015/4/2/83386071/...
-MT	36QZ6V158986K2NWEEERTC885SSSUM	sport	Will Tiger Woods win the 2015 US Open?	NO	http://www.pga.com/news/golf-buzz/jordan-spieth-wins-2015-us-open-chambers-bay
-MT	36QZ6V158986K2NWEEERTC885SSSUM	stock market	Does BSE SENSEX fell over 1600 points in August 2015?	YES	http://www.financialexpress.com/article/markets/indian-markets/sensex-falls-over-1000-points-intraday-august-24-2015-reasons-why-plunge/124591/
-MT	36QZ6V158986K2NWEEERTC885SSSUM		Was Sgt. Bergdahl released by the Taliban?	YES	http://www.nbcnews.com/storyline/bowe-bergdahl-released
+MT	3YLPJ8OXX88FZLFGTITWFGR6K1V4XL	stock market	Will the NYSE stop trading anytime in 2015?	YES	http://www.pbs.org/newshour/rundown/new-york-stock-exchange-suspends-trading/
+MT	3ODOP6T3ASFEY5CJ5T83PQXA7ST429	sport	Will the New England Patriots defeat the the Seattle Seahawks at Super Bowl XLIX?	YES	http://www.sbnation.com/nfl/2015/2/1/7936245/superbowl-live-updates-news-patriots-seahawks
+MT	30UZJB2POH7LF6C2NY5IDS8GD20532	sport	Will the Patriots win the 2015 Superbowl?	YES	https://en.wikipedia.org/wiki/Super_Bowl_XLIX
+MT	3YLTXLH3DF142O1KMY3YFSE7N7JPHF	sport	WILL ROGER FEDERER WIN US OPEN 2015	NO	http://www.usopen.org/index.html
+MT	3W3RSPVVGSMJGPS6U5HQHQUDC5KULN	politics	Will Greece default on its loans to the IMF?	YES	http://money.cnn.com/2015/06/30/news/economy/greece-imf-default/
+MT	3PMR2DOWOOW6X2V6NCA1NX0MR2W54N	sport	Will the Cavaliers win the NBA Finals in 2015?	NO	https://en.m.wikipedia.org/wiki/2015_NBA_Finals
+MT	3OKP4QVBP2SJFO07D93J4XDB9L5GAQ		Will the Dallas Cowboys win the 2015 Super Bowl?	NO	http://www.sbnation.com/nfl/2015/2/1/7936245/superbowl-live-updates-news-patriots-seahawks
+MT	3NSCTNUR2ZILZRBNWDKS00MMJCSA53	sport	Will American Pharaoh win the Triple Crown in 2015?	YES	http://sports.yahoo.com/news/american-pharoah-wins-the-triple-crown-190615384.html
+MT	334ZEL5JX6AB7X3ZIS2IU6GJMD3OSH	politics	Will Donald Trump announce he is running for President in 2015?	YES	http://time.com/3923128/donald-trump-announcement-speech/
+MT	3VCK0Q0PO59TO3JB8BJL5BAV139N0S	sport	Was Super Bowl 49 tied at half-time?	YES	https://en.m.wikipedia.org/wiki/Super_Bowl_XLIX
+MT	3IVKZBIBJ041FGHCEF7SAXJIAJJSHB	sport	At any point of Super Bowl 49 was the viewership more than 150 million people?	NO	https://en.m.wikipedia.org/wiki/Super_Bowl_XLIX
+MT	3XEDXEGFX3JSGXY8BYR5DJTR8KPK0U	stock market	Will A-shares of Shangai stock exchange raise up?	NO	https://en.wikipedia.org/wiki/2015_Chinese_stock_market_crash
+MT	3OCZWXS7ZO22VA2RT49I9E2XES65L4	stock market	The price of oil will stay above $100 per barrel by the date June 19 2015.	NO	http://www.businessinsider.com/crude-oil-price-june-19-2015-6
+MT	3X52SWXE0X035PN5CS3SWVPN4GUWCU	sport	Will Andy Murray win the Men's Singles in the 2015 Australian Open?	NO	https://en.wikipedia.org/wiki/2015_Australian_Open_%E2%80%93_Men%27s_Singles
+MT	3GL25Y6843PV3B4MZMTS1A867W5MXW	stock market	Is it difficult for european shares to rebound back?	NO	http://www.telegraph.co.uk/finance/markets/ftse100/11884775/European-shares-rebound-led-by-commodity-stocks.html
+MT	3L7SUC0TTUPN6LYBWA4LSWLVXPL0MG	sport	Had Nishikori beat beat Marin Cilic in US OPEN 2014 FINALS?	NO	http://www.theguardian.com/sport/live/2014/sep/08/kei-nishikori-vs-marin-cilic-us-open-final-live
+MT	3BC9H1KCYU7G8SOA8KLHTMH674CYW4	sport	Will California Crown win the Triple Crown in 2014?	NO	www.nytimes.com/2014/06/08/sports/tonalist-wins-belmont...
+MT	3W0XM68YZPQSNMJQ7HV5ROC1DCVK1X	sport	Will Novak Djokovic lose in Australian Open 2015 men's final?	NO	http://www.theguardian.com/sport/live/2015/feb/01/andy-murray-v-novak-djokovic-australian-open-mens-final-live
+MT	3AA88CN98PYPDSUTJ62E5BNBJW8KYW	politics	Will Rick Perry win the Republican presidential nomination for 2016?	NO	http://www.cnn.com/2015/09/11/politics/rick-perry-2016-campaign-suspended/
+MT	3NQUW096N63LWX43WUMZLU7ZZNTL9C	politics	Will Carly Fiorina decide to run for president?	YES	https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=4&cad=rja&uact=8&ved=0CDUQFjADahUKEwi-nOj1tI3IAhWIoD4KHTs6D2w&url=http%3A%2F%2Fwww.washingtonpost.com%2Fnews%2Fpost-politics%2Fwp%2F2015%2F05%2F04%2Fcarly-fiorina-expected-to-announce-run-for-president-monday%2F&usg=AFQjCNFZBcoGLX42T4lHfaDT30L5AWZq6Q
+MT	39KMGHJ4RZ5Q37R475HNUZEITLO006	politics	Will the Republicans take control of Congress?	YES	http://www.nbcnews.com/politics/elections/republicans-rule-house-senate-first-time-8-years-n241126
+MT	3BAWBGQGYLUKEJS4V1QLU7EVVV6V7S	politics	Did Democrats win US senate election in Michigan?	YES	http://ballotpedia.org/United_States_Senate_elections_in_Michigan,_2014
+MT	3K1H3NEY7LUHDV3JXJULUYLHURMDGF	stock market	Will Indian stock market benefit by Fed hike rate?	YES	http://profit.ndtv.com/news/market/article-fed-rate-hike-earnings-bihar-polls-to-drive-indian-markets-bofa-1211574
+MT	3WJGKMRWVI44WJNEVXY24702WZTCD3	politics	Will Florida's Medical Marijuana initiative pass in 2014?	NO	http://www.huffingtonpost.com/2014/11/04/florida-amendment-2-fails_n_6032422.html
+MT	3HEA4ZVWVDHOTLZ61HTBSP60SSS55I	sport	Will Serena Williams win the 2015 Wimbledon women's singles championship?	YES	http://edition.cnn.com/2015/07/11/tennis/serena-williams-muguruza-wimbledon-tennis/
+MT	3N5YJ55YXGYPPGHT0DGEUHM8BRTANJ		Will cyclist Chris Froome win 102nd Tour de France?	YES	http://www.npr.org/sections/thetwo-way/2015/07/26/426499394/british-cyclist-chris-froome-wins-tour-de-france
+MT	3KWGG5KP6JX70DTR8QX5NXNW633CMK	sport	Will LeBron James re-sign with the Cleveland Cavaliers?	YES	http://espn.go.com/nba/story/_/id/11207703/lebron-james-deal-cleveland-cavaliers-2-years-421-million
+MT	3DIIW4IV8PQI9QQLUWTVC64RXH24IJ	sport	Is Christopher Froome is the winner of the 2015 Tour du France?	YES	http://www.euronews.com/2015/07/26/cycling-briton-chris-froome-of-team-sky-wins-tour-de-france/
+MT	33IXYHIZB5DWQ79CUZKGYC91LB02EF	sport	Does Novak Djokovic beat Roger Federer in Wimbledon 2015 men's singles final?	YES	http://www.theguardian.com/sport/live/2015/jul/12/novak-djokovic-v-roger-federer-wimbledon-2015-mens-singles-final-live
+MT	3NCN4N1H1GCU8QML6RGAPS6ET8DNBO	sport	Will Serbia win 2015 FIFA U-20 World Cup?	YES	http://news.yahoo.com/serbia-beats-brazil-2-1-under-20-world-074840129.html
+MT	3RIHDBQ1NETYHL47UIB6YOKCJV8HMY	politics	Will Narendra Modi form Government at New Delhi	YES	http://www.firstpost.com/politics/win-or-lose-modi-shah-duo-need-to-learn-from-their-mistakes-in-delhi-polls-2083355.html
+MT	3BFF0DJK8X7RKP87E9OHOGM6MELSTV	sport	Will Argentina win 2015 Copa America Cup Football tournament?	NO	http://www.theguardian.com/football/2015/jul/05/chile-argentina-copa-america-final-match-report
+MT	36QZ6V158986K2NWEEERTC885SSSUM	politics	Will Donald Trump run for president?	YES	http://www.washingtonpost.com/news/post-politics/wp/2015/06/16/donald-trump-to-announce-his-presidential-plans-today/
