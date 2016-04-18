@@ -240,41 +240,6 @@ def get_stats():
     print 'Dataset balance (answered only) - golden YES in %.2f%%, we output YES in %.2f%%' % (turk_yes / answered * 100, we_yes / answered * 100)
 
 
-def turkstats():
-    i = -1
-    sport = 0
-    stock = 0
-    politics = 0
-    yes = 0
-    for line in csv.reader(open(OUTFILE), delimiter='\t'):
-        i += 1
-        if i == 0:
-            continue
-        if line[2] == 'YES':
-            yes += 1
-        if line[7] == 'sport':
-            sport += 1
-        if line[7] == 'stock market':
-            stock += 1
-        if line[7] == 'politics':
-            politics += 1
-    print 'YES answered in %.2f%% of turk answers' % (yes / i * 100)
-    # print 'Topics:'
-    # print 'sport %.2f%%' % (sport / i * 100)
-    # print 'politics %.2f%%' % (politics / i * 100)
-    # print 'stock market %.2f%%' % (stock / i * 100)
-
-
-def bad_only():
-    """ outfile with only wrongly answered questions """
-    BADFILE = 'tests/bad_outfile.tsv'
-    with open(BADFILE, 'wb') as csvfile:
-        writer = csv.writer(csvfile, delimiter='\t')
-        for line in csv.reader(open(OUTFILE), delimiter='\t'):
-            if line[2] != line[3]:
-                writer.writerow(line)
-
-
 CSV_FOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
 INFOFILE = "tests/infofile.tsv"
@@ -286,7 +251,3 @@ if __name__ == "__main__":
     if vars(args)['eval']:
         evaluate()
     get_stats()
-    print '----------'
-    # turkstats()
-    # print '----------'
-    bad_only()
