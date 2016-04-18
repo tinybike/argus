@@ -191,19 +191,16 @@ def get_stats():
     answered = 0
     anr = 0
     understood = 0
-    trainedon = 0
     turk_yes = 0
     we_yes = 0
     for line in csv.reader(open(OUTFILE), delimiter='\t'):
         i += 1
         if i == 0:
             continue
-        if validation:
-            if line[1] in trainIDs:
-                trainedon += 1
-                trainIDs.remove(line[1])
-                i -= 1
-                continue
+        if line[1] in trainIDs:
+            trainIDs.remove(line[1])
+            i -= 1
+            continue
         turkans = line[2]
         ourans = line[3]
         if ourans == 'Didn\'t understand the question':
