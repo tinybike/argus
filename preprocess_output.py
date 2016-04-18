@@ -32,7 +32,6 @@ def evaluate():
     writer_turk = csv.writer(info_turk, delimiter=',')
     first = False
     r = relevance_load()
-    npy_rel = []
     with open(OUTFILE, 'wb') as csv_file:
         writer = csv.writer(csv_file, delimiter='\t')
         for csvfile in sorted(os.listdir(CSV_FOLDER)):
@@ -95,25 +94,12 @@ def evaluate():
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
 
-                # Store relevance features + gs for possible separate classifier
-                # training
-                for triplet in r:
-                    if ouranswer.q.text == triplet[0]:
-                        for s in ouranswer.sources:
-                            if s.sentence == triplet[1]:
-                                fs = [f.get_value() for f in s.features if '@' in f.get_type()]
-                                if len(npy_rel) == 0:
-                                    npy_rel = np.array(fs + [triplet[-1] / 2])
-                                else:
-                                    npy_rel = np.vstack((npy_rel, np.array(fs + [triplet[-1] / 2])))
-
                 ###############
                 if q_num % 10 == 0:
                     print 'answering question', q_num
 
     for i_f in info_files:
         i_f.close()
-    np.save('tests/batches/relevance/npy_rel', npy_rel)
 
 
 def feature_print(writers, answer):
