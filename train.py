@@ -177,7 +177,11 @@ def stats(model, x, y):
 def rewrite_output(splitname, results):
     lines = []
     out_tsv = 'tests/f%s.tsv' % (splitname,)
+    header = []
     for line in csv.reader(open(out_tsv), delimiter='\t', skipinitialspace=True):
+        if not header:
+            header = line
+            continue
         y = results[line[1]]
         if y > .5:
             line[3] = 'YES'
@@ -186,6 +190,7 @@ def rewrite_output(splitname, results):
         line[4] = str(y)
         lines.append(line)
     writer = csv.writer(open(out_tsv, 'wb'), delimiter='\t')
+    writer.writerow(header)
     for line in lines:
         writer.writerow(line)
 
