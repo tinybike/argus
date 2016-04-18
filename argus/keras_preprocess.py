@@ -12,7 +12,7 @@ import pickle
 
 import keras.preprocessing.sequence as prep
 import numpy as np
-from keras.callbacks import ModelCheckpoint
+from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.layers.core import Activation
 from keras.layers.core import Dropout, TimeDistributedDense
 from keras.layers.embeddings import Embedding
@@ -273,7 +273,8 @@ def load_and_train(runid, module_prep_model, c, glove, vocab, gr, grv, grt,
         print('Training')
         model.fit(gr, validation_data=grv,
                   callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
-                                             save_best_only=True, monitor='val_loss', mode='min')],
+                                             save_best_only=True, monitor='val_loss', mode='min'),
+                             EarlyStopping(monitor='val_loss', mode='min', patience=10)],
                   batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
         model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
         model.load_weights('weights-'+runid+'-bestval.h5')
