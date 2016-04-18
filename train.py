@@ -223,7 +223,6 @@ def train_full(runs, pars):
     results = []
     for i in range(runs):
         print 'Full training, run #%i out of %i' % (i+1, runs)
-        np.random.seed(1337+i)
         results.append(train_and_eval(None, pars, False))
 
     tr_acc = [tr for tr, v, t in results]
@@ -236,7 +235,6 @@ def train_full(runs, pars):
 
 
 if __name__ == '__main__':
-    np.random.seed(17151711)
     parser = argparse.ArgumentParser()
     parser.add_argument('--test')
     parser.add_argument('--full_runs')
