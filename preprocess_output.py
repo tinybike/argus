@@ -1,44 +1,51 @@
 """
-Main testing using questions from Mturk done from here, lots of printouts.
+Batch-process the questions dataset,
+
+  * answering questions
+  * producing feature dumps for classifier training in the process
+  * and evaluating answers against the gold standard
+
+Without then -regen argument, just the evaluation is performed.
+With the -test argument, performance on test set rather than validation set
+is performed.
 """
 
 from __future__ import division
-import sys
+
+import argparse
 import csv
-import os
-import numpy as np
+import sys
 
 
 reload(sys)
 sys.setdefaultencoding('utf8')
 
 CSV_FOLDER = "tests/batches"
-trainIDs = list(np.load('tests/trainIDs/trainIDs.npy'))
 
 
-def regenerate():
+def regenerate(splitname):
     #  TODO: remove irrelevant printouts, remove sentence, url, headline,.. from outfile
     from argus.main_frame import get_answer
     from separate_relevance import relevance_load
     from argus.features import feature_list_official as flo
     q_num = 0
-    info_files = [open('tests/feature_prints/' + i_f + '.tsv', 'wb') for i_f in flo]
+    info_files = [open('tests/feature_prints/%s/%s.tsv' % (splitname, i_f), 'wb') for i_f in flo]
     writers = [csv.writer(info_file, delimiter='\t') for info_file in info_files]
-    info_all = open('tests/feature_prints/all_features.tsv', 'wb')
+    info_all = open('tests/feature_prints/%s/all_features.tsv' % (splitname,), 'wb')
     writer_all = csv.writer(info_all, delimiter='\t')
-    info_rel = open('tests/feature_prints/all_features_rel.tsv', 'wb')
+    info_rel = open('tests/feature_prints/%s/all_features_rel.tsv' % (splitname,), 'wb')
     writer_rel = csv.writer(info_rel, delimiter='\t')
-    info_turk = open('tests/feature_prints/turk_sentences.tsv', 'wb')
+    info_turk = open('tests/feature_prints/%s/turk_sentences.tsv' % (splitname,), 'wb')
     writer_turk = csv.writer(info_turk, delimiter=',')
     first = False
     r = relevance_load()
-    with open(OUTFILE, 'wb') as csv_file:
-        writer = csv.writer(csv_file, delimiter='\t')
-        for csvfile in sorted(os.listdir(CSV_FOLDER)):
-            if not csvfile.endswith(".csv"):
-                continue
+    with open('tests/f%s.tsv' % (splitname,), 'wb') as featfile:
+        writer = csv.writer(featfile, delimiter='\t')
+        with open('tests/q%s.tsv' % (splitname,)) as qfile:
             i = 0
-            for line in csv.reader(open(CSV_FOLDER + '/' + csvfile), delimiter=',', skipinitialspace=True):
+            for line in csv.reader(qfile, delimiter='\t'):
+                qorigin, qrunid, qtopic, qtext, qgsans, qsrc = line
+
                 if i == 0:
                     # CSV header
                     i += 1
@@ -51,12 +58,11 @@ def regenerate():
                         writer_turk.writerow(['question', 'sentence'])
                         first = True
                     continue
-                if line[16] == 'Rejected':
-                    continue
                 q_num += 1
 
-                # Generate answer from question
-                ouranswer = get_answer(line[30])
+                # Generate answer from question; this implies generating
+                # various question features
+                ouranswer = get_answer(qtext)
 
                 # Toggle comment to keep only sources that were manually
                 # annotated as relevant at mturk
@@ -69,9 +75,8 @@ def regenerate():
                 source = ''
                 feat = ''
                 info = []
-                turk_answer = line[28]
                 if len(ouranswer.sources) != 0:
-                    feature_print_all(writer_all, ouranswer, first, turk_answer)
+                    feature_print_all(writer_all, ouranswer, first, qgsans)
                     feature_print_rel(writer_rel, ouranswer, r, first)
                     feature_print(writers, ouranswer)
                     turk_print(writer_turk, ouranswer)
@@ -87,16 +92,16 @@ def regenerate():
                         feat = ''
 
                 # Write details to the output.tsv
-                info = [line[0], line[30], turk_answer,
+                info = [qrunid, qtext, qgsans,
                         ouranswer.text, ouranswer.q.query, sentence,
-                        headline, line[31], line[29], url, source,
+                        headline, qtopic, qsrc, url, source,
                         ouranswer.info] + info
                 info = [field.encode('utf-8') for field in info]
                 writer.writerow(info)
 
                 ###############
                 if q_num % 10 == 0:
-                    print 'answering question', q_num
+                    print 'answering question', splitname, q_num
 
     for i_f in info_files:
         i_f.close()
@@ -184,7 +189,7 @@ def feature_print_all(writer, answer, first=False, clas='?'):
         writer.writerow(info)
 
 
-def get_stats():
+def get_stats(ffname):
     i = -1
     correct = 0
     no_result = 0
@@ -193,13 +198,9 @@ def get_stats():
     understood = 0
     turk_yes = 0
     we_yes = 0
-    for line in csv.reader(open(OUTFILE), delimiter='\t'):
+    for line in csv.reader(open(ffname), delimiter='\t'):
         i += 1
         if i == 0:
-            continue
-        if line[1] in trainIDs:
-            trainIDs.remove(line[1])
-            i -= 1
             continue
         turkans = line[2]
         ourans = line[3]
@@ -237,14 +238,20 @@ def get_stats():
     print 'Dataset balance (answered only) - golden YES in %.2f%%, we output YES in %.2f%%' % (turk_yes / answered * 100, we_yes / answered * 100)
 
 
-CSV_FOLDER = "tests/batches"
 OUTFILE = "tests/outfile.tsv"
 INFOFILE = "tests/infofile.tsv"
-import argparse
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-regen', action='store_true')
+    parser.add_argument('-regen', action='store_true', help='Regenerate dataset features and answers')
+    parser.add_argument('-test', action='store_true', help='Evaluate on test rather than val set')
     args = parser.parse_args()
+
     if vars(args)['regen']:
-        regenerate()
-    get_stats()
+        for sname in ['train', 'val', 'test']:
+            regenerate(sname)
+
+    if vars(args)['test']:
+        get_stats('tests/ftest.tsv')
+    else:
+        get_stats('tests/fval.tsv')
