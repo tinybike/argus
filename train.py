@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Training Relevance model happens here, you can change various parameters in train().
+Training ClasRel model happens here, you can change various parameters in train().
+
+We use preprocessed question dataset with auxiliary features (tests/f*.tsv),
+and besides regenerating the Keras model, we also update the predictions
+in that dataset.
 """
 import csv
 import importlib
@@ -14,15 +18,14 @@ from keras.optimizers import SGD
 import pysts.embedding as emb
 from argus.keras_preprocess import config, load_sets, load_and_train, tokenize, Q
 
-outfile = 'tests/feature_prints/all_features.tsv'
 trainIDs = []
 params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"', 'l2reg=0.01']  # can be replaced by script params
 
 
 def train_and_eval(test_path, rnn_args, save_to_argus=True):
-    qs_train, qs_val, qs_test, c_text, r_text = load_features()
-    # pickle.dump((qs_train, qs_test, ctext, rtext), open('qs.pkl', 'wb'))
-    # qs_train, qs_test, ctext, rtext = pickle.load(open('qs.pkl'))
+    qs_train, c_text, r_text = load_features('tests/feature_prints/train/all_features.tsv')
+    qs_val, _, _ = load_features('tests/feature_prints/val/all_features.tsv')
+    qs_test, _, _ = load_features('tests/feature_prints/test/all_features.tsv')
 
     zero_features(qs_train, c_text, r_text)
     zero_features(qs_val)
@@ -38,7 +41,7 @@ def train_and_eval(test_path, rnn_args, save_to_argus=True):
     max_sentences = 50
 
     # ==========================================================
-    modelname = 'rnn'
+    modelname = 'avg'  # 'rnn'
     module = importlib.import_module('.'+modelname, 'models')
     conf, ps, h = config(module.config, params+rnn_args)
 
@@ -83,22 +86,21 @@ def train_and_eval(test_path, rnn_args, save_to_argus=True):
     if save_to_argus:
         if query_yes_no('Save model?'):
             model.save_weights('sources/models/full_model.h5', overwrite=True)
-        if query_yes_no('Rewrite output.tsv?'):
-            print('Predicting for outfile.tsv')
-            res_dict = zip(gr['q_texts'], model.predict(gr)['score'][:,0]) + zip(grt['q_texts'], model.predict(grt)['score'][:,0])
-            print('Prediction ready')
-            rewrite_output(res_dict)
+        if query_yes_no('Rewrite tests/f*.tsv predictions?'):
+            for g, splitname in [(gr, 'train'), (grv, 'val'), (grt, 'test')]:
+                res_dict = zip(g['q_texts'], model.predict(g)['score'][:,0])
+                rewrite_output(splitname, dict(res_dict))
 
     return results
 
 
-def load_features():
+def load_features(afname):
     clas_ixs, rel_ixs = [], []
     c_text, r_text = [], []
     S, R, C, QS, GS, Q_text = [], [], [], [], [], []
     GS_ix = 0
     i = 0
-    for line in csv.reader(open(outfile), delimiter='\t', skipinitialspace=True):
+    for line in csv.reader(open(afname), delimiter='\t', skipinitialspace=True):
         try:
             line = [s.decode('utf8') for s in line]
         except AttributeError:  # python3 has no .decode()
@@ -122,9 +124,9 @@ def load_features():
         R.append([float(line[ix]) for ix in rel_ixs])
         C.append([float(line[ix]) for ix in clas_ixs])
         GS.append(float(line[GS_ix] == 'YES'))
-    qs_train = []
-    qs_test = []
 
+    # Determine list segments that concern same question
+    # (just different evidence)
     q_t = ''
     ixs = []
     for q_text, i in zip(Q_text, range(len(QS))):
@@ -132,35 +134,11 @@ def load_features():
             ixs.append(i)
             q_t = q_text
 
-    qs_val = []
-    for i, i_, j in zip(ixs, ixs[1:]+[len(QS)], range(len(ixs))):
-        if split(j) == 'train':
-            trainIDs.append(Q_text[i])
-            qs_train.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
-        elif split(j) == 'val':
-            trainIDs.append(Q_text[i])
-            qs_val.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
-        else:
-            qs_test.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
+    qs = []
+    for i, i_ in zip(ixs, ixs[1:]+[len(QS)]):
+        qs.append(Q(Q_text[i], QS[i:i_], S[i:i_], np.array(C[i:i_]), np.array(R[i:i_]), GS[i]))
 
-    np.save('tests/trainIDs/trainIDs.npy', np.array(trainIDs))
-    return qs_train, qs_val, qs_test, c_text, r_text
-
-
-from fractions import gcd
-split_ = [400, 150, 200]  # absolute or fraction of [train, val, test] split
-gcd_ = gcd(split_[0],gcd(split_[1],split_[2]))
-split_ = [x/gcd_ for x in split_]
-s = sum(split_)
-train_split = range(split_[0])
-val_split = [split_[0]+x for x in range(split_[1])]
-def split(i):
-    if i % s in train_split:
-        return 'train'
-    elif i % s in val_split:
-        return 'val'
-    else:
-        return 'test'
+    return qs, c_text, r_text
 
 
 def zero_features(qs, ctext=None, rtext=None):
@@ -196,19 +174,18 @@ def stats(model, x, y):
     return float(corr) / i * 100
 
 
-def rewrite_output(results):
+def rewrite_output(splitname, results):
     lines = []
-    out_tsv = 'tests/outfile.tsv'
+    out_tsv = 'tests/f%s.tsv' % (splitname,)
     for line in csv.reader(open(out_tsv), delimiter='\t', skipinitialspace=True):
-        for qtext, y in results:
-            if line[1] == qtext:
-                if y > .5:
-                    line[3] = 'YES'
-                else:
-                    line[3] = 'NO'
-                line[11] = str(y)
+        y = results[line[1]]
+        if y > .5:
+            line[3] = 'YES'
+        else:
+            line[3] = 'NO'
+        line[4] = str(y)
         lines.append(line)
-    writer = csv.writer(open(out_tsv, 'wr'), delimiter='\t')
+    writer = csv.writer(open(out_tsv, 'wb'), delimiter='\t')
     for line in lines:
         writer.writerow(line)
 
