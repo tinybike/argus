@@ -32,19 +32,30 @@ MT	3NCN4N1H1GCU8QML6RGAPS6ET8DNBO	sport	Will Serbia win 2015 FIFA U-20 World Cup
 MT	3RIHDBQ1NETYHL47UIB6YOKCJV8HMY	politics	Will Narendra Modi form Government at New Delhi	YES	http://www.firstpost.com/politics/win-or-lose-modi-shah-duo-need-to-learn-from-their-mistakes-in-delhi-polls-2083355.html
 MT	3BFF0DJK8X7RKP87E9OHOGM6MELSTV	sport	Will Argentina win 2015 Copa America Cup Football tournament?	NO	http://www.theguardian.com/football/2015/jul/05/chile-argentina-copa-america-final-match-report
 MT	36QZ6V158986K2NWEEERTC885SSSUM	politics	Will Donald Trump run for president?	YES	http://www.washingtonpost.com/news/post-politics/wp/2015/06/16/donald-trump-to-announce-his-presidential-plans-today/
+gen	5	sport	Did the Atlanta Braves win the World Series 2014?	NO	*
 gen	5	sport	Will the Florida Marlins win the World Series 2014?	NO	*
+gen	5	sport	Did the Florida Marlins win the World Series 2014?	NO	*
 gen	5	sport	Will the New York Mets win the World Series 2014?	NO	*
+gen	5	sport	Did the New York Mets win the World Series 2014?	NO	*
 gen	5	sport	Will the Philadelphia Phillies win the World Series 2014?	NO	*
+gen	5	sport	Did the Philadelphia Phillies win the World Series 2014?	NO	*
 gen	5	sport	Will the Washington Nationals win the World Series 2014?	NO	*
+gen	5	sport	Did the Washington Nationals win the World Series 2014?	NO	*
 gen	5	sport	Will the Chicago Cubs win the World Series 2014?	NO	*
 gen	5	sport	Will the Cincinnati Reds win the World Series 2014?	NO	*
+gen	5	sport	Did the Cincinnati Reds win the World Series 2014?	NO	*
 gen	5	sport	Will the Houston Astros win the World Series 2014?	NO	*
+gen	5	sport	Did the Houston Astros win the World Series 2014?	NO	*
 gen	5	sport	Will the Milwaukee Brewers win the World Series 2014?	NO	*
-gen	5	sport	Will the Pittsburgh Pirates win the World Series 2014?	NO	*
-gen	5	sport	Will the St. Louis Cardinals win the World Series 2014?	NO	*
+gen	5	sport	Did the Milwaukee Brewers win the World Series 2014?	NO	*
+gen	5	sport	Did the St. Louis Cardinals win the World Series 2014?	NO	*
+gen	5	sport	Will the Arizona Diamondbacks win the World Series 2014?	NO	*
 gen	5	sport	Will the Colorado Rockies win the World Series 2014?	NO	*
+gen	5	sport	Did the Colorado Rockies win the World Series 2014?	NO	*
 gen	5	sport	Will the Los Angeles Dodgers win the World Series 2014?	NO	*
 gen	5	sport	Will the San Diego Padres win the World Series 2014?	NO	*
+gen	5	sport	Will the San Francisco Giants win the World Series 2014?	YES	*
+gen	5	sport	Did the San Francisco Giants win the World Series 2014?	YES	*
 gen	5	sport	will the San Francisco Giants win the World Series 2014 finals?	YES	*
 gen	5	sport	will the San Francisco Giants win the World Series 2014 semi-finals?	YES	*
 gen	5	sport	will the San Francisco Giants win the World Series 2014 quarter-finals?	YES	*
@@ -61,123 +72,37 @@ gen	5	sport	did the San Francisco Giants win the World Series finals?	YES	*
 gen	5	sport	did the San Francisco Giants win the World Series semi-finals?	YES	*
 gen	5	sport	did the San Francisco Giants win the World Series quarter-finals?	YES	*
 gen	5	sport	did the San Francisco Giants qualify for the World Series?	YES	*
-gen	5	sport	Will the San Francisco Giants win the World Series 2014?	YES	*
 gen	5	sport	Will the Baltimore Orioles win the World Series 2014?	NO	*
+gen	5	sport	Did the Baltimore Orioles win the World Series 2014?	NO	*
 gen	5	sport	Will the Boston Red Sox win the World Series 2014?	NO	*
+gen	5	sport	Did the Boston Red Sox win the World Series 2014?	NO	*
 gen	5	sport	Will the New York Yankees win the World Series 2014?	NO	*
+gen	5	sport	Did the New York Yankees win the World Series 2014?	NO	*
+gen	5	sport	Will the Tampa Bay Rays win the World Series 2014?	NO	*
+gen	5	sport	Did the Tampa Bay Rays win the World Series 2014?	NO	*
+gen	5	sport	Will the Toronto Blue Jays win the World Series 2014?	NO	*
+gen	5	sport	Did the Toronto Blue Jays win the World Series 2014?	NO	*
+gen	5	sport	Did the Chicago White Sox win the World Series 2014?	NO	*
 gen	5	sport	Will the Cleveland Indians win the World Series 2014?	NO	*
+gen	5	sport	Did the Cleveland Indians win the World Series 2014?	NO	*
 gen	5	sport	Will the Detroit Tigers win the World Series 2014?	NO	*
+gen	5	sport	Did the Detroit Tigers win the World Series 2014?	NO	*
+gen	5	sport	Will the Kansas City Royals win the World Series 2014?	NO	*
 gen	5	sport	Will the Minnesota Twins win the World Series 2014?	NO	*
 gen	5	sport	Will the Los Angeles Angels win the World Series 2014?	NO	*
+gen	5	sport	Did the Los Angeles Angels win the World Series 2014?	NO	*
 gen	5	sport	Will the Oakland Athletics win the World Series 2014?	NO	*
-gen	5	sport	Will the Texas Rangers win the World Series 2014?	NO	*
-gen	5	sport	Did the Florida Marlins win the World Series 2014?	NO	*
-gen	5	sport	Did the New York Mets win the World Series 2014?	NO	*
-gen	5	sport	Did the Philadelphia Phillies win the World Series 2014?	NO	*
-gen	5	sport	Did the Washington Nationals win the World Series 2014?	NO	*
-gen	5	sport	Did the Chicago Cubs win the World Series 2014?	NO	*
-gen	5	sport	Did the Cincinnati Reds win the World Series 2014?	NO	*
-gen	5	sport	Did the Houston Astros win the World Series 2014?	NO	*
-gen	5	sport	Did the Milwaukee Brewers win the World Series 2014?	NO	*
-gen	5	sport	Did the Pittsburgh Pirates win the World Series 2014?	NO	*
-gen	5	sport	Did the St. Louis Cardinals win the World Series 2014?	NO	*
-gen	5	sport	Did the Colorado Rockies win the World Series 2014?	NO	*
-gen	5	sport	Did the Los Angeles Dodgers win the World Series 2014?	NO	*
-gen	5	sport	Did the San Diego Padres win the World Series 2014?	NO	*
-gen	5	sport	will the San Francisco Giants win the World Series 2014 finals?	YES	*
-gen	5	sport	will the San Francisco Giants win the World Series 2014 semi-finals?	YES	*
-gen	5	sport	will the San Francisco Giants win the World Series 2014 quarter-finals?	YES	*
-gen	5	sport	will the San Francisco Giants qualify for the World Series 2014?	YES	*
-gen	5	sport	will the San Francisco Giants win the World Series finals?	YES	*
-gen	5	sport	will the San Francisco Giants win the World Series semi-finals?	YES	*
-gen	5	sport	will the San Francisco Giants win the World Series quarter-finals?	YES	*
-gen	5	sport	will the San Francisco Giants qualify for the World Series?	YES	*
-gen	5	sport	did the San Francisco Giants win the World Series 2014 finals?	YES	*
-gen	5	sport	did the San Francisco Giants win the World Series 2014 semi-finals?	YES	*
-gen	5	sport	did the San Francisco Giants win the World Series 2014 quarter-finals?	YES	*
-gen	5	sport	did the San Francisco Giants qualify for the World Series 2014?	YES	*
-gen	5	sport	did the San Francisco Giants win the World Series finals?	YES	*
-gen	5	sport	did the San Francisco Giants win the World Series semi-finals?	YES	*
-gen	5	sport	did the San Francisco Giants win the World Series quarter-finals?	YES	*
-gen	5	sport	did the San Francisco Giants qualify for the World Series?	YES	*
-gen	5	sport	Did the San Francisco Giants win the World Series 2014?	YES	*
-gen	5	sport	Did the Baltimore Orioles win the World Series 2014?	NO	*
-gen	5	sport	Did the Boston Red Sox win the World Series 2014?	NO	*
-gen	5	sport	Did the New York Yankees win the World Series 2014?	NO	*
-gen	5	sport	Did the Toronto Blue Jays win the World Series 2014?	NO	*
-gen	5	sport	Did the Cleveland Indians win the World Series 2014?	NO	*
-gen	5	sport	Did the Detroit Tigers win the World Series 2014?	NO	*
-gen	5	sport	Did the Kansas City Royals win the World Series 2014?	NO	*
-gen	5	sport	Did the Minnesota Twins win the World Series 2014?	NO	*
 gen	5	sport	Did the Oakland Athletics win the World Series 2014?	NO	*
 gen	5	sport	Did the Seattle Mariners win the World Series 2014?	NO	*
+gen	5	sport	Will the Texas Rangers win the World Series 2014?	NO	*
 gen	5	sport	Did the Texas Rangers win the World Series 2014?	NO	*
 gen	15	sport	Will Novak Djokovic win the French Open 2014?	NO	*
-gen	15	sport	Will Andy Murray win the French Open 2014?	NO	*
-gen	15	sport	Will Roger Federer win the French Open 2014?	NO	*
-gen	15	sport	will Stan Wawrinka win the French Open 2014 finals?	YES	*
-gen	15	sport	will Stan Wawrinka win the French Open 2014 semi-finals?	YES	*
-gen	15	sport	will Stan Wawrinka win the French Open 2014 quarter-finals?	YES	*
-gen	15	sport	will Stan Wawrinka qualify for the French Open 2014?	YES	*
-gen	15	sport	will Stan Wawrinka win the French Open finals?	YES	*
-gen	15	sport	will Stan Wawrinka win the French Open semi-finals?	YES	*
-gen	15	sport	will Stan Wawrinka win the French Open quarter-finals?	YES	*
-gen	15	sport	will Stan Wawrinka qualify for the French Open?	YES	*
-gen	15	sport	did Stan Wawrinka win the French Open 2014 finals?	YES	*
-gen	15	sport	did Stan Wawrinka win the French Open 2014 semi-finals?	YES	*
-gen	15	sport	did Stan Wawrinka win the French Open 2014 quarter-finals?	YES	*
-gen	15	sport	did Stan Wawrinka qualify for the French Open 2014?	YES	*
-gen	15	sport	did Stan Wawrinka win the French Open finals?	YES	*
-gen	15	sport	did Stan Wawrinka win the French Open semi-finals?	YES	*
-gen	15	sport	did Stan Wawrinka win the French Open quarter-finals?	YES	*
-gen	15	sport	did Stan Wawrinka qualify for the French Open?	YES	*
-gen	15	sport	Will Stan Wawrinka win the French Open 2014?	YES	*
-gen	15	sport	Will Rafael Nadal win the French Open 2014?	NO	*
-gen	15	sport	Will Kei Nishikori win the French Open 2014?	NO	*
-gen	15	sport	Will Richard Gasquet win the French Open 2014?	NO	*
-gen	15	sport	Will Jo-Wilfried Tsonga win the French Open 2014?	NO	*
-gen	15	sport	Will John Isner win the French Open 2014?	NO	*
-gen	15	sport	Will Marin Cilic win the French Open 2014?	NO	*
-gen	15	sport	Will Milos Raonic win the French Open 2014?	NO	*
-gen	15	sport	Will Gilles Simon win the French Open 2014?	NO	*
-gen	15	sport	Will Benoit Paire win the French Open 2014?	NO	*
-gen	15	sport	Will Serena Williams win the French Open 2014?	NO	*
-gen	15	sport	Will Simona Halep win the French Open 2014?	NO	*
-gen	15	sport	Will Garbine Muguruza win the French Open 2014?	NO	*
-gen	15	sport	Will Agnieszka Radwanska win the French Open 2014?	NO	*
-gen	15	sport	Will Maria Sharapova win the French Open 2014?	NO	*
-gen	15	sport	Will Angelique Kerber win the French Open 2014?	NO	*
-gen	15	sport	Will Petra Kvitova win the French Open 2014?	NO	*
-gen	15	sport	Will Flavia Pennetta win the French Open 2014?	NO	*
-gen	15	sport	Will Lucie Safarova win the French Open 2014?	NO	*
-gen	15	sport	Will Venus Williams win the French Open 2014?	NO	*
-gen	15	sport	Will Karolina Pliskova win the French Open 2014?	NO	*
-gen	15	sport	Will Belinda Bencic win the French Open 2014?	NO	*
-gen	15	sport	Will Roberta Vinci win the French Open 2014?	NO	*
-gen	15	sport	Will Victoria Azarenka win the French Open 2014?	NO	*
-gen	15	sport	Will Madison Keys win the French Open 2014?	NO	*
-gen	15	sport	Will Caroline Wozniacki win the French Open 2014?	NO	*
-gen	15	sport	Will Elina Svitolina win the French Open 2014?	NO	*
-gen	15	sport	will Li Na win the French Open 2014 finals?	YES	*
-gen	15	sport	will Li Na win the French Open 2014 semi-finals?	YES	*
-gen	15	sport	will Li Na win the French Open 2014 quarter-finals?	YES	*
-gen	15	sport	will Li Na qualify for the French Open 2014?	YES	*
-gen	15	sport	will Li Na win the French Open finals?	YES	*
-gen	15	sport	will Li Na win the French Open semi-finals?	YES	*
-gen	15	sport	will Li Na win the French Open quarter-finals?	YES	*
-gen	15	sport	will Li Na qualify for the French Open?	YES	*
-gen	15	sport	did Li Na win the French Open 2014 finals?	YES	*
-gen	15	sport	did Li Na win the French Open 2014 semi-finals?	YES	*
-gen	15	sport	did Li Na win the French Open 2014 quarter-finals?	YES	*
-gen	15	sport	did Li Na qualify for the French Open 2014?	YES	*
-gen	15	sport	did Li Na win the French Open finals?	YES	*
-gen	15	sport	did Li Na win the French Open semi-finals?	YES	*
-gen	15	sport	did Li Na win the French Open quarter-finals?	YES	*
-gen	15	sport	did Li Na qualify for the French Open?	YES	*
-gen	15	sport	Will Li Na win the French Open 2014?	YES	*
 gen	15	sport	Did Novak Djokovic win the French Open 2014?	NO	*
+gen	15	sport	Will Andy Murray win the French Open 2014?	NO	*
 gen	15	sport	Did Andy Murray win the French Open 2014?	NO	*
 gen	15	sport	Did Roger Federer win the French Open 2014?	NO	*
+gen	15	sport	Will Stan Wawrinka win the French Open 2014?	YES	*
+gen	15	sport	Did Stan Wawrinka win the French Open 2014?	YES	*
 gen	15	sport	will Stan Wawrinka win the French Open 2014 finals?	YES	*
 gen	15	sport	will Stan Wawrinka win the French Open 2014 semi-finals?	YES	*
 gen	15	sport	will Stan Wawrinka win the French Open 2014 quarter-finals?	YES	*
@@ -194,33 +119,61 @@ gen	15	sport	did Stan Wawrinka win the French Open finals?	YES	*
 gen	15	sport	did Stan Wawrinka win the French Open semi-finals?	YES	*
 gen	15	sport	did Stan Wawrinka win the French Open quarter-finals?	YES	*
 gen	15	sport	did Stan Wawrinka qualify for the French Open?	YES	*
-gen	15	sport	Did Stan Wawrinka win the French Open 2014?	YES	*
+gen	15	sport	Did Rafael Nadal win the French Open 2014?	NO	*
+gen	15	sport	Will Tomas Berdych win the French Open 2014?	NO	*
 gen	15	sport	Did Tomas Berdych win the French Open 2014?	NO	*
 gen	15	sport	Did Kei Nishikori win the French Open 2014?	NO	*
+gen	15	sport	Will David Ferrer win the French Open 2014?	NO	*
 gen	15	sport	Did David Ferrer win the French Open 2014?	NO	*
-gen	15	sport	Did Richard Gasquet win the French Open 2014?	NO	*
+gen	15	sport	Will Jo-Wilfried Tsonga win the French Open 2014?	NO	*
 gen	15	sport	Did Jo-Wilfried Tsonga win the French Open 2014?	NO	*
+gen	15	sport	Will John Isner win the French Open 2014?	NO	*
 gen	15	sport	Did John Isner win the French Open 2014?	NO	*
+gen	15	sport	Will Kevin Anderson win the French Open 2014?	NO	*
+gen	15	sport	Did Kevin Anderson win the French Open 2014?	NO	*
+gen	15	sport	Will Marin Cilic win the French Open 2014?	NO	*
 gen	15	sport	Did Marin Cilic win the French Open 2014?	NO	*
+gen	15	sport	Will Milos Raonic win the French Open 2014?	NO	*
 gen	15	sport	Did Milos Raonic win the French Open 2014?	NO	*
-gen	15	sport	Did Gilles Simon win the French Open 2014?	NO	*
+gen	15	sport	Will Gilles Simon win the French Open 2014?	NO	*
+gen	15	sport	Will David Goffin win the French Open 2014?	NO	*
 gen	15	sport	Did David Goffin win the French Open 2014?	NO	*
 gen	15	sport	Did Bernard Tomic win the French Open 2014?	NO	*
+gen	15	sport	Will Benoit Paire win the French Open 2014?	NO	*
 gen	15	sport	Did Benoit Paire win the French Open 2014?	NO	*
-gen	15	sport	Did Serena Williams win the French Open 2014?	NO	*
+gen	15	sport	Will Serena Williams win the French Open 2014?	NO	*
+gen	15	sport	Did Simona Halep win the French Open 2014?	NO	*
+gen	15	sport	Will Garbine Muguruza win the French Open 2014?	NO	*
 gen	15	sport	Did Garbine Muguruza win the French Open 2014?	NO	*
-gen	15	sport	Did Agnieszka Radwanska win the French Open 2014?	NO	*
+gen	15	sport	Will Agnieszka Radwanska win the French Open 2014?	NO	*
+gen	15	sport	Will Maria Sharapova win the French Open 2014?	NO	*
 gen	15	sport	Did Maria Sharapova win the French Open 2014?	NO	*
+gen	15	sport	Will Angelique Kerber win the French Open 2014?	NO	*
+gen	15	sport	Did Angelique Kerber win the French Open 2014?	NO	*
+gen	15	sport	Will Petra Kvitova win the French Open 2014?	NO	*
 gen	15	sport	Did Petra Kvitova win the French Open 2014?	NO	*
 gen	15	sport	Did Flavia Pennetta win the French Open 2014?	NO	*
+gen	15	sport	Will Lucie Safarova win the French Open 2014?	NO	*
 gen	15	sport	Did Lucie Safarova win the French Open 2014?	NO	*
+gen	15	sport	Will Venus Williams win the French Open 2014?	NO	*
 gen	15	sport	Did Venus Williams win the French Open 2014?	NO	*
+gen	15	sport	Will Carla Suarez Navarro win the French Open 2014?	NO	*
 gen	15	sport	Did Carla Suarez Navarro win the French Open 2014?	NO	*
+gen	15	sport	Did Karolina Pliskova win the French Open 2014?	NO	*
+gen	15	sport	Will Belinda Bencic win the French Open 2014?	NO	*
+gen	15	sport	Did Belinda Bencic win the French Open 2014?	NO	*
 gen	15	sport	Did Timea Bacsinszky win the French Open 2014?	NO	*
+gen	15	sport	Will Roberta Vinci win the French Open 2014?	NO	*
 gen	15	sport	Did Roberta Vinci win the French Open 2014?	NO	*
+gen	15	sport	Will Victoria Azarenka win the French Open 2014?	NO	*
 gen	15	sport	Did Victoria Azarenka win the French Open 2014?	NO	*
-gen	15	sport	Did Svetlana Kuznetsova win the French Open 2014?	NO	*
+gen	15	sport	Will Caroline Wozniacki win the French Open 2014?	NO	*
+gen	15	sport	Did Caroline Wozniacki win the French Open 2014?	NO	*
+gen	15	sport	Will Sara Errani win the French Open 2014?	NO	*
+gen	15	sport	Will Elina Svitolina win the French Open 2014?	NO	*
 gen	15	sport	Did Elina Svitolina win the French Open 2014?	NO	*
+gen	15	sport	Will Li Na win the French Open 2014?	YES	*
+gen	15	sport	Did Li Na win the French Open 2014?	YES	*
 gen	15	sport	will Li Na win the French Open 2014 finals?	YES	*
 gen	15	sport	will Li Na win the French Open 2014 semi-finals?	YES	*
 gen	15	sport	will Li Na win the French Open 2014 quarter-finals?	YES	*
@@ -237,7 +190,6 @@ gen	15	sport	did Li Na win the French Open finals?	YES	*
 gen	15	sport	did Li Na win the French Open semi-finals?	YES	*
 gen	15	sport	did Li Na win the French Open quarter-finals?	YES	*
 gen	15	sport	did Li Na qualify for the French Open?	YES	*
-gen	15	sport	Did Li Na win the French Open 2014?	YES	*
 gen	20	politics	Will Saxby Chambliss become the Georgia senator?	YES	*
 gen	20	politics	Will Jim Inhofe become the Georgia senator?	NO	*
 gen	20	politics	Did Saxby Chambliss become the Georgia senator?	YES	*

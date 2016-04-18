@@ -256,62 +256,35 @@ MT	36QZ6V158986K2NWEEERTC885SSSUM	sport	Will Tiger Woods win the 2015 US Open?	N
 MT	36QZ6V158986K2NWEEERTC885SSSUM	stock market	Does BSE SENSEX fell over 1600 points in August 2015?	YES	http://www.financialexpress.com/article/markets/indian-markets/sensex-falls-over-1000-points-intraday-august-24-2015-reasons-why-plunge/124591/
 MT	36QZ6V158986K2NWEEERTC885SSSUM		Was Sgt. Bergdahl released by the Taliban?	YES	http://www.nbcnews.com/storyline/bowe-bergdahl-released
 MT	36QZ6V158986K2NWEEERTC885SSSUM	politics	Will Russian troops enter the Ukraine in 2014?	YES	http://www.bbc.com/news/world-europe-30025138
+gen	0	sport	Did the Arizona Cardinals win the Super Bowl 2015?	NO	*
 gen	0	sport	Will the Chicago Bears win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Green Bay Packers win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the New York Giants win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Washington Redskins win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Philadelphia Eagles win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Pittsburgh Steelers win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Los Angeles Rams win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the San Francisco 49ers win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Indianapolis Colts win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Kansas City Chiefs win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the San Diego Chargers win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Denver Broncos win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the New York Jets win the Super Bowl 2015?	NO	*
-gen	0	sport	will the New England Patriots win the Super Bowl 2015 finals?	YES	*
-gen	0	sport	will the New England Patriots win the Super Bowl 2015 semi-finals?	YES	*
-gen	0	sport	will the New England Patriots win the Super Bowl 2015 quarter-finals?	YES	*
-gen	0	sport	will the New England Patriots qualify for the Super Bowl 2015?	YES	*
-gen	0	sport	will the New England Patriots win the Super Bowl finals?	YES	*
-gen	0	sport	will the New England Patriots win the Super Bowl semi-finals?	YES	*
-gen	0	sport	will the New England Patriots win the Super Bowl quarter-finals?	YES	*
-gen	0	sport	will the New England Patriots qualify for the Super Bowl?	YES	*
-gen	0	sport	did the New England Patriots win the Super Bowl 2015 finals?	YES	*
-gen	0	sport	did the New England Patriots win the Super Bowl 2015 semi-finals?	YES	*
-gen	0	sport	did the New England Patriots win the Super Bowl 2015 quarter-finals?	YES	*
-gen	0	sport	did the New England Patriots qualify for the Super Bowl 2015?	YES	*
-gen	0	sport	did the New England Patriots win the Super Bowl finals?	YES	*
-gen	0	sport	did the New England Patriots win the Super Bowl semi-finals?	YES	*
-gen	0	sport	did the New England Patriots win the Super Bowl quarter-finals?	YES	*
-gen	0	sport	did the New England Patriots qualify for the Super Bowl?	YES	*
-gen	0	sport	Will the New England Patriots win the Super Bowl 2015?	YES	*
-gen	0	sport	Will the Oakland Raiders win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Tennessee Titans win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Buffalo Bills win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Minnesota Vikings win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Atlanta Falcons win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Miami Dolphins win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the New Orleans Saints win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Seattle Seahawks win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Tampa Bay Buccaneers win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Carolina Panthers win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Jacksonville Jaguars win the Super Bowl 2015?	NO	*
-gen	0	sport	Will the Houston Texans win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Chicago Bears win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Green Bay Packers win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the New York Giants win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the New York Giants win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Detroit Lions win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Detroit Lions win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Washington Redskins win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Philadelphia Eagles win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Pittsburgh Steelers win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Pittsburgh Steelers win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Los Angeles Rams win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Los Angeles Rams win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the San Francisco 49ers win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the San Francisco 49ers win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Cleveland Browns win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Cleveland Browns win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Indianapolis Colts win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Indianapolis Colts win the Super Bowl 2015?	NO	*
+gen	0	sport	Did the Dallas Cowboys win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Kansas City Chiefs win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Kansas City Chiefs win the Super Bowl 2015?	NO	*
-gen	0	sport	Did the San Diego Chargers win the Super Bowl 2015?	NO	*
-gen	0	sport	Did the Denver Broncos win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the San Diego Chargers win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Denver Broncos win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the New York Jets win the Super Bowl 2015?	NO	*
+gen	0	sport	Did the New York Jets win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the New England Patriots win the Super Bowl 2015?	YES	*
+gen	0	sport	Did the New England Patriots win the Super Bowl 2015?	YES	*
 gen	0	sport	will the New England Patriots win the Super Bowl 2015 finals?	YES	*
 gen	0	sport	will the New England Patriots win the Super Bowl 2015 semi-finals?	YES	*
 gen	0	sport	will the New England Patriots win the Super Bowl 2015 quarter-finals?	YES	*
@@ -328,79 +301,67 @@ gen	0	sport	did the New England Patriots win the Super Bowl finals?	YES	*
 gen	0	sport	did the New England Patriots win the Super Bowl semi-finals?	YES	*
 gen	0	sport	did the New England Patriots win the Super Bowl quarter-finals?	YES	*
 gen	0	sport	did the New England Patriots qualify for the Super Bowl?	YES	*
-gen	0	sport	Did the New England Patriots win the Super Bowl 2015?	YES	*
+gen	0	sport	Will the Oakland Raiders win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Oakland Raiders win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Tennessee Titans win the Super Bowl 2015?	NO	*
+gen	0	sport	Did the Tennessee Titans win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Buffalo Bills win the Super Bowl 2015?	NO	*
+gen	0	sport	Did the Buffalo Bills win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Minnesota Vikings win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Minnesota Vikings win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Atlanta Falcons win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Miami Dolphins win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Miami Dolphins win the Super Bowl 2015?	NO	*
-gen	0	sport	Did the New Orleans Saints win the Super Bowl 2015?	NO	*
-gen	0	sport	Did the Cincinnati Bengals win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the New Orleans Saints win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Cincinnati Bengals win the Super Bowl 2015?	NO	*
+gen	0	sport	Did the Seattle Seahawks win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Tampa Bay Buccaneers win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Carolina Panthers win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Carolina Panthers win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Jacksonville Jaguars win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Baltimore Ravens win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Baltimore Ravens win the Super Bowl 2015?	NO	*
+gen	0	sport	Will the Houston Texans win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the Houston Texans win the Super Bowl 2015?	NO	*
 gen	2	sport	Will the Boston Celtics win the NBA championship 2015?	NO	*
+gen	2	sport	Did the Boston Celtics win the NBA championship 2015?	NO	*
 gen	2	sport	Will the New Jersey Nets win the NBA championship 2015?	NO	*
+gen	2	sport	Did the New Jersey Nets win the NBA championship 2015?	NO	*
 gen	2	sport	Will the New York Knicks win the NBA championship 2015?	NO	*
+gen	2	sport	Did the New York Knicks win the NBA championship 2015?	NO	*
 gen	2	sport	Will the Philadelphia 76ers win the NBA championship 2015?	NO	*
 gen	2	sport	Will the Toronto Raptors win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Chicago Bulls win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Cleveland Cavaliers win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Indiana Pacers win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Milwaukee Bucks win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Atlanta Hawks win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Charlotte Bobcats win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Miami Heat win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Orlando Magic win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Washington Wizards win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Denver Nuggets win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Minnesota Timberwolves win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Oklahoma City Thunder win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Portland Trail Blazers win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Utah Jazz win the NBA championship 2015?	NO	*
-gen	2	sport	will the Golden State Warriors win the NBA championship 2015 finals?	YES	*
-gen	2	sport	will the Golden State Warriors win the NBA championship 2015 semi-finals?	YES	*
-gen	2	sport	will the Golden State Warriors win the NBA championship 2015 quarter-finals?	YES	*
-gen	2	sport	will the Golden State Warriors qualify for the NBA championship 2015?	YES	*
-gen	2	sport	will the Golden State Warriors win the NBA championship finals?	YES	*
-gen	2	sport	will the Golden State Warriors win the NBA championship semi-finals?	YES	*
-gen	2	sport	will the Golden State Warriors win the NBA championship quarter-finals?	YES	*
-gen	2	sport	will the Golden State Warriors qualify for the NBA championship?	YES	*
-gen	2	sport	did the Golden State Warriors win the NBA championship 2015 finals?	YES	*
-gen	2	sport	did the Golden State Warriors win the NBA championship 2015 semi-finals?	YES	*
-gen	2	sport	did the Golden State Warriors win the NBA championship 2015 quarter-finals?	YES	*
-gen	2	sport	did the Golden State Warriors qualify for the NBA championship 2015?	YES	*
-gen	2	sport	did the Golden State Warriors win the NBA championship finals?	YES	*
-gen	2	sport	did the Golden State Warriors win the NBA championship semi-finals?	YES	*
-gen	2	sport	did the Golden State Warriors win the NBA championship quarter-finals?	YES	*
-gen	2	sport	did the Golden State Warriors qualify for the NBA championship?	YES	*
-gen	2	sport	Will the Golden State Warriors win the NBA championship 2015?	YES	*
-gen	2	sport	Will the Los Angeles Lakers win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Sacramento Kings win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Dallas Mavericks win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Houston Rockets win the NBA championship 2015?	NO	*
-gen	2	sport	Will the Memphis Grizzlies win the NBA championship 2015?	NO	*
-gen	2	sport	Will the New Orleans Hornets win the NBA championship 2015?	NO	*
-gen	2	sport	Will the San Antonio Spurs win the NBA championship 2015?	NO	*
-gen	2	sport	Did the Boston Celtics win the NBA championship 2015?	NO	*
-gen	2	sport	Did the New Jersey Nets win the NBA championship 2015?	NO	*
-gen	2	sport	Did the Philadelphia 76ers win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Toronto Raptors win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Chicago Bulls win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Cleveland Cavaliers win the NBA championship 2015?	NO	*
+gen	2	sport	Did the Cleveland Cavaliers win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Detroit Pistons win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Detroit Pistons win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Indiana Pacers win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Milwaukee Bucks win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Milwaukee Bucks win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Southeast win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Southeast win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Atlanta Hawks win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Charlotte Bobcats win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Miami Heat win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Miami Heat win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Orlando Magic win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Orlando Magic win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Washington Wizards win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Washington Wizards win the NBA championship 2015?	NO	*
-gen	2	sport	Did the Western Conference win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Western Conference win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Denver Nuggets win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Denver Nuggets win the NBA championship 2015?	NO	*
-gen	2	sport	Did the Minnesota Timberwolves win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Minnesota Timberwolves win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Oklahoma City Thunder win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Oklahoma City Thunder win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Portland Trail Blazers win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Portland Trail Blazers win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Utah Jazz win the NBA championship 2015?	NO	*
+gen	2	sport	Did the Utah Jazz win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Golden State Warriors win the NBA championship 2015?	YES	*
+gen	2	sport	Did the Golden State Warriors win the NBA championship 2015?	YES	*
 gen	2	sport	will the Golden State Warriors win the NBA championship 2015 finals?	YES	*
 gen	2	sport	will the Golden State Warriors win the NBA championship 2015 semi-finals?	YES	*
 gen	2	sport	will the Golden State Warriors win the NBA championship 2015 quarter-finals?	YES	*
@@ -417,78 +378,70 @@ gen	2	sport	did the Golden State Warriors win the NBA championship finals?	YES	*
 gen	2	sport	did the Golden State Warriors win the NBA championship semi-finals?	YES	*
 gen	2	sport	did the Golden State Warriors win the NBA championship quarter-finals?	YES	*
 gen	2	sport	did the Golden State Warriors qualify for the NBA championship?	YES	*
-gen	2	sport	Did the Golden State Warriors win the NBA championship 2015?	YES	*
+gen	2	sport	Will the Los Angeles Clippers win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Los Angeles Clippers win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Los Angeles Lakers win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Los Angeles Lakers win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Phoenix Suns win the NBA championship 2015?	NO	*
+gen	2	sport	Did the Phoenix Suns win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Sacramento Kings win the NBA championship 2015?	NO	*
+gen	2	sport	Did the Sacramento Kings win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Dallas Mavericks win the NBA championship 2015?	NO	*
-gen	2	sport	Did the Houston Rockets win the NBA championship 2015?	NO	*
+gen	2	sport	Will the Houston Rockets win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Memphis Grizzlies win the NBA championship 2015?	NO	*
+gen	2	sport	Will the New Orleans Hornets win the NBA championship 2015?	NO	*
+gen	2	sport	Did the New Orleans Hornets win the NBA championship 2015?	NO	*
 gen	2	sport	Did the San Antonio Spurs win the NBA championship 2015?	NO	*
 gen	3	sport	Will the Boston Celtics win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Boston Celtics win the NBA championship 2014?	NO	*
 gen	3	sport	Will the New Jersey Nets win the NBA championship 2014?	NO	*
+gen	3	sport	Did the New Jersey Nets win the NBA championship 2014?	NO	*
 gen	3	sport	Will the New York Knicks win the NBA championship 2014?	NO	*
+gen	3	sport	Did the New York Knicks win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Philadelphia 76ers win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Toronto Raptors win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Chicago Bulls win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Chicago Bulls win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Cleveland Cavaliers win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Cleveland Cavaliers win the NBA championship 2014?	NO	*
+gen	3	sport	Will the Detroit Pistons win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Indiana Pacers win the NBA championship 2014?	NO	*
-gen	3	sport	Will the Southeast win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Indiana Pacers win the NBA championship 2014?	NO	*
+gen	3	sport	Will the Milwaukee Bucks win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Milwaukee Bucks win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Southeast win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Atlanta Hawks win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Atlanta Hawks win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Charlotte Bobcats win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Charlotte Bobcats win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Miami Heat win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Miami Heat win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Orlando Magic win the NBA championship 2014?	NO	*
+gen	3	sport	Will the Washington Wizards win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Washington Wizards win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Western Conference win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Western Conference win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Denver Nuggets win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Minnesota Timberwolves win the NBA championship 2014?	NO	*
-gen	3	sport	Will the Oklahoma City Thunder win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Minnesota Timberwolves win the NBA championship 2014?	NO	*
+gen	3	sport	Did the Oklahoma City Thunder win the NBA championship 2014?	NO	*
+gen	3	sport	Will the Portland Trail Blazers win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Utah Jazz win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Golden State Warriors win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Los Angeles Clippers win the NBA championship 2014?	NO	*
 gen	3	sport	Will the Los Angeles Lakers win the NBA championship 2014?	NO	*
-gen	3	sport	Will the Phoenix Suns win the NBA championship 2014?	NO	*
-gen	3	sport	Will the Sacramento Kings win the NBA championship 2014?	NO	*
-gen	3	sport	Will the Dallas Mavericks win the NBA championship 2014?	NO	*
-gen	3	sport	Will the Houston Rockets win the NBA championship 2014?	NO	*
-gen	3	sport	Will the New Orleans Hornets win the NBA championship 2014?	NO	*
-gen	3	sport	will the San Antonio Spurs win the NBA championship 2014 finals?	YES	*
-gen	3	sport	will the San Antonio Spurs win the NBA championship 2014 semi-finals?	YES	*
-gen	3	sport	will the San Antonio Spurs win the NBA championship 2014 quarter-finals?	YES	*
-gen	3	sport	will the San Antonio Spurs qualify for the NBA championship 2014?	YES	*
-gen	3	sport	will the San Antonio Spurs win the NBA championship finals?	YES	*
-gen	3	sport	will the San Antonio Spurs win the NBA championship semi-finals?	YES	*
-gen	3	sport	will the San Antonio Spurs win the NBA championship quarter-finals?	YES	*
-gen	3	sport	will the San Antonio Spurs qualify for the NBA championship?	YES	*
-gen	3	sport	did the San Antonio Spurs win the NBA championship 2014 finals?	YES	*
-gen	3	sport	did the San Antonio Spurs win the NBA championship 2014 semi-finals?	YES	*
-gen	3	sport	did the San Antonio Spurs win the NBA championship 2014 quarter-finals?	YES	*
-gen	3	sport	did the San Antonio Spurs qualify for the NBA championship 2014?	YES	*
-gen	3	sport	did the San Antonio Spurs win the NBA championship finals?	YES	*
-gen	3	sport	did the San Antonio Spurs win the NBA championship semi-finals?	YES	*
-gen	3	sport	did the San Antonio Spurs win the NBA championship quarter-finals?	YES	*
-gen	3	sport	did the San Antonio Spurs qualify for the NBA championship?	YES	*
-gen	3	sport	Will the San Antonio Spurs win the NBA championship 2014?	YES	*
-gen	3	sport	Did the Boston Celtics win the NBA championship 2014?	NO	*
-gen	3	sport	Did the New Jersey Nets win the NBA championship 2014?	NO	*
-gen	3	sport	Did the New York Knicks win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Philadelphia 76ers win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Chicago Bulls win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Cleveland Cavaliers win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Indiana Pacers win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Milwaukee Bucks win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Atlanta Hawks win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Miami Heat win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Washington Wizards win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Denver Nuggets win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Minnesota Timberwolves win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Oklahoma City Thunder win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Los Angeles Clippers win the NBA championship 2014?	NO	*
 gen	3	sport	Did the Los Angeles Lakers win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Phoenix Suns win the NBA championship 2014?	NO	*
-gen	3	sport	Did the Sacramento Kings win the NBA championship 2014?	NO	*
+gen	3	sport	Will the Phoenix Suns win the NBA championship 2014?	NO	*
+gen	3	sport	Will the Dallas Mavericks win the NBA championship 2014?	NO	*
 gen	3	sport	Did the Dallas Mavericks win the NBA championship 2014?	NO	*
+gen	3	sport	Will the Houston Rockets win the NBA championship 2014?	NO	*
 gen	3	sport	Did the Houston Rockets win the NBA championship 2014?	NO	*
+gen	3	sport	Will the Memphis Grizzlies win the NBA championship 2014?	NO	*
 gen	3	sport	Did the Memphis Grizzlies win the NBA championship 2014?	NO	*
+gen	3	sport	Will the New Orleans Hornets win the NBA championship 2014?	NO	*
 gen	3	sport	Did the New Orleans Hornets win the NBA championship 2014?	NO	*
+gen	3	sport	Will the San Antonio Spurs win the NBA championship 2014?	YES	*
+gen	3	sport	Did the San Antonio Spurs win the NBA championship 2014?	YES	*
 gen	3	sport	will the San Antonio Spurs win the NBA championship 2014 finals?	YES	*
 gen	3	sport	will the San Antonio Spurs win the NBA championship 2014 semi-finals?	YES	*
 gen	3	sport	will the San Antonio Spurs win the NBA championship 2014 quarter-finals?	YES	*
@@ -505,66 +458,46 @@ gen	3	sport	did the San Antonio Spurs win the NBA championship finals?	YES	*
 gen	3	sport	did the San Antonio Spurs win the NBA championship semi-finals?	YES	*
 gen	3	sport	did the San Antonio Spurs win the NBA championship quarter-finals?	YES	*
 gen	3	sport	did the San Antonio Spurs qualify for the NBA championship?	YES	*
-gen	3	sport	Did the San Antonio Spurs win the NBA championship 2014?	YES	*
+gen	4	sport	Did the Atlanta Braves win the World Series 2015?	NO	*
 gen	4	sport	Will the Florida Marlins win the World Series 2015?	NO	*
+gen	4	sport	Did the Florida Marlins win the World Series 2015?	NO	*
 gen	4	sport	Will the New York Mets win the World Series 2015?	NO	*
+gen	4	sport	Did the New York Mets win the World Series 2015?	NO	*
 gen	4	sport	Will the Philadelphia Phillies win the World Series 2015?	NO	*
+gen	4	sport	Did the Philadelphia Phillies win the World Series 2015?	NO	*
 gen	4	sport	Will the Washington Nationals win the World Series 2015?	NO	*
-gen	4	sport	Will the Chicago Cubs win the World Series 2015?	NO	*
+gen	4	sport	Did the Washington Nationals win the World Series 2015?	NO	*
 gen	4	sport	Will the Cincinnati Reds win the World Series 2015?	NO	*
+gen	4	sport	Did the Cincinnati Reds win the World Series 2015?	NO	*
 gen	4	sport	Will the Houston Astros win the World Series 2015?	NO	*
+gen	4	sport	Did the Houston Astros win the World Series 2015?	NO	*
 gen	4	sport	Will the Milwaukee Brewers win the World Series 2015?	NO	*
 gen	4	sport	Will the Pittsburgh Pirates win the World Series 2015?	NO	*
-gen	4	sport	Will the Colorado Rockies win the World Series 2015?	NO	*
-gen	4	sport	Will the Los Angeles Dodgers win the World Series 2015?	NO	*
-gen	4	sport	Will the San Diego Padres win the World Series 2015?	NO	*
-gen	4	sport	Will the San Francisco Giants win the World Series 2015?	NO	*
-gen	4	sport	Will the Baltimore Orioles win the World Series 2015?	NO	*
-gen	4	sport	Will the New York Yankees win the World Series 2015?	NO	*
-gen	4	sport	Will the Tampa Bay Rays win the World Series 2015?	NO	*
-gen	4	sport	Will the Toronto Blue Jays win the World Series 2015?	NO	*
-gen	4	sport	Will the Chicago White Sox win the World Series 2015?	NO	*
-gen	4	sport	Will the Cleveland Indians win the World Series 2015?	NO	*
-gen	4	sport	Will the Detroit Tigers win the World Series 2015?	NO	*
-gen	4	sport	will the Kansas City Royals win the World Series 2015 finals?	YES	*
-gen	4	sport	will the Kansas City Royals win the World Series 2015 semi-finals?	YES	*
-gen	4	sport	will the Kansas City Royals win the World Series 2015 quarter-finals?	YES	*
-gen	4	sport	will the Kansas City Royals qualify for the World Series 2015?	YES	*
-gen	4	sport	will the Kansas City Royals win the World Series finals?	YES	*
-gen	4	sport	will the Kansas City Royals win the World Series semi-finals?	YES	*
-gen	4	sport	will the Kansas City Royals win the World Series quarter-finals?	YES	*
-gen	4	sport	will the Kansas City Royals qualify for the World Series?	YES	*
-gen	4	sport	did the Kansas City Royals win the World Series 2015 finals?	YES	*
-gen	4	sport	did the Kansas City Royals win the World Series 2015 semi-finals?	YES	*
-gen	4	sport	did the Kansas City Royals win the World Series 2015 quarter-finals?	YES	*
-gen	4	sport	did the Kansas City Royals qualify for the World Series 2015?	YES	*
-gen	4	sport	did the Kansas City Royals win the World Series finals?	YES	*
-gen	4	sport	did the Kansas City Royals win the World Series semi-finals?	YES	*
-gen	4	sport	did the Kansas City Royals win the World Series quarter-finals?	YES	*
-gen	4	sport	did the Kansas City Royals qualify for the World Series?	YES	*
-gen	4	sport	Will the Kansas City Royals win the World Series 2015?	YES	*
-gen	4	sport	Will the Minnesota Twins win the World Series 2015?	NO	*
-gen	4	sport	Will the Los Angeles Angels win the World Series 2015?	NO	*
-gen	4	sport	Will the Texas Rangers win the World Series 2015?	NO	*
-gen	4	sport	Did the Atlanta Braves win the World Series 2015?	NO	*
-gen	4	sport	Did the Florida Marlins win the World Series 2015?	NO	*
-gen	4	sport	Did the New York Mets win the World Series 2015?	NO	*
-gen	4	sport	Did the Philadelphia Phillies win the World Series 2015?	NO	*
-gen	4	sport	Did the Washington Nationals win the World Series 2015?	NO	*
-gen	4	sport	Did the Chicago Cubs win the World Series 2015?	NO	*
-gen	4	sport	Did the Cincinnati Reds win the World Series 2015?	NO	*
-gen	4	sport	Did the Milwaukee Brewers win the World Series 2015?	NO	*
 gen	4	sport	Did the Pittsburgh Pirates win the World Series 2015?	NO	*
+gen	4	sport	Will the St. Louis Cardinals win the World Series 2015?	NO	*
+gen	4	sport	Did the St. Louis Cardinals win the World Series 2015?	NO	*
+gen	4	sport	Will the Arizona Diamondbacks win the World Series 2015?	NO	*
 gen	4	sport	Did the Arizona Diamondbacks win the World Series 2015?	NO	*
+gen	4	sport	Will the Colorado Rockies win the World Series 2015?	NO	*
 gen	4	sport	Did the Colorado Rockies win the World Series 2015?	NO	*
-gen	4	sport	Did the Los Angeles Dodgers win the World Series 2015?	NO	*
+gen	4	sport	Will the San Diego Padres win the World Series 2015?	NO	*
 gen	4	sport	Did the San Diego Padres win the World Series 2015?	NO	*
+gen	4	sport	Will the San Francisco Giants win the World Series 2015?	NO	*
+gen	4	sport	Did the San Francisco Giants win the World Series 2015?	NO	*
+gen	4	sport	Will the Baltimore Orioles win the World Series 2015?	NO	*
+gen	4	sport	Did the Baltimore Orioles win the World Series 2015?	NO	*
+gen	4	sport	Will the Boston Red Sox win the World Series 2015?	NO	*
 gen	4	sport	Did the Boston Red Sox win the World Series 2015?	NO	*
 gen	4	sport	Did the New York Yankees win the World Series 2015?	NO	*
-gen	4	sport	Did the Tampa Bay Rays win the World Series 2015?	NO	*
+gen	4	sport	Will the Tampa Bay Rays win the World Series 2015?	NO	*
+gen	4	sport	Will the Toronto Blue Jays win the World Series 2015?	NO	*
+gen	4	sport	Did the Toronto Blue Jays win the World Series 2015?	NO	*
+gen	4	sport	Will the Chicago White Sox win the World Series 2015?	NO	*
 gen	4	sport	Did the Chicago White Sox win the World Series 2015?	NO	*
-gen	4	sport	Did the Cleveland Indians win the World Series 2015?	NO	*
+gen	4	sport	Will the Detroit Tigers win the World Series 2015?	NO	*
 gen	4	sport	Did the Detroit Tigers win the World Series 2015?	NO	*
+gen	4	sport	Will the Kansas City Royals win the World Series 2015?	YES	*
+gen	4	sport	Did the Kansas City Royals win the World Series 2015?	YES	*
 gen	4	sport	will the Kansas City Royals win the World Series 2015 finals?	YES	*
 gen	4	sport	will the Kansas City Royals win the World Series 2015 semi-finals?	YES	*
 gen	4	sport	will the Kansas City Royals win the World Series 2015 quarter-finals?	YES	*
@@ -581,63 +514,40 @@ gen	4	sport	did the Kansas City Royals win the World Series finals?	YES	*
 gen	4	sport	did the Kansas City Royals win the World Series semi-finals?	YES	*
 gen	4	sport	did the Kansas City Royals win the World Series quarter-finals?	YES	*
 gen	4	sport	did the Kansas City Royals qualify for the World Series?	YES	*
-gen	4	sport	Did the Kansas City Royals win the World Series 2015?	YES	*
-gen	4	sport	Did the Minnesota Twins win the World Series 2015?	NO	*
+gen	4	sport	Will the Minnesota Twins win the World Series 2015?	NO	*
+gen	4	sport	Will the Los Angeles Angels win the World Series 2015?	NO	*
 gen	4	sport	Did the Los Angeles Angels win the World Series 2015?	NO	*
+gen	4	sport	Will the Oakland Athletics win the World Series 2015?	NO	*
 gen	4	sport	Did the Oakland Athletics win the World Series 2015?	NO	*
+gen	4	sport	Will the Seattle Mariners win the World Series 2015?	NO	*
+gen	4	sport	Did the Seattle Mariners win the World Series 2015?	NO	*
 gen	4	sport	Did the Texas Rangers win the World Series 2015?	NO	*
 gen	6	sport	Will the New Jersey Devils win the Stanley Cup 2015?	NO	*
+gen	6	sport	Did the New Jersey Devils win the Stanley Cup 2015?	NO	*
 gen	6	sport	Will the New York Islanders win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the New York Rangers win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Philadelphia Flyers win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Pittsburgh Penguins win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Boston Bruins win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Buffalo Sabers win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Montreal Canadiens win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Ottawa Senators win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Toronto Maple Leafs win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Atlanta Thrashers win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Carolina Hurricanes win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Tampa Bay Lightning win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Washington Capitals win the Stanley Cup 2015?	NO	*
-gen	6	sport	will the Chicago Blackhawks win the Stanley Cup 2015 finals?	YES	*
-gen	6	sport	will the Chicago Blackhawks win the Stanley Cup 2015 semi-finals?	YES	*
-gen	6	sport	will the Chicago Blackhawks win the Stanley Cup 2015 quarter-finals?	YES	*
-gen	6	sport	will the Chicago Blackhawks qualify for the Stanley Cup 2015?	YES	*
-gen	6	sport	will the Chicago Blackhawks win the Stanley Cup finals?	YES	*
-gen	6	sport	will the Chicago Blackhawks win the Stanley Cup semi-finals?	YES	*
-gen	6	sport	will the Chicago Blackhawks win the Stanley Cup quarter-finals?	YES	*
-gen	6	sport	will the Chicago Blackhawks qualify for the Stanley Cup?	YES	*
-gen	6	sport	did the Chicago Blackhawks win the Stanley Cup 2015 finals?	YES	*
-gen	6	sport	did the Chicago Blackhawks win the Stanley Cup 2015 semi-finals?	YES	*
-gen	6	sport	did the Chicago Blackhawks win the Stanley Cup 2015 quarter-finals?	YES	*
-gen	6	sport	did the Chicago Blackhawks qualify for the Stanley Cup 2015?	YES	*
-gen	6	sport	did the Chicago Blackhawks win the Stanley Cup finals?	YES	*
-gen	6	sport	did the Chicago Blackhawks win the Stanley Cup semi-finals?	YES	*
-gen	6	sport	did the Chicago Blackhawks win the Stanley Cup quarter-finals?	YES	*
-gen	6	sport	did the Chicago Blackhawks qualify for the Stanley Cup?	YES	*
-gen	6	sport	Will the Chicago Blackhawks win the Stanley Cup 2015?	YES	*
-gen	6	sport	Will the Detroit Red Wings win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Nashville Predators win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the St. Louis Blues win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Calgary Flames win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Edmonton Oilers win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Minnesota Wild win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Vancouver Canucks win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Los Angeles Kings win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the Phoenix Coyotes win the Stanley Cup 2015?	NO	*
-gen	6	sport	Will the San Jose Sharks win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the New York Islanders win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the New York Rangers win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the New York Rangers win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Philadelphia Flyers win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Philadelphia Flyers win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Pittsburgh Penguins win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Pittsburgh Penguins win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Boston Bruins win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Boston Bruins win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Buffalo Sabers win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Montreal Canadiens win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Ottawa Senators win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Ottawa Senators win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Toronto Maple Leafs win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Toronto Maple Leafs win the Stanley Cup 2015?	NO	*
+gen	6	sport	Did the Atlanta Thrashers win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Carolina Hurricanes win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Carolina Hurricanes win the Stanley Cup 2015?	NO	*
-gen	6	sport	Did the Florida Panthers win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Tampa Bay Lightning win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Tampa Bay Lightning win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Washington Capitals win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Chicago Blackhawks win the Stanley Cup 2015?	YES	*
+gen	6	sport	Did the Chicago Blackhawks win the Stanley Cup 2015?	YES	*
 gen	6	sport	will the Chicago Blackhawks win the Stanley Cup 2015 finals?	YES	*
 gen	6	sport	will the Chicago Blackhawks win the Stanley Cup 2015 semi-finals?	YES	*
 gen	6	sport	will the Chicago Blackhawks win the Stanley Cup 2015 quarter-finals?	YES	*
@@ -654,82 +564,75 @@ gen	6	sport	did the Chicago Blackhawks win the Stanley Cup finals?	YES	*
 gen	6	sport	did the Chicago Blackhawks win the Stanley Cup semi-finals?	YES	*
 gen	6	sport	did the Chicago Blackhawks win the Stanley Cup quarter-finals?	YES	*
 gen	6	sport	did the Chicago Blackhawks qualify for the Stanley Cup?	YES	*
-gen	6	sport	Did the Chicago Blackhawks win the Stanley Cup 2015?	YES	*
+gen	6	sport	Will the Columbus Blue Jackets win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Columbus Blue Jackets win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Detroit Red Wings win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Detroit Red Wings win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Nashville Predators win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Nashville Predators win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the St. Louis Blues win the Stanley Cup 2015?	NO	*
-gen	6	sport	Did the Calgary Flames win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Calgary Flames win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Colorado Avalanche win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Colorado Avalanche win the Stanley Cup 2015?	NO	*
-gen	6	sport	Did the Edmonton Oilers win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Edmonton Oilers win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Minnesota Wild win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Minnesota Wild win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Vancouver Canucks win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Vancouver Canucks win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Anaheim Ducks win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Anaheim Ducks win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Dallas Stars win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Dallas Stars win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Los Angeles Kings win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Los Angeles Kings win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the Phoenix Coyotes win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the Phoenix Coyotes win the Stanley Cup 2015?	NO	*
+gen	6	sport	Will the San Jose Sharks win the Stanley Cup 2015?	NO	*
 gen	6	sport	Did the San Jose Sharks win the Stanley Cup 2015?	NO	*
 gen	7	sport	Will the New Jersey Devils win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the New Jersey Devils win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the New York Islanders win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the New York Islanders win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the New York Rangers win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the New York Rangers win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Philadelphia Flyers win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Pittsburgh Penguins win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Boston Bruins win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Boston Bruins win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Buffalo Sabers win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Buffalo Sabers win the Stanley Cup 2014?	NO	*
+gen	7	sport	Will the Montreal Canadiens win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Montreal Canadiens win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Ottawa Senators win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Ottawa Senators win the Stanley Cup 2014?	NO	*
+gen	7	sport	Will the Toronto Maple Leafs win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Toronto Maple Leafs win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Atlanta Thrashers win the Stanley Cup 2014?	NO	*
-gen	7	sport	Will the Carolina Hurricanes win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Carolina Hurricanes win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Florida Panthers win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Florida Panthers win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Tampa Bay Lightning win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Tampa Bay Lightning win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Washington Capitals win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Washington Capitals win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Chicago Blackhawks win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Chicago Blackhawks win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Columbus Blue Jackets win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Detroit Red Wings win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Detroit Red Wings win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Nashville Predators win the Stanley Cup 2014?	NO	*
-gen	7	sport	Will the St. Louis Blues win the Stanley Cup 2014?	NO	*
-gen	7	sport	Will the Calgary Flames win the Stanley Cup 2014?	NO	*
-gen	7	sport	Will the Minnesota Wild win the Stanley Cup 2014?	NO	*
-gen	7	sport	Will the Vancouver Canucks win the Stanley Cup 2014?	NO	*
-gen	7	sport	Will the Anaheim Ducks win the Stanley Cup 2014?	NO	*
-gen	7	sport	Will the Dallas Stars win the Stanley Cup 2014?	NO	*
-gen	7	sport	will the Los Angeles Kings win the Stanley Cup 2014 finals?	YES	*
-gen	7	sport	will the Los Angeles Kings win the Stanley Cup 2014 semi-finals?	YES	*
-gen	7	sport	will the Los Angeles Kings win the Stanley Cup 2014 quarter-finals?	YES	*
-gen	7	sport	will the Los Angeles Kings qualify for the Stanley Cup 2014?	YES	*
-gen	7	sport	will the Los Angeles Kings win the Stanley Cup finals?	YES	*
-gen	7	sport	will the Los Angeles Kings win the Stanley Cup semi-finals?	YES	*
-gen	7	sport	will the Los Angeles Kings win the Stanley Cup quarter-finals?	YES	*
-gen	7	sport	will the Los Angeles Kings qualify for the Stanley Cup?	YES	*
-gen	7	sport	did the Los Angeles Kings win the Stanley Cup 2014 finals?	YES	*
-gen	7	sport	did the Los Angeles Kings win the Stanley Cup 2014 semi-finals?	YES	*
-gen	7	sport	did the Los Angeles Kings win the Stanley Cup 2014 quarter-finals?	YES	*
-gen	7	sport	did the Los Angeles Kings qualify for the Stanley Cup 2014?	YES	*
-gen	7	sport	did the Los Angeles Kings win the Stanley Cup finals?	YES	*
-gen	7	sport	did the Los Angeles Kings win the Stanley Cup semi-finals?	YES	*
-gen	7	sport	did the Los Angeles Kings win the Stanley Cup quarter-finals?	YES	*
-gen	7	sport	did the Los Angeles Kings qualify for the Stanley Cup?	YES	*
-gen	7	sport	Will the Los Angeles Kings win the Stanley Cup 2014?	YES	*
-gen	7	sport	Will the Phoenix Coyotes win the Stanley Cup 2014?	NO	*
-gen	7	sport	Will the San Jose Sharks win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the New Jersey Devils win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the New York Islanders win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the New York Rangers win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the Philadelphia Flyers win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the Boston Bruins win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the Buffalo Sabers win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the Montreal Canadiens win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the Ottawa Senators win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the Atlanta Thrashers win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the Washington Capitals win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the Columbus Blue Jackets win the Stanley Cup 2014?	NO	*
 gen	7	sport	Did the Nashville Predators win the Stanley Cup 2014?	NO	*
-gen	7	sport	Did the Calgary Flames win the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the St. Louis Blues win the Stanley Cup 2014?	NO	*
 gen	7	sport	Did the Colorado Avalanche win the Stanley Cup 2014?	NO	*
 gen	7	sport	Did the Edmonton Oilers win the Stanley Cup 2014?	NO	*
 gen	7	sport	Did the Minnesota Wild win the Stanley Cup 2014?	NO	*
 gen	7	sport	Did the Vancouver Canucks win the Stanley Cup 2014?	NO	*
+gen	7	sport	Will the Anaheim Ducks win the Stanley Cup 2014?	NO	*
 gen	7	sport	Did the Anaheim Ducks win the Stanley Cup 2014?	NO	*
+gen	7	sport	Will the Dallas Stars win the Stanley Cup 2014?	NO	*
 gen	7	sport	Did the Dallas Stars win the Stanley Cup 2014?	NO	*
+gen	7	sport	Will the Los Angeles Kings win the Stanley Cup 2014?	YES	*
+gen	7	sport	Did the Los Angeles Kings win the Stanley Cup 2014?	YES	*
 gen	7	sport	will the Los Angeles Kings win the Stanley Cup 2014 finals?	YES	*
 gen	7	sport	will the Los Angeles Kings win the Stanley Cup 2014 semi-finals?	YES	*
 gen	7	sport	will the Los Angeles Kings win the Stanley Cup 2014 quarter-finals?	YES	*
@@ -746,46 +649,22 @@ gen	7	sport	did the Los Angeles Kings win the Stanley Cup finals?	YES	*
 gen	7	sport	did the Los Angeles Kings win the Stanley Cup semi-finals?	YES	*
 gen	7	sport	did the Los Angeles Kings win the Stanley Cup quarter-finals?	YES	*
 gen	7	sport	did the Los Angeles Kings qualify for the Stanley Cup?	YES	*
-gen	7	sport	Did the Los Angeles Kings win the Stanley Cup 2014?	YES	*
+gen	7	sport	Will the Phoenix Coyotes win the Stanley Cup 2014?	NO	*
 gen	7	sport	Did the Phoenix Coyotes win the Stanley Cup 2014?	NO	*
+gen	7	sport	Will the San Jose Sharks win the Stanley Cup 2014?	NO	*
 gen	7	sport	Did the San Jose Sharks win the Stanley Cup 2014?	NO	*
 gen	8	sport	Will the Arsenal win the Premier League 2015?	NO	*
+gen	8	sport	Did the Arsenal win the Premier League 2015?	NO	*
 gen	8	sport	Will the Aston Villa win the Premier League 2015?	NO	*
 gen	8	sport	Will the Birmingham City win the Premier League 2015?	NO	*
-gen	8	sport	Will the Blackpool win the Premier League 2015?	NO	*
-gen	8	sport	Will the Bolton Wanderers win the Premier League 2015?	NO	*
-gen	8	sport	will the Chelsea win the Premier League 2015 finals?	YES	*
-gen	8	sport	will the Chelsea win the Premier League 2015 semi-finals?	YES	*
-gen	8	sport	will the Chelsea win the Premier League 2015 quarter-finals?	YES	*
-gen	8	sport	will the Chelsea qualify for the Premier League 2015?	YES	*
-gen	8	sport	will the Chelsea win the Premier League finals?	YES	*
-gen	8	sport	will the Chelsea win the Premier League semi-finals?	YES	*
-gen	8	sport	will the Chelsea win the Premier League quarter-finals?	YES	*
-gen	8	sport	will the Chelsea qualify for the Premier League?	YES	*
-gen	8	sport	did the Chelsea win the Premier League 2015 finals?	YES	*
-gen	8	sport	did the Chelsea win the Premier League 2015 semi-finals?	YES	*
-gen	8	sport	did the Chelsea win the Premier League 2015 quarter-finals?	YES	*
-gen	8	sport	did the Chelsea qualify for the Premier League 2015?	YES	*
-gen	8	sport	did the Chelsea win the Premier League finals?	YES	*
-gen	8	sport	did the Chelsea win the Premier League semi-finals?	YES	*
-gen	8	sport	did the Chelsea win the Premier League quarter-finals?	YES	*
-gen	8	sport	did the Chelsea qualify for the Premier League?	YES	*
-gen	8	sport	Will the Chelsea win the Premier League 2015?	YES	*
-gen	8	sport	Will the Fulham win the Premier League 2015?	NO	*
-gen	8	sport	Will the Liverpool win the Premier League 2015?	NO	*
-gen	8	sport	Will the Manchester City win the Premier League 2015?	NO	*
-gen	8	sport	Will the Manchester United win the Premier League 2015?	NO	*
-gen	8	sport	Will the Newcastle United win the Premier League 2015?	NO	*
-gen	8	sport	Will the Stoke City win the Premier League 2015?	NO	*
-gen	8	sport	Will the Sunderland win the Premier League 2015?	NO	*
-gen	8	sport	Will the Tottenham Hotspur win the Premier League 2015?	NO	*
-gen	8	sport	Will the West Bromwich Albion win the Premier League 2015?	NO	*
-gen	8	sport	Did the Arsenal win the Premier League 2015?	NO	*
-gen	8	sport	Did the Aston Villa win the Premier League 2015?	NO	*
 gen	8	sport	Did the Birmingham City win the Premier League 2015?	NO	*
 gen	8	sport	Did the Blackburn Rovers win the Premier League 2015?	NO	*
+gen	8	sport	Will the Blackpool win the Premier League 2015?	NO	*
 gen	8	sport	Did the Blackpool win the Premier League 2015?	NO	*
+gen	8	sport	Will the Bolton Wanderers win the Premier League 2015?	NO	*
 gen	8	sport	Did the Bolton Wanderers win the Premier League 2015?	NO	*
+gen	8	sport	Will the Chelsea win the Premier League 2015?	YES	*
+gen	8	sport	Did the Chelsea win the Premier League 2015?	YES	*
 gen	8	sport	will the Chelsea win the Premier League 2015 finals?	YES	*
 gen	8	sport	will the Chelsea win the Premier League 2015 semi-finals?	YES	*
 gen	8	sport	will the Chelsea win the Premier League 2015 quarter-finals?	YES	*
@@ -802,56 +681,43 @@ gen	8	sport	did the Chelsea win the Premier League finals?	YES	*
 gen	8	sport	did the Chelsea win the Premier League semi-finals?	YES	*
 gen	8	sport	did the Chelsea win the Premier League quarter-finals?	YES	*
 gen	8	sport	did the Chelsea qualify for the Premier League?	YES	*
-gen	8	sport	Did the Chelsea win the Premier League 2015?	YES	*
+gen	8	sport	Will the Everton win the Premier League 2015?	NO	*
 gen	8	sport	Did the Everton win the Premier League 2015?	NO	*
+gen	8	sport	Will the Fulham win the Premier League 2015?	NO	*
+gen	8	sport	Did the Fulham win the Premier League 2015?	NO	*
 gen	8	sport	Did the Liverpool win the Premier League 2015?	NO	*
+gen	8	sport	Will the Manchester City win the Premier League 2015?	NO	*
 gen	8	sport	Did the Manchester City win the Premier League 2015?	NO	*
+gen	8	sport	Will the Manchester United win the Premier League 2015?	NO	*
 gen	8	sport	Did the Manchester United win the Premier League 2015?	NO	*
+gen	8	sport	Will the Newcastle United win the Premier League 2015?	NO	*
 gen	8	sport	Did the Newcastle United win the Premier League 2015?	NO	*
 gen	8	sport	Did the Stoke City win the Premier League 2015?	NO	*
+gen	8	sport	Will the Sunderland win the Premier League 2015?	NO	*
 gen	8	sport	Did the Sunderland win the Premier League 2015?	NO	*
+gen	8	sport	Will the Tottenham Hotspur win the Premier League 2015?	NO	*
 gen	8	sport	Did the Tottenham Hotspur win the Premier League 2015?	NO	*
+gen	8	sport	Will the West Bromwich Albion win the Premier League 2015?	NO	*
+gen	8	sport	Did the West Bromwich Albion win the Premier League 2015?	NO	*
 gen	8	sport	Did the West Ham United win the Premier League 2015?	NO	*
 gen	9	sport	Will the Arsenal win the Premier League 2014?	NO	*
-gen	9	sport	Will the Aston Villa win the Premier League 2014?	NO	*
-gen	9	sport	Will the Blackburn Rovers win the Premier League 2014?	NO	*
-gen	9	sport	Will the Bolton Wanderers win the Premier League 2014?	NO	*
-gen	9	sport	Will the Chelsea win the Premier League 2014?	NO	*
-gen	9	sport	Will the Everton win the Premier League 2014?	NO	*
-gen	9	sport	Will the Liverpool win the Premier League 2014?	NO	*
-gen	9	sport	will the Manchester City win the Premier League 2014 finals?	YES	*
-gen	9	sport	will the Manchester City win the Premier League 2014 semi-finals?	YES	*
-gen	9	sport	will the Manchester City win the Premier League 2014 quarter-finals?	YES	*
-gen	9	sport	will the Manchester City qualify for the Premier League 2014?	YES	*
-gen	9	sport	will the Manchester City win the Premier League finals?	YES	*
-gen	9	sport	will the Manchester City win the Premier League semi-finals?	YES	*
-gen	9	sport	will the Manchester City win the Premier League quarter-finals?	YES	*
-gen	9	sport	will the Manchester City qualify for the Premier League?	YES	*
-gen	9	sport	did the Manchester City win the Premier League 2014 finals?	YES	*
-gen	9	sport	did the Manchester City win the Premier League 2014 semi-finals?	YES	*
-gen	9	sport	did the Manchester City win the Premier League 2014 quarter-finals?	YES	*
-gen	9	sport	did the Manchester City qualify for the Premier League 2014?	YES	*
-gen	9	sport	did the Manchester City win the Premier League finals?	YES	*
-gen	9	sport	did the Manchester City win the Premier League semi-finals?	YES	*
-gen	9	sport	did the Manchester City win the Premier League quarter-finals?	YES	*
-gen	9	sport	did the Manchester City qualify for the Premier League?	YES	*
-gen	9	sport	Will the Manchester City win the Premier League 2014?	YES	*
-gen	9	sport	Will the Manchester United win the Premier League 2014?	NO	*
-gen	9	sport	Will the Newcastle United win the Premier League 2014?	NO	*
-gen	9	sport	Will the Stoke City win the Premier League 2014?	NO	*
-gen	9	sport	Will the Sunderland win the Premier League 2014?	NO	*
-gen	9	sport	Will the West Bromwich Albion win the Premier League 2014?	NO	*
-gen	9	sport	Will the West Ham United win the Premier League 2014?	NO	*
 gen	9	sport	Did the Arsenal win the Premier League 2014?	NO	*
 gen	9	sport	Did the Aston Villa win the Premier League 2014?	NO	*
 gen	9	sport	Did the Birmingham City win the Premier League 2014?	NO	*
+gen	9	sport	Will the Blackburn Rovers win the Premier League 2014?	NO	*
 gen	9	sport	Did the Blackburn Rovers win the Premier League 2014?	NO	*
 gen	9	sport	Did the Blackpool win the Premier League 2014?	NO	*
+gen	9	sport	Will the Bolton Wanderers win the Premier League 2014?	NO	*
 gen	9	sport	Did the Bolton Wanderers win the Premier League 2014?	NO	*
+gen	9	sport	Will the Chelsea win the Premier League 2014?	NO	*
 gen	9	sport	Did the Chelsea win the Premier League 2014?	NO	*
 gen	9	sport	Did the Everton win the Premier League 2014?	NO	*
+gen	9	sport	Will the Fulham win the Premier League 2014?	NO	*
 gen	9	sport	Did the Fulham win the Premier League 2014?	NO	*
+gen	9	sport	Will the Liverpool win the Premier League 2014?	NO	*
 gen	9	sport	Did the Liverpool win the Premier League 2014?	NO	*
+gen	9	sport	Will the Manchester City win the Premier League 2014?	YES	*
+gen	9	sport	Did the Manchester City win the Premier League 2014?	YES	*
 gen	9	sport	will the Manchester City win the Premier League 2014 finals?	YES	*
 gen	9	sport	will the Manchester City win the Premier League 2014 semi-finals?	YES	*
 gen	9	sport	will the Manchester City win the Premier League 2014 quarter-finals?	YES	*
@@ -868,13 +734,21 @@ gen	9	sport	did the Manchester City win the Premier League finals?	YES	*
 gen	9	sport	did the Manchester City win the Premier League semi-finals?	YES	*
 gen	9	sport	did the Manchester City win the Premier League quarter-finals?	YES	*
 gen	9	sport	did the Manchester City qualify for the Premier League?	YES	*
-gen	9	sport	Did the Manchester City win the Premier League 2014?	YES	*
+gen	9	sport	Will the Manchester United win the Premier League 2014?	NO	*
 gen	9	sport	Did the Manchester United win the Premier League 2014?	NO	*
+gen	9	sport	Will the Newcastle United win the Premier League 2014?	NO	*
 gen	9	sport	Did the Newcastle United win the Premier League 2014?	NO	*
+gen	9	sport	Will the Stoke City win the Premier League 2014?	NO	*
 gen	9	sport	Did the Stoke City win the Premier League 2014?	NO	*
+gen	9	sport	Will the Sunderland win the Premier League 2014?	NO	*
 gen	9	sport	Did the Sunderland win the Premier League 2014?	NO	*
-gen	9	sport	Did the West Bromwich Albion win the Premier League 2014?	NO	*
+gen	9	sport	Will the Tottenham Hotspur win the Premier League 2014?	NO	*
+gen	9	sport	Did the Tottenham Hotspur win the Premier League 2014?	NO	*
+gen	9	sport	Will the West Bromwich Albion win the Premier League 2014?	NO	*
+gen	9	sport	Will the West Ham United win the Premier League 2014?	NO	*
 gen	9	sport	Did the West Ham United win the Premier League 2014?	NO	*
+gen	10	sport	Will Novak Djokovic win the US Open 2015?	YES	*
+gen	10	sport	Did Novak Djokovic win the US Open 2015?	YES	*
 gen	10	sport	will Novak Djokovic win the US Open 2015 finals?	YES	*
 gen	10	sport	will Novak Djokovic win the US Open 2015 semi-finals?	YES	*
 gen	10	sport	will Novak Djokovic win the US Open 2015 quarter-finals?	YES	*
@@ -891,94 +765,51 @@ gen	10	sport	did Novak Djokovic win the US Open finals?	YES	*
 gen	10	sport	did Novak Djokovic win the US Open semi-finals?	YES	*
 gen	10	sport	did Novak Djokovic win the US Open quarter-finals?	YES	*
 gen	10	sport	did Novak Djokovic qualify for the US Open?	YES	*
-gen	10	sport	Will Novak Djokovic win the US Open 2015?	YES	*
 gen	10	sport	Will Andy Murray win the US Open 2015?	NO	*
+gen	10	sport	Did Andy Murray win the US Open 2015?	NO	*
 gen	10	sport	Will Roger Federer win the US Open 2015?	NO	*
+gen	10	sport	Did Roger Federer win the US Open 2015?	NO	*
 gen	10	sport	Will Stan Wawrinka win the US Open 2015?	NO	*
+gen	10	sport	Did Stan Wawrinka win the US Open 2015?	NO	*
 gen	10	sport	Will Rafael Nadal win the US Open 2015?	NO	*
+gen	10	sport	Did Rafael Nadal win the US Open 2015?	NO	*
 gen	10	sport	Will Tomas Berdych win the US Open 2015?	NO	*
 gen	10	sport	Will Kei Nishikori win the US Open 2015?	NO	*
-gen	10	sport	Will David Ferrer win the US Open 2015?	NO	*
-gen	10	sport	Will Richard Gasquet win the US Open 2015?	NO	*
-gen	10	sport	Will Jo-Wilfried Tsonga win the US Open 2015?	NO	*
-gen	10	sport	Will Kevin Anderson win the US Open 2015?	NO	*
-gen	10	sport	Will Marin Cilic win the US Open 2015?	NO	*
-gen	10	sport	Will Milos Raonic win the US Open 2015?	NO	*
-gen	10	sport	Will Gilles Simon win the US Open 2015?	NO	*
-gen	10	sport	Will David Goffin win the US Open 2015?	NO	*
-gen	10	sport	Will Bernard Tomic win the US Open 2015?	NO	*
-gen	10	sport	Will Benoit Paire win the US Open 2015?	NO	*
-gen	10	sport	Will Simona Halep win the US Open 2015?	NO	*
-gen	10	sport	Will Garbine Muguruza win the US Open 2015?	NO	*
-gen	10	sport	Will Agnieszka Radwanska win the US Open 2015?	NO	*
-gen	10	sport	Will Maria Sharapova win the US Open 2015?	NO	*
-gen	10	sport	Will Angelique Kerber win the US Open 2015?	NO	*
-gen	10	sport	Will Petra Kvitova win the US Open 2015?	NO	*
-gen	10	sport	will Flavia Pennetta win the US Open 2015 finals?	YES	*
-gen	10	sport	will Flavia Pennetta win the US Open 2015 semi-finals?	YES	*
-gen	10	sport	will Flavia Pennetta win the US Open 2015 quarter-finals?	YES	*
-gen	10	sport	will Flavia Pennetta qualify for the US Open 2015?	YES	*
-gen	10	sport	will Flavia Pennetta win the US Open finals?	YES	*
-gen	10	sport	will Flavia Pennetta win the US Open semi-finals?	YES	*
-gen	10	sport	will Flavia Pennetta win the US Open quarter-finals?	YES	*
-gen	10	sport	will Flavia Pennetta qualify for the US Open?	YES	*
-gen	10	sport	did Flavia Pennetta win the US Open 2015 finals?	YES	*
-gen	10	sport	did Flavia Pennetta win the US Open 2015 semi-finals?	YES	*
-gen	10	sport	did Flavia Pennetta win the US Open 2015 quarter-finals?	YES	*
-gen	10	sport	did Flavia Pennetta qualify for the US Open 2015?	YES	*
-gen	10	sport	did Flavia Pennetta win the US Open finals?	YES	*
-gen	10	sport	did Flavia Pennetta win the US Open semi-finals?	YES	*
-gen	10	sport	did Flavia Pennetta win the US Open quarter-finals?	YES	*
-gen	10	sport	did Flavia Pennetta qualify for the US Open?	YES	*
-gen	10	sport	Will Flavia Pennetta win the US Open 2015?	YES	*
-gen	10	sport	Will Carla Suarez Navarro win the US Open 2015?	NO	*
-gen	10	sport	Will Karolina Pliskova win the US Open 2015?	NO	*
-gen	10	sport	Will Belinda Bencic win the US Open 2015?	NO	*
-gen	10	sport	Will Timea Bacsinszky win the US Open 2015?	NO	*
-gen	10	sport	Will Victoria Azarenka win the US Open 2015?	NO	*
-gen	10	sport	Will Madison Keys win the US Open 2015?	NO	*
-gen	10	sport	Will Caroline Wozniacki win the US Open 2015?	NO	*
-gen	10	sport	Will Sara Errani win the US Open 2015?	NO	*
-gen	10	sport	Will Svetlana Kuznetsova win the US Open 2015?	NO	*
-gen	10	sport	Will Elina Svitolina win the US Open 2015?	NO	*
-gen	10	sport	will Novak Djokovic win the US Open 2015 finals?	YES	*
-gen	10	sport	will Novak Djokovic win the US Open 2015 semi-finals?	YES	*
-gen	10	sport	will Novak Djokovic win the US Open 2015 quarter-finals?	YES	*
-gen	10	sport	will Novak Djokovic qualify for the US Open 2015?	YES	*
-gen	10	sport	will Novak Djokovic win the US Open finals?	YES	*
-gen	10	sport	will Novak Djokovic win the US Open semi-finals?	YES	*
-gen	10	sport	will Novak Djokovic win the US Open quarter-finals?	YES	*
-gen	10	sport	will Novak Djokovic qualify for the US Open?	YES	*
-gen	10	sport	did Novak Djokovic win the US Open 2015 finals?	YES	*
-gen	10	sport	did Novak Djokovic win the US Open 2015 semi-finals?	YES	*
-gen	10	sport	did Novak Djokovic win the US Open 2015 quarter-finals?	YES	*
-gen	10	sport	did Novak Djokovic qualify for the US Open 2015?	YES	*
-gen	10	sport	did Novak Djokovic win the US Open finals?	YES	*
-gen	10	sport	did Novak Djokovic win the US Open semi-finals?	YES	*
-gen	10	sport	did Novak Djokovic win the US Open quarter-finals?	YES	*
-gen	10	sport	did Novak Djokovic qualify for the US Open?	YES	*
-gen	10	sport	Did Novak Djokovic win the US Open 2015?	YES	*
-gen	10	sport	Did Andy Murray win the US Open 2015?	NO	*
-gen	10	sport	Did Roger Federer win the US Open 2015?	NO	*
-gen	10	sport	Did Stan Wawrinka win the US Open 2015?	NO	*
-gen	10	sport	Did Rafael Nadal win the US Open 2015?	NO	*
-gen	10	sport	Did Tomas Berdych win the US Open 2015?	NO	*
 gen	10	sport	Did Kei Nishikori win the US Open 2015?	NO	*
+gen	10	sport	Will David Ferrer win the US Open 2015?	NO	*
 gen	10	sport	Did David Ferrer win the US Open 2015?	NO	*
+gen	10	sport	Will Richard Gasquet win the US Open 2015?	NO	*
 gen	10	sport	Did Richard Gasquet win the US Open 2015?	NO	*
-gen	10	sport	Did Jo-Wilfried Tsonga win the US Open 2015?	NO	*
+gen	10	sport	Will Jo-Wilfried Tsonga win the US Open 2015?	NO	*
+gen	10	sport	Will John Isner win the US Open 2015?	NO	*
 gen	10	sport	Did John Isner win the US Open 2015?	NO	*
+gen	10	sport	Will Kevin Anderson win the US Open 2015?	NO	*
 gen	10	sport	Did Kevin Anderson win the US Open 2015?	NO	*
+gen	10	sport	Will Marin Cilic win the US Open 2015?	NO	*
 gen	10	sport	Did Marin Cilic win the US Open 2015?	NO	*
+gen	10	sport	Will Gilles Simon win the US Open 2015?	NO	*
 gen	10	sport	Did Gilles Simon win the US Open 2015?	NO	*
+gen	10	sport	Will David Goffin win the US Open 2015?	NO	*
 gen	10	sport	Did David Goffin win the US Open 2015?	NO	*
 gen	10	sport	Did Bernard Tomic win the US Open 2015?	NO	*
+gen	10	sport	Will Benoit Paire win the US Open 2015?	NO	*
+gen	10	sport	Did Benoit Paire win the US Open 2015?	NO	*
+gen	10	sport	Will Serena Williams win the US Open 2015?	NO	*
 gen	10	sport	Did Serena Williams win the US Open 2015?	NO	*
+gen	10	sport	Will Simona Halep win the US Open 2015?	NO	*
 gen	10	sport	Did Simona Halep win the US Open 2015?	NO	*
+gen	10	sport	Will Garbine Muguruza win the US Open 2015?	NO	*
+gen	10	sport	Did Garbine Muguruza win the US Open 2015?	NO	*
+gen	10	sport	Will Agnieszka Radwanska win the US Open 2015?	NO	*
 gen	10	sport	Did Agnieszka Radwanska win the US Open 2015?	NO	*
+gen	10	sport	Will Maria Sharapova win the US Open 2015?	NO	*
 gen	10	sport	Did Maria Sharapova win the US Open 2015?	NO	*
+gen	10	sport	Will Angelique Kerber win the US Open 2015?	NO	*
 gen	10	sport	Did Angelique Kerber win the US Open 2015?	NO	*
+gen	10	sport	Will Petra Kvitova win the US Open 2015?	NO	*
 gen	10	sport	Did Petra Kvitova win the US Open 2015?	NO	*
+gen	10	sport	Will Flavia Pennetta win the US Open 2015?	YES	*
+gen	10	sport	Did Flavia Pennetta win the US Open 2015?	YES	*
 gen	10	sport	will Flavia Pennetta win the US Open 2015 finals?	YES	*
 gen	10	sport	will Flavia Pennetta win the US Open 2015 semi-finals?	YES	*
 gen	10	sport	will Flavia Pennetta win the US Open 2015 quarter-finals?	YES	*
@@ -995,15 +826,26 @@ gen	10	sport	did Flavia Pennetta win the US Open finals?	YES	*
 gen	10	sport	did Flavia Pennetta win the US Open semi-finals?	YES	*
 gen	10	sport	did Flavia Pennetta win the US Open quarter-finals?	YES	*
 gen	10	sport	did Flavia Pennetta qualify for the US Open?	YES	*
-gen	10	sport	Did Flavia Pennetta win the US Open 2015?	YES	*
-gen	10	sport	Did Lucie Safarova win the US Open 2015?	NO	*
+gen	10	sport	Will Lucie Safarova win the US Open 2015?	NO	*
+gen	10	sport	Will Venus Williams win the US Open 2015?	NO	*
 gen	10	sport	Did Venus Williams win the US Open 2015?	NO	*
+gen	10	sport	Will Carla Suarez Navarro win the US Open 2015?	NO	*
+gen	10	sport	Will Karolina Pliskova win the US Open 2015?	NO	*
+gen	10	sport	Did Karolina Pliskova win the US Open 2015?	NO	*
 gen	10	sport	Did Belinda Bencic win the US Open 2015?	NO	*
+gen	10	sport	Will Timea Bacsinszky win the US Open 2015?	NO	*
 gen	10	sport	Did Timea Bacsinszky win the US Open 2015?	NO	*
+gen	10	sport	Will Roberta Vinci win the US Open 2015?	NO	*
+gen	10	sport	Did Roberta Vinci win the US Open 2015?	NO	*
+gen	10	sport	Will Victoria Azarenka win the US Open 2015?	NO	*
 gen	10	sport	Did Madison Keys win the US Open 2015?	NO	*
+gen	10	sport	Will Caroline Wozniacki win the US Open 2015?	NO	*
 gen	10	sport	Did Sara Errani win the US Open 2015?	NO	*
 gen	10	sport	Did Svetlana Kuznetsova win the US Open 2015?	NO	*
+gen	10	sport	Will Elina Svitolina win the US Open 2015?	NO	*
 gen	10	sport	Did Elina Svitolina win the US Open 2015?	NO	*
+gen	12	sport	Will Novak Djokovic win the Wimbledon 2015?	YES	*
+gen	12	sport	Did Novak Djokovic win the Wimbledon 2015?	YES	*
 gen	12	sport	will Novak Djokovic win the Wimbledon 2015 finals?	YES	*
 gen	12	sport	will Novak Djokovic win the Wimbledon 2015 semi-finals?	YES	*
 gen	12	sport	will Novak Djokovic win the Wimbledon 2015 quarter-finals?	YES	*
@@ -1020,75 +862,27 @@ gen	12	sport	did Novak Djokovic win the Wimbledon finals?	YES	*
 gen	12	sport	did Novak Djokovic win the Wimbledon semi-finals?	YES	*
 gen	12	sport	did Novak Djokovic win the Wimbledon quarter-finals?	YES	*
 gen	12	sport	did Novak Djokovic qualify for the Wimbledon?	YES	*
-gen	12	sport	Will Novak Djokovic win the Wimbledon 2015?	YES	*
+gen	12	sport	Will Roger Federer win the Wimbledon 2015?	NO	*
 gen	12	sport	Will Stan Wawrinka win the Wimbledon 2015?	NO	*
+gen	12	sport	Did Stan Wawrinka win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Rafael Nadal win the Wimbledon 2015?	NO	*
+gen	12	sport	Did Rafael Nadal win the Wimbledon 2015?	NO	*
 gen	12	sport	Will Tomas Berdych win the Wimbledon 2015?	NO	*
 gen	12	sport	Will Kei Nishikori win the Wimbledon 2015?	NO	*
-gen	12	sport	Will David Ferrer win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Richard Gasquet win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Jo-Wilfried Tsonga win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Kevin Anderson win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Gilles Simon win the Wimbledon 2015?	NO	*
-gen	12	sport	will Serena Williams win the Wimbledon 2015 finals?	YES	*
-gen	12	sport	will Serena Williams win the Wimbledon 2015 semi-finals?	YES	*
-gen	12	sport	will Serena Williams win the Wimbledon 2015 quarter-finals?	YES	*
-gen	12	sport	will Serena Williams qualify for the Wimbledon 2015?	YES	*
-gen	12	sport	will Serena Williams win the Wimbledon finals?	YES	*
-gen	12	sport	will Serena Williams win the Wimbledon semi-finals?	YES	*
-gen	12	sport	will Serena Williams win the Wimbledon quarter-finals?	YES	*
-gen	12	sport	will Serena Williams qualify for the Wimbledon?	YES	*
-gen	12	sport	did Serena Williams win the Wimbledon 2015 finals?	YES	*
-gen	12	sport	did Serena Williams win the Wimbledon 2015 semi-finals?	YES	*
-gen	12	sport	did Serena Williams win the Wimbledon 2015 quarter-finals?	YES	*
-gen	12	sport	did Serena Williams qualify for the Wimbledon 2015?	YES	*
-gen	12	sport	did Serena Williams win the Wimbledon finals?	YES	*
-gen	12	sport	did Serena Williams win the Wimbledon semi-finals?	YES	*
-gen	12	sport	did Serena Williams win the Wimbledon quarter-finals?	YES	*
-gen	12	sport	did Serena Williams qualify for the Wimbledon?	YES	*
-gen	12	sport	Will Serena Williams win the Wimbledon 2015?	YES	*
-gen	12	sport	Will Garbine Muguruza win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Agnieszka Radwanska win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Maria Sharapova win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Angelique Kerber win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Petra Kvitova win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Flavia Pennetta win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Lucie Safarova win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Venus Williams win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Carla Suarez Navarro win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Belinda Bencic win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Timea Bacsinszky win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Victoria Azarenka win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Madison Keys win the Wimbledon 2015?	NO	*
-gen	12	sport	Will Caroline Wozniacki win the Wimbledon 2015?	NO	*
-gen	12	sport	will Novak Djokovic win the Wimbledon 2015 finals?	YES	*
-gen	12	sport	will Novak Djokovic win the Wimbledon 2015 semi-finals?	YES	*
-gen	12	sport	will Novak Djokovic win the Wimbledon 2015 quarter-finals?	YES	*
-gen	12	sport	will Novak Djokovic qualify for the Wimbledon 2015?	YES	*
-gen	12	sport	will Novak Djokovic win the Wimbledon finals?	YES	*
-gen	12	sport	will Novak Djokovic win the Wimbledon semi-finals?	YES	*
-gen	12	sport	will Novak Djokovic win the Wimbledon quarter-finals?	YES	*
-gen	12	sport	will Novak Djokovic qualify for the Wimbledon?	YES	*
-gen	12	sport	did Novak Djokovic win the Wimbledon 2015 finals?	YES	*
-gen	12	sport	did Novak Djokovic win the Wimbledon 2015 semi-finals?	YES	*
-gen	12	sport	did Novak Djokovic win the Wimbledon 2015 quarter-finals?	YES	*
-gen	12	sport	did Novak Djokovic qualify for the Wimbledon 2015?	YES	*
-gen	12	sport	did Novak Djokovic win the Wimbledon finals?	YES	*
-gen	12	sport	did Novak Djokovic win the Wimbledon semi-finals?	YES	*
-gen	12	sport	did Novak Djokovic win the Wimbledon quarter-finals?	YES	*
-gen	12	sport	did Novak Djokovic qualify for the Wimbledon?	YES	*
-gen	12	sport	Did Novak Djokovic win the Wimbledon 2015?	YES	*
-gen	12	sport	Did Andy Murray win the Wimbledon 2015?	NO	*
-gen	12	sport	Did Roger Federer win the Wimbledon 2015?	NO	*
-gen	12	sport	Did Stan Wawrinka win the Wimbledon 2015?	NO	*
-gen	12	sport	Did Tomas Berdych win the Wimbledon 2015?	NO	*
-gen	12	sport	Did Kei Nishikori win the Wimbledon 2015?	NO	*
 gen	12	sport	Did David Ferrer win the Wimbledon 2015?	NO	*
+gen	12	sport	Did Richard Gasquet win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Jo-Wilfried Tsonga win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Jo-Wilfried Tsonga win the Wimbledon 2015?	NO	*
+gen	12	sport	Will John Isner win the Wimbledon 2015?	NO	*
 gen	12	sport	Did John Isner win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Kevin Anderson win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Kevin Anderson win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Marin Cilic win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Marin Cilic win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Milos Raonic win the Wimbledon 2015?	NO	*
-gen	12	sport	Did Gilles Simon win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Gilles Simon win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Serena Williams win the Wimbledon 2015?	YES	*
+gen	12	sport	Did Serena Williams win the Wimbledon 2015?	YES	*
 gen	12	sport	will Serena Williams win the Wimbledon 2015 finals?	YES	*
 gen	12	sport	will Serena Williams win the Wimbledon 2015 semi-finals?	YES	*
 gen	12	sport	will Serena Williams win the Wimbledon 2015 quarter-finals?	YES	*
@@ -1105,20 +899,36 @@ gen	12	sport	did Serena Williams win the Wimbledon finals?	YES	*
 gen	12	sport	did Serena Williams win the Wimbledon semi-finals?	YES	*
 gen	12	sport	did Serena Williams win the Wimbledon quarter-finals?	YES	*
 gen	12	sport	did Serena Williams qualify for the Wimbledon?	YES	*
-gen	12	sport	Did Serena Williams win the Wimbledon 2015?	YES	*
+gen	12	sport	Will Simona Halep win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Simona Halep win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Garbine Muguruza win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Garbine Muguruza win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Agnieszka Radwanska win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Agnieszka Radwanska win the Wimbledon 2015?	NO	*
+gen	12	sport	Did Maria Sharapova win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Angelique Kerber win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Angelique Kerber win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Petra Kvitova win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Flavia Pennetta win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Flavia Pennetta win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Lucie Safarova win the Wimbledon 2015?	NO	*
+gen	12	sport	Did Lucie Safarova win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Venus Williams win the Wimbledon 2015?	NO	*
+gen	12	sport	Did Venus Williams win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Carla Suarez Navarro win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Carla Suarez Navarro win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Karolina Pliskova win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Belinda Bencic win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Belinda Bencic win the Wimbledon 2015?	NO	*
-gen	12	sport	Did Timea Bacsinszky win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Roberta Vinci win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Roberta Vinci win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Victoria Azarenka win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Victoria Azarenka win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Madison Keys win the Wimbledon 2015?	NO	*
 gen	12	sport	Did Madison Keys win the Wimbledon 2015?	NO	*
+gen	12	sport	Will Caroline Wozniacki win the Wimbledon 2015?	NO	*
+gen	13	sport	Will Novak Djokovic win the Wimbledon 2014?	YES	*
+gen	13	sport	Did Novak Djokovic win the Wimbledon 2014?	YES	*
 gen	13	sport	will Novak Djokovic win the Wimbledon 2014 finals?	YES	*
 gen	13	sport	will Novak Djokovic win the Wimbledon 2014 semi-finals?	YES	*
 gen	13	sport	will Novak Djokovic win the Wimbledon 2014 quarter-finals?	YES	*
@@ -1135,86 +945,45 @@ gen	13	sport	did Novak Djokovic win the Wimbledon finals?	YES	*
 gen	13	sport	did Novak Djokovic win the Wimbledon semi-finals?	YES	*
 gen	13	sport	did Novak Djokovic win the Wimbledon quarter-finals?	YES	*
 gen	13	sport	did Novak Djokovic qualify for the Wimbledon?	YES	*
-gen	13	sport	Will Novak Djokovic win the Wimbledon 2014?	YES	*
 gen	13	sport	Will Andy Murray win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Andy Murray win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Roger Federer win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Roger Federer win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Stan Wawrinka win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Stan Wawrinka win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Rafael Nadal win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Rafael Nadal win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Tomas Berdych win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Tomas Berdych win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Kei Nishikori win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Kei Nishikori win the Wimbledon 2014?	NO	*
 gen	13	sport	Will David Ferrer win the Wimbledon 2014?	NO	*
+gen	13	sport	Did David Ferrer win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Richard Gasquet win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Richard Gasquet win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Jo-Wilfried Tsonga win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Jo-Wilfried Tsonga win the Wimbledon 2014?	NO	*
 gen	13	sport	Will John Isner win the Wimbledon 2014?	NO	*
+gen	13	sport	Did John Isner win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Kevin Anderson win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Kevin Anderson win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Marin Cilic win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Marin Cilic win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Milos Raonic win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Gilles Simon win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Milos Raonic win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Gilles Simon win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Serena Williams win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Simona Halep win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Garbine Muguruza win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Agnieszka Radwanska win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Maria Sharapova win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Angelique Kerber win the Wimbledon 2014?	NO	*
-gen	13	sport	will Petra Kvitova win the Wimbledon 2014 finals?	YES	*
-gen	13	sport	will Petra Kvitova win the Wimbledon 2014 semi-finals?	YES	*
-gen	13	sport	will Petra Kvitova win the Wimbledon 2014 quarter-finals?	YES	*
-gen	13	sport	will Petra Kvitova qualify for the Wimbledon 2014?	YES	*
-gen	13	sport	will Petra Kvitova win the Wimbledon finals?	YES	*
-gen	13	sport	will Petra Kvitova win the Wimbledon semi-finals?	YES	*
-gen	13	sport	will Petra Kvitova win the Wimbledon quarter-finals?	YES	*
-gen	13	sport	will Petra Kvitova qualify for the Wimbledon?	YES	*
-gen	13	sport	did Petra Kvitova win the Wimbledon 2014 finals?	YES	*
-gen	13	sport	did Petra Kvitova win the Wimbledon 2014 semi-finals?	YES	*
-gen	13	sport	did Petra Kvitova win the Wimbledon 2014 quarter-finals?	YES	*
-gen	13	sport	did Petra Kvitova qualify for the Wimbledon 2014?	YES	*
-gen	13	sport	did Petra Kvitova win the Wimbledon finals?	YES	*
-gen	13	sport	did Petra Kvitova win the Wimbledon semi-finals?	YES	*
-gen	13	sport	did Petra Kvitova win the Wimbledon quarter-finals?	YES	*
-gen	13	sport	did Petra Kvitova qualify for the Wimbledon?	YES	*
-gen	13	sport	Will Petra Kvitova win the Wimbledon 2014?	YES	*
-gen	13	sport	Will Flavia Pennetta win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Lucie Safarova win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Venus Williams win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Carla Suarez Navarro win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Karolina Pliskova win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Belinda Bencic win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Roberta Vinci win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Victoria Azarenka win the Wimbledon 2014?	NO	*
-gen	13	sport	Will Caroline Wozniacki win the Wimbledon 2014?	NO	*
-gen	13	sport	will Novak Djokovic win the Wimbledon 2014 finals?	YES	*
-gen	13	sport	will Novak Djokovic win the Wimbledon 2014 semi-finals?	YES	*
-gen	13	sport	will Novak Djokovic win the Wimbledon 2014 quarter-finals?	YES	*
-gen	13	sport	will Novak Djokovic qualify for the Wimbledon 2014?	YES	*
-gen	13	sport	will Novak Djokovic win the Wimbledon finals?	YES	*
-gen	13	sport	will Novak Djokovic win the Wimbledon semi-finals?	YES	*
-gen	13	sport	will Novak Djokovic win the Wimbledon quarter-finals?	YES	*
-gen	13	sport	will Novak Djokovic qualify for the Wimbledon?	YES	*
-gen	13	sport	did Novak Djokovic win the Wimbledon 2014 finals?	YES	*
-gen	13	sport	did Novak Djokovic win the Wimbledon 2014 semi-finals?	YES	*
-gen	13	sport	did Novak Djokovic win the Wimbledon 2014 quarter-finals?	YES	*
-gen	13	sport	did Novak Djokovic qualify for the Wimbledon 2014?	YES	*
-gen	13	sport	did Novak Djokovic win the Wimbledon finals?	YES	*
-gen	13	sport	did Novak Djokovic win the Wimbledon semi-finals?	YES	*
-gen	13	sport	did Novak Djokovic win the Wimbledon quarter-finals?	YES	*
-gen	13	sport	did Novak Djokovic qualify for the Wimbledon?	YES	*
-gen	13	sport	Did Novak Djokovic win the Wimbledon 2014?	YES	*
-gen	13	sport	Did Andy Murray win the Wimbledon 2014?	NO	*
-gen	13	sport	Did Roger Federer win the Wimbledon 2014?	NO	*
-gen	13	sport	Did Stan Wawrinka win the Wimbledon 2014?	NO	*
-gen	13	sport	Did Rafael Nadal win the Wimbledon 2014?	NO	*
-gen	13	sport	Did Tomas Berdych win the Wimbledon 2014?	NO	*
-gen	13	sport	Did Kei Nishikori win the Wimbledon 2014?	NO	*
-gen	13	sport	Did David Ferrer win the Wimbledon 2014?	NO	*
-gen	13	sport	Did Jo-Wilfried Tsonga win the Wimbledon 2014?	NO	*
-gen	13	sport	Did John Isner win the Wimbledon 2014?	NO	*
-gen	13	sport	Did Kevin Anderson win the Wimbledon 2014?	NO	*
-gen	13	sport	Did Marin Cilic win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Simona Halep win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Garbine Muguruza win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Garbine Muguruza win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Agnieszka Radwanska win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Agnieszka Radwanska win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Maria Sharapova win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Maria Sharapova win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Angelique Kerber win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Petra Kvitova win the Wimbledon 2014?	YES	*
+gen	13	sport	Did Petra Kvitova win the Wimbledon 2014?	YES	*
 gen	13	sport	will Petra Kvitova win the Wimbledon 2014 finals?	YES	*
 gen	13	sport	will Petra Kvitova win the Wimbledon 2014 semi-finals?	YES	*
 gen	13	sport	will Petra Kvitova win the Wimbledon 2014 quarter-finals?	YES	*
@@ -1231,17 +1000,26 @@ gen	13	sport	did Petra Kvitova win the Wimbledon finals?	YES	*
 gen	13	sport	did Petra Kvitova win the Wimbledon semi-finals?	YES	*
 gen	13	sport	did Petra Kvitova win the Wimbledon quarter-finals?	YES	*
 gen	13	sport	did Petra Kvitova qualify for the Wimbledon?	YES	*
-gen	13	sport	Did Petra Kvitova win the Wimbledon 2014?	YES	*
+gen	13	sport	Will Flavia Pennetta win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Flavia Pennetta win the Wimbledon 2014?	NO	*
-gen	13	sport	Did Lucie Safarova win the Wimbledon 2014?	NO	*
-gen	13	sport	Did Venus Williams win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Lucie Safarova win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Carla Suarez Navarro win the Wimbledon 2014?	NO	*
+gen	13	sport	Did Carla Suarez Navarro win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Karolina Pliskova win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Karolina Pliskova win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Belinda Bencic win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Belinda Bencic win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Timea Bacsinszky win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Timea Bacsinszky win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Roberta Vinci win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Victoria Azarenka win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Victoria Azarenka win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Madison Keys win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Madison Keys win the Wimbledon 2014?	NO	*
+gen	13	sport	Will Caroline Wozniacki win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Caroline Wozniacki win the Wimbledon 2014?	NO	*
+gen	14	sport	Will Novak Djokovic win the French Open 2015?	YES	*
+gen	14	sport	Did Novak Djokovic win the French Open 2015?	YES	*
 gen	14	sport	will Novak Djokovic win the French Open 2015 finals?	YES	*
 gen	14	sport	will Novak Djokovic win the French Open 2015 semi-finals?	YES	*
 gen	14	sport	will Novak Djokovic win the French Open 2015 quarter-finals?	YES	*
@@ -1258,22 +1036,33 @@ gen	14	sport	did Novak Djokovic win the French Open finals?	YES	*
 gen	14	sport	did Novak Djokovic win the French Open semi-finals?	YES	*
 gen	14	sport	did Novak Djokovic win the French Open quarter-finals?	YES	*
 gen	14	sport	did Novak Djokovic qualify for the French Open?	YES	*
-gen	14	sport	Will Novak Djokovic win the French Open 2015?	YES	*
 gen	14	sport	Will Andy Murray win the French Open 2015?	NO	*
-gen	14	sport	Will Roger Federer win the French Open 2015?	NO	*
+gen	14	sport	Did Andy Murray win the French Open 2015?	NO	*
+gen	14	sport	Will Stan Wawrinka win the French Open 2015?	NO	*
+gen	14	sport	Did Stan Wawrinka win the French Open 2015?	NO	*
+gen	14	sport	Will Rafael Nadal win the French Open 2015?	NO	*
+gen	14	sport	Did Rafael Nadal win the French Open 2015?	NO	*
 gen	14	sport	Will Tomas Berdych win the French Open 2015?	NO	*
+gen	14	sport	Did Tomas Berdych win the French Open 2015?	NO	*
 gen	14	sport	Will Kei Nishikori win the French Open 2015?	NO	*
+gen	14	sport	Did Kei Nishikori win the French Open 2015?	NO	*
 gen	14	sport	Will David Ferrer win the French Open 2015?	NO	*
+gen	14	sport	Did David Ferrer win the French Open 2015?	NO	*
 gen	14	sport	Will Richard Gasquet win the French Open 2015?	NO	*
+gen	14	sport	Did Richard Gasquet win the French Open 2015?	NO	*
 gen	14	sport	Will Jo-Wilfried Tsonga win the French Open 2015?	NO	*
+gen	14	sport	Did Jo-Wilfried Tsonga win the French Open 2015?	NO	*
 gen	14	sport	Will John Isner win the French Open 2015?	NO	*
+gen	14	sport	Did John Isner win the French Open 2015?	NO	*
 gen	14	sport	Will Kevin Anderson win the French Open 2015?	NO	*
 gen	14	sport	Will Marin Cilic win the French Open 2015?	NO	*
-gen	14	sport	Will Milos Raonic win the French Open 2015?	NO	*
+gen	14	sport	Did Marin Cilic win the French Open 2015?	NO	*
 gen	14	sport	Will Gilles Simon win the French Open 2015?	NO	*
-gen	14	sport	Will David Goffin win the French Open 2015?	NO	*
-gen	14	sport	Will Bernard Tomic win the French Open 2015?	NO	*
-gen	14	sport	Will Benoit Paire win the French Open 2015?	NO	*
+gen	14	sport	Did David Goffin win the French Open 2015?	NO	*
+gen	14	sport	Did Bernard Tomic win the French Open 2015?	NO	*
+gen	14	sport	Did Benoit Paire win the French Open 2015?	NO	*
+gen	14	sport	Will Serena Williams win the French Open 2015?	YES	*
+gen	14	sport	Did Serena Williams win the French Open 2015?	YES	*
 gen	14	sport	will Serena Williams win the French Open 2015 finals?	YES	*
 gen	14	sport	will Serena Williams win the French Open 2015 semi-finals?	YES	*
 gen	14	sport	will Serena Williams win the French Open 2015 quarter-finals?	YES	*
@@ -1290,83 +1079,38 @@ gen	14	sport	did Serena Williams win the French Open finals?	YES	*
 gen	14	sport	did Serena Williams win the French Open semi-finals?	YES	*
 gen	14	sport	did Serena Williams win the French Open quarter-finals?	YES	*
 gen	14	sport	did Serena Williams qualify for the French Open?	YES	*
-gen	14	sport	Will Serena Williams win the French Open 2015?	YES	*
 gen	14	sport	Will Simona Halep win the French Open 2015?	NO	*
+gen	14	sport	Did Simona Halep win the French Open 2015?	NO	*
 gen	14	sport	Will Garbine Muguruza win the French Open 2015?	NO	*
+gen	14	sport	Did Garbine Muguruza win the French Open 2015?	NO	*
 gen	14	sport	Will Agnieszka Radwanska win the French Open 2015?	NO	*
+gen	14	sport	Did Agnieszka Radwanska win the French Open 2015?	NO	*
 gen	14	sport	Will Maria Sharapova win the French Open 2015?	NO	*
+gen	14	sport	Will Angelique Kerber win the French Open 2015?	NO	*
 gen	14	sport	Will Petra Kvitova win the French Open 2015?	NO	*
+gen	14	sport	Did Petra Kvitova win the French Open 2015?	NO	*
 gen	14	sport	Will Flavia Pennetta win the French Open 2015?	NO	*
+gen	14	sport	Did Flavia Pennetta win the French Open 2015?	NO	*
+gen	14	sport	Will Lucie Safarova win the French Open 2015?	NO	*
+gen	14	sport	Did Lucie Safarova win the French Open 2015?	NO	*
+gen	14	sport	Will Venus Williams win the French Open 2015?	NO	*
+gen	14	sport	Did Venus Williams win the French Open 2015?	NO	*
 gen	14	sport	Will Carla Suarez Navarro win the French Open 2015?	NO	*
+gen	14	sport	Did Carla Suarez Navarro win the French Open 2015?	NO	*
+gen	14	sport	Did Karolina Pliskova win the French Open 2015?	NO	*
+gen	14	sport	Will Belinda Bencic win the French Open 2015?	NO	*
+gen	14	sport	Did Belinda Bencic win the French Open 2015?	NO	*
 gen	14	sport	Will Timea Bacsinszky win the French Open 2015?	NO	*
+gen	14	sport	Did Timea Bacsinszky win the French Open 2015?	NO	*
+gen	14	sport	Did Roberta Vinci win the French Open 2015?	NO	*
 gen	14	sport	Will Victoria Azarenka win the French Open 2015?	NO	*
+gen	14	sport	Did Victoria Azarenka win the French Open 2015?	NO	*
+gen	14	sport	Will Madison Keys win the French Open 2015?	NO	*
 gen	14	sport	Will Caroline Wozniacki win the French Open 2015?	NO	*
-gen	14	sport	Will Sara Errani win the French Open 2015?	NO	*
+gen	14	sport	Did Caroline Wozniacki win the French Open 2015?	NO	*
 gen	14	sport	Will Svetlana Kuznetsova win the French Open 2015?	NO	*
 gen	14	sport	Will Elina Svitolina win the French Open 2015?	NO	*
 gen	14	sport	Will Li Na win the French Open 2015?	NO	*
-gen	14	sport	will Novak Djokovic win the French Open 2015 finals?	YES	*
-gen	14	sport	will Novak Djokovic win the French Open 2015 semi-finals?	YES	*
-gen	14	sport	will Novak Djokovic win the French Open 2015 quarter-finals?	YES	*
-gen	14	sport	will Novak Djokovic qualify for the French Open 2015?	YES	*
-gen	14	sport	will Novak Djokovic win the French Open finals?	YES	*
-gen	14	sport	will Novak Djokovic win the French Open semi-finals?	YES	*
-gen	14	sport	will Novak Djokovic win the French Open quarter-finals?	YES	*
-gen	14	sport	will Novak Djokovic qualify for the French Open?	YES	*
-gen	14	sport	did Novak Djokovic win the French Open 2015 finals?	YES	*
-gen	14	sport	did Novak Djokovic win the French Open 2015 semi-finals?	YES	*
-gen	14	sport	did Novak Djokovic win the French Open 2015 quarter-finals?	YES	*
-gen	14	sport	did Novak Djokovic qualify for the French Open 2015?	YES	*
-gen	14	sport	did Novak Djokovic win the French Open finals?	YES	*
-gen	14	sport	did Novak Djokovic win the French Open semi-finals?	YES	*
-gen	14	sport	did Novak Djokovic win the French Open quarter-finals?	YES	*
-gen	14	sport	did Novak Djokovic qualify for the French Open?	YES	*
-gen	14	sport	Did Novak Djokovic win the French Open 2015?	YES	*
-gen	14	sport	Did Andy Murray win the French Open 2015?	NO	*
-gen	14	sport	Did Roger Federer win the French Open 2015?	NO	*
-gen	14	sport	Did Stan Wawrinka win the French Open 2015?	NO	*
-gen	14	sport	Did Tomas Berdych win the French Open 2015?	NO	*
-gen	14	sport	Did David Ferrer win the French Open 2015?	NO	*
-gen	14	sport	Did Richard Gasquet win the French Open 2015?	NO	*
-gen	14	sport	Did Jo-Wilfried Tsonga win the French Open 2015?	NO	*
-gen	14	sport	Did John Isner win the French Open 2015?	NO	*
-gen	14	sport	Did Kevin Anderson win the French Open 2015?	NO	*
-gen	14	sport	Did Marin Cilic win the French Open 2015?	NO	*
-gen	14	sport	Did Milos Raonic win the French Open 2015?	NO	*
-gen	14	sport	Did Gilles Simon win the French Open 2015?	NO	*
-gen	14	sport	Did David Goffin win the French Open 2015?	NO	*
-gen	14	sport	Did Bernard Tomic win the French Open 2015?	NO	*
-gen	14	sport	will Serena Williams win the French Open 2015 finals?	YES	*
-gen	14	sport	will Serena Williams win the French Open 2015 semi-finals?	YES	*
-gen	14	sport	will Serena Williams win the French Open 2015 quarter-finals?	YES	*
-gen	14	sport	will Serena Williams qualify for the French Open 2015?	YES	*
-gen	14	sport	will Serena Williams win the French Open finals?	YES	*
-gen	14	sport	will Serena Williams win the French Open semi-finals?	YES	*
-gen	14	sport	will Serena Williams win the French Open quarter-finals?	YES	*
-gen	14	sport	will Serena Williams qualify for the French Open?	YES	*
-gen	14	sport	did Serena Williams win the French Open 2015 finals?	YES	*
-gen	14	sport	did Serena Williams win the French Open 2015 semi-finals?	YES	*
-gen	14	sport	did Serena Williams win the French Open 2015 quarter-finals?	YES	*
-gen	14	sport	did Serena Williams qualify for the French Open 2015?	YES	*
-gen	14	sport	did Serena Williams win the French Open finals?	YES	*
-gen	14	sport	did Serena Williams win the French Open semi-finals?	YES	*
-gen	14	sport	did Serena Williams win the French Open quarter-finals?	YES	*
-gen	14	sport	did Serena Williams qualify for the French Open?	YES	*
-gen	14	sport	Did Serena Williams win the French Open 2015?	YES	*
-gen	14	sport	Did Simona Halep win the French Open 2015?	NO	*
-gen	14	sport	Did Garbine Muguruza win the French Open 2015?	NO	*
-gen	14	sport	Did Agnieszka Radwanska win the French Open 2015?	NO	*
-gen	14	sport	Did Maria Sharapova win the French Open 2015?	NO	*
-gen	14	sport	Did Angelique Kerber win the French Open 2015?	NO	*
-gen	14	sport	Did Flavia Pennetta win the French Open 2015?	NO	*
-gen	14	sport	Did Lucie Safarova win the French Open 2015?	NO	*
-gen	14	sport	Did Venus Williams win the French Open 2015?	NO	*
-gen	14	sport	Did Carla Suarez Navarro win the French Open 2015?	NO	*
-gen	14	sport	Did Belinda Bencic win the French Open 2015?	NO	*
-gen	14	sport	Did Timea Bacsinszky win the French Open 2015?	NO	*
-gen	14	sport	Did Madison Keys win the French Open 2015?	NO	*
-gen	14	sport	Did Sara Errani win the French Open 2015?	NO	*
-gen	14	sport	Did Elina Svitolina win the French Open 2015?	NO	*
 gen	15	politics	Will Jeff Sessions become the Alabama senator?	YES	*
 gen	15	politics	Will Mark Udall become the Alabama senator?	NO	*
 gen	15	politics	Did Jeff Sessions become the Alabama senator?	YES	*
