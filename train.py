@@ -41,7 +41,7 @@ def train_and_eval(test_path, rnn_args, save_to_argus=True):
     max_sentences = 50
 
     # ==========================================================
-    modelname = 'avg'  # 'rnn'
+    modelname = 'rnn'
     module = importlib.import_module('.'+modelname, 'models')
     conf, ps, h = config(module.config, params+rnn_args)
 
