@@ -56,26 +56,29 @@ def sport_questions(eventset, event):
                    "did <team> win the <event> quarter-finals?",
                    "did <team> qualify for the <event>?"]
 
-    for sentence in open('sport_sentences.txt'):
-        question = sentence[:-1]
+    for team in eventset['teams']:
+        old = ['<event>', '<year>', '<team>']
+        new = [eventset['event_name'], event['year'], team]
+        if eventset['event_type'] == 'team':
+            new[2] = "the "+new[2]
 
-        winner = event['winner']
-        for team in eventset['teams']:
-            old = ['<event>', '<year>', '<team>']
-            new = [eventset['event_name'], event['year'], team]
-            if eventset['event_type'] == 'team':
-                new[2] = "the "+new[2]
+        for sentence in open('sport_sentences.txt'):
+            question = sentence[:-1]
+
             q = replace(question, old, new)
-            if team in winner:
+            if team in event['winner']:
                 ans = 'YES'
-                for q1 in bonus_sport:
-                    q1 = replace(q1, old, new)
-                    yield (q1, ans)
             else:
                 ans = 'NO'
                 if random.random() > 0.8:
                     continue
             yield (q, ans)
+
+        if team in event['winner']:
+            ans = 'YES'
+            for q1 in bonus_sport:
+                q1 = replace(q1, old, new)
+                yield (q1, ans)
 
 
 def load_politics(fname):
