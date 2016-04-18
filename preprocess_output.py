@@ -212,14 +212,14 @@ def get_stats():
                 turk_yes += 1
             if ourans == 'YES':
                 we_yes += 1
+            if turkans == ourans:
+                correct += 1
         elif ourans == 'No result':
             no_result += 1
+        elif ourans == 'Absolutely no result':
+            anr += 1
         else:
             raise ValueError(ourans)
-        if turkans == ourans:
-            correct += 1
-        if ourans == 'Absolutely no result':
-            anr += 1
     precision = correct / answered
     recall = correct / understood
     print 'Syphon Rate: Out of %d questions we understand %d (%.2f%%)' % (i, understood, understood / i * 100)
