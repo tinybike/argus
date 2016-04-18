@@ -192,7 +192,8 @@ def get_stats():
     anr = 0
     understood = 0
     trainedon = 0
-    yes = 0
+    turk_yes = 0
+    we_yes = 0
     for line in csv.reader(open(OUTFILE), delimiter='\t'):
         i += 1
         if i == 0:
@@ -211,26 +212,32 @@ def get_stats():
         if ourans in 'YES NO':
             answered += 1
             if turkans == 'YES':
-                yes += 1
-        if ourans == 'No result':
+                turk_yes += 1
+            if ourans == 'YES':
+                we_yes += 1
+        elif ourans == 'No result':
             no_result += 1
+        else:
+            raise ValueError(ourans)
         if turkans == ourans:
             correct += 1
         if ourans == 'Absolutely no result':
             anr += 1
     precision = correct / answered
     recall = correct / understood
-    print 'Out of %d questions we understand %d (%.2f%%)' % (i, understood, understood / i * 100)
+    print 'Syphon Rate: Out of %d questions we understand %d (%.2f%%)' % (i, understood, understood / i * 100)
     print 'Out of these %d questions:' % understood
-    print 'We didnt find any articles containing all searchwords in %d (%.2f%%) cases' % (anr, anr / understood * 100)
-    print 'We didnt find any sentences containing all keywords in %d (%.2f%%) cases' % (
+    print '  * We didnt find any articles containing all searchwords in %d (%.2f%%) cases' % (anr, anr / understood * 100)
+    print '  * We didnt find any sentences containing all keywords in %d (%.2f%%) cases' % (
         no_result, no_result / understood * 100)
-    print 'We were able to answer %d-%d-%d = %d (%.2f%%) questions' % (
+    print 'Total Answer Rate: We were willing to answer %d-%d-%d = %d (%.2f%%) questions' % (
         understood, anr, no_result, answered, answered / understood * 100)
+    print '----------'
     print 'Recall =', recall
     print 'Precision =', precision
-    print 'f1 =', 2*recall*precision/(recall+precision)
-    print 'Turk answered YES in %.2f%% of answered' % (yes / answered * 100)
+    print 'F1 =', 2*recall*precision/(recall+precision)
+    print '----------'
+    print 'Dataset balance (answered only) - golden YES in %.2f%%, we output YES in %.2f%%' % (turk_yes / answered * 100, we_yes / answered * 100)
 
 
 def turkstats():
@@ -258,21 +265,6 @@ def turkstats():
     # print 'stock market %.2f%%' % (stock / i * 100)
 
 
-def more_stats():
-    i = 0
-    y = 0
-    for line in csv.reader(open(OUTFILE), delimiter='\t'):
-        if validation:
-            if line[1] in trainIDs:
-                continue
-        if line[3] == 'YES' or line[3] == 'NO':
-            i += 1
-            if line[3] == 'YES':
-                y += 1
-
-    print 'We answered YES in %.2f%% of answered (%d)' % (y / i * 100, i)
-
-
 def bad_only():
     """ outfile with only wrongly answered questions """
     BADFILE = 'tests/bad_outfile.tsv'
@@ -297,5 +289,4 @@ if __name__ == "__main__":
     print '----------'
     # turkstats()
     # print '----------'
-    more_stats()
     bad_only()
