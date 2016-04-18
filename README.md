@@ -22,7 +22,7 @@ Testing
 -------
 With mTurk output files present in tests/batches, running
 
-	python preprocess_output.py -eval
+	python preprocess_output.py -regen
 
 will create bunch of output files in tests/ folder, that contain texts and feature values 
 for all found sources.
@@ -57,7 +57,7 @@ Training
 
 If you didn't already, run
 
-	python preprocess_output.py -eval
+	python preprocess_output.py -regen
 
 to create new output tsv files with up-to-date feature vectors. Then run:
 
@@ -75,7 +75,7 @@ Adding Features
  (name and info are also desirable). Look for already implemented features in argus/features.py
 2. To make the system use new feature, add string with the feature object name to feature_list list AND
 to the feature_list_official with its type symbols (you can change the name, only the types are important).
-3. Then run batch_test.py -eval to retrieve the feature, then train
+3. Then run preprocess_output.py -regen to retrieve the feature, then train
 4. To stop using the feature, simply erase it from ``feature_list`` and ``feature_list_official``
 
 Currently used symbols: classification = '#', relevance = '@'
@@ -90,4 +90,4 @@ Data set
 --------
 
 To generate the data set of question-label-sentence triplets (mainly for use in github/brmson/dataset-sts),
-run ``batch_test.py -eval`` and ``generate.py`` hidden in tests/data_gen/ (argus_test[train].csv will be created in tests/data_gen).
+run ``preprocess_outputt.py -regen`` and ``generate.py`` hidden in tests/data_gen/ (argus_test[train].csv will be created in tests/data_gen).

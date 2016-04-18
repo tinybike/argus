@@ -16,7 +16,7 @@ CSV_FOLDER = "tests/batches"
 trainIDs = list(np.load('tests/trainIDs/trainIDs.npy'))
 
 
-def evaluate():
+def regenerate():
     #  TODO: remove irrelevant printouts, remove sentence, url, headline,.. from outfile
     from argus.main_frame import get_answer
     from separate_relevance import relevance_load
@@ -243,8 +243,8 @@ INFOFILE = "tests/infofile.tsv"
 import argparse
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-eval', action='store_true')
+    parser.add_argument('-regen', action='store_true')
     args = parser.parse_args()
-    if vars(args)['eval']:
-        evaluate()
+    if vars(args)['regen']:
+        regenerate()
     get_stats()
