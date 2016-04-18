@@ -182,12 +182,13 @@ def rewrite_output(splitname, results):
         if not header:
             header = line
             continue
-        y = results[line[1]]
-        if y > .5:
-            line[3] = 'YES'
-        else:
-            line[3] = 'NO'
-        line[4] = str(y)
+        if line[1] in results:  # not necessarily in case of no recall
+            y = results[line[1]]
+            if y > .5:
+                line[3] = 'YES'
+            else:
+                line[3] = 'NO'
+            line[4] = str(y)
         lines.append(line)
     writer = csv.writer(open(out_tsv, 'wb'), delimiter='\t')
     writer.writerow(header)
