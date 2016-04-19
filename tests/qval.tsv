@@ -111,6 +111,8 @@ gen	1	sport	Will the Cincinnati Bengals win the Super Bowl 2014?	NO	*
 gen	1	sport	Did the Cincinnati Bengals win the Super Bowl 2014?	NO	*
 gen	1	sport	Will the Seattle Seahawks win the Super Bowl 2014?	YES	*
 gen	1	sport	Did the Seattle Seahawks win the Super Bowl 2014?	YES	*
+gen	1	sport	Will the Seattle Seahawks lose the Super Bowl 2014?	NO	*
+gen	1	sport	Did the Seattle Seahawks lose the Super Bowl 2014?	NO	*
 gen	1	sport	will the Seattle Seahawks win the Super Bowl 2014 finals?	YES	*
 gen	1	sport	will the Seattle Seahawks win the Super Bowl 2014 semi-finals?	YES	*
 gen	1	sport	will the Seattle Seahawks win the Super Bowl 2014 quarter-finals?	YES	*
@@ -154,6 +156,8 @@ gen	11	sport	Will Kevin Anderson win the US Open 2014?	NO	*
 gen	11	sport	Did Kevin Anderson win the US Open 2014?	NO	*
 gen	11	sport	Will Marin Cilic win the US Open 2014?	YES	*
 gen	11	sport	Did Marin Cilic win the US Open 2014?	YES	*
+gen	11	sport	Will Marin Cilic lose the US Open 2014?	NO	*
+gen	11	sport	Did Marin Cilic lose the US Open 2014?	NO	*
 gen	11	sport	will Marin Cilic win the US Open 2014 finals?	YES	*
 gen	11	sport	will Marin Cilic win the US Open 2014 semi-finals?	YES	*
 gen	11	sport	will Marin Cilic win the US Open 2014 quarter-finals?	YES	*
@@ -178,6 +182,8 @@ gen	11	sport	Will Bernard Tomic win the US Open 2014?	NO	*
 gen	11	sport	Will Benoit Paire win the US Open 2014?	NO	*
 gen	11	sport	Will Serena Williams win the US Open 2014?	YES	*
 gen	11	sport	Did Serena Williams win the US Open 2014?	YES	*
+gen	11	sport	Will Serena Williams lose the US Open 2014?	NO	*
+gen	11	sport	Did Serena Williams lose the US Open 2014?	NO	*
 gen	11	sport	will Serena Williams win the US Open 2014 finals?	YES	*
 gen	11	sport	will Serena Williams win the US Open 2014 semi-finals?	YES	*
 gen	11	sport	will Serena Williams win the US Open 2014 quarter-finals?	YES	*
@@ -234,6 +240,8 @@ gen	16	politics	Did Mark Begich win the Alaska senate election?	YES	*
 gen	16	politics	Did John Kitzhaber win the Alaska senate election?	NO	*
 gen	16	politics	Will Mark Begich win the Alaska senate election?	YES	*
 gen	16	politics	Will Pat Roberts win the Alaska senate election?	NO	*
+gen	16	politics	Did Mark Begich lose the Alaska senate election?	NO	*
+gen	16	politics	Will Mark Begich lose the Alaska senate election?	NO	*
 gen	26	politics	Will Mary Landrieu become the Louisiana senator?	YES	*
 gen	26	politics	Will John Kasich become the Louisiana senator?	NO	*
 gen	26	politics	Did Mary Landrieu become the Louisiana senator?	YES	*
@@ -242,6 +250,8 @@ gen	26	politics	Did Mary Landrieu win the Louisiana senate election?	YES	*
 gen	26	politics	Did Deval Patrick win the Louisiana senate election?	NO	*
 gen	26	politics	Will Mary Landrieu win the Louisiana senate election?	YES	*
 gen	26	politics	Will Nikki Haley win the Louisiana senate election?	NO	*
+gen	26	politics	Did Mary Landrieu lose the Louisiana senate election?	NO	*
+gen	26	politics	Will Mary Landrieu lose the Louisiana senate election?	NO	*
 gen	36	politics	Will Tom Udall become the New Mexico senator?	YES	*
 gen	36	politics	Will Mike Enzi become the New Mexico senator?	NO	*
 gen	36	politics	Did Tom Udall become the New Mexico senator?	YES	*
@@ -250,6 +260,8 @@ gen	36	politics	Did Tom Udall win the New Mexico senate election?	YES	*
 gen	36	politics	Did Lindsey Graham win the New Mexico senate election?	NO	*
 gen	36	politics	Will Tom Udall win the New Mexico senate election?	YES	*
 gen	36	politics	Will Rick Snyder win the New Mexico senate election?	NO	*
+gen	36	politics	Did Tom Udall lose the New Mexico senate election?	NO	*
+gen	36	politics	Will Tom Udall lose the New Mexico senate election?	NO	*
 gen	46	politics	Will Jay Rockefeller become the West Virginia senator?	YES	*
 gen	46	politics	Will Peter Shumlin become the West Virginia senator?	NO	*
 gen	46	politics	Did Jay Rockefeller become the West Virginia senator?	YES	*
@@ -258,6 +270,8 @@ gen	46	politics	Did Jay Rockefeller win the West Virginia senate election?	YES	*
 gen	46	politics	Did Lincoln Chafee win the West Virginia senate election?	NO	*
 gen	46	politics	Will Jay Rockefeller win the West Virginia senate election?	YES	*
 gen	46	politics	Will Lincoln Chafee win the West Virginia senate election?	NO	*
+gen	46	politics	Did Jay Rockefeller lose the West Virginia senate election?	NO	*
+gen	46	politics	Will Jay Rockefeller lose the West Virginia senate election?	NO	*
 gen	56	politics	Will Nathan Deal become the Georgia governor?	YES	*
 gen	56	politics	Will Kay Hagan become the Georgia governor?	NO	*
 gen	56	politics	Did Nathan Deal become the Georgia governor?	YES	*
@@ -266,6 +280,8 @@ gen	56	politics	Did Nathan Deal win the Georgia gubernatorial election?	YES	*
 gen	56	politics	Did Susana Martinez win the Georgia gubernatorial election?	NO	*
 gen	56	politics	Will Nathan Deal win the Georgia gubernatorial election?	YES	*
 gen	56	politics	Will Pat Roberts win the Georgia gubernatorial election?	NO	*
+gen	56	politics	Did Nathan Deal lose the Georgia gubernatorial election?	NO	*
+gen	56	politics	Will Nathan Deal lose the Georgia gubernatorial election?	NO	*
 gen	66	politics	Will Mark Dayton become the Minnesota governor?	YES	*
 gen	66	politics	Will Tom Corbett become the Minnesota governor?	NO	*
 gen	66	politics	Did Mark Dayton become the Minnesota governor?	YES	*
@@ -274,6 +290,8 @@ gen	66	politics	Did Mark Dayton win the Minnesota gubernatorial election?	YES	*
 gen	66	politics	Did Jim Risch win the Minnesota gubernatorial election?	NO	*
 gen	66	politics	Will Mark Dayton win the Minnesota gubernatorial election?	YES	*
 gen	66	politics	Will Mike Beebe win the Minnesota gubernatorial election?	NO	*
+gen	66	politics	Did Mark Dayton lose the Minnesota gubernatorial election?	NO	*
+gen	66	politics	Will Mark Dayton lose the Minnesota gubernatorial election?	NO	*
 gen	76	politics	Will Lincoln Chafee become the Rhode Island governor?	YES	*
 gen	76	politics	Will Thad Cochran become the Rhode Island governor?	NO	*
 gen	76	politics	Did Lincoln Chafee become the Rhode Island governor?	YES	*
@@ -282,3 +300,5 @@ gen	76	politics	Did Lincoln Chafee win the Rhode Island gubernatorial election?	
 gen	76	politics	Did Scott Walker win the Rhode Island gubernatorial election?	NO	*
 gen	76	politics	Will Lincoln Chafee win the Rhode Island gubernatorial election?	YES	*
 gen	76	politics	Will Sean Parnell win the Rhode Island gubernatorial election?	NO	*
+gen	76	politics	Did Lincoln Chafee lose the Rhode Island gubernatorial election?	NO	*
+gen	76	politics	Will Lincoln Chafee lose the Rhode Island gubernatorial election?	NO	*

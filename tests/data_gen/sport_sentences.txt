@@ -1,5 +1,7 @@
 Will <team> win the <event> <year>?
 Did <team> win the <event> <year>?
+@!Will <team> lose the <event> <year>?
+@!Did <team> lose the <event> <year>?
 @will <team> win the <event> <year> finals?
 @will <team> win the <event> <year> semi-finals?
 @will <team> win the <event> <year> quarter-finals?

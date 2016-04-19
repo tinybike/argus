@@ -54,14 +54,23 @@ def sport_questions(eventset, event):
                     continue
                 question = question[1:]
 
+            if question.startswith('!'):
+                flip_ans = True
+                question = question[1:]
+            else:
+                flip_ans = False
+
             q = replace(question, old, new)
             if team in event['winner']:
-                ans = 'YES'
+                ans = True
             else:
-                ans = 'NO'
+                ans = False
                 if random.random() > 0.8:
                     continue
-            yield (q, ans)
+
+            if flip_ans:
+                ans = not ans
+            yield (q, 'YES' if ans else 'NO')
 
 
 def load_politics(fname):
@@ -78,10 +87,24 @@ def pol_questions(ev, names):
     for sentence in open('politics_sentences.txt'):
         question = sentence[:-1]
 
+        if question.startswith('@'):
+            winner_only = True
+            question = question[1:]
+        else:
+            winner_only = False
+        if question.startswith('!'):
+            flip_ans = True
+            question = question[1:]
+        else:
+            flip_ans = False
+
         old = ['<state>', '<name>', '<position>', '<election>']
         q = replace(question, old, ev)
-        ans = 'YES'
+        ans = 'YES' if not flip_ans else 'NO'
         yield (q, ans)
+
+        if winner_only:
+            continue
 
         while True:
             name = random.choice(names)
@@ -91,7 +114,7 @@ def pol_questions(ev, names):
         ev_n[1] = name
         old = ['<state>', '<name>', '<position>', '<election>']
         q = replace(question, old, ev_n)
-        ans = 'NO'
+        ans = 'NO' if not flip_ans else 'YES'
         yield (q, ans)
 
 

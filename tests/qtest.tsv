@@ -84,6 +84,8 @@ gen	5	sport	Will the Los Angeles Dodgers win the World Series 2014?	NO	*
 gen	5	sport	Will the San Diego Padres win the World Series 2014?	NO	*
 gen	5	sport	Will the San Francisco Giants win the World Series 2014?	YES	*
 gen	5	sport	Did the San Francisco Giants win the World Series 2014?	YES	*
+gen	5	sport	Will the San Francisco Giants lose the World Series 2014?	NO	*
+gen	5	sport	Did the San Francisco Giants lose the World Series 2014?	NO	*
 gen	5	sport	will the San Francisco Giants win the World Series 2014 finals?	YES	*
 gen	5	sport	will the San Francisco Giants win the World Series 2014 semi-finals?	YES	*
 gen	5	sport	will the San Francisco Giants win the World Series 2014 quarter-finals?	YES	*
@@ -131,6 +133,8 @@ gen	15	sport	Did Andy Murray win the French Open 2014?	NO	*
 gen	15	sport	Did Roger Federer win the French Open 2014?	NO	*
 gen	15	sport	Will Stan Wawrinka win the French Open 2014?	YES	*
 gen	15	sport	Did Stan Wawrinka win the French Open 2014?	YES	*
+gen	15	sport	Will Stan Wawrinka lose the French Open 2014?	NO	*
+gen	15	sport	Did Stan Wawrinka lose the French Open 2014?	NO	*
 gen	15	sport	will Stan Wawrinka win the French Open 2014 finals?	YES	*
 gen	15	sport	will Stan Wawrinka win the French Open 2014 semi-finals?	YES	*
 gen	15	sport	will Stan Wawrinka win the French Open 2014 quarter-finals?	YES	*
@@ -202,6 +206,8 @@ gen	15	sport	Will Elina Svitolina win the French Open 2014?	NO	*
 gen	15	sport	Did Elina Svitolina win the French Open 2014?	NO	*
 gen	15	sport	Will Li Na win the French Open 2014?	YES	*
 gen	15	sport	Did Li Na win the French Open 2014?	YES	*
+gen	15	sport	Will Li Na lose the French Open 2014?	NO	*
+gen	15	sport	Did Li Na lose the French Open 2014?	NO	*
 gen	15	sport	will Li Na win the French Open 2014 finals?	YES	*
 gen	15	sport	will Li Na win the French Open 2014 semi-finals?	YES	*
 gen	15	sport	will Li Na win the French Open 2014 quarter-finals?	YES	*
@@ -226,6 +232,8 @@ gen	20	politics	Did Saxby Chambliss win the Georgia senate election?	YES	*
 gen	20	politics	Did Jay Rockefeller win the Georgia senate election?	NO	*
 gen	20	politics	Will Saxby Chambliss win the Georgia senate election?	YES	*
 gen	20	politics	Will Richard Durbin win the Georgia senate election?	NO	*
+gen	20	politics	Did Saxby Chambliss lose the Georgia senate election?	NO	*
+gen	20	politics	Will Saxby Chambliss lose the Georgia senate election?	NO	*
 gen	30	politics	Will Al Franken become the Minnesota senator?	YES	*
 gen	30	politics	Will John Kitzhaber become the Minnesota senator?	NO	*
 gen	30	politics	Did Al Franken become the Minnesota senator?	YES	*
@@ -234,6 +242,8 @@ gen	30	politics	Did Al Franken win the Minnesota senate election?	YES	*
 gen	30	politics	Did Martin O'Malley win the Minnesota senate election?	NO	*
 gen	30	politics	Will Al Franken win the Minnesota senate election?	YES	*
 gen	30	politics	Will Dave Heineman win the Minnesota senate election?	NO	*
+gen	30	politics	Did Al Franken lose the Minnesota senate election?	NO	*
+gen	30	politics	Will Al Franken lose the Minnesota senate election?	NO	*
 gen	40	politics	Will Jack Reed become the Rhode Island senator?	YES	*
 gen	40	politics	Will Richard Durbin become the Rhode Island senator?	NO	*
 gen	40	politics	Did Jack Reed become the Rhode Island senator?	YES	*
@@ -242,6 +252,8 @@ gen	40	politics	Did Jack Reed win the Rhode Island senate election?	YES	*
 gen	40	politics	Did Martin O'Malley win the Rhode Island senate election?	NO	*
 gen	40	politics	Will Jack Reed win the Rhode Island senate election?	YES	*
 gen	40	politics	Will Al Franken win the Rhode Island senate election?	NO	*
+gen	40	politics	Did Jack Reed lose the Rhode Island senate election?	NO	*
+gen	40	politics	Will Jack Reed lose the Rhode Island senate election?	NO	*
 gen	50	politics	Will Jan Brewer become the Arizona governor?	YES	*
 gen	50	politics	Will Mark Dayton become the Arizona governor?	NO	*
 gen	50	politics	Did Jan Brewer become the Arizona governor?	YES	*
@@ -250,6 +262,8 @@ gen	50	politics	Did Jan Brewer win the Arizona gubernatorial election?	YES	*
 gen	50	politics	Did Jeanne Shaheen win the Arizona gubernatorial election?	NO	*
 gen	50	politics	Will Jan Brewer win the Arizona gubernatorial election?	YES	*
 gen	50	politics	Will John Kasich win the Arizona gubernatorial election?	NO	*
+gen	50	politics	Did Jan Brewer lose the Arizona gubernatorial election?	NO	*
+gen	50	politics	Will Jan Brewer lose the Arizona gubernatorial election?	NO	*
 gen	60	politics	Will Terry Branstad become the Iowa governor?	YES	*
 gen	60	politics	Will Matt Mead become the Iowa governor?	NO	*
 gen	60	politics	Did Terry Branstad become the Iowa governor?	YES	*
@@ -258,6 +272,8 @@ gen	60	politics	Did Terry Branstad win the Iowa gubernatorial election?	YES	*
 gen	60	politics	Did Sean Parnell win the Iowa gubernatorial election?	NO	*
 gen	60	politics	Will Terry Branstad win the Iowa gubernatorial election?	YES	*
 gen	60	politics	Will John Hickenlooper win the Iowa gubernatorial election?	NO	*
+gen	60	politics	Did Terry Branstad lose the Iowa gubernatorial election?	NO	*
+gen	60	politics	Will Terry Branstad lose the Iowa gubernatorial election?	NO	*
 gen	70	politics	Will Susana Martinez become the New Mexico governor?	YES	*
 gen	70	politics	Will Mary Fallin become the New Mexico governor?	NO	*
 gen	70	politics	Did Susana Martinez become the New Mexico governor?	YES	*
@@ -266,6 +282,8 @@ gen	70	politics	Did Susana Martinez win the New Mexico gubernatorial election?	Y
 gen	70	politics	Did John Cornyn win the New Mexico gubernatorial election?	NO	*
 gen	70	politics	Will Susana Martinez win the New Mexico gubernatorial election?	YES	*
 gen	70	politics	Will John Walsh win the New Mexico gubernatorial election?	NO	*
+gen	70	politics	Did Susana Martinez lose the New Mexico gubernatorial election?	NO	*
+gen	70	politics	Will Susana Martinez lose the New Mexico gubernatorial election?	NO	*
 gen	80	politics	Will Rick Perry become the Texas governor?	YES	*
 gen	80	politics	Will Tom Harkin become the Texas governor?	NO	*
 gen	80	politics	Did Rick Perry become the Texas governor?	YES	*
@@ -274,3 +292,5 @@ gen	80	politics	Did Rick Perry win the Texas gubernatorial election?	YES	*
 gen	80	politics	Did Dennis Daugaard win the Texas gubernatorial election?	NO	*
 gen	80	politics	Will Rick Perry win the Texas gubernatorial election?	YES	*
 gen	80	politics	Will Tom Corbett win the Texas gubernatorial election?	NO	*
+gen	80	politics	Did Rick Perry lose the Texas gubernatorial election?	NO	*
+gen	80	politics	Will Rick Perry lose the Texas gubernatorial election?	NO	*

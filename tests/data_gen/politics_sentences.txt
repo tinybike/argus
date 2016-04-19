@@ -2,3 +2,5 @@ Will <name> become the <state> <position>?
 Did <name> become the <state> <position>?
 Did <name> win the <state> <election>?
 Will <name> win the <state> <election>?
+@!Did <name> lose the <state> <election>?
+@!Will <name> lose the <state> <election>?

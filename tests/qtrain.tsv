@@ -420,6 +420,8 @@ gen	0	sport	Will the New York Jets win the Super Bowl 2015?	NO	*
 gen	0	sport	Did the New York Jets win the Super Bowl 2015?	NO	*
 gen	0	sport	Will the New England Patriots win the Super Bowl 2015?	YES	*
 gen	0	sport	Did the New England Patriots win the Super Bowl 2015?	YES	*
+gen	0	sport	Will the New England Patriots lose the Super Bowl 2015?	NO	*
+gen	0	sport	Did the New England Patriots lose the Super Bowl 2015?	NO	*
 gen	0	sport	will the New England Patriots win the Super Bowl 2015 finals?	YES	*
 gen	0	sport	will the New England Patriots win the Super Bowl 2015 semi-finals?	YES	*
 gen	0	sport	will the New England Patriots win the Super Bowl 2015 quarter-finals?	YES	*
@@ -497,6 +499,8 @@ gen	2	sport	Will the Utah Jazz win the NBA championship 2015?	NO	*
 gen	2	sport	Did the Utah Jazz win the NBA championship 2015?	NO	*
 gen	2	sport	Will the Golden State Warriors win the NBA championship 2015?	YES	*
 gen	2	sport	Did the Golden State Warriors win the NBA championship 2015?	YES	*
+gen	2	sport	Will the Golden State Warriors lose the NBA championship 2015?	NO	*
+gen	2	sport	Did the Golden State Warriors lose the NBA championship 2015?	NO	*
 gen	2	sport	will the Golden State Warriors win the NBA championship 2015 finals?	YES	*
 gen	2	sport	will the Golden State Warriors win the NBA championship 2015 semi-finals?	YES	*
 gen	2	sport	will the Golden State Warriors win the NBA championship 2015 quarter-finals?	YES	*
@@ -577,6 +581,8 @@ gen	3	sport	Will the New Orleans Hornets win the NBA championship 2014?	NO	*
 gen	3	sport	Did the New Orleans Hornets win the NBA championship 2014?	NO	*
 gen	3	sport	Will the San Antonio Spurs win the NBA championship 2014?	YES	*
 gen	3	sport	Did the San Antonio Spurs win the NBA championship 2014?	YES	*
+gen	3	sport	Will the San Antonio Spurs lose the NBA championship 2014?	NO	*
+gen	3	sport	Did the San Antonio Spurs lose the NBA championship 2014?	NO	*
 gen	3	sport	will the San Antonio Spurs win the NBA championship 2014 finals?	YES	*
 gen	3	sport	will the San Antonio Spurs win the NBA championship 2014 semi-finals?	YES	*
 gen	3	sport	will the San Antonio Spurs win the NBA championship 2014 quarter-finals?	YES	*
@@ -633,6 +639,8 @@ gen	4	sport	Will the Detroit Tigers win the World Series 2015?	NO	*
 gen	4	sport	Did the Detroit Tigers win the World Series 2015?	NO	*
 gen	4	sport	Will the Kansas City Royals win the World Series 2015?	YES	*
 gen	4	sport	Did the Kansas City Royals win the World Series 2015?	YES	*
+gen	4	sport	Will the Kansas City Royals lose the World Series 2015?	NO	*
+gen	4	sport	Did the Kansas City Royals lose the World Series 2015?	NO	*
 gen	4	sport	will the Kansas City Royals win the World Series 2015 finals?	YES	*
 gen	4	sport	will the Kansas City Royals win the World Series 2015 semi-finals?	YES	*
 gen	4	sport	will the Kansas City Royals win the World Series 2015 quarter-finals?	YES	*
@@ -683,6 +691,8 @@ gen	6	sport	Did the Tampa Bay Lightning win the Stanley Cup 2015?	NO	*
 gen	6	sport	Will the Washington Capitals win the Stanley Cup 2015?	NO	*
 gen	6	sport	Will the Chicago Blackhawks win the Stanley Cup 2015?	YES	*
 gen	6	sport	Did the Chicago Blackhawks win the Stanley Cup 2015?	YES	*
+gen	6	sport	Will the Chicago Blackhawks lose the Stanley Cup 2015?	NO	*
+gen	6	sport	Did the Chicago Blackhawks lose the Stanley Cup 2015?	NO	*
 gen	6	sport	will the Chicago Blackhawks win the Stanley Cup 2015 finals?	YES	*
 gen	6	sport	will the Chicago Blackhawks win the Stanley Cup 2015 semi-finals?	YES	*
 gen	6	sport	will the Chicago Blackhawks win the Stanley Cup 2015 quarter-finals?	YES	*
@@ -768,6 +778,8 @@ gen	7	sport	Will the Dallas Stars win the Stanley Cup 2014?	NO	*
 gen	7	sport	Did the Dallas Stars win the Stanley Cup 2014?	NO	*
 gen	7	sport	Will the Los Angeles Kings win the Stanley Cup 2014?	YES	*
 gen	7	sport	Did the Los Angeles Kings win the Stanley Cup 2014?	YES	*
+gen	7	sport	Will the Los Angeles Kings lose the Stanley Cup 2014?	NO	*
+gen	7	sport	Did the Los Angeles Kings lose the Stanley Cup 2014?	NO	*
 gen	7	sport	will the Los Angeles Kings win the Stanley Cup 2014 finals?	YES	*
 gen	7	sport	will the Los Angeles Kings win the Stanley Cup 2014 semi-finals?	YES	*
 gen	7	sport	will the Los Angeles Kings win the Stanley Cup 2014 quarter-finals?	YES	*
@@ -800,6 +812,8 @@ gen	8	sport	Will the Bolton Wanderers win the Premier League 2015?	NO	*
 gen	8	sport	Did the Bolton Wanderers win the Premier League 2015?	NO	*
 gen	8	sport	Will the Chelsea win the Premier League 2015?	YES	*
 gen	8	sport	Did the Chelsea win the Premier League 2015?	YES	*
+gen	8	sport	Will the Chelsea lose the Premier League 2015?	NO	*
+gen	8	sport	Did the Chelsea lose the Premier League 2015?	NO	*
 gen	8	sport	will the Chelsea win the Premier League 2015 finals?	YES	*
 gen	8	sport	will the Chelsea win the Premier League 2015 semi-finals?	YES	*
 gen	8	sport	will the Chelsea win the Premier League 2015 quarter-finals?	YES	*
@@ -853,6 +867,8 @@ gen	9	sport	Will the Liverpool win the Premier League 2014?	NO	*
 gen	9	sport	Did the Liverpool win the Premier League 2014?	NO	*
 gen	9	sport	Will the Manchester City win the Premier League 2014?	YES	*
 gen	9	sport	Did the Manchester City win the Premier League 2014?	YES	*
+gen	9	sport	Will the Manchester City lose the Premier League 2014?	NO	*
+gen	9	sport	Did the Manchester City lose the Premier League 2014?	NO	*
 gen	9	sport	will the Manchester City win the Premier League 2014 finals?	YES	*
 gen	9	sport	will the Manchester City win the Premier League 2014 semi-finals?	YES	*
 gen	9	sport	will the Manchester City win the Premier League 2014 quarter-finals?	YES	*
@@ -884,6 +900,8 @@ gen	9	sport	Will the West Ham United win the Premier League 2014?	NO	*
 gen	9	sport	Did the West Ham United win the Premier League 2014?	NO	*
 gen	10	sport	Will Novak Djokovic win the US Open 2015?	YES	*
 gen	10	sport	Did Novak Djokovic win the US Open 2015?	YES	*
+gen	10	sport	Will Novak Djokovic lose the US Open 2015?	NO	*
+gen	10	sport	Did Novak Djokovic lose the US Open 2015?	NO	*
 gen	10	sport	will Novak Djokovic win the US Open 2015 finals?	YES	*
 gen	10	sport	will Novak Djokovic win the US Open 2015 semi-finals?	YES	*
 gen	10	sport	will Novak Djokovic win the US Open 2015 quarter-finals?	YES	*
@@ -945,6 +963,8 @@ gen	10	sport	Will Petra Kvitova win the US Open 2015?	NO	*
 gen	10	sport	Did Petra Kvitova win the US Open 2015?	NO	*
 gen	10	sport	Will Flavia Pennetta win the US Open 2015?	YES	*
 gen	10	sport	Did Flavia Pennetta win the US Open 2015?	YES	*
+gen	10	sport	Will Flavia Pennetta lose the US Open 2015?	NO	*
+gen	10	sport	Did Flavia Pennetta lose the US Open 2015?	NO	*
 gen	10	sport	will Flavia Pennetta win the US Open 2015 finals?	YES	*
 gen	10	sport	will Flavia Pennetta win the US Open 2015 semi-finals?	YES	*
 gen	10	sport	will Flavia Pennetta win the US Open 2015 quarter-finals?	YES	*
@@ -981,6 +1001,8 @@ gen	10	sport	Will Elina Svitolina win the US Open 2015?	NO	*
 gen	10	sport	Did Elina Svitolina win the US Open 2015?	NO	*
 gen	12	sport	Will Novak Djokovic win the Wimbledon 2015?	YES	*
 gen	12	sport	Did Novak Djokovic win the Wimbledon 2015?	YES	*
+gen	12	sport	Will Novak Djokovic lose the Wimbledon 2015?	NO	*
+gen	12	sport	Did Novak Djokovic lose the Wimbledon 2015?	NO	*
 gen	12	sport	will Novak Djokovic win the Wimbledon 2015 finals?	YES	*
 gen	12	sport	will Novak Djokovic win the Wimbledon 2015 semi-finals?	YES	*
 gen	12	sport	will Novak Djokovic win the Wimbledon 2015 quarter-finals?	YES	*
@@ -1018,6 +1040,8 @@ gen	12	sport	Did Milos Raonic win the Wimbledon 2015?	NO	*
 gen	12	sport	Will Gilles Simon win the Wimbledon 2015?	NO	*
 gen	12	sport	Will Serena Williams win the Wimbledon 2015?	YES	*
 gen	12	sport	Did Serena Williams win the Wimbledon 2015?	YES	*
+gen	12	sport	Will Serena Williams lose the Wimbledon 2015?	NO	*
+gen	12	sport	Did Serena Williams lose the Wimbledon 2015?	NO	*
 gen	12	sport	will Serena Williams win the Wimbledon 2015 finals?	YES	*
 gen	12	sport	will Serena Williams win the Wimbledon 2015 semi-finals?	YES	*
 gen	12	sport	will Serena Williams win the Wimbledon 2015 quarter-finals?	YES	*
@@ -1064,6 +1088,8 @@ gen	12	sport	Did Madison Keys win the Wimbledon 2015?	NO	*
 gen	12	sport	Will Caroline Wozniacki win the Wimbledon 2015?	NO	*
 gen	13	sport	Will Novak Djokovic win the Wimbledon 2014?	YES	*
 gen	13	sport	Did Novak Djokovic win the Wimbledon 2014?	YES	*
+gen	13	sport	Will Novak Djokovic lose the Wimbledon 2014?	NO	*
+gen	13	sport	Did Novak Djokovic lose the Wimbledon 2014?	NO	*
 gen	13	sport	will Novak Djokovic win the Wimbledon 2014 finals?	YES	*
 gen	13	sport	will Novak Djokovic win the Wimbledon 2014 semi-finals?	YES	*
 gen	13	sport	will Novak Djokovic win the Wimbledon 2014 quarter-finals?	YES	*
@@ -1119,6 +1145,8 @@ gen	13	sport	Did Maria Sharapova win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Angelique Kerber win the Wimbledon 2014?	NO	*
 gen	13	sport	Will Petra Kvitova win the Wimbledon 2014?	YES	*
 gen	13	sport	Did Petra Kvitova win the Wimbledon 2014?	YES	*
+gen	13	sport	Will Petra Kvitova lose the Wimbledon 2014?	NO	*
+gen	13	sport	Did Petra Kvitova lose the Wimbledon 2014?	NO	*
 gen	13	sport	will Petra Kvitova win the Wimbledon 2014 finals?	YES	*
 gen	13	sport	will Petra Kvitova win the Wimbledon 2014 semi-finals?	YES	*
 gen	13	sport	will Petra Kvitova win the Wimbledon 2014 quarter-finals?	YES	*
@@ -1155,6 +1183,8 @@ gen	13	sport	Will Caroline Wozniacki win the Wimbledon 2014?	NO	*
 gen	13	sport	Did Caroline Wozniacki win the Wimbledon 2014?	NO	*
 gen	14	sport	Will Novak Djokovic win the French Open 2015?	YES	*
 gen	14	sport	Did Novak Djokovic win the French Open 2015?	YES	*
+gen	14	sport	Will Novak Djokovic lose the French Open 2015?	NO	*
+gen	14	sport	Did Novak Djokovic lose the French Open 2015?	NO	*
 gen	14	sport	will Novak Djokovic win the French Open 2015 finals?	YES	*
 gen	14	sport	will Novak Djokovic win the French Open 2015 semi-finals?	YES	*
 gen	14	sport	will Novak Djokovic win the French Open 2015 quarter-finals?	YES	*
@@ -1198,6 +1228,8 @@ gen	14	sport	Did Bernard Tomic win the French Open 2015?	NO	*
 gen	14	sport	Did Benoit Paire win the French Open 2015?	NO	*
 gen	14	sport	Will Serena Williams win the French Open 2015?	YES	*
 gen	14	sport	Did Serena Williams win the French Open 2015?	YES	*
+gen	14	sport	Will Serena Williams lose the French Open 2015?	NO	*
+gen	14	sport	Did Serena Williams lose the French Open 2015?	NO	*
 gen	14	sport	will Serena Williams win the French Open 2015 finals?	YES	*
 gen	14	sport	will Serena Williams win the French Open 2015 semi-finals?	YES	*
 gen	14	sport	will Serena Williams win the French Open 2015 quarter-finals?	YES	*
@@ -1254,6 +1286,8 @@ gen	15	politics	Did Jeff Sessions win the Alabama senate election?	YES	*
 gen	15	politics	Did Deval Patrick win the Alabama senate election?	NO	*
 gen	15	politics	Will Jeff Sessions win the Alabama senate election?	YES	*
 gen	15	politics	Will Sean Parnell win the Alabama senate election?	NO	*
+gen	15	politics	Did Jeff Sessions lose the Alabama senate election?	NO	*
+gen	15	politics	Will Jeff Sessions lose the Alabama senate election?	NO	*
 gen	17	politics	Will Mark Pryor become the Arkansas senator?	YES	*
 gen	17	politics	Will Peter Shumlin become the Arkansas senator?	NO	*
 gen	17	politics	Did Mark Pryor become the Arkansas senator?	YES	*
@@ -1262,6 +1296,8 @@ gen	17	politics	Did Mark Pryor win the Arkansas senate election?	YES	*
 gen	17	politics	Did Dennis Daugaard win the Arkansas senate election?	NO	*
 gen	17	politics	Will Mark Pryor win the Arkansas senate election?	YES	*
 gen	17	politics	Will Pat Quinn win the Arkansas senate election?	NO	*
+gen	17	politics	Did Mark Pryor lose the Arkansas senate election?	NO	*
+gen	17	politics	Will Mark Pryor lose the Arkansas senate election?	NO	*
 gen	18	politics	Will Mark Udall become the Colorado senator?	YES	*
 gen	18	politics	Will Saxby Chambliss become the Colorado senator?	NO	*
 gen	18	politics	Did Mark Udall become the Colorado senator?	YES	*
@@ -1270,6 +1306,8 @@ gen	18	politics	Did Mark Udall win the Colorado senate election?	YES	*
 gen	18	politics	Did Jim Risch win the Colorado senate election?	NO	*
 gen	18	politics	Will Mark Udall win the Colorado senate election?	YES	*
 gen	18	politics	Will Nathan Deal win the Colorado senate election?	NO	*
+gen	18	politics	Did Mark Udall lose the Colorado senate election?	NO	*
+gen	18	politics	Will Mark Udall lose the Colorado senate election?	NO	*
 gen	19	politics	Will Chris Coons become the Delaware senator?	YES	*
 gen	19	politics	Will Mike Enzi become the Delaware senator?	NO	*
 gen	19	politics	Did Chris Coons become the Delaware senator?	YES	*
@@ -1278,6 +1316,8 @@ gen	19	politics	Did Chris Coons win the Delaware senate election?	YES	*
 gen	19	politics	Did Mary Landrieu win the Delaware senate election?	NO	*
 gen	19	politics	Will Chris Coons win the Delaware senate election?	YES	*
 gen	19	politics	Will Mike Johanns win the Delaware senate election?	NO	*
+gen	19	politics	Did Chris Coons lose the Delaware senate election?	NO	*
+gen	19	politics	Will Chris Coons lose the Delaware senate election?	NO	*
 gen	21	politics	Will Jim Risch become the Idaho senator?	YES	*
 gen	21	politics	Will Nathan Deal become the Idaho senator?	NO	*
 gen	21	politics	Did Jim Risch become the Idaho senator?	YES	*
@@ -1286,6 +1326,8 @@ gen	21	politics	Did Jim Risch win the Idaho senate election?	YES	*
 gen	21	politics	Did Mark Pryor win the Idaho senate election?	NO	*
 gen	21	politics	Will Jim Risch win the Idaho senate election?	YES	*
 gen	21	politics	Will Butch Otter win the Idaho senate election?	NO	*
+gen	21	politics	Did Jim Risch lose the Idaho senate election?	NO	*
+gen	21	politics	Will Jim Risch lose the Idaho senate election?	NO	*
 gen	22	politics	Will Richard Durbin become the Illinois senator?	YES	*
 gen	22	politics	Will Jerry Brown become the Illinois senator?	NO	*
 gen	22	politics	Did Richard Durbin become the Illinois senator?	YES	*
@@ -1294,6 +1336,8 @@ gen	22	politics	Did Richard Durbin win the Illinois senate election?	YES	*
 gen	22	politics	Did Jeanne Shaheen win the Illinois senate election?	NO	*
 gen	22	politics	Will Richard Durbin win the Illinois senate election?	YES	*
 gen	22	politics	Will Susan Collins win the Illinois senate election?	NO	*
+gen	22	politics	Did Richard Durbin lose the Illinois senate election?	NO	*
+gen	22	politics	Will Richard Durbin lose the Illinois senate election?	NO	*
 gen	23	politics	Will Tom Harkin become the Iowa senator?	YES	*
 gen	23	politics	Will Mark Warner become the Iowa senator?	NO	*
 gen	23	politics	Did Tom Harkin become the Iowa senator?	YES	*
@@ -1302,6 +1346,8 @@ gen	23	politics	Did Tom Harkin win the Iowa senate election?	YES	*
 gen	23	politics	Did Rick Snyder win the Iowa senate election?	NO	*
 gen	23	politics	Will Tom Harkin win the Iowa senate election?	YES	*
 gen	23	politics	Will Mark Pryor win the Iowa senate election?	NO	*
+gen	23	politics	Did Tom Harkin lose the Iowa senate election?	NO	*
+gen	23	politics	Will Tom Harkin lose the Iowa senate election?	NO	*
 gen	24	politics	Will Pat Roberts become the Kansas senator?	YES	*
 gen	24	politics	Will Mark Dayton become the Kansas senator?	NO	*
 gen	24	politics	Did Pat Roberts become the Kansas senator?	YES	*
@@ -1310,6 +1356,8 @@ gen	24	politics	Did Pat Roberts win the Kansas senate election?	YES	*
 gen	24	politics	Did Jim Risch win the Kansas senate election?	NO	*
 gen	24	politics	Will Pat Roberts win the Kansas senate election?	YES	*
 gen	24	politics	Will Nathan Deal win the Kansas senate election?	NO	*
+gen	24	politics	Did Pat Roberts lose the Kansas senate election?	NO	*
+gen	24	politics	Will Pat Roberts lose the Kansas senate election?	NO	*
 gen	25	politics	Will Mitch McConnell become the Kentucky senator?	YES	*
 gen	25	politics	Will Susan Collins become the Kentucky senator?	NO	*
 gen	25	politics	Did Mitch McConnell become the Kentucky senator?	YES	*
@@ -1318,6 +1366,8 @@ gen	25	politics	Did Mitch McConnell win the Kentucky senate election?	YES	*
 gen	25	politics	Did John Walsh win the Kentucky senate election?	NO	*
 gen	25	politics	Will Mitch McConnell win the Kentucky senate election?	YES	*
 gen	25	politics	Will Saxby Chambliss win the Kentucky senate election?	NO	*
+gen	25	politics	Did Mitch McConnell lose the Kentucky senate election?	NO	*
+gen	25	politics	Will Mitch McConnell lose the Kentucky senate election?	NO	*
 gen	27	politics	Will Susan Collins become the Maine senator?	YES	*
 gen	27	politics	Will Maggie Hassan become the Maine senator?	NO	*
 gen	27	politics	Did Susan Collins become the Maine senator?	YES	*
@@ -1326,6 +1376,8 @@ gen	27	politics	Did Susan Collins win the Maine senate election?	YES	*
 gen	27	politics	Did Cory Booker win the Maine senate election?	NO	*
 gen	27	politics	Will Susan Collins win the Maine senate election?	YES	*
 gen	27	politics	Will Mike Beebe win the Maine senate election?	NO	*
+gen	27	politics	Did Susan Collins lose the Maine senate election?	NO	*
+gen	27	politics	Will Susan Collins lose the Maine senate election?	NO	*
 gen	28	politics	Will Ed Markey become the Massachusetts senator?	YES	*
 gen	28	politics	Will Lamar Alexander become the Massachusetts senator?	NO	*
 gen	28	politics	Did Ed Markey become the Massachusetts senator?	YES	*
@@ -1334,6 +1386,8 @@ gen	28	politics	Did Ed Markey win the Massachusetts senate election?	YES	*
 gen	28	politics	Did Lincoln Chafee win the Massachusetts senate election?	NO	*
 gen	28	politics	Will Ed Markey win the Massachusetts senate election?	YES	*
 gen	28	politics	Will Mark Warner win the Massachusetts senate election?	NO	*
+gen	28	politics	Did Ed Markey lose the Massachusetts senate election?	NO	*
+gen	28	politics	Will Ed Markey lose the Massachusetts senate election?	NO	*
 gen	29	politics	Will Carl Levin become the Michigan senator?	YES	*
 gen	29	politics	Will Mary Fallin become the Michigan senator?	NO	*
 gen	29	politics	Did Carl Levin become the Michigan senator?	YES	*
@@ -1342,6 +1396,8 @@ gen	29	politics	Did Carl Levin win the Michigan senate election?	YES	*
 gen	29	politics	Did Jeanne Shaheen win the Michigan senate election?	NO	*
 gen	29	politics	Will Carl Levin win the Michigan senate election?	YES	*
 gen	29	politics	Will Scott Walker win the Michigan senate election?	NO	*
+gen	29	politics	Did Carl Levin lose the Michigan senate election?	NO	*
+gen	29	politics	Will Carl Levin lose the Michigan senate election?	NO	*
 gen	31	politics	Will Thad Cochran become the Mississippi senator?	YES	*
 gen	31	politics	Will Mike Beebe become the Mississippi senator?	NO	*
 gen	31	politics	Did Thad Cochran become the Mississippi senator?	YES	*
@@ -1350,6 +1406,8 @@ gen	31	politics	Did Thad Cochran win the Mississippi senate election?	YES	*
 gen	31	politics	Did Lamar Alexander win the Mississippi senate election?	NO	*
 gen	31	politics	Will Thad Cochran win the Mississippi senate election?	YES	*
 gen	31	politics	Will Mark Udall win the Mississippi senate election?	NO	*
+gen	31	politics	Did Thad Cochran lose the Mississippi senate election?	NO	*
+gen	31	politics	Will Thad Cochran lose the Mississippi senate election?	NO	*
 gen	32	politics	Will John Walsh become the Montana senator?	YES	*
 gen	32	politics	Will Tom Harkin become the Montana senator?	NO	*
 gen	32	politics	Did John Walsh become the Montana senator?	YES	*
@@ -1358,6 +1416,8 @@ gen	32	politics	Did John Walsh win the Montana senate election?	YES	*
 gen	32	politics	Did Scott Walker win the Montana senate election?	NO	*
 gen	32	politics	Will John Walsh win the Montana senate election?	YES	*
 gen	32	politics	Will Jim Inhofe win the Montana senate election?	NO	*
+gen	32	politics	Did John Walsh lose the Montana senate election?	NO	*
+gen	32	politics	Will John Walsh lose the Montana senate election?	NO	*
 gen	33	politics	Will Mike Johanns become the Nebraska senator?	YES	*
 gen	33	politics	Will Cory Booker become the Nebraska senator?	NO	*
 gen	33	politics	Did Mike Johanns become the Nebraska senator?	YES	*
@@ -1366,6 +1426,8 @@ gen	33	politics	Did Mike Johanns win the Nebraska senate election?	YES	*
 gen	33	politics	Did Kay Hagan win the Nebraska senate election?	NO	*
 gen	33	politics	Will Mike Johanns win the Nebraska senate election?	YES	*
 gen	33	politics	Will Mark Warner win the Nebraska senate election?	NO	*
+gen	33	politics	Did Mike Johanns lose the Nebraska senate election?	NO	*
+gen	33	politics	Will Mike Johanns lose the Nebraska senate election?	NO	*
 gen	34	politics	Will Jeanne Shaheen become the New Hampshire senator?	YES	*
 gen	34	politics	Will Cory Booker become the New Hampshire senator?	NO	*
 gen	34	politics	Did Jeanne Shaheen become the New Hampshire senator?	YES	*
@@ -1374,6 +1436,8 @@ gen	34	politics	Did Jeanne Shaheen win the New Hampshire senate election?	YES	*
 gen	34	politics	Did Tim Johnson win the New Hampshire senate election?	NO	*
 gen	34	politics	Will Jeanne Shaheen win the New Hampshire senate election?	YES	*
 gen	34	politics	Will Mark Pryor win the New Hampshire senate election?	NO	*
+gen	34	politics	Did Jeanne Shaheen lose the New Hampshire senate election?	NO	*
+gen	34	politics	Will Jeanne Shaheen lose the New Hampshire senate election?	NO	*
 gen	35	politics	Will Cory Booker become the New Jersey senator?	YES	*
 gen	35	politics	Will Sean Parnell become the New Jersey senator?	NO	*
 gen	35	politics	Did Cory Booker become the New Jersey senator?	YES	*
@@ -1382,6 +1446,8 @@ gen	35	politics	Did Cory Booker win the New Jersey senate election?	YES	*
 gen	35	politics	Did Tim Johnson win the New Jersey senate election?	NO	*
 gen	35	politics	Will Cory Booker win the New Jersey senate election?	YES	*
 gen	35	politics	Will Jerry Brown win the New Jersey senate election?	NO	*
+gen	35	politics	Did Cory Booker lose the New Jersey senate election?	NO	*
+gen	35	politics	Will Cory Booker lose the New Jersey senate election?	NO	*
 gen	37	politics	Will Kay Hagan become the North Carolina senator?	YES	*
 gen	37	politics	Will Susan Collins become the North Carolina senator?	NO	*
 gen	37	politics	Did Kay Hagan become the North Carolina senator?	YES	*
@@ -1390,6 +1456,8 @@ gen	37	politics	Did Kay Hagan win the North Carolina senate election?	YES	*
 gen	37	politics	Did Mary Landrieu win the North Carolina senate election?	NO	*
 gen	37	politics	Will Kay Hagan win the North Carolina senate election?	YES	*
 gen	37	politics	Will Jack Reed win the North Carolina senate election?	NO	*
+gen	37	politics	Did Kay Hagan lose the North Carolina senate election?	NO	*
+gen	37	politics	Will Kay Hagan lose the North Carolina senate election?	NO	*
 gen	38	politics	Will Jim Inhofe become the Oklahoma senator?	YES	*
 gen	38	politics	Will Mike Johanns become the Oklahoma senator?	NO	*
 gen	38	politics	Did Jim Inhofe become the Oklahoma senator?	YES	*
@@ -1398,6 +1466,8 @@ gen	38	politics	Did Jim Inhofe win the Oklahoma senate election?	YES	*
 gen	38	politics	Did Mike Enzi win the Oklahoma senate election?	NO	*
 gen	38	politics	Will Jim Inhofe win the Oklahoma senate election?	YES	*
 gen	38	politics	Will Tim Johnson win the Oklahoma senate election?	NO	*
+gen	38	politics	Did Jim Inhofe lose the Oklahoma senate election?	NO	*
+gen	38	politics	Will Jim Inhofe lose the Oklahoma senate election?	NO	*
 gen	39	politics	Will Jeff Merkley become the Oregon senator?	YES	*
 gen	39	politics	Will Sam Brownback become the Oregon senator?	NO	*
 gen	39	politics	Did Jeff Merkley become the Oregon senator?	YES	*
@@ -1406,6 +1476,8 @@ gen	39	politics	Did Jeff Merkley win the Oregon senate election?	YES	*
 gen	39	politics	Did Dennis Daugaard win the Oregon senate election?	NO	*
 gen	39	politics	Will Jeff Merkley win the Oregon senate election?	YES	*
 gen	39	politics	Will Mark Warner win the Oregon senate election?	NO	*
+gen	39	politics	Did Jeff Merkley lose the Oregon senate election?	NO	*
+gen	39	politics	Will Jeff Merkley lose the Oregon senate election?	NO	*
 gen	41	politics	Will Lindsey Graham become the South Carolina senator?	YES	*
 gen	41	politics	Will Mitch McConnell become the South Carolina senator?	NO	*
 gen	41	politics	Did Lindsey Graham become the South Carolina senator?	YES	*
@@ -1414,6 +1486,8 @@ gen	41	politics	Did Lindsey Graham win the South Carolina senate election?	YES	*
 gen	41	politics	Did Rick Snyder win the South Carolina senate election?	NO	*
 gen	41	politics	Will Lindsey Graham win the South Carolina senate election?	YES	*
 gen	41	politics	Will Mike Johanns win the South Carolina senate election?	NO	*
+gen	41	politics	Did Lindsey Graham lose the South Carolina senate election?	NO	*
+gen	41	politics	Will Lindsey Graham lose the South Carolina senate election?	NO	*
 gen	42	politics	Will Tim Johnson become the South Dakota senator?	YES	*
 gen	42	politics	Will John Hickenlooper become the South Dakota senator?	NO	*
 gen	42	politics	Did Tim Johnson become the South Dakota senator?	YES	*
@@ -1422,6 +1496,8 @@ gen	42	politics	Did Tim Johnson win the South Dakota senate election?	YES	*
 gen	42	politics	Did Bill Haslam win the South Dakota senate election?	NO	*
 gen	42	politics	Will Tim Johnson win the South Dakota senate election?	YES	*
 gen	42	politics	Will Mary Fallin win the South Dakota senate election?	NO	*
+gen	42	politics	Did Tim Johnson lose the South Dakota senate election?	NO	*
+gen	42	politics	Will Tim Johnson lose the South Dakota senate election?	NO	*
 gen	43	politics	Will Lamar Alexander become the Tennessee senator?	YES	*
 gen	43	politics	Will Jeff Sessions become the Tennessee senator?	NO	*
 gen	43	politics	Did Lamar Alexander become the Tennessee senator?	YES	*
@@ -1430,6 +1506,8 @@ gen	43	politics	Did Lamar Alexander win the Tennessee senate election?	YES	*
 gen	43	politics	Did John Walsh win the Tennessee senate election?	NO	*
 gen	43	politics	Will Lamar Alexander win the Tennessee senate election?	YES	*
 gen	43	politics	Will Mike Johanns win the Tennessee senate election?	NO	*
+gen	43	politics	Did Lamar Alexander lose the Tennessee senate election?	NO	*
+gen	43	politics	Will Lamar Alexander lose the Tennessee senate election?	NO	*
 gen	44	politics	Will John Cornyn become the Texas senator?	YES	*
 gen	44	politics	Will Lincoln Chafee become the Texas senator?	NO	*
 gen	44	politics	Did John Cornyn become the Texas senator?	YES	*
@@ -1438,6 +1516,8 @@ gen	44	politics	Did John Cornyn win the Texas senate election?	YES	*
 gen	44	politics	Did Lindsey Graham win the Texas senate election?	NO	*
 gen	44	politics	Will John Cornyn win the Texas senate election?	YES	*
 gen	44	politics	Will Robert J. Bentley win the Texas senate election?	NO	*
+gen	44	politics	Did John Cornyn lose the Texas senate election?	NO	*
+gen	44	politics	Will John Cornyn lose the Texas senate election?	NO	*
 gen	45	politics	Will Mark Warner become the Virginia senator?	YES	*
 gen	45	politics	Will Jerry Brown become the Virginia senator?	NO	*
 gen	45	politics	Did Mark Warner become the Virginia senator?	YES	*
@@ -1446,6 +1526,8 @@ gen	45	politics	Did Mark Warner win the Virginia senate election?	YES	*
 gen	45	politics	Did Maggie Hassan win the Virginia senate election?	NO	*
 gen	45	politics	Will Mark Warner win the Virginia senate election?	YES	*
 gen	45	politics	Will Jan Brewer win the Virginia senate election?	NO	*
+gen	45	politics	Did Mark Warner lose the Virginia senate election?	NO	*
+gen	45	politics	Will Mark Warner lose the Virginia senate election?	NO	*
 gen	47	politics	Will Mike Enzi become the Wyoming senator?	YES	*
 gen	47	politics	Will Terry Branstad become the Wyoming senator?	NO	*
 gen	47	politics	Did Mike Enzi become the Wyoming senator?	YES	*
@@ -1454,6 +1536,8 @@ gen	47	politics	Did Mike Enzi win the Wyoming senate election?	YES	*
 gen	47	politics	Did Mitch McConnell win the Wyoming senate election?	NO	*
 gen	47	politics	Will Mike Enzi win the Wyoming senate election?	YES	*
 gen	47	politics	Will Mitch McConnell win the Wyoming senate election?	NO	*
+gen	47	politics	Did Mike Enzi lose the Wyoming senate election?	NO	*
+gen	47	politics	Will Mike Enzi lose the Wyoming senate election?	NO	*
 gen	48	politics	Will Robert J. Bentley become the Alabama governor?	YES	*
 gen	48	politics	Will Pat Roberts become the Alabama governor?	NO	*
 gen	48	politics	Did Robert J. Bentley become the Alabama governor?	YES	*
@@ -1462,6 +1546,8 @@ gen	48	politics	Did Robert J. Bentley win the Alabama gubernatorial election?	YE
 gen	48	politics	Did Mary Fallin win the Alabama gubernatorial election?	NO	*
 gen	48	politics	Will Robert J. Bentley win the Alabama gubernatorial election?	YES	*
 gen	48	politics	Will Dave Heineman win the Alabama gubernatorial election?	NO	*
+gen	48	politics	Did Robert J. Bentley lose the Alabama gubernatorial election?	NO	*
+gen	48	politics	Will Robert J. Bentley lose the Alabama gubernatorial election?	NO	*
 gen	49	politics	Will Sean Parnell become the Alaska governor?	YES	*
 gen	49	politics	Will Butch Otter become the Alaska governor?	NO	*
 gen	49	politics	Did Sean Parnell become the Alaska governor?	YES	*
@@ -1470,6 +1556,8 @@ gen	49	politics	Did Sean Parnell win the Alaska gubernatorial election?	YES	*
 gen	49	politics	Did Ed Markey win the Alaska gubernatorial election?	NO	*
 gen	49	politics	Will Sean Parnell win the Alaska gubernatorial election?	YES	*
 gen	49	politics	Will Butch Otter win the Alaska gubernatorial election?	NO	*
+gen	49	politics	Did Sean Parnell lose the Alaska gubernatorial election?	NO	*
+gen	49	politics	Will Sean Parnell lose the Alaska gubernatorial election?	NO	*
 gen	51	politics	Will Mike Beebe become the Arkansas governor?	YES	*
 gen	51	politics	Will John Kitzhaber become the Arkansas governor?	NO	*
 gen	51	politics	Did Mike Beebe become the Arkansas governor?	YES	*
@@ -1478,6 +1566,8 @@ gen	51	politics	Did Mike Beebe win the Arkansas gubernatorial election?	YES	*
 gen	51	politics	Did Mary Fallin win the Arkansas gubernatorial election?	NO	*
 gen	51	politics	Will Mike Beebe win the Arkansas gubernatorial election?	YES	*
 gen	51	politics	Will Mark Pryor win the Arkansas gubernatorial election?	NO	*
+gen	51	politics	Did Mike Beebe lose the Arkansas gubernatorial election?	NO	*
+gen	51	politics	Will Mike Beebe lose the Arkansas gubernatorial election?	NO	*
 gen	52	politics	Will Jerry Brown become the California governor?	YES	*
 gen	52	politics	Will Pat Roberts become the California governor?	NO	*
 gen	52	politics	Did Jerry Brown become the California governor?	YES	*
@@ -1486,6 +1576,8 @@ gen	52	politics	Did Jerry Brown win the California gubernatorial election?	YES	*
 gen	52	politics	Did Nathan Deal win the California gubernatorial election?	NO	*
 gen	52	politics	Will Jerry Brown win the California gubernatorial election?	YES	*
 gen	52	politics	Will Kay Hagan win the California gubernatorial election?	NO	*
+gen	52	politics	Did Jerry Brown lose the California gubernatorial election?	NO	*
+gen	52	politics	Will Jerry Brown lose the California gubernatorial election?	NO	*
 gen	53	politics	Will John Hickenlooper become the Colorado governor?	YES	*
 gen	53	politics	Will Deval Patrick become the Colorado governor?	NO	*
 gen	53	politics	Did John Hickenlooper become the Colorado governor?	YES	*
@@ -1494,6 +1586,8 @@ gen	53	politics	Did John Hickenlooper win the Colorado gubernatorial election?	Y
 gen	53	politics	Did Sean Parnell win the Colorado gubernatorial election?	NO	*
 gen	53	politics	Will John Hickenlooper win the Colorado gubernatorial election?	YES	*
 gen	53	politics	Will Cory Booker win the Colorado gubernatorial election?	NO	*
+gen	53	politics	Did John Hickenlooper lose the Colorado gubernatorial election?	NO	*
+gen	53	politics	Will John Hickenlooper lose the Colorado gubernatorial election?	NO	*
 gen	54	politics	Will Dan Malloy become the Connecticut governor?	YES	*
 gen	54	politics	Will Neil Abercrombie become the Connecticut governor?	NO	*
 gen	54	politics	Did Dan Malloy become the Connecticut governor?	YES	*
@@ -1502,6 +1596,8 @@ gen	54	politics	Did Dan Malloy win the Connecticut gubernatorial election?	YES	*
 gen	54	politics	Did Peter Shumlin win the Connecticut gubernatorial election?	NO	*
 gen	54	politics	Will Dan Malloy win the Connecticut gubernatorial election?	YES	*
 gen	54	politics	Will Brian Sandoval win the Connecticut gubernatorial election?	NO	*
+gen	54	politics	Did Dan Malloy lose the Connecticut gubernatorial election?	NO	*
+gen	54	politics	Will Dan Malloy lose the Connecticut gubernatorial election?	NO	*
 gen	55	politics	Will Rick Scott become the Florida governor?	YES	*
 gen	55	politics	Will Lincoln Chafee become the Florida governor?	NO	*
 gen	55	politics	Did Rick Scott become the Florida governor?	YES	*
@@ -1510,6 +1606,8 @@ gen	55	politics	Did Rick Scott win the Florida gubernatorial election?	YES	*
 gen	55	politics	Did Pat Roberts win the Florida gubernatorial election?	NO	*
 gen	55	politics	Will Rick Scott win the Florida gubernatorial election?	YES	*
 gen	55	politics	Will Cory Booker win the Florida gubernatorial election?	NO	*
+gen	55	politics	Did Rick Scott lose the Florida gubernatorial election?	NO	*
+gen	55	politics	Will Rick Scott lose the Florida gubernatorial election?	NO	*
 gen	57	politics	Will Neil Abercrombie become the Hawaii governor?	YES	*
 gen	57	politics	Will Sean Parnell become the Hawaii governor?	NO	*
 gen	57	politics	Did Neil Abercrombie become the Hawaii governor?	YES	*
@@ -1518,6 +1616,8 @@ gen	57	politics	Did Neil Abercrombie win the Hawaii gubernatorial election?	YES	
 gen	57	politics	Did Martin O'Malley win the Hawaii gubernatorial election?	NO	*
 gen	57	politics	Will Neil Abercrombie win the Hawaii gubernatorial election?	YES	*
 gen	57	politics	Will Paul LePage win the Hawaii gubernatorial election?	NO	*
+gen	57	politics	Did Neil Abercrombie lose the Hawaii gubernatorial election?	NO	*
+gen	57	politics	Will Neil Abercrombie lose the Hawaii gubernatorial election?	NO	*
 gen	58	politics	Will Butch Otter become the Idaho governor?	YES	*
 gen	58	politics	Will Mike Beebe become the Idaho governor?	NO	*
 gen	58	politics	Did Butch Otter become the Idaho governor?	YES	*
@@ -1526,6 +1626,8 @@ gen	58	politics	Did Butch Otter win the Idaho gubernatorial election?	YES	*
 gen	58	politics	Did Robert J. Bentley win the Idaho gubernatorial election?	NO	*
 gen	58	politics	Will Butch Otter win the Idaho gubernatorial election?	YES	*
 gen	58	politics	Will Al Franken win the Idaho gubernatorial election?	NO	*
+gen	58	politics	Did Butch Otter lose the Idaho gubernatorial election?	NO	*
+gen	58	politics	Will Butch Otter lose the Idaho gubernatorial election?	NO	*
 gen	59	politics	Will Pat Quinn become the Illinois governor?	YES	*
 gen	59	politics	Will Mark Warner become the Illinois governor?	NO	*
 gen	59	politics	Did Pat Quinn become the Illinois governor?	YES	*
@@ -1534,6 +1636,8 @@ gen	59	politics	Did Pat Quinn win the Illinois gubernatorial election?	YES	*
 gen	59	politics	Did Carl Levin win the Illinois gubernatorial election?	NO	*
 gen	59	politics	Will Pat Quinn win the Illinois gubernatorial election?	YES	*
 gen	59	politics	Will Cory Booker win the Illinois gubernatorial election?	NO	*
+gen	59	politics	Did Pat Quinn lose the Illinois gubernatorial election?	NO	*
+gen	59	politics	Will Pat Quinn lose the Illinois gubernatorial election?	NO	*
 gen	61	politics	Will Sam Brownback become the Kansas governor?	YES	*
 gen	61	politics	Will Ed Markey become the Kansas governor?	NO	*
 gen	61	politics	Did Sam Brownback become the Kansas governor?	YES	*
@@ -1542,6 +1646,8 @@ gen	61	politics	Did Sam Brownback win the Kansas gubernatorial election?	YES	*
 gen	61	politics	Did Susan Collins win the Kansas gubernatorial election?	NO	*
 gen	61	politics	Will Sam Brownback win the Kansas gubernatorial election?	YES	*
 gen	61	politics	Will Rick Scott win the Kansas gubernatorial election?	NO	*
+gen	61	politics	Did Sam Brownback lose the Kansas gubernatorial election?	NO	*
+gen	61	politics	Will Sam Brownback lose the Kansas gubernatorial election?	NO	*
 gen	62	politics	Will Paul LePage become the Maine governor?	YES	*
 gen	62	politics	Will Saxby Chambliss become the Maine governor?	NO	*
 gen	62	politics	Did Paul LePage become the Maine governor?	YES	*
@@ -1550,6 +1656,8 @@ gen	62	politics	Did Paul LePage win the Maine gubernatorial election?	YES	*
 gen	62	politics	Did Ed Markey win the Maine gubernatorial election?	NO	*
 gen	62	politics	Will Paul LePage win the Maine gubernatorial election?	YES	*
 gen	62	politics	Will Pat Roberts win the Maine gubernatorial election?	NO	*
+gen	62	politics	Did Paul LePage lose the Maine gubernatorial election?	NO	*
+gen	62	politics	Will Paul LePage lose the Maine gubernatorial election?	NO	*
 gen	63	politics	Will Martin O'Malley become the Maryland governor?	YES	*
 gen	63	politics	Will Dennis Daugaard become the Maryland governor?	NO	*
 gen	63	politics	Did Martin O'Malley become the Maryland governor?	YES	*
@@ -1558,6 +1666,8 @@ gen	63	politics	Did Martin O'Malley win the Maryland gubernatorial election?	YES
 gen	63	politics	Did Nikki Haley win the Maryland gubernatorial election?	NO	*
 gen	63	politics	Will Martin O'Malley win the Maryland gubernatorial election?	YES	*
 gen	63	politics	Will John Kitzhaber win the Maryland gubernatorial election?	NO	*
+gen	63	politics	Did Martin O'Malley lose the Maryland gubernatorial election?	NO	*
+gen	63	politics	Will Martin O'Malley lose the Maryland gubernatorial election?	NO	*
 gen	64	politics	Will Deval Patrick become the Massachusetts governor?	YES	*
 gen	64	politics	Will Saxby Chambliss become the Massachusetts governor?	NO	*
 gen	64	politics	Did Deval Patrick become the Massachusetts governor?	YES	*
@@ -1566,6 +1676,8 @@ gen	64	politics	Did Deval Patrick win the Massachusetts gubernatorial election?	
 gen	64	politics	Did Terry Branstad win the Massachusetts gubernatorial election?	NO	*
 gen	64	politics	Will Deval Patrick win the Massachusetts gubernatorial election?	YES	*
 gen	64	politics	Will Mark Pryor win the Massachusetts gubernatorial election?	NO	*
+gen	64	politics	Did Deval Patrick lose the Massachusetts gubernatorial election?	NO	*
+gen	64	politics	Will Deval Patrick lose the Massachusetts gubernatorial election?	NO	*
 gen	65	politics	Will Rick Snyder become the Michigan governor?	YES	*
 gen	65	politics	Will Mike Johanns become the Michigan governor?	NO	*
 gen	65	politics	Did Rick Snyder become the Michigan governor?	YES	*
@@ -1574,6 +1686,8 @@ gen	65	politics	Did Rick Snyder win the Michigan gubernatorial election?	YES	*
 gen	65	politics	Did Deval Patrick win the Michigan gubernatorial election?	NO	*
 gen	65	politics	Will Rick Snyder win the Michigan gubernatorial election?	YES	*
 gen	65	politics	Will Bill Haslam win the Michigan gubernatorial election?	NO	*
+gen	65	politics	Did Rick Snyder lose the Michigan gubernatorial election?	NO	*
+gen	65	politics	Will Rick Snyder lose the Michigan gubernatorial election?	NO	*
 gen	67	politics	Will Dave Heineman become the Nebraska governor?	YES	*
 gen	67	politics	Will Brian Sandoval become the Nebraska governor?	NO	*
 gen	67	politics	Did Dave Heineman become the Nebraska governor?	YES	*
@@ -1582,6 +1696,8 @@ gen	67	politics	Did Dave Heineman win the Nebraska gubernatorial election?	YES	*
 gen	67	politics	Did Thad Cochran win the Nebraska gubernatorial election?	NO	*
 gen	67	politics	Will Dave Heineman win the Nebraska gubernatorial election?	YES	*
 gen	67	politics	Will Mary Landrieu win the Nebraska gubernatorial election?	NO	*
+gen	67	politics	Did Dave Heineman lose the Nebraska gubernatorial election?	NO	*
+gen	67	politics	Will Dave Heineman lose the Nebraska gubernatorial election?	NO	*
 gen	68	politics	Will Brian Sandoval become the Nevada governor?	YES	*
 gen	68	politics	Will John Kitzhaber become the Nevada governor?	NO	*
 gen	68	politics	Did Brian Sandoval become the Nevada governor?	YES	*
@@ -1590,6 +1706,8 @@ gen	68	politics	Did Brian Sandoval win the Nevada gubernatorial election?	YES	*
 gen	68	politics	Did Thad Cochran win the Nevada gubernatorial election?	NO	*
 gen	68	politics	Will Brian Sandoval win the Nevada gubernatorial election?	YES	*
 gen	68	politics	Will John Kasich win the Nevada gubernatorial election?	NO	*
+gen	68	politics	Did Brian Sandoval lose the Nevada gubernatorial election?	NO	*
+gen	68	politics	Will Brian Sandoval lose the Nevada gubernatorial election?	NO	*
 gen	69	politics	Will Maggie Hassan become the New Hampshire governor?	YES	*
 gen	69	politics	Will Pat Roberts become the New Hampshire governor?	NO	*
 gen	69	politics	Did Maggie Hassan become the New Hampshire governor?	YES	*
@@ -1598,6 +1716,8 @@ gen	69	politics	Did Maggie Hassan win the New Hampshire gubernatorial election?	
 gen	69	politics	Did Susana Martinez win the New Hampshire gubernatorial election?	NO	*
 gen	69	politics	Will Maggie Hassan win the New Hampshire gubernatorial election?	YES	*
 gen	69	politics	Will Nikki Haley win the New Hampshire gubernatorial election?	NO	*
+gen	69	politics	Did Maggie Hassan lose the New Hampshire gubernatorial election?	NO	*
+gen	69	politics	Will Maggie Hassan lose the New Hampshire gubernatorial election?	NO	*
 gen	71	politics	Will Andrew Cuomo become the New York governor?	YES	*
 gen	71	politics	Will Butch Otter become the New York governor?	NO	*
 gen	71	politics	Did Andrew Cuomo become the New York governor?	YES	*
@@ -1606,6 +1726,8 @@ gen	71	politics	Did Andrew Cuomo win the New York gubernatorial election?	YES	*
 gen	71	politics	Did Tom Corbett win the New York gubernatorial election?	NO	*
 gen	71	politics	Will Andrew Cuomo win the New York gubernatorial election?	YES	*
 gen	71	politics	Will Rick Scott win the New York gubernatorial election?	NO	*
+gen	71	politics	Did Andrew Cuomo lose the New York gubernatorial election?	NO	*
+gen	71	politics	Will Andrew Cuomo lose the New York gubernatorial election?	NO	*
 gen	72	politics	Will John Kasich become the Ohio governor?	YES	*
 gen	72	politics	Will Mike Enzi become the Ohio governor?	NO	*
 gen	72	politics	Did John Kasich become the Ohio governor?	YES	*
@@ -1614,6 +1736,8 @@ gen	72	politics	Did John Kasich win the Ohio gubernatorial election?	YES	*
 gen	72	politics	Did Martin O'Malley win the Ohio gubernatorial election?	NO	*
 gen	72	politics	Will John Kasich win the Ohio gubernatorial election?	YES	*
 gen	72	politics	Will Ed Markey win the Ohio gubernatorial election?	NO	*
+gen	72	politics	Did John Kasich lose the Ohio gubernatorial election?	NO	*
+gen	72	politics	Will John Kasich lose the Ohio gubernatorial election?	NO	*
 gen	73	politics	Will Mary Fallin become the Oklahoma governor?	YES	*
 gen	73	politics	Will Matt Mead become the Oklahoma governor?	NO	*
 gen	73	politics	Did Mary Fallin become the Oklahoma governor?	YES	*
@@ -1622,6 +1746,8 @@ gen	73	politics	Did Mary Fallin win the Oklahoma gubernatorial election?	YES	*
 gen	73	politics	Did Mark Begich win the Oklahoma gubernatorial election?	NO	*
 gen	73	politics	Will Mary Fallin win the Oklahoma gubernatorial election?	YES	*
 gen	73	politics	Will Ed Markey win the Oklahoma gubernatorial election?	NO	*
+gen	73	politics	Did Mary Fallin lose the Oklahoma gubernatorial election?	NO	*
+gen	73	politics	Will Mary Fallin lose the Oklahoma gubernatorial election?	NO	*
 gen	74	politics	Will John Kitzhaber become the Oregon governor?	YES	*
 gen	74	politics	Will Rick Scott become the Oregon governor?	NO	*
 gen	74	politics	Did John Kitzhaber become the Oregon governor?	YES	*
@@ -1630,6 +1756,8 @@ gen	74	politics	Did John Kitzhaber win the Oregon gubernatorial election?	YES	*
 gen	74	politics	Did Tim Johnson win the Oregon gubernatorial election?	NO	*
 gen	74	politics	Will John Kitzhaber win the Oregon gubernatorial election?	YES	*
 gen	74	politics	Will Lamar Alexander win the Oregon gubernatorial election?	NO	*
+gen	74	politics	Did John Kitzhaber lose the Oregon gubernatorial election?	NO	*
+gen	74	politics	Will John Kitzhaber lose the Oregon gubernatorial election?	NO	*
 gen	75	politics	Will Tom Corbett become the Pennsylvania governor?	YES	*
 gen	75	politics	Will Mark Udall become the Pennsylvania governor?	NO	*
 gen	75	politics	Did Tom Corbett become the Pennsylvania governor?	YES	*
@@ -1638,6 +1766,8 @@ gen	75	politics	Did Tom Corbett win the Pennsylvania gubernatorial election?	YES
 gen	75	politics	Did Paul LePage win the Pennsylvania gubernatorial election?	NO	*
 gen	75	politics	Will Tom Corbett win the Pennsylvania gubernatorial election?	YES	*
 gen	75	politics	Will Cory Booker win the Pennsylvania gubernatorial election?	NO	*
+gen	75	politics	Did Tom Corbett lose the Pennsylvania gubernatorial election?	NO	*
+gen	75	politics	Will Tom Corbett lose the Pennsylvania gubernatorial election?	NO	*
 gen	77	politics	Will Nikki Haley become the South Carolina governor?	YES	*
 gen	77	politics	Will Mark Pryor become the South Carolina governor?	NO	*
 gen	77	politics	Did Nikki Haley become the South Carolina governor?	YES	*
@@ -1646,6 +1776,8 @@ gen	77	politics	Did Nikki Haley win the South Carolina gubernatorial election?	Y
 gen	77	politics	Did Matt Mead win the South Carolina gubernatorial election?	NO	*
 gen	77	politics	Will Nikki Haley win the South Carolina gubernatorial election?	YES	*
 gen	77	politics	Will Mitch McConnell win the South Carolina gubernatorial election?	NO	*
+gen	77	politics	Did Nikki Haley lose the South Carolina gubernatorial election?	NO	*
+gen	77	politics	Will Nikki Haley lose the South Carolina gubernatorial election?	NO	*
 gen	78	politics	Will Dennis Daugaard become the South Dakota governor?	YES	*
 gen	78	politics	Will Terry Branstad become the South Dakota governor?	NO	*
 gen	78	politics	Did Dennis Daugaard become the South Dakota governor?	YES	*
@@ -1654,6 +1786,8 @@ gen	78	politics	Did Dennis Daugaard win the South Dakota gubernatorial election?
 gen	78	politics	Did Cory Booker win the South Dakota gubernatorial election?	NO	*
 gen	78	politics	Will Dennis Daugaard win the South Dakota gubernatorial election?	YES	*
 gen	78	politics	Will Jim Inhofe win the South Dakota gubernatorial election?	NO	*
+gen	78	politics	Did Dennis Daugaard lose the South Dakota gubernatorial election?	NO	*
+gen	78	politics	Will Dennis Daugaard lose the South Dakota gubernatorial election?	NO	*
 gen	79	politics	Will Bill Haslam become the Tennessee governor?	YES	*
 gen	79	politics	Will Lamar Alexander become the Tennessee governor?	NO	*
 gen	79	politics	Did Bill Haslam become the Tennessee governor?	YES	*
@@ -1662,6 +1796,8 @@ gen	79	politics	Did Bill Haslam win the Tennessee gubernatorial election?	YES	*
 gen	79	politics	Did Dave Heineman win the Tennessee gubernatorial election?	NO	*
 gen	79	politics	Will Bill Haslam win the Tennessee gubernatorial election?	YES	*
 gen	79	politics	Will Dan Malloy win the Tennessee gubernatorial election?	NO	*
+gen	79	politics	Did Bill Haslam lose the Tennessee gubernatorial election?	NO	*
+gen	79	politics	Will Bill Haslam lose the Tennessee gubernatorial election?	NO	*
 gen	81	politics	Will Peter Shumlin become the Vermont governor?	YES	*
 gen	81	politics	Will Chris Coons become the Vermont governor?	NO	*
 gen	81	politics	Did Peter Shumlin become the Vermont governor?	YES	*
@@ -1670,6 +1806,8 @@ gen	81	politics	Did Peter Shumlin win the Vermont gubernatorial election?	YES	*
 gen	81	politics	Did Andrew Cuomo win the Vermont gubernatorial election?	NO	*
 gen	81	politics	Will Peter Shumlin win the Vermont gubernatorial election?	YES	*
 gen	81	politics	Will Pat Roberts win the Vermont gubernatorial election?	NO	*
+gen	81	politics	Did Peter Shumlin lose the Vermont gubernatorial election?	NO	*
+gen	81	politics	Will Peter Shumlin lose the Vermont gubernatorial election?	NO	*
 gen	82	politics	Will Scott Walker become the Wisconsin governor?	YES	*
 gen	82	politics	Will Andrew Cuomo become the Wisconsin governor?	NO	*
 gen	82	politics	Did Scott Walker become the Wisconsin governor?	YES	*
@@ -1678,6 +1816,8 @@ gen	82	politics	Did Scott Walker win the Wisconsin gubernatorial election?	YES	*
 gen	82	politics	Did Robert J. Bentley win the Wisconsin gubernatorial election?	NO	*
 gen	82	politics	Will Scott Walker win the Wisconsin gubernatorial election?	YES	*
 gen	82	politics	Will Peter Shumlin win the Wisconsin gubernatorial election?	NO	*
+gen	82	politics	Did Scott Walker lose the Wisconsin gubernatorial election?	NO	*
+gen	82	politics	Will Scott Walker lose the Wisconsin gubernatorial election?	NO	*
 gen	83	politics	Will Matt Mead become the Wyoming governor?	YES	*
 gen	83	politics	Will Thad Cochran become the Wyoming governor?	NO	*
 gen	83	politics	Did Matt Mead become the Wyoming governor?	YES	*
@@ -1686,3 +1826,5 @@ gen	83	politics	Did Matt Mead win the Wyoming gubernatorial election?	YES	*
 gen	83	politics	Did Maggie Hassan win the Wyoming gubernatorial election?	NO	*
 gen	83	politics	Will Matt Mead win the Wyoming gubernatorial election?	YES	*
 gen	83	politics	Will Brian Sandoval win the Wyoming gubernatorial election?	NO	*
+gen	83	politics	Did Matt Mead lose the Wyoming gubernatorial election?	NO	*
+gen	83	politics	Will Matt Mead lose the Wyoming gubernatorial election?	NO	*
