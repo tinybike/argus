@@ -43,6 +43,7 @@
                 </form>
             </div>
         </div>
+	    {% if content != 'none' %}
             <div id="content" style="display: {{content}}">
 		<h2 align="center">{{question|safe}}</h2>
 		<div class="answer" width="300px"><p class="anstext">{{answer}}</p>
@@ -81,6 +82,7 @@
 		{% endfor %}
            
         </div>
+	    {% endif %}
 </div>
     </body>
 </html>
