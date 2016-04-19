@@ -3,7 +3,7 @@
 All features are created from here.
 """
 import numpy as np
-from keyword_extract import nlp, verbs, extract_from_string
+from keyword_extract import nlp, verbs, extract_from_string, get_subj, get_obj
 from nltk.corpus import wordnet as wn
 import re
 from feature_functs import load, patterns, patterns_string
@@ -308,18 +308,6 @@ class SubjectMatch(Feature):
             Feature.set_value(self, 1.)
         else:
             Feature.set_value(self, 0.)
-
-
-def get_subj(root):
-    for child in root.children:
-        if child.dep_ == 'nsubj':
-            return child
-
-
-def get_obj(root):
-    for child in root.children:
-        if child.dep_ == 'dobj':
-            return child
 
 
 class ObjectMatch(Feature):

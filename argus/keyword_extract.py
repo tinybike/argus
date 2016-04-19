@@ -1,5 +1,5 @@
 """
-Keyword-extraction using Spacy.
+Sentence analysis and keyword extraction using Spacy.
 """
 import nltk
 from nltk.corpus import stopwords
@@ -165,3 +165,15 @@ def extract_from_string(question):
 
     more_nouns(spaced.ents, spaced.noun_chunks, keywords)
     return keywords
+
+
+def get_subj(root):
+    for child in root.children:
+        if child.dep_ == 'nsubj':
+            return child
+
+
+def get_obj(root):
+    for child in root.children:
+        if child.dep_ == 'dobj':
+            return child

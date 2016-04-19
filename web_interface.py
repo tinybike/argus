@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from flask import Flask, render_template, request
+from argus.keyword_extract import get_subj
 from argus.main_frame import get_answer
 import re
 
@@ -65,7 +66,7 @@ def generate_answer():
     sources = create_sources(a)
 
     return render_template('form_action.html', content='block', sources=sources, question=higlighted_question,
-                           answer=a.text, query=a.q.query)
+                           answer=a.text, query=a.q.query, subj=get_subj(a.q.root_verb[0]), root_verb=a.q.root_verb[0].lemma_)
 
 
 def create_sources(a):
