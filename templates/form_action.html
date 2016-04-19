@@ -12,7 +12,20 @@
                 input[type=text], input[type=submit] { font-family: 'Roboto Slab', verdana sans-serif; font-size: 16pt; margin: 0 0.5em; }
 		.title { text-align: center; margin: 8ex 0; }
 		.article { border: 1pt solid black; padding: 1ex 1em; }
-                .answer { text-align: center; font-size: 48pt; margin: 4ex 0; font-weight: bold; color: green; }
+		.answer { margin-top: 6ex; margin-bottom: 6ex; text-align: center; }
+		.anstext { text-align: center; font-size: 48pt; font-weight: bold; color: green; margin-bottom: 1ex; }
+		.ansbar { display: inline-block; margin-left: auto; margin-right: auto; padding: 1ex 1em; border: 1pt black dotted; }
+		.scorebar {
+			margin-left: 0.25em; margin-right: 0.25em;
+			border: 1pt solid black
+		}
+		.scorebar hr {
+		        height: 1.5ex;
+			margin: 0 0;
+			vertical-align: middle;
+			text-align: left;
+			border: 0pt;
+		}
                 #qbox { text-align: center; }
 	</style>
     </head>
@@ -32,7 +45,17 @@
         </div>
             <div id="content" style="display: {{content}}">
 		<h2 align="center">{{question|safe}}</h2>
-		<p class="answer">{{answer}}</p>
+		<div class="answer" width="300px"><p class="anstext">{{answer}}</p>
+			<div class="ansbar"><table><tr>
+			<td style="font-size: 30px; padding-right: 1em;">{{(prob*100)|round}}%</td>
+			<td width="300px"><span style="display: inline-block; width: 100%" class="scorebar">
+						<hr style="width:{{prob*100}}%; background-color:rgb({{(200*(1-prob)+25)|round|int}},{{(200*prob+25)|round|int}},0)">
+					</span>
+					<!--<br><span style="display: inline-block; width:45%">|no</span><span style="display: inline-block; width:45%">|</span>yes|-->
+					<span style="display: inline-block; float:left">no</span> <span style="display: inline-block; float:right">yes</span>
+			</td>
+			</tr></table></div>
+		</div></center>
 		<p class="query">Question Subject: <tt class="query">{{subj}}</tt> Root Verb: <tt class="query">{{root_verb}}</tt></p>
 		<p class="query">Search query: <tt class="query">{{query}}</tt></p>
 		{% for source in sources %}

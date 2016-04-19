@@ -66,7 +66,8 @@ def generate_answer():
     sources = create_sources(a)
 
     return render_template('form_action.html', content='block', sources=sources, question=higlighted_question,
-                           answer=a.text, query=a.q.query, subj=get_subj(a.q.root_verb[0]), root_verb=a.q.root_verb[0].lemma_)
+                           answer=a.text, prob=a.prob,
+                           query=a.q.query, subj=get_subj(a.q.root_verb[0]), root_verb=a.q.root_verb[0].lemma_)
 
 
 def create_sources(a):
