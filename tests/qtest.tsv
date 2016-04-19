@@ -1,6 +1,6 @@
 origin	HITId	Answer.topic	Answer.question	Answer.TF	Answer.URL
 MT	3YLPJ8OXX88FZLFGTITWFGR6K1V4XL	stock market	Will the NYSE stop trading anytime in 2015?	YES	http://www.pbs.org/newshour/rundown/new-york-stock-exchange-suspends-trading/
-MT	3ODOP6T3ASFEY5CJ5T83PQXA7ST429	sport	Will the New England Patriots defeat the the Seattle Seahawks at Super Bowl XLIX?	YES	http://www.sbnation.com/nfl/2015/2/1/7936245/superbowl-live-updates-news-patriots-seahawks
+MT	3ODOP6T3ASFEY5CJ5T83PQXA7ST429	sport	Will the New England Patriots defeat the Seattle Seahawks at Super Bowl XLIX?	YES	http://www.sbnation.com/nfl/2015/2/1/7936245/superbowl-live-updates-news-patriots-seahawks
 MT	30UZJB2POH7LF6C2NY5IDS8GD20532	sport	Will the Patriots win the 2015 Superbowl?	YES	https://en.wikipedia.org/wiki/Super_Bowl_XLIX
 MT	3YLTXLH3DF142O1KMY3YFSE7N7JPHF	sport	WILL ROGER FEDERER WIN US OPEN 2015	NO	http://www.usopen.org/index.html
 MT	3W3RSPVVGSMJGPS6U5HQHQUDC5KULN	politics	Will Greece default on its loans to the IMF?	YES	http://money.cnn.com/2015/06/30/news/economy/greece-imf-default/
@@ -14,7 +14,7 @@ MT	3XEDXEGFX3JSGXY8BYR5DJTR8KPK0U	stock market	Will A-shares of Shangai stock ex
 MT	3OCZWXS7ZO22VA2RT49I9E2XES65L4	stock market	The price of oil will stay above $100 per barrel by the date June 19 2015.	NO	http://www.businessinsider.com/crude-oil-price-june-19-2015-6
 MT	3X52SWXE0X035PN5CS3SWVPN4GUWCU	sport	Will Andy Murray win the Men's Singles in the 2015 Australian Open?	NO	https://en.wikipedia.org/wiki/2015_Australian_Open_%E2%80%93_Men%27s_Singles
 MT	3GL25Y6843PV3B4MZMTS1A867W5MXW	stock market	Is it difficult for european shares to rebound back?	NO	http://www.telegraph.co.uk/finance/markets/ftse100/11884775/European-shares-rebound-led-by-commodity-stocks.html
-MT	3L7SUC0TTUPN6LYBWA4LSWLVXPL0MG	sport	Had Nishikori beat beat Marin Cilic in US OPEN 2014 FINALS?	NO	http://www.theguardian.com/sport/live/2014/sep/08/kei-nishikori-vs-marin-cilic-us-open-final-live
+MT	3L7SUC0TTUPN6LYBWA4LSWLVXPL0MG	sport	Had Nishikori beat Marin Cilic in US OPEN 2014 FINALS?	NO	http://www.theguardian.com/sport/live/2014/sep/08/kei-nishikori-vs-marin-cilic-us-open-final-live
 MT	3BC9H1KCYU7G8SOA8KLHTMH674CYW4	sport	Will California Crown win the Triple Crown in 2014?	NO	www.nytimes.com/2014/06/08/sports/tonalist-wins-belmont...
 MT	3W0XM68YZPQSNMJQ7HV5ROC1DCVK1X	sport	Will Novak Djokovic lose in Australian Open 2015 men's final?	NO	http://www.theguardian.com/sport/live/2015/feb/01/andy-murray-v-novak-djokovic-australian-open-mens-final-live
 MT	3AA88CN98PYPDSUTJ62E5BNBJW8KYW	politics	Will Rick Perry win the Republican presidential nomination for 2016?	NO	http://www.cnn.com/2015/09/11/politics/rick-perry-2016-campaign-suspended/
@@ -24,7 +24,7 @@ MT	3BAWBGQGYLUKEJS4V1QLU7EVVV6V7S	politics	Did Democrats win US senate election 
 MT	3K1H3NEY7LUHDV3JXJULUYLHURMDGF	stock market	Will Indian stock market benefit by Fed hike rate?	YES	http://profit.ndtv.com/news/market/article-fed-rate-hike-earnings-bihar-polls-to-drive-indian-markets-bofa-1211574
 MT	3WJGKMRWVI44WJNEVXY24702WZTCD3	politics	Will Florida's Medical Marijuana initiative pass in 2014?	NO	http://www.huffingtonpost.com/2014/11/04/florida-amendment-2-fails_n_6032422.html
 MT	3HEA4ZVWVDHOTLZ61HTBSP60SSS55I	sport	Will Serena Williams win the 2015 Wimbledon women's singles championship?	YES	http://edition.cnn.com/2015/07/11/tennis/serena-williams-muguruza-wimbledon-tennis/
-MT	3N5YJ55YXGYPPGHT0DGEUHM8BRTANJ		Will cyclist Chris Froome win 102nd Tour de France?	YES	http://www.npr.org/sections/thetwo-way/2015/07/26/426499394/british-cyclist-chris-froome-wins-tour-de-france
+MT	3N5YJ55YXGYPPGHT0DGEUHM8BRTANJ		Will Chris Froome win 102nd Tour de France?	YES	http://www.npr.org/sections/thetwo-way/2015/07/26/426499394/british-cyclist-chris-froome-wins-tour-de-france
 MT	3KWGG5KP6JX70DTR8QX5NXNW633CMK	sport	Will LeBron James re-sign with the Cleveland Cavaliers?	YES	http://espn.go.com/nba/story/_/id/11207703/lebron-james-deal-cleveland-cavaliers-2-years-421-million
 MT	3DIIW4IV8PQI9QQLUWTVC64RXH24IJ	sport	Is Christopher Froome is the winner of the 2015 Tour du France?	YES	http://www.euronews.com/2015/07/26/cycling-briton-chris-froome-of-team-sky-wins-tour-de-france/
 MT	33IXYHIZB5DWQ79CUZKGYC91LB02EF	sport	Does Novak Djokovic beat Roger Federer in Wimbledon 2015 men's singles final?	YES	http://www.theguardian.com/sport/live/2015/jul/12/novak-djokovic-v-roger-federer-wimbledon-2015-mens-singles-final-live

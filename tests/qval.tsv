@@ -1,7 +1,7 @@
 origin	HITId	Answer.topic	Answer.question	Answer.TF	Answer.URL
 MT	38G0E1M85M0MCU4089JW4ZSF33AUVU	stock market	Will oil prices drop steeply in late 2014?	YES	http://www.eia.gov/todayinenergy/detail.cfm?id=19451
 MT	30UZJB2POH7LF6C2NY5IDS8GD20532	politics	Will Hillary Clinton enter the race for the 2016 presidency?	YES	http://www.cnn.com/interactive/2015/04/politics/hillary-clinton-2016-election-announcement/
-MT	3S829FDFT2WSZHY9MTUPIKLCXEZXD2	sport	Would Ray Rice be released/suspended by the Baltimore Ravens for domestic violence?	YES	http://www.nfl.com/news/story/0ap3000000391538/article/ray-rice-released-by-ravens-indefinitely-suspended
+MT	3S829FDFT2WSZHY9MTUPIKLCXEZXD2	sport	Would Ray Rice be released or suspended by the Baltimore Ravens for domestic violence?	YES	http://www.nfl.com/news/story/0ap3000000391538/article/ray-rice-released-by-ravens-indefinitely-suspended
 MT	3W3RSPVVGSMJGPS6U5HQHQUDC5KULN	stock market	Will Apple top by adopting stock Buy back?	YES	http://www.marketwatch.com/story/apple-tops-stock-buyback-list-even-as-repurchases-shrink-2015-09-21?link=MW_popular
 MT	3PMR2DOWOOW6X2V6NCA1NX0MR2W54N	politics	"Will Scotland vote ""Yes"" and choose independence from England/Great Britain?"	NO	http://www.bbc.com/news/uk-scotland-29270441
 MT	3OKP4QVBP2SJFO07D93J4XDB9L5GAQ	sport	Will the Seattle Seahawks win the Super Bowl?	YES	http://espn.go.com/nfl/boxscore?gameId=340202007
@@ -12,7 +12,7 @@ MT	34OWYT6U3WCJ6WWXBRPMTEF7I899IA	stock market	Will the Dow Jones Industrial Ave
 MT	3SD15I2WD2PHYACGSHFN5YMG9P463W	politics	Will there be a controversial Republican presidential candidate?	YES	http://www.politico.com/story/2015/06/donald-trump-president-2016-official-119295
 MT	3OCZWXS7ZO22VA2RT49I9E2XES65L4	sport	Will Serena Williams lose the women's French Open 2015 championship?	NO	http://www.sbnation.com/2015/6/6/8740525/french-open-2015-serena-williams-womens-title-roland-garros
 MT	3HUR21WDDUKVXST0IPH3V5VDG6JXYX		Will Reilly Opelka lose the Wimbledon 2015 boy's singles title?	NO	http://www.watoday.com.au/sport/tennis/wimbledon/wimbledon-2015-reilly-opelka-wins-the-boys-singles-title-20150713-giazv5.html?skin=text-only
-MT	3GL25Y6843PV3B4MZMTS1A867W5MXW		Will Germany's Annika lose to Jelena Ostapenko in her course to win 2nd career WTA title in Quebec?	NO	http://www.foxnews.com/sports/2015/09/21/germany-annika-beck-beats-jelena-ostapenko-to-win-2nd-career-wta-title-in/
+MT	3GL25Y6843PV3B4MZMTS1A867W5MXW		Will Annika Beck lose to Jelena Ostapenko in the Quebeck WTA title?	NO	http://www.foxnews.com/sports/2015/09/21/germany-annika-beck-beats-jelena-ostapenko-to-win-2nd-career-wta-title-in/
 MT	3Y3N5A7N4G4K3GUW4IFUKOFF92ZMY2	sport	Will Seattle Seahawks win Superbowl XLIX?	NO	http://www.nfl.com/superbowl/49
 MT	3L7SUC0TTUPN6LYBWA4LSWLVXPL0MG	politics	Do the Democrats take control of the Senate after the 2014 midterm elections?	NO	http://www.usatoday.com/pages/interactives/elections-results-2014/
 MT	3W0XM68YZPQSNMJQ7HV5ROC1DCVK1X	sport	Will LaMarcus Aldridge stay in Portland?	NO	http://www.sbnation.com/2015/7/4/8622117/lamarcus-aldridge-san-antonio-spurs-nba-free-agency-2015
