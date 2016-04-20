@@ -92,16 +92,13 @@ def extract(question):
     more_nouns(spaced.ents, spaced.noun_chunks, keywords)
     question.searchwords = set(keywords)
 
-    keywords.append(sent.root.lower_)
     question.root_verb.append(sent.root)
 
     for branch in sent.root.rights:
         if branch.pos == VERB:
             question.root_verb.append(branch)
-            keywords.append(branch.lower_)
 
     load_dates(question)
-    return keywords
 
 
 def verbs(sent):
@@ -129,7 +126,7 @@ def check_keywords(question):
            token.pos == ADV):
             continue
         i = 0
-        for kw in question.keywords:
+        for kw in question.all_keywords():
             if token.lower_ in kw.lower():
                 i += 1
                 break

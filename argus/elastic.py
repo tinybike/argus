@@ -12,13 +12,6 @@ from answer import Source
 es = Elasticsearch(hosts=['localhost', 'pasky.or.cz'])
 
 
-def kw_to_query(keywords):
-    query = ''
-    for word in keywords:
-        query += " " + word
-    return query
-
-
 def get_content_elastic(a, search_all=True):
     """ fill the Answer object with sources based on elasticsearch query """
     from_date, to_date, is_sloped = a.q.date_period()
@@ -30,7 +23,7 @@ def get_content_elastic(a, search_all=True):
             "filtered": {
                 "query": {
                     "multi_match": {
-                        "query": kw_to_query(a.q.searchwords),
+                        "query": ' '.join(a.q.searchwords),
                         "operator": "and",
                         "fields": ["headline^5", "summary^3", "body"]
                     }
@@ -49,7 +42,7 @@ def get_content_elastic(a, search_all=True):
 
 
 def check_unknowns(a):
-    for keyword in a.q.keywords:
+    for keyword in a.q.all_keywords():
         words = keyword.split()
         for word in words:
             q = {

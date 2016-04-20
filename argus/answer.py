@@ -52,7 +52,7 @@ class Question(object):
 
         # FIXME: the extract() function modifies self in a lot of other
         # ways, actually initializing the attributes above
-        self.keywords = extract(self)
+        extract(self)
 
         self.unknown = []
 
@@ -75,8 +75,15 @@ class Question(object):
             from_date, to_date, is_sloped = None, None, False
         return from_date, to_date, is_sloped
 
+    def all_keywords(self):
+        """ return list of all strings that were produced by question
+        analysis; this is useful to check if we have missed anything """
+        return list(self.searchwords) + [v.lower_ for v in self.root_verb]
+
     def summary(self):
-        txt = ' '.join(self.keywords)
+        txt = ' '.join(self.searchwords)
+        if self.root_verb:
+            txt += ' :: V: ' + ' '.join([v.lower_ for v in self.root_Verb])
         if self.dates:
             txt += ' :: Dates: ' + ' '.join([str(d) for d in self.dates])
         if self.not_in_kw:
