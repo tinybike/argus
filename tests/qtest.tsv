@@ -2,7 +2,7 @@ origin	HITId	Answer.topic	Answer.question	Answer.TF	Answer.URL
 MT	3YLPJ8OXX88FZLFGTITWFGR6K1V4XL	stock market	Will the NYSE stop trading anytime in 2015?	YES	http://www.pbs.org/newshour/rundown/new-york-stock-exchange-suspends-trading/
 MT	3ODOP6T3ASFEY5CJ5T83PQXA7ST429	sport	Will the New England Patriots defeat the Seattle Seahawks at Super Bowl XLIX?	YES	http://www.sbnation.com/nfl/2015/2/1/7936245/superbowl-live-updates-news-patriots-seahawks
 MT	30UZJB2POH7LF6C2NY5IDS8GD20532	sport	Will the Patriots win the 2015 Superbowl?	YES	https://en.wikipedia.org/wiki/Super_Bowl_XLIX
-MT	3YLTXLH3DF142O1KMY3YFSE7N7JPHF	sport	WILL ROGER FEDERER WIN US OPEN 2015	NO	http://www.usopen.org/index.html
+MT	3YLTXLH3DF142O1KMY3YFSE7N7JPHF	sport	Will Roger Federer win US OPEN 2015	NO	http://www.usopen.org/index.html
 MT	3W3RSPVVGSMJGPS6U5HQHQUDC5KULN	politics	Will Greece default on its loans to the IMF?	YES	http://money.cnn.com/2015/06/30/news/economy/greece-imf-default/
 MT	3PMR2DOWOOW6X2V6NCA1NX0MR2W54N	sport	Will the Cavaliers win the NBA Finals in 2015?	NO	https://en.m.wikipedia.org/wiki/2015_NBA_Finals
 MT	3OKP4QVBP2SJFO07D93J4XDB9L5GAQ		Will the Dallas Cowboys win the 2015 Super Bowl?	NO	http://www.sbnation.com/nfl/2015/2/1/7936245/superbowl-live-updates-news-patriots-seahawks
@@ -10,7 +10,7 @@ MT	3NSCTNUR2ZILZRBNWDKS00MMJCSA53	sport	Will American Pharaoh win the Triple Cro
 MT	334ZEL5JX6AB7X3ZIS2IU6GJMD3OSH	politics	Will Donald Trump announce he is running for President in 2015?	YES	http://time.com/3923128/donald-trump-announcement-speech/
 MT	3VCK0Q0PO59TO3JB8BJL5BAV139N0S	sport	Was Super Bowl 49 tied at half-time?	YES	https://en.m.wikipedia.org/wiki/Super_Bowl_XLIX
 MT	3IVKZBIBJ041FGHCEF7SAXJIAJJSHB	sport	At any point of Super Bowl 49 was the viewership more than 150 million people?	NO	https://en.m.wikipedia.org/wiki/Super_Bowl_XLIX
-MT	3XEDXEGFX3JSGXY8BYR5DJTR8KPK0U	stock market	Will A-shares of Shangai stock exchange raise up?	NO	https://en.wikipedia.org/wiki/2015_Chinese_stock_market_crash
+MT	3XEDXEGFX3JSGXY8BYR5DJTR8KPK0U	stock market	Will A-shares of Shanghai stock exchange raise up?	NO	https://en.wikipedia.org/wiki/2015_Chinese_stock_market_crash
 MT	3OCZWXS7ZO22VA2RT49I9E2XES65L4	stock market	The price of oil will stay above $100 per barrel by the date June 19 2015.	NO	http://www.businessinsider.com/crude-oil-price-june-19-2015-6
 MT	3X52SWXE0X035PN5CS3SWVPN4GUWCU	sport	Will Andy Murray win the Men's Singles in the 2015 Australian Open?	NO	https://en.wikipedia.org/wiki/2015_Australian_Open_%E2%80%93_Men%27s_Singles
 MT	3GL25Y6843PV3B4MZMTS1A867W5MXW	stock market	Is it difficult for european shares to rebound back?	NO	http://www.telegraph.co.uk/finance/markets/ftse100/11884775/European-shares-rebound-led-by-commodity-stocks.html
@@ -34,13 +34,13 @@ MT	3BFF0DJK8X7RKP87E9OHOGM6MELSTV	sport	Will Argentina win 2015 Copa America Cup
 MT	36QZ6V158986K2NWEEERTC885SSSUM	politics	Will Donald Trump run for president?	YES	http://www.washingtonpost.com/news/post-politics/wp/2015/06/16/donald-trump-to-announce-his-presidential-plans-today/
 negMT	3ODOP6T3ASFEY5CJ5T83PQXA7ST429	sport	Will the Seattle Seahawks defeat the New England Patriots at Super Bowl XLIX?	NO	http://www.sbnation.com/nfl/2015/2/1/7936245/superbowl-live-updates-news-patriots-seahawks
 negMT	30UZJB2POH7LF6C2NY5IDS8GD20532	sport	Will the Patriots fail to win the 2015 Superbowl?	NO	https://en.wikipedia.org/wiki/Super_Bowl_XLIX
-negMT	3YLTXLH3DF142O1KMY3YFSE7N7JPHF	sport	WILL ROGER FEDERER LOSE US OPEN 2015	YES	http://www.usopen.org/index.html
+negMT	3YLTXLH3DF142O1KMY3YFSE7N7JPHF	sport	Will Roger Federer lose US OPEN 2015	YES	http://www.usopen.org/index.html
 negMT	3PMR2DOWOOW6X2V6NCA1NX0MR2W54N	sport	Will the Cavaliers lose the NBA Finals in 2015?	YES	https://en.m.wikipedia.org/wiki/2015_NBA_Finals
 negMT	3OKP4QVBP2SJFO07D93J4XDB9L5GAQ		Will the Dallas Cowboys fail to win the 2015 Super Bowl?	YES	http://www.sbnation.com/nfl/2015/2/1/7936245/superbowl-live-updates-news-patriots-seahawks
 negMT	3NSCTNUR2ZILZRBNWDKS00MMJCSA53	sport	Will American Pharaoh fail the Triple Crown in 2015?	NO	http://sports.yahoo.com/news/american-pharoah-wins-the-triple-crown-190615384.html
 negMT	334ZEL5JX6AB7X3ZIS2IU6GJMD3OSH	politics	Will Donald Trump announce he is not running for President in 2015?	NO	http://time.com/3923128/donald-trump-announcement-speech/
 negMT	3IVKZBIBJ041FGHCEF7SAXJIAJJSHB	sport	Was the viewership of Super Bowl 49 under 150 million people?	YES	https://en.m.wikipedia.org/wiki/Super_Bowl_XLIX
-negMT	3XEDXEGFX3JSGXY8BYR5DJTR8KPK0U	stock market	Will A-shares of Shangai stock exchange stay low?	YES	https://en.wikipedia.org/wiki/2015_Chinese_stock_market_crash
+negMT	3XEDXEGFX3JSGXY8BYR5DJTR8KPK0U	stock market	Will A-shares of Shanghai stock exchange stay low?	YES	https://en.wikipedia.org/wiki/2015_Chinese_stock_market_crash
 negMT	3OCZWXS7ZO22VA2RT49I9E2XES65L4	stock market	The price of oil will go below $100 per barrel by the date June 19 2015.	YES	http://www.businessinsider.com/crude-oil-price-june-19-2015-6
 negMT	3X52SWXE0X035PN5CS3SWVPN4GUWCU	sport	Will Andy Murray fail to win the Men's Singles in the 2015 Australian Open?	YES	https://en.wikipedia.org/wiki/2015_Australian_Open_%E2%80%93_Men%27s_Singles
 negMT	3L7SUC0TTUPN6LYBWA4LSWLVXPL0MG	sport	Had Marin Cilic beat Nishikori in US OPEN 2014 FINALS?	YES	http://www.theguardian.com/sport/live/2014/sep/08/kei-nishikori-vs-marin-cilic-us-open-final-live
