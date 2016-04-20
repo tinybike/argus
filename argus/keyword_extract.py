@@ -65,6 +65,20 @@ def more_nouns(ents, noun_chunks, keywords):
             keywords.append(' '.join(chunk))
 
 
+def all_years(spaced, question):
+    """ add anything that looks like a year as a date """
+    for t in spaced:
+        s = t.lower_
+        if not s.isdigit():
+            continue
+        if int(s) < 2013 or int(s) > 2020:  # XXX gross hack; well...
+            continue
+        if s in question.date_texts:
+            continue
+        question.set_date(s)
+        break
+
+
 def extract(question):
     spaced = nlp(unicode(question.text))
     keywords = []
@@ -91,6 +105,8 @@ def extract(question):
 
     more_nouns(spaced.ents, spaced.noun_chunks, keywords)
     question.searchwords = set(keywords)
+
+    all_years(spaced, question)
 
     question.root_verb.append(sent.root)
 
