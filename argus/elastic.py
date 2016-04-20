@@ -78,34 +78,6 @@ def check_unknowns(a):
                 a.q.unknown.append(word)
 
 
-def ask(a, query):
-    q = {
-        "query": {
-            "filtered": {
-                "query": {
-                    "multi_match": {
-                        "query": query,
-                        "operator": "and",
-                        "fields": ["headline^5", "summary^3", "body"]
-                    }
-                }
-            }
-        }
-    }
-    jobj = es.search(index="argus", size=100, body=q)
-    if len(jobj['hits']['hits']) == 0:
-        return False, False
-    for i in range(len(jobj['hits']['hits'])):
-        headline = jobj['hits']['hits'][i]['_source']['headline']
-        summary = jobj['hits']['hits'][i]['_source']['summary']
-        source = jobj['hits']['hits'][i]['_source']['source']
-        url = jobj['hits']['hits'][i]['_source']['url']
-        a.sources.append(Source(source, url, headline, summary, headline))
-    if len(a.sources) != 0:
-        return True, True
-    return False, True
-
-
 def search_for_keywords(a, jobj, search_all):
     if len(jobj['hits']['hits']) == 0:
         return False, False
