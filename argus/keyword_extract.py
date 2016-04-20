@@ -98,7 +98,9 @@ def extract(question):
         if branch.pos == VERB:
             question.root_verb.append(branch)
 
-    load_dates(question)
+    # Ignore the MT question date info.  It's noisy, often missing, and
+    # confusing wrt. real-world usage.
+    # load_dates(question)
 
 
 def verbs(sent):
@@ -141,6 +143,7 @@ def check_keywords(question):
 def load_dates(question):
     for line in csv.reader(open('tests/filtereddate.tsv'), delimiter='\t'):
         if line[0] == question.text:
+            question.dates = []  # drop anything we've seen in the question
             question.set_date(line[1])
             break
 
