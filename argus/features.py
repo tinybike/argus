@@ -459,7 +459,7 @@ class Antonyms(Feature):
 
 
 def antonym(v1, v2):
-    if (v1 == 'be') or (v2 == 'be'):
+    if (v1 == 'be') or (v2 == 'be') or (v1 == v2):
         return 0
     for aa in wn.synsets(v1):
         for bb in aa.lemmas():
