@@ -15,7 +15,6 @@ def get_answer(question):
 
     checked = check_keywords(a.q)
     if not checked:
-        a.q.query += ' (' + ','.join(a.q.not_in_kw) + ' not in keywords)'
         a.text = 'Didn\'t understand the question'
         return a
 

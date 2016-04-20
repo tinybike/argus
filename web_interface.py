@@ -67,7 +67,7 @@ def generate_answer():
 
     return render_template('form_action.html', content='block', sources=sources, question=higlighted_question,
                            answer=a.text, prob=a.prob,
-                           query=a.q.query, subj=get_subj(a.q.root_verb[0]), root_verb=a.q.root_verb[0].lemma_)
+                           summary=a.q.summary(), subj=get_subj(a.q.root_verb[0]), root_verb=a.q.root_verb[0].lemma_)
 
 
 def create_sources(a):
@@ -88,13 +88,10 @@ class Web_Source(object):
         self.bodysnippet = ''
         if (self.sentence not in s.summary) and (self.sentence not in s.headline):
             self.bodysnippet = '...' + highlight_body(self.sentence, self.sentence) + '...'
-        for word in a.q.keywords:
-            self.question = highlight_question(a.q.text, word)
 
         self.headline = highlight_body(s.headline, s.sentence)
         self.url = s.url
         self.body = highlight_body(s.summary, s.sentence)
-        self.query = a.q.query
         self.q = a.q.text
         self.source = s.source
 

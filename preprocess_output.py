@@ -93,7 +93,7 @@ def regenerate(splitname):
 
                 # Write details to the output.tsv
                 info = [qrunid, qtext, qgsans,
-                        ouranswer.text, ouranswer.q.query, sentence,
+                        ouranswer.text, ouranswer.q.summary(), sentence,
                         headline, qtopic, qsrc, url, source,
                         ouranswer.info] + info
                 info = [field.encode('utf-8') for field in info]

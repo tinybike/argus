@@ -55,9 +55,6 @@ class Question(object):
         self.keywords = extract(self)
 
         self.unknown = []
-        self.query = kw_to_query(self.keywords)
-        if self.dates:
-            self.query += ' (relevant \"' + ' '.join([str(d) for d in self.dates]) + '\")'
 
     def set_date(self, date_text):
         d = DatePoint.parse(date_text)
@@ -77,6 +74,14 @@ class Question(object):
         else:
             from_date, to_date, is_sloped = None, None, False
         return from_date, to_date, is_sloped
+
+    def summary(self):
+        txt = ' '.join(self.keywords)
+        if self.dates:
+            txt += ' :: Dates: ' + ' '.join([str(d) for d in self.dates])
+        if self.not_in_kw:
+            txt += ' :: Unrecog.: ' + ' '.join(self.not_in_kw)
+        return txt
 
 
 class Source():
@@ -151,11 +156,3 @@ class DateDay(DatePoint):
         from_date = self.dt
         to_date = self.dt + datetime.timedelta(days=14)
         return (from_date, to_date, True)
-
-
-def kw_to_query(keywords):
-    query = ''
-    for word in keywords:
-        query += word + " AND "
-    query = query[:-5]
-    return query
