@@ -2,13 +2,13 @@
 """
 All features are created from here.
 """
+from __future__ import division
 import numpy as np
 from keyword_extract import nlp, verbs, extract_from_string, get_subj, get_obj
 from nltk.corpus import wordnet as wn
 import re
 from feature_functs import load, patterns, patterns_string
 import math
-from dateutil.parser import parse
 from keras_preprocess import load_model, prep, tokenize
 import pysts.nlp as nlp_
 
@@ -227,26 +227,23 @@ class RelevantDate(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, rel)
         Feature.set_name(self, 'Date relevance')
-        sdate = answer.sources[i].date
-        qdate = answer.q.date
-        try:
-            sdate = parse(sdate, ignoretz=True, fuzzy=True).date()
-            qdate = parse(qdate, ignoretz=True, fuzzy=True).date()
-            info = 'Qdate=%s, Sdate=%s' % (qdate, sdate)
-            delta = sdate - qdate
-            f = self.g(delta.days)
-            #            print 'g(timedelta) =', f
-            Feature.set_value(self, f)
-            Feature.set_info(self, info)
-        except TypeError:
-            Feature.set_value(self, 0.)
 
-    def g(self, x):
-        if x > 15 or x < 0:
-            return 0.
-        if 0 <= x <= 1:
-            return 1.
-        return 15. / 14. - float(x) / 14
+        qdate_from, qdate_to, qdate_sloped = answer.q.date_period()
+        if not qdate_from:
+            Feature.set_value(self, 0.)
+            return
+
+        sdate = answer.sources[i].date
+        info = 'Qdate=[%s,%s], Sdate=%s' % (qdate_from, qdate_to, sdate)
+        Feature.set_info(self, info)
+
+        if sdate < qdate_from or sdate > qdate_to:
+            Feature.set_value(self, 0.)
+            return
+        elif qdate_sloped and (sdate - qdate_from).days > 1:
+            Feature.set_value(self, 1. - (sdate - qdate_from).days / (qdate_to - qdate_from).days)
+        else:
+            Feature.set_value(self, 1.)
 
 
 class SportScore(Feature):

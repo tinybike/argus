@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 """Search for sentences containing searchwords
 """
+
+import datetime
+from dateutil.parser import parse
 from elasticsearch import Elasticsearch
 from html_clean import sentence_split
-from dateutil.parser import parse
-import datetime
+
 from answer import Source
 
 es = Elasticsearch(hosts=['localhost', 'pasky.or.cz'])
@@ -19,20 +21,10 @@ def kw_to_query(keywords):
 
 def get_content_elastic(a, search_all=True):
     """ fill the Answer object with sources based on elasticsearch query """
-    try:
-        if len(a.q.date) > 0:
-            d = a.q.date
-            the_date = parse(d, ignoretz=True, fuzzy=True).date()
-            from_date = the_date - datetime.timedelta(days=14)
-            if the_date.day == 31 and the_date.month == 12:
-                from_date = datetime.date(the_date.year, 1, 1)
-            to_date = the_date + datetime.timedelta(days=14)
-        else:
-            from_date = datetime.date(2013, 1, 1)
-            to_date = datetime.date(2016, 1, 1)
-    except ValueError:
-        print 'Caught ValueError: wrong date format of:', a.q.date_text
-        pass
+    from_date, to_date, is_sloped = a.q.date_period()
+    if from_date is None:
+        from_date = datetime.date(2013, 1, 1)
+        to_date = datetime.date(2016, 1, 1)
     q = {
         "query": {
             "filtered": {
@@ -91,7 +83,7 @@ def search_for_keywords(a, jobj, search_all):
         summary = jobj['hits']['hits'][i]['_source']['summary']
         source = jobj['hits']['hits'][i]['_source']['source']
         url = jobj['hits']['hits'][i]['_source']['url']
-        date = jobj['hits']['hits'][i]['_source']['date']
+        date = parse(jobj['hits']['hits'][i]['_source']['date'], ignoretz=True, fuzzy=True).date()
         found, sentence = search_short(a, headline, search_all)
         if not found:
             found, sentence = search_sentences(a, summary, search_all)
@@ -114,7 +106,7 @@ def search_for_keywords(a, jobj, search_all):
 
 def search_short(a, text, search_all=True):
     if not search_all:
-        some = float(len(a.q.searchwords)) / 3 * 2  # change the fraction to search fore more/less kws
+        some = float(len(a.q.searchwords)) * 2/3  # change the fraction to search fore more/less kws
     else:
         some = len(a.q.searchwords)
     i = 0

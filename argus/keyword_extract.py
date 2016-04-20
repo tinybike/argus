@@ -78,12 +78,10 @@ def extract(question):
         if ent.label_ in non_keywords:
             continue
         if ent.label_ == 'DATE':
-            date = ''
-            if ent[0].nbor(-1).pos == ADP:
-                date += ent[0].nbor(-1).orth_ + ' '
-            if len(question.date_text) > 0:
-                date = ' + ' + date
-            question.date_text += date + ent.orth_
+            # if ent[0].nbor(-1).pos == ADP:
+            #     date = ent[0].nbor(-1).orth_ + ' ' + ent.orth_
+            # ^^^ ???
+            question.set_date(ent.orth_)
         else:
             kw = ''
             for word in ent:
@@ -127,7 +125,8 @@ def check_keywords(question):
     spaced = nlp(unicode(question.text))
     for token in spaced:
         if (in_stop_words(token.lower_) or is_unimportant(token) or
-                    token.lower_ in question.date_text.lower() or token.pos == ADV):
+           token.lower_ in [t.lower() for t in question.date_texts] or
+           token.pos == ADV):
             continue
         i = 0
         for kw in question.keywords:
@@ -145,7 +144,7 @@ def check_keywords(question):
 def load_dates(question):
     for line in csv.reader(open('tests/filtereddate.tsv'), delimiter='\t'):
         if line[0] == question.text:
-            question.date = line[1]
+            question.set_date(line[1])
             break
 
 
