@@ -81,13 +81,13 @@ class Question(object):
         return list(self.searchwords) + [v.lower_ for v in self.root_verb]
 
     def summary(self):
-        txt = ' '.join(self.searchwords)
+        txt = ', '.join(self.searchwords)
         if self.root_verb:
-            txt += ' :: V: ' + ' '.join([v.lower_ for v in self.root_Verb])
+            txt += ' :: V: ' + ', '.join([v.lower_ for v in self.root_verb])
         if self.dates:
-            txt += ' :: Dates: ' + ' '.join([str(d) for d in self.dates])
+            txt += ' :: Dates: ' + ', '.join([str(d) for d in self.dates])
         if self.not_in_kw:
-            txt += ' :: Unrecog.: ' + ' '.join(self.not_in_kw)
+            txt += ' :: Unrecog.: ' + ', '.join(self.not_in_kw)
         return txt
 
 
