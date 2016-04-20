@@ -13,17 +13,32 @@ es = Elasticsearch(hosts=['localhost', 'pasky.or.cz'])
 
 
 def get_content_elastic(a, search_all=True):
-    """ fill the Answer object with sources based on elasticsearch query """
+    from_date_ = datetime.date(2013, 1, 1)
+    to_date_ = datetime.date(2016, 1, 1)
+
     from_date, to_date, is_sloped = a.q.date_period()
     if from_date is None:
-        from_date = datetime.date(2013, 1, 1)
-        to_date = datetime.date(2016, 1, 1)
+        return get_content_elastic_q(a, a.q.searchwords, from_date_, to_date_, search_all=search_all)
+
+    # If date is set, use a hybrid strategy - query with the date
+    # *either* as time restriction or as a fulltext searchword.
+    # We can't just do the former as questions like "run for 2016
+    # presidency" may appear.
+    fs0, fa0 = get_content_elastic_q(a, a.q.searchwords, from_date, to_date, search_all=search_all)
+    fs1, fa1 = get_content_elastic_q(a, list(a.q.searchwords) + [a.q.date_texts[0]], from_date_, to_date_, search_all=search_all)
+
+    return ((fs0 or fs1), (fa0 or fa1))
+
+
+def get_content_elastic_q(a, ft_searchwords, from_date, to_date, search_all=True):
+    """ fill the Answer object with sources based on elasticsearch query,
+    from the given date period """
     q = {
         "query": {
             "filtered": {
                 "query": {
                     "multi_match": {
-                        "query": ' '.join(a.q.searchwords),
+                        "query": ' '.join(ft_searchwords),
                         "operator": "and",
                         "fields": ["headline^5", "summary^3", "body"]
                     }
