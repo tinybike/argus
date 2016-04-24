@@ -248,7 +248,9 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     model.add_output(name='score', input='weighted_mean')
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
     global c_r_out, features_outs
-    c_r_out = layer_fun(model, 'c_r')
+    model.add_node(Activation('linear'), 'c_r', inputs=['c', 'r'],
+                   merge_mode='concat', concat_axis=-1)
+    c_r_out = layer_fun(model, 'c_r')  # XXX: why not use separately?
     features_outs = [layer_fun(model, 'c_full'), layer_fun(model, 'r_full')]
     # TODO: use for printing sts_outs
     return model
