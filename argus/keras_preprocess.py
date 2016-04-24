@@ -21,7 +21,7 @@ from keras.models import Graph
 import pysts.embedding as emb
 import pysts.kerasts.blocks as B
 import pysts.nlp as nlp
-from argus.keras_layers import Reshape_, WeightedMean
+from argus.keras_layers import Reshape_, WeightedMean, SumMask
 from pysts.hyperparam import hash_params
 from pysts.vocab import Vocabulary
 
@@ -240,13 +240,11 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     # ===================== [w_full_dim, q_full_dim] -> [class, rel]
     model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'c', input='c_full')
     model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'r', input='r_full')
-    model.add_node(Activation('linear'), 'c_r', inputs=['c', 'r'],
-                   merge_mode='concat', concat_axis=-1)
+
+    model.add_node(SumMask(), 'mask', input='si03d')
     # ===================== mean of class over rel
-    model.add_node(WeightedMean(w_dim=w_full_dim,
-                                q_dim=q_full_dim,
-                                max_sentences=max_sentences), name='weighted_mean', input='c_r')
-    model.add_output(name='score', input='weighted_mean')
+    model.add_node(WeightedMean(max_sentences=max_sentences),
+                   name='weighted_mean', inputs=['c', 'r', 'mask'])
 
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
     global c_r_out, features_outs
