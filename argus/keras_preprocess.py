@@ -245,7 +245,7 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     # ===================== mean of class over rel
     model.add_node(WeightedMean(max_sentences=max_sentences),
                    name='weighted_mean', inputs=['c', 'r', 'mask'])
-
+    model.add_output(name='score', input='weighted_mean')
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
     global c_r_out, features_outs
     c_r_out = layer_fun(model, 'c_r')
