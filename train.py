@@ -37,7 +37,7 @@ def train_and_eval(test_path, rnn_args, save_to_argus=True, model='rnn'):
     print 'q_dim=', q_dim
 
     # ==========================================================
-    optimizer = SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+    optimizer = 'adam'
     max_sentences = 50
 
     # ==========================================================
