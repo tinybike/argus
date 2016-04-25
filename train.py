@@ -250,4 +250,4 @@ if __name__ == '__main__':
     if vars(args)['full']:
         train_full(vars(args)['full_runs'], rnn_args, vars(args).get('model', 'rnn'))
     else:
-        train_and_eval(vars(args)['test'], rnn_args, vars(args).get('model', 'rnn'))
+        train_and_eval(vars(args)['test'], rnn_args, model=vars(args).get('model', 'rnn'))
