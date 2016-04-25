@@ -109,7 +109,7 @@ class Avg(Layer):
 
     def get_output(self, train=False):
         X = self.get_input(train)
-        return K.mean(X, axis=-1)
+        return K.expand_dims(K.mean(X, axis=-1))
 
     def get_config(self):
         config = {'name': self.__class__.__name__,

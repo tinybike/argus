@@ -144,8 +144,8 @@ def prep_model(model, glove, vocab, module_prep_model, c, oact, s0pad, s1pad):
     # kwargs['sum_mode'] = c['mlpsum']
     model.add_node(name='scoreS1', input=B.mlp_ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], pfx='S1_'),
                    layer=Activation(oact))
-    model.add_node(name='scoreS2', input=B.mlp_ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], pfx='S2_'),
-                   layer=Activation(oact))
+    # model.add_node(name='scoreS2', input=B.mlp_ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], pfx='S2_'),
+    #                layer=Activation(oact))
 
 
 def build_model(model, glove, vocab, module_prep_model, c, s0pad=s0pad, s1pad=s1pad):
@@ -228,15 +228,15 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     build_model(model, glove, vocab, module_prep_model, c)  # out = ['scoreS1', 'scoreS2']
     # ===================== reshape (batch_size * max_sentences,) -> (batch_size, max_sentences, 1)
     model.add_node(Reshape_((max_sentences, rnn_dim)), 'sts_in1', input='scoreS1')
-    model.add_node(Reshape_((max_sentences, rnn_dim)), 'sts_in2', input='scoreS2')
+    # model.add_node(Reshape_((max_sentences, rnn_dim)), 'sts_in2', input='scoreS2')
 
     # ===================== connect sts outputs to c and r inputs
     model.add_input('c_in', (max_sentences, w_dim))
-    model.add_input('r_in', (max_sentences, q_dim))
+    # model.add_input('r_in', (max_sentences, q_dim))
     model.add_node(Activation('linear'), 'c_full', inputs=['c_in', 'sts_in1'],
                    merge_mode='concat', concat_axis=-1)
-    model.add_node(Activation('linear'), 'r_full', inputs=['r_in', 'sts_in2'],
-                   merge_mode='concat', concat_axis=-1)
+    # model.add_node(Activation('linear'), 'r_full', inputs=['r_in', 'sts_in2'],
+    #                merge_mode='concat', concat_axis=-1)
     # ===================== [w_full_dim, q_full_dim] -> [class, rel]
     model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'c', input='c_full')
     # model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'r', input='r_full')
@@ -252,11 +252,11 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     model.add_output(name='score', input='c_avg')
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
 
-    global c_r_out, features_outs
-    model.add_node(Activation('linear'), 'c_r', inputs=['c', 'r'],
-                   merge_mode='concat', concat_axis=-1)
-    c_r_out = layer_fun(model, 'c_r')  # XXX: why not use separately?
-    features_outs = [layer_fun(model, 'c_full'), layer_fun(model, 'r_full')]
+    # global c_r_out, features_outs
+    # model.add_node(Activation('linear'), 'c_r', inputs=['c', 'r'],
+    #                merge_mode='concat', concat_axis=-1)
+    # c_r_out = layer_fun(model, 'c_r')  # XXX: why not use separately?
+    # features_outs = [layer_fun(model, 'c_full'), layer_fun(model, 'r_full')]
     # TODO: use for printing sts_outs
     return model
 

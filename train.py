@@ -247,7 +247,12 @@ if __name__ == '__main__':
     parser.add_argument('--model')
     parser.add_argument('-full', action='store_true')
     args, rnn_args = parser.parse_known_args()
+
+    model = vars(args)['model']
+    if model is None:
+        model = 'rnn'
+
     if vars(args)['full']:
-        train_full(vars(args)['full_runs'], rnn_args, vars(args).get('model', 'rnn'))
+        train_full(vars(args)['full_runs'], rnn_args, model)
     else:
-        train_and_eval(vars(args)['test'], rnn_args, model=vars(args).get('model', 'rnn'))
+        train_and_eval(vars(args)['test'], rnn_args, model=model)
