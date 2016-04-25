@@ -37,11 +37,11 @@ def train_and_eval(test_path, rnn_args, save_to_argus=True):
     print 'q_dim=', q_dim
 
     # ==========================================================
-    optimizer = 'adam'  # SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+    optimizer = rnn_args.get('optimizer', 'adam')
     max_sentences = 50
 
     # ==========================================================
-    modelname = 'rnn'
+    modelname = rnn_args.get('model', 'rnn')
     module = importlib.import_module('.'+modelname, 'models')
     conf, ps, h = config(module.config, params+rnn_args)
 
