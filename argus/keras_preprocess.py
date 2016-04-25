@@ -144,8 +144,8 @@ def prep_model(model, glove, vocab, module_prep_model, c, oact, s0pad, s1pad):
     # kwargs['sum_mode'] = c['mlpsum']
     model.add_node(name='scoreS1', input=B.mlp_ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], pfx='S1_'),
                    layer=Activation(oact))
-    # model.add_node(name='scoreS2', input=B.mlp_ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], pfx='S2_'),
-    #                layer=Activation(oact))
+    model.add_node(name='scoreS2', input=B.mlp_ptscorer(model, final_outputs, c['Ddim'], N, c['l2reg'], pfx='S2_'),
+                   layer=Activation(oact))
 
 
 def build_model(model, glove, vocab, module_prep_model, c, s0pad=s0pad, s1pad=s1pad):
@@ -213,50 +213,44 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
     model = Graph()
     # ===================== inputs of size (batch_size, max_sentences, s_pad)
     model.add_input('si03d', (max_sentences, s0pad), dtype=int)  # XXX: cannot be cast to int->problem?
-    model.add_input('si13d', (max_sentences, s1pad), dtype=int)
-    if True:  # TODO: if flags
-        model.add_input('f04d', (max_sentences, s0pad, nlp.flagsdim))
-        model.add_input('f14d', (max_sentences, s1pad, nlp.flagsdim))
-        model.add_node(Reshape_((s0pad, nlp.flagsdim)), 'f0', input='f04d')
-        model.add_node(Reshape_((s1pad, nlp.flagsdim)), 'f1', input='f14d')
+    # model.add_input('si13d', (max_sentences, s1pad), dtype=int)
+    # if True:  # TODO: if flags
+    #     model.add_input('f04d', (max_sentences, s0pad, nlp.flagsdim))
+    #     model.add_input('f14d', (max_sentences, s1pad, nlp.flagsdim))
+    #     model.add_node(Reshape_((s0pad, nlp.flagsdim)), 'f0', input='f04d')
+    #     model.add_node(Reshape_((s1pad, nlp.flagsdim)), 'f1', input='f14d')
 
     # ===================== reshape to (batch_size * max_sentences, s_pad)
-    model.add_node(Reshape_((s0pad,)), 'si0', input='si03d')
-    model.add_node(Reshape_((s1pad,)), 'si1', input='si13d')
+    # model.add_node(Reshape_((s0pad,)), 'si0', input='si03d')
+    # model.add_node(Reshape_((s1pad,)), 'si1', input='si13d')
 
     # ===================== outputs from sts
-    build_model(model, glove, vocab, module_prep_model, c)  # out = ['scoreS1', 'scoreS2']
+    # build_model(model, glove, vocab, module_prep_model, c)  # out = ['scoreS1', 'scoreS2']
     # ===================== reshape (batch_size * max_sentences,) -> (batch_size, max_sentences, 1)
-    model.add_node(Reshape_((max_sentences, rnn_dim)), 'sts_in1', input='scoreS1')
+    # model.add_node(Reshape_((max_sentences, rnn_dim)), 'sts_in1', input='scoreS1')
     # model.add_node(Reshape_((max_sentences, rnn_dim)), 'sts_in2', input='scoreS2')
 
     # ===================== connect sts outputs to c and r inputs
     model.add_input('c_in', (max_sentences, w_dim))
-    # model.add_input('r_in', (max_sentences, q_dim))
-    model.add_node(Activation('linear'), 'c_full', inputs=['c_in', 'sts_in1'],
-                   merge_mode='concat', concat_axis=-1)
-    # model.add_node(Activation('linear'), 'r_full', inputs=['r_in', 'sts_in2'],
-    #                merge_mode='concat', concat_axis=-1)
+    model.add_input('r_in', (max_sentences, q_dim))
+    model.add_node(Activation('linear'), 'c_full', input='c_in')
+    model.add_node(Activation('linear'), 'r_full', input='r_in')
     # ===================== [w_full_dim, q_full_dim] -> [class, rel]
     model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'c', input='c_full')
-    # model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'r', input='r_full')
+    model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'r', input='r_full')
 
-
-    model.add_node(Flatten(), 'c_flattened', 'c')
-    model.add_node(Avg(), 'c_avg', 'c_flattened')
-
-    # model.add_node(SumMask(), 'mask', input='si03d')
+    model.add_node(SumMask(), 'mask', input='si03d')
     # # ===================== mean of class over rel
-    # model.add_node(WeightedMean(max_sentences=max_sentences),
-    #                name='weighted_mean', inputs=['c', 'r', 'mask'])
-    model.add_output(name='score', input='c_avg')
+    model.add_node(WeightedMean(max_sentences=max_sentences),
+                   name='weighted_mean', inputs=['c', 'r', 'mask'])
+    model.add_output(name='score', input='weighted_mean')
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
 
-    # global c_r_out, features_outs
-    # model.add_node(Activation('linear'), 'c_r', inputs=['c', 'r'],
-    #                merge_mode='concat', concat_axis=-1)
-    # c_r_out = layer_fun(model, 'c_r')  # XXX: why not use separately?
-    # features_outs = [layer_fun(model, 'c_full'), layer_fun(model, 'r_full')]
+    global c_r_out, features_outs
+    model.add_node(Activation('linear'), 'c_r', inputs=['c', 'r'],
+                   merge_mode='concat', concat_axis=-1)
+    c_r_out = layer_fun(model, 'c_r')  # XXX: why not use separately?
+    features_outs = [layer_fun(model, 'c_full'), layer_fun(model, 'r_full')]
     # TODO: use for printing sts_outs
     return model
 
@@ -278,8 +272,7 @@ def load_and_train(runid, module_prep_model, c, glove, vocab, gr, grv, grt,
         print('Training')
         model.fit(gr, validation_data=grv,
                   callbacks=[ModelCheckpoint('weights-'+runid+'-bestval.h5',
-                                             save_best_only=True, monitor='val_loss', mode='min'),
-                             EarlyStopping(monitor='val_loss', mode='min', patience=10)],
+                                             save_best_only=True, monitor='val_loss', mode='min')],
                   batch_size=10, nb_epoch=c['nb_epoch'], show_accuracy=True)
         model.save_weights('weights-'+runid+'-final.h5', overwrite=True)
         model.load_weights('weights-'+runid+'-bestval.h5')
