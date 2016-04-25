@@ -80,9 +80,6 @@ class Reshape_(MaskedLayer):
 
 
 class SumMask(Layer):
-    """Copy of keras core Reshape layer, does NOT check
-    if array changes size.
-    """
     def __init__(self, **kwargs):
         super(SumMask, self).__init__(**kwargs)
 
@@ -99,4 +96,24 @@ class SumMask(Layer):
                   'input_dim': self.input_dim,
                   'output_dim': self.output_dim}
         base_config = super(SumMask, self).get_config()
+        return dict(list(base_config.items()) + list(config.items()))
+
+
+class Avg(Layer):
+    def __init__(self, **kwargs):
+        super(Avg, self).__init__(**kwargs)
+
+    @property
+    def output_shape(self):
+        return (self.input_shape[0], 1)
+
+    def get_output(self, train=False):
+        X = self.get_input(train)
+        return K.mean(X, axis=-1)
+
+    def get_config(self):
+        config = {'name': self.__class__.__name__,
+                  'input_dim': self.input_dim,
+                  'output_dim': self.output_dim}
+        base_config = super(Avg, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))

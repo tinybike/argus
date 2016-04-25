@@ -14,14 +14,14 @@ import keras.preprocessing.sequence as prep
 import numpy as np
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.layers.core import Activation
-from keras.layers.core import Dropout, TimeDistributedDense
+from keras.layers.core import Dropout, TimeDistributedDense, Flatten
 from keras.layers.embeddings import Embedding
 from keras.models import Graph
 
 import pysts.embedding as emb
 import pysts.kerasts.blocks as B
 import pysts.nlp as nlp
-from argus.keras_layers import Reshape_, WeightedMean, SumMask
+from argus.keras_layers import Reshape_, WeightedMean, SumMask, Avg
 from pysts.hyperparam import hash_params
 from pysts.vocab import Vocabulary
 
@@ -239,14 +239,19 @@ def build(w_dim, q_dim, max_sentences, optimizer, glove, vocab, module_prep_mode
                    merge_mode='concat', concat_axis=-1)
     # ===================== [w_full_dim, q_full_dim] -> [class, rel]
     model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'c', input='c_full')
-    model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'r', input='r_full')
+    # model.add_node(TimeDistributedDense(1, activation='sigmoid', W_regularizer=l2, b_regularizer=l2), 'r', input='r_full')
 
-    model.add_node(SumMask(), 'mask', input='si03d')
-    # ===================== mean of class over rel
-    model.add_node(WeightedMean(max_sentences=max_sentences),
-                   name='weighted_mean', inputs=['c', 'r', 'mask'])
-    model.add_output(name='score', input='weighted_mean')
+
+    model.add_node(Flatten(), 'c_flattened', 'c')
+    model.add_node(Avg(), 'c_avg', 'c_flattened')
+
+    # model.add_node(SumMask(), 'mask', input='si03d')
+    # # ===================== mean of class over rel
+    # model.add_node(WeightedMean(max_sentences=max_sentences),
+    #                name='weighted_mean', inputs=['c', 'r', 'mask'])
+    model.add_output(name='score', input='c_avg')
     model.compile(optimizer=optimizer, loss={'score': 'binary_crossentropy'})
+
     global c_r_out, features_outs
     model.add_node(Activation('linear'), 'c_r', inputs=['c', 'r'],
                    merge_mode='concat', concat_axis=-1)
