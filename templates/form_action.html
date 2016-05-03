@@ -37,7 +37,7 @@
             </div>
             <div id="qbox">
                 <form method="post" action="{{ url_for('generate_answer') }}">
-		  <p><em>Ask a yes/no question on whether a noteworthy event happenned (particularly from the sports or politics domain).<br>We cover the time period from Sep 1 2014 to Sep 1 2015.</em></p>
+		  <p><em><b>Technology preview</b> of the evidencing engine.<br>Ask a yes/no question on whether a noteworthy event happenned (particularly from the sports or politics domain).<br>We cover the time period from Sep 1 2014 to Sep 1 2015.<br>Take answers based on little (1-2) evidence with a grain of salt. Entity order sometimes not taken into account.</em></p>
                   <input type="text" name="question" size="60" placeholder="Will Donald Trump announce he is running for President in 2015?" />
                   <input type="submit" name="go" value="Ask" />
                 </form>
@@ -84,6 +84,19 @@
         </div>
 	    {% endif %}
 </div>
+
+<script>
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-77074260-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
     </body>
 </html>
 
