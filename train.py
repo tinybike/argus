@@ -22,7 +22,7 @@ trainIDs = []
 params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"', 'l2reg=0.01']  # can be replaced by script params
 
 
-def train_and_eval(test_path, rnn_args, save_to_argus=True):
+def train_and_eval(test_path, rnn_args, save_to_argus=True, model='rnn'):
     qs_train, c_text, r_text = load_features('tests/feature_prints/train/all_features.tsv')
     qs_val, _, _ = load_features('tests/feature_prints/val/all_features.tsv')
     qs_test, _, _ = load_features('tests/feature_prints/test/all_features.tsv')
@@ -37,11 +37,11 @@ def train_and_eval(test_path, rnn_args, save_to_argus=True):
     print 'q_dim=', q_dim
 
     # ==========================================================
-    optimizer = 'adam'  # SGD(lr=0.1, decay=1e-6, momentum=0.9, nesterov=True)
+    optimizer = 'adam'
     max_sentences = 50
 
     # ==========================================================
-    modelname = 'rnn'
+    modelname = model
     module = importlib.import_module('.'+modelname, 'models')
     conf, ps, h = config(module.config, params+rnn_args)
 
@@ -221,7 +221,7 @@ def student_distribution_print(fname, r, alpha=0.95, bonferroni=1.):
     return bar
 
 
-def train_full(runs, pars):
+def train_full(runs, pars, model='rnn'):
     if runs is None:
         runs = 16
     else:
@@ -229,7 +229,7 @@ def train_full(runs, pars):
     results = []
     for i in range(runs):
         print 'Full training, run #%i out of %i' % (i+1, runs)
-        results.append(train_and_eval(None, pars, False))
+        results.append(train_and_eval(None, pars, False, model))
 
     tr_acc = [tr for tr, v, t in results]
     t_acc = [t for tr, v, t in results]
@@ -244,9 +244,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--test')
     parser.add_argument('--full_runs')
+    parser.add_argument('--model')
     parser.add_argument('-full', action='store_true')
     args, rnn_args = parser.parse_known_args()
+
+    model = vars(args)['model']
+    if model is None:
+        model = 'rnn'
+
     if vars(args)['full']:
-        train_full(vars(args)['full_runs'], rnn_args)
+        train_full(vars(args)['full_runs'], rnn_args, model)
     else:
-        train_and_eval(vars(args)['test'], rnn_args)
+        train_and_eval(vars(args)['test'], rnn_args, model=model)
