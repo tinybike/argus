@@ -1,27 +1,41 @@
 """Extract question|sentence|gs class"""
-
 import csv
 import numpy as np
 
-trainIDs = np.load('../trainIDs/trainIDs.npy')
+# Used when tokenizing words
+sentence_re = r'''(?x)      # set flag to allow verbose regexps
+      (?:[A-Z])(?:\.[A-Z])+\.?  # abbreviations, e.g. U.S.A.
+    | \w+(?:-\w+)*            # words with optional internal hyphens
+    | \$?\d+(?:\.\d+)?%?      # currency and percentages, e.g. $12.40, 82%
+    | \.\.\.                # ellipsis
+    | [][.,;"'?():-_`]      # these are separate tokens
+'''
 
-table_test = []
-table_train = []
-for line in csv.reader(open('all_features.tsv'), delimiter='\t'):
-    if line[2] not in '10':
-        continue
-    if line[0] in trainIDs:
-        table_train.append([line[0], line[2], line[1].replace('\n', ' ')])
-    else:
-        table_test.append([line[0], line[2], line[1].replace('\n', ' ')])
+import string
+import nltk
+import re
+def tokenize(string):
+    return nltk.regexp_tokenize(string, sentence_re)
+
+def generate(name):
+    data = []
+    for line in csv.reader(open(name+'/all_features.tsv'), delimiter='\t'):
+        if line[2] not in 'YES NO':
+            continue
+        q = ' '.join(tokenize(re.sub(r'[^\x00-\x7F]+',' ', line[0]))).decode('utf-8', )
+        s = ' '.join(tokenize(re.sub(r'[^\x00-\x7F]+',' ', line[1]))).decode('utf-8', )
+        l = '1' if line[2] == 'YES' else '0'
+        data.append((q,l,s))
+    writer = csv.writer(open('argus_'+name+'.csv', 'wb'), delimiter=',')
+    writer.writerow(['htext', 'label', 'mtext'])
+    for triplet in data:
+        writer.writerow(triplet)
 
 
-writer = csv.writer(open('argus_train.csv', 'wb'), delimiter=',')
-writer.writerow(['qtext', 'label', 'atext'])
-for triplet in table_train:
-    writer.writerow(triplet)
+generate('train')
+generate('val')
+generate('test')
 
-writer = csv.writer(open('argus_test.csv', 'wb'), delimiter=',')
-writer.writerow(['qtext', 'label', 'atext'])
-for triplet in table_test:
-    writer.writerow(triplet)
+
+for line in csv.reader(open('argus_val.csv'), delimiter=','):
+    print line[-1]
