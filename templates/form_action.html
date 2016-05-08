@@ -37,9 +37,23 @@
             </div>
             <div id="qbox">
                 <form method="post" action="{{ url_for('generate_answer') }}">
-		  <p><em><b>Technology preview</b> of the evidencing engine.<br>Ask a yes/no question on whether a noteworthy event happenned (particularly from the sports or politics domain).<br>We cover the time period from Sep 1 2014 to Sep 1 2015.<br>Take answers based on little (1-2) evidence with a grain of salt. Entity order sometimes not taken into account.</em></p>
+<p><em style="font-size: 80%">
+The system determines whether retroactive predictions turned out to be true by
+scanning news stories that were published between September 2014-2015.<br>
+This is a <b>work-in-progress prototype</b> that comes with caveats including:<br>
+1) Word order is sometimes not taken into account, 2) Verb negation is
+sometimes not weighed,<br>3) Answers based on little evidence may be inaccurate</em></p>
+<div style="margin-top: 3ex; margin-bottom: 3ex">
                   <input type="text" name="question" size="60" placeholder="Will Donald Trump announce he is running for President in 2015?" />
                   <input type="submit" name="go" value="Ask" />
+</div>
+<p style="font-size: 80%">
+We welcome comments and suggestions.
+Please send your feedback to at <a
+href="mailto:argus1.0@outlook.com?subject=LiveDemo May
+2016">argus1.0@outlook.com</a><br>
+<a href="https://goo.gl/vR8KrB">Working Paper</a> |
+<a href="https://github.com/AugurProject/argus">https://github.com/AugurProject/argus</a></p>
                 </form>
             </div>
         </div>
