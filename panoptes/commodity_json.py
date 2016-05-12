@@ -31,7 +31,7 @@ def validate(date_text):
     except ValueError:
         if date_text == 'marketstart' or date_text == 'marketend':
             return ''
-        print "Wrong date format, please see the help below"
+        print("Wrong date format, please see the help below")
         help()
 
 def future_date(date):
@@ -127,9 +127,9 @@ def commodity_query(que, df):
             minimum = np.nanmin(data.Value.get_values())
             maximum = np.nanmax(data.Value.get_values())
         except TypeError as e:
-            print "There is no value in the column for the given range"
+            print("There is no value in the column for the given range")
             exit()
-        print data.Value.get_values()
+        print(data.Value.get_values())
         index_max = np.nanargmax(data.Value.get_values())
         # index_max = data.Value.get_values().index(maximum)
         date_max = data.index.get_values()[index_max]
@@ -140,17 +140,17 @@ def commodity_query(que, df):
             minimum = np.nanmin(data.Settle.get_values())
             maximum = np.nanmax(data.Settle.get_values())
         except TypeError as e:
-            print "There is no value in the column for the given range"
+            print("There is no value in the column for the given range")
             exit()
         # index_max = data.Settle.get_values().index(maximum)
-        print data.columns
-        print type(data.Settle.get_values())
-        print type(data)
+        print(data.columns)
+        print(type(data.Settle.get_values()))
+        print(type(data))
 
         index_max = np.nanargmax(data.Settle.get_values())
         # index_max = data.Value.get_values().index(maximum)
-        print "index"
-        print index_max
+        print("index")
+        print(index_max)
         date_max = data.index.get_values()[index_max]
         index_min = np.nanargmin(data.Settle.get_values())
         date_min = data.index.get_values()[index_min]
@@ -159,7 +159,7 @@ def commodity_query(que, df):
     answer = {"Questioned value": str(question["value"])}
     answer['Source'] = "Quandl data platform API"
 
-    print date_max
+    print(date_max)
     date_max = pd.to_datetime(str(date_max)).strftime('%Y.%m.%d')
     date_min = pd.to_datetime(str(date_min)).strftime('%Y.%m.%d')
     if question["comp"] == "above":
