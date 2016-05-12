@@ -1,0 +1,8 @@
+{
+  "type":"stock",
+  "stock":"GOOG",
+  "datestart":"2016-03-23",
+  "dateend":"2016-03-23",
+  "value":500,
+  "comp":"above"
+}

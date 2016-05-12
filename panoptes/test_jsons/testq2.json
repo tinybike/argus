@@ -1,0 +1,8 @@
+{
+  "type":"stock",
+  "stock":"S&P",
+  "datestart":"2016-03-26",
+  "dateend":"2016-03-26",
+  "value":2050,
+  "comp":"above"
+}

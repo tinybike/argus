@@ -1,0 +1,8 @@
+{
+  "type":"stock",
+  "stock":"MSFT",
+  "datestart":"2016-01-01",
+  "dateend":"2016-12-31",
+  "value":200,
+  "comp":"below"
+}
