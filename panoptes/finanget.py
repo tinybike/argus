@@ -12,6 +12,7 @@ def help():
 def makequery(arg):
     arguments = arg
 
+    # Input parsing
     try:
         name = arguments[1]
 
@@ -32,19 +33,22 @@ def makequery(arg):
     days = 0
     totalval = 0
 
+    # Definition of the day's records class
     class dayrec:
         date = ""
         hi = float("0")
         lo = float("99999999999999")
         line = response.readline()
 
-    while True:
 
+    # Reading through ALL of the response from yahoo api
+    while True:
         line = response.readline()
         #print(line)
         if len(line) < 1:
             break
 
+        #Parsing parts of the response
         days += 1
         d = dayrec()
         line = str(line).split("'")[1]
@@ -54,8 +58,19 @@ def makequery(arg):
         records.insert(0,d)
         totalval += float(str(line).split(',')[6].split('\\')[0])
 
+        # Initialise the extreme day records
+        mini = dayrec
+        maxi = dayrec
 
-    #If we get a response with no business days (Most likely Saturday or Sunday), we have to look back in time till we get at least one business day.
+        # Check if the current one beats either of them
+        for rec in records:
+            if rec.hi > maxi.hi:
+                maxi = rec
+            if rec.lo < mini.lo:
+                mini = rec
+
+
+    # If we get a response with no business days (Most likely Saturday or Sunday), we have to recursively look back in time till we get at least one business day.
     if days == 0:
         try:
             recurdepth = arguments[4]
@@ -70,17 +85,8 @@ def makequery(arg):
         newargs = ["recursive_search_for_real_bizday",arguments[1],str(frdate),arguments[3],recurdepth]
         return makequery(newargs)
 
-    mini = dayrec
-    maxi = dayrec
 
-
-
-    for rec in records:
-        if rec.hi > maxi.hi:
-            maxi = rec
-        if rec.lo < mini.lo:
-            mini = rec
-
+    # Parse the output as json
     dump = {
     "average_adj_closing":totalval/days,
     "trdays_in_period":days,
@@ -90,9 +96,9 @@ def makequery(arg):
     "maxvalue":maxi.hi
     }
 
-    #print(json.dumps(dump))
     return json.dumps(dump)
 
+# The outer function including input JSON parsing and output answer assembly
 def stockquery(que):
 
     question = json.load(que)
@@ -100,16 +106,8 @@ def stockquery(que):
         print("Doesn't look like a stock query to me, can't do.")
         sys.exit(1)
 
-    #print(question["type"])
-    #print(question["stock"])
-    #print(question["stock"] + " " + question["datestart"] + " " + question["dateend"])
-
     params = ['blurt',question["stock"], question["datestart"], question["dateend"]]
-
-    #print(params)
-    #print(makequery(params))
     finanget_response = json.loads(makequery(params))
-    #print(finanget_response)
 
     answer = {"Questioned value": str(question["value"])}
     answer['Source'] = "Yahoo time graph API"

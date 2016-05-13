@@ -1,5 +1,4 @@
 import sys
-import json
 from finanget import stockquery
 
 def proccess(que):
