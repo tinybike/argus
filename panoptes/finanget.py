@@ -9,25 +9,33 @@ def help():
           "day value of 0, month value of 0 (January = 1) or dates from the future cause weird behaviour in the API!\n")
     sys.exit(1)
 
-def makequery(arg):
-    arguments = arg
+def makequery(que):
+
+    if que["type"] != "stock":
+        return json.dumps({"Error": "Not a stock kinda question"})
 
     # Input parsing
     try:
-        name = arguments[1]
+        name = que["stock"]
 
-        fy = str(arguments[2]).split("-")[0]
-        fm = str(arguments[2]).split("-")[1]
-        fd = str(arguments[2]).split("-")[2]
+        fdate = que["datestart"]
+        tdate = que["dateend"]
 
-        ty = str(arguments[3]).split("-")[0]
-        tm = str(arguments[3]).split("-")[1]
-        td = str(arguments[3]).split("-")[2]
+        fy = str(fdate.split("-")[0])
+        fm = str(fdate.split("-")[1])
+        fd = str(fdate.split("-")[2])
+
+        ty = str(tdate.split("-")[0])
+        tm = str(tdate.split("-")[1])
+        td = str(tdate.split("-")[2])
     except:
         help()
 
     #Query to the Yahoo finance API
-    response = urllib.request.urlopen('http://ichart.finance.yahoo.com/table.csv?s='+name+'&a='+str(int(fm) - 1)+'&b='+fd+'&c='+fy+'&d='+str(int(tm) - 1)+'&e='+td+'&f='+ty+'&e=.csv')
+    try:
+        response = urllib.request.urlopen('http://ichart.finance.yahoo.com/table.csv?s='+name+'&a='+str(int(fm) - 1)+'&b='+fd+'&c='+fy+'&d='+str(int(tm) - 1)+'&e='+td+'&f='+ty+'&e=.csv')
+    except:
+        return json.dumps({"Error": "API request went badly"})
 
     records = []
     days = 0
@@ -73,17 +81,17 @@ def makequery(arg):
     # If we get a response with no business days (Most likely Saturday or Sunday), we have to recursively look back in time till we get at least one business day.
     if days == 0:
         try:
-            recurdepth = arguments[4]
+            recurdepth = que["recursion"]
         except:
             recurdepth = 0
         recurdepth += 1
 
         if recurdepth > 10:
-            return json.dumps({"error":"Recursion limit reached"})
+            return json.dumps({"Error":"Recursion limit reached"})
         import datetime
         frdate = datetime.date(int(fy), int(fm), int(fd)) - datetime.timedelta(days=1)
-        newargs = ["recursive_search_for_real_bizday",arguments[1],str(frdate),arguments[3],recurdepth]
-        return makequery(newargs)
+        que[frdate] = frdate
+        return makequery(que)
 
 
     # Parse the output as json
@@ -98,43 +106,9 @@ def makequery(arg):
 
     return json.dumps(dump)
 
-# The outer function including input JSON parsing and output answer assembly
-def stockquery(que):
-
-    question = json.load(que)
-    if question["type"] != "stock":
-        print("Doesn't look like a stock query to me, can't do.")
-        sys.exit(1)
-
-    params = ['blurt',question["stock"], question["datestart"], question["dateend"]]
-    finanget_response = json.loads(makequery(params))
-
-    answer = {"Questioned value": str(question["value"])}
-    answer['Source'] = "Yahoo time graph API"
-
-    if question["comp"] == "above":
-        if finanget_response["maxvalue"] > question["value"]:
-            answer["Decision"] = True
-            answer["Maximal value"] = str(finanget_response["maxvalue"])
-            answer["On Date"] = finanget_response["maximum_on_date"]
-        else:
-            answer["Decision"] = False
-            answer["Maximal value"] =  str(finanget_response["maxvalue"])
-            answer["On Date"] =  finanget_response["maximum_on_date"]
-
-    if question["comp"] == "below":
-        if finanget_response["minvalue"] < question["value"]:
-            answer["Decision"] = True
-            answer["Minimal value"] = str(finanget_response["minvalue"])
-            answer["On Date"] = finanget_response["minimum_on_date"]
-        else:
-            answer["Decision"] = False
-            answer["Maximal value"] = str(finanget_response["minvalue"])
-            answer["On Date"] = finanget_response["minimum_on_date"]
-
-    return json.dumps(answer)
 
 if __name__ == "__main__":
+    json.dumps()
     print(makequery(sys.argv))
 
 
