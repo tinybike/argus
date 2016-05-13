@@ -9,54 +9,42 @@ def help():
           "day value of 0, month value of 0 (January = 1) or dates from the future cause weird behaviour in the API!\n")
     sys.exit(1)
 
-def makequery(que):
+def makequery(arg):
+    arguments = arg
 
-    if que["type"] != "stock":
-        return json.dumps({"Error": "Not a stock kinda question"})
-
-    # Input parsing
     try:
-        name = que["stock"]
+        name = arguments[1]
 
-        fdate = que["datestart"]
-        tdate = que["dateend"]
+        fy = str(arguments[2]).split("-")[0]
+        fm = str(arguments[2]).split("-")[1]
+        fd = str(arguments[2]).split("-")[2]
 
-        fy = str(fdate.split("-")[0])
-        fm = str(fdate.split("-")[1])
-        fd = str(fdate.split("-")[2])
-
-        ty = str(tdate.split("-")[0])
-        tm = str(tdate.split("-")[1])
-        td = str(tdate.split("-")[2])
+        ty = str(arguments[3]).split("-")[0]
+        tm = str(arguments[3]).split("-")[1]
+        td = str(arguments[3]).split("-")[2]
     except:
         help()
 
     #Query to the Yahoo finance API
-    try:
-        response = urllib.request.urlopen('http://ichart.finance.yahoo.com/table.csv?s='+name+'&a='+str(int(fm) - 1)+'&b='+fd+'&c='+fy+'&d='+str(int(tm) - 1)+'&e='+td+'&f='+ty+'&e=.csv')
-    except:
-        return json.dumps({"Error": "API request went badly"})
+    response = urllib.request.urlopen('http://ichart.finance.yahoo.com/table.csv?s='+name+'&a='+str(int(fm) - 1)+'&b='+fd+'&c='+fy+'&d='+str(int(tm) - 1)+'&e='+td+'&f='+ty+'&e=.csv')
 
     records = []
     days = 0
     totalval = 0
 
-    # Definition of the day's records class
     class dayrec:
         date = ""
         hi = float("0")
         lo = float("99999999999999")
         line = response.readline()
 
-
-    # Reading through ALL of the response from yahoo api
     while True:
+
         line = response.readline()
         #print(line)
         if len(line) < 1:
             break
 
-        #Parsing parts of the response
         days += 1
         d = dayrec()
         line = str(line).split("'")[1]
@@ -66,35 +54,33 @@ def makequery(que):
         records.insert(0,d)
         totalval += float(str(line).split(',')[6].split('\\')[0])
 
-        # Initialise the extreme day records
-        mini = dayrec
-        maxi = dayrec
 
-        # Check if the current one beats either of them
-        for rec in records:
-            if rec.hi > maxi.hi:
-                maxi = rec
-            if rec.lo < mini.lo:
-                mini = rec
-
-
-    # If we get a response with no business days (Most likely Saturday or Sunday), we have to recursively look back in time till we get at least one business day.
+    #If we get a response with no business days (Most likely Saturday or Sunday), we have to look back in time till we get at least one business day.
     if days == 0:
         try:
-            recurdepth = que["recursion"]
+            recurdepth = arguments[4]
         except:
             recurdepth = 0
         recurdepth += 1
 
         if recurdepth > 10:
-            return json.dumps({"Error":"Recursion limit reached"})
+            return json.dumps({"error":"Recursion limit reached"})
         import datetime
         frdate = datetime.date(int(fy), int(fm), int(fd)) - datetime.timedelta(days=1)
-        que[frdate] = frdate
-        return makequery(que)
+        newargs = ["recursive_search_for_real_bizday",arguments[1],str(frdate),arguments[3],recurdepth]
+        return makequery(newargs)
+
+    mini = dayrec
+    maxi = dayrec
 
 
-    # Parse the output as json
+
+    for rec in records:
+        if rec.hi > maxi.hi:
+            maxi = rec
+        if rec.lo < mini.lo:
+            mini = rec
+
     dump = {
     "average_adj_closing":totalval/days,
     "trdays_in_period":days,
@@ -104,11 +90,53 @@ def makequery(que):
     "maxvalue":maxi.hi
     }
 
+    #print(json.dumps(dump))
     return json.dumps(dump)
 
+def stockquery(que):
+
+    question = json.load(que)
+    if question["type"] != "stock":
+        print("Doesn't look like a stock query to me, can't do.")
+        sys.exit(1)
+
+    #print(question["type"])
+    #print(question["stock"])
+    #print(question["stock"] + " " + question["datestart"] + " " + question["dateend"])
+
+    params = ['blurt',question["stock"], question["datestart"], question["dateend"]]
+
+    #print(params)
+    #print(makequery(params))
+    finanget_response = json.loads(makequery(params))
+    #print(finanget_response)
+
+    answer = {"Questioned value": str(question["value"])}
+    answer['Source'] = "Yahoo time graph API"
+
+    if question["comp"] == "above":
+        if finanget_response["maxvalue"] > question["value"]:
+            answer["Decision"] = True
+            answer["Maximal value"] = str(finanget_response["maxvalue"])
+            answer["On Date"] = finanget_response["maximum_on_date"]
+        else:
+            answer["Decision"] = False
+            answer["Maximal value"] =  str(finanget_response["maxvalue"])
+            answer["On Date"] =  finanget_response["maximum_on_date"]
+
+    if question["comp"] == "below":
+        if finanget_response["minvalue"] < question["value"]:
+            answer["Decision"] = True
+            answer["Minimal value"] = str(finanget_response["minvalue"])
+            answer["On Date"] = finanget_response["minimum_on_date"]
+        else:
+            answer["Decision"] = False
+            answer["Maximal value"] = str(finanget_response["minvalue"])
+            answer["On Date"] = finanget_response["minimum_on_date"]
+
+    return json.dumps(answer)
 
 if __name__ == "__main__":
-    json.dumps()
     print(makequery(sys.argv))
 
 
