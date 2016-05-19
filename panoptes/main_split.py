@@ -1,36 +1,37 @@
 import sys
 import json
-from finanget import makequery
+import finanget
 
 def proccess(que):
-    stockquery = makequery(que)
+    stockquery = finanget.makequery(que)
     if stockquery['useful'] == True:
         return evaluate(que, stockquery)
 
 def evaluate(question, response):
     answer = {}
-    answer["Questioned value"] = question["value"]
-    answer['Source'] = "Yahoo time graph API"
+    answer["source"] = response["source"]
 
-    if question["comp"] == "above":
-        if response["maxvalue"] > question["value"]:
-            answer["Decision"] = True
-            answer["Maximal value"] = str(response["maxvalue"])
-            answer["On Date"] = response["maximum_on_date"]
-        else:
-            answer["Decision"] = False
-            answer["Maximal value"] =  str(response["maxvalue"])
-            answer["On Date"] =  response["maximum_on_date"]
+    if "comp" in question:
+        answer["Questioned value"] = question["value"]
+        if question["comp"] == "above":
+            if response["maxvalue"] > question["value"]:
+                answer["decision"] = True
+                answer["maximal value"] = str(response["maxvalue"])
+                answer["on Date"] = response["maximum_on_date"]
+            else:
+                answer["decision"] = False
+                answer["maximal value"] =  str(response["maxvalue"])
+                answer["on Date"] =  response["maximum_on_date"]
 
-    if question["comp"] == "below":
-        if response["minvalue"] < question["value"]:
-            answer["Decision"] = True
-            answer["Minimal value"] = str(response["minvalue"])
-            answer["On Date"] = response["minimum_on_date"]
-        else:
-            answer["Decision"] = False
-            answer["Maximal value"] = str(response["minvalue"])
-            answer["On Date"] = response["minimum_on_date"]
+        if question["comp"] == "below":
+            if response["minvalue"] < question["value"]:
+                answer["decision"] = True
+                answer["minimal value"] = str(response["minvalue"])
+                answer["on Date"] = response["minimum_on_date"]
+            else:
+                answer["decision"] = False
+                answer["maximal value"] = str(response["minvalue"])
+                answer["on Date"] = response["minimum_on_date"]
 
     return json.dumps(answer)
 
