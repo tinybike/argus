@@ -1,0 +1,8 @@
+{
+  "type":"stock",
+  "stock":"AAPL",
+  "datestart":"2016-05-15",
+  "dateend":"2016-05-15",
+  "value":105,
+  "comp":"above"
+}
