@@ -1,11 +1,11 @@
 import sys
 import json
-import finanget
+from finanget import makequery as stockquery
 
 def proccess(que):
-    stockquery = finanget.makequery(que)
-    if stockquery['useful'] == True:
-        return evaluate(que, stockquery)
+    squery = stockquery(que)
+    if squery['useful'] == True:
+        return evaluate(que, squery)
 
 def evaluate(question, response):
     answer = {}
