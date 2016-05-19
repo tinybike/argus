@@ -9,8 +9,13 @@ def help():
           "day value of 0, month value of 0 (January = 1) or dates from the future cause weird behaviour in the API!\n")
     sys.exit(1)
 
-def makequery(arg):
-    arguments = arg
+def makequery(question):
+    if question["type"] != "stock":
+        print("Doesn't look like a stock query to me, can't do.")
+        answer = {"useful": False}
+        return answer
+
+    arguments = ['blurt', question["stock"], question["datestart"], question["dateend"]]
 
     try:
         name = arguments[1]
@@ -58,17 +63,19 @@ def makequery(arg):
     #If we get a response with no business days (Most likely Saturday or Sunday), we have to look back in time till we get at least one business day.
     if days == 0:
         try:
-            recurdepth = arguments[4]
+            recurdepth = question["recursive_search_for_real_bizday"]
         except:
             recurdepth = 0
         recurdepth += 1
 
         if recurdepth > 10:
-            return json.dumps({"error":"Recursion limit reached"})
+            answer = {"useful": False,"error":"Recursion limit reached"}
+            return answer
         import datetime
-        frdate = datetime.date(int(fy), int(fm), int(fd)) - datetime.timedelta(days=1)
-        newargs = ["recursive_search_for_real_bizday",arguments[1],str(frdate),arguments[3],recurdepth]
-        return makequery(newargs)
+        #print("recursing: " + str(recurdepth))
+        question["datestart"] = str(datetime.date(*(int(s) for s in question["datestart"].split('-'))) - datetime.timedelta(days=1))
+        question["recursive_search_for_real_bizday"] = recurdepth
+        return makequery(question)
 
     mini = dayrec
     maxi = dayrec
@@ -82,16 +89,18 @@ def makequery(arg):
             mini = rec
 
     dump = {
+    "useful": True,
     "average_adj_closing":totalval/days,
     "trdays_in_period":days,
     "minimum_on_date":mini.date,
     "minvalue": mini.lo,
     "maximum_on_date":maxi.date,
-    "maxvalue":maxi.hi
+    "maxvalue":maxi.hi,
+    "source": "Yahoo time graph API"
     }
 
     #print(json.dumps(dump))
-    return json.dumps(dump)
+    return dump
 
 def stockquery(que):
 
@@ -134,9 +143,13 @@ def stockquery(que):
             answer["Maximal value"] = str(finanget_response["minvalue"])
             answer["On Date"] = finanget_response["minimum_on_date"]
 
-    return json.dumps(answer)
+    return answer
 
 if __name__ == "__main__":
-    print(makequery(sys.argv))
+    with open(sys.argv[1]) as que:
+        question = json.load(que)
+        print(makequery(question))
+
+
 
 
