@@ -1,6 +1,6 @@
 import sys
 import json
-from finanget import makequery as stockquery
+from stock import makequery as stockquery
 
 def proccess(que):
     squery = stockquery(que)
