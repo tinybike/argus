@@ -87,16 +87,22 @@ def commodity_query(que):
         future_date(date2)
 
     code = None
-
+    commodity_in_sentence = None
+    sector = None
     # TODO what about something more clever then substring? Maybe just memory
     for index, row in df.iterrows():
         if row.Code.lower().find(commodity.lower()) >= 0 and row.Source.lower() == source.lower():
             code = row.Code
+            commodity_in_sentence = row.Name
+            sector = row.Sector
+
 
     if code is None:  # so we dont get code
         for index, row in df.iterrows():
             if row.Name.lower().find(commodity.lower()) >= 0 and row.Source.lower() == source.lower():
                 code = row.Code
+                commodity_in_sentence = row.Name
+                sector = row.Sector
         print ("code : "+code)
     check(code)
 
@@ -114,7 +120,8 @@ def commodity_query(que):
         print (e)
         #exit()
 
-    # print (data)
+    print (data)
+    dump = None
     if len(data.columns) == 1:
         try:
             minimum = np.nanmin(data.Value.get_values())
@@ -127,6 +134,22 @@ def commodity_query(que):
         date_max = data.index.get_values()[index_max]
         index_min = np.nanargmin(data.Value.get_values())
         date_min = data.index.get_values()[index_min]
+
+        date_max = pd.to_datetime(str(date_max)).strftime('%Y.%m.%d')
+        date_min = pd.to_datetime(str(date_min)).strftime('%Y.%m.%d')
+
+        dump = {
+            "useful": True,
+            "minimum_on_date": date_min,
+            "minvalue": minimum,
+            "maximum_on_date": date_max,
+            "maxvalue": maximum,
+            "commodity name": commodity_in_sentence,
+            "sector ": sector,
+            "Quandl code ": code,
+            "exchange " : source,
+            "source": "Quandl data platform API"
+        }
     else:
         try:
             minimum = np.nanmin(data.Settle.get_values())
@@ -139,26 +162,30 @@ def commodity_query(que):
         # print(type(data))
 
         index_max = np.nanargmax(data.Settle.get_values())
-        #print("index")
-        #print(index_max)
+        # print("index")
+        # print(index_max)
         date_max = data.index.get_values()[index_max]
         index_min = np.nanargmin(data.Settle.get_values())
         date_min = data.index.get_values()[index_min]
         print ("For more dimensions was chose Settle column")
 
-    date_max = pd.to_datetime(str(date_max)).strftime('%Y.%m.%d')
-    date_min = pd.to_datetime(str(date_min)).strftime('%Y.%m.%d')
+        date_max = pd.to_datetime(str(date_max)).strftime('%Y.%m.%d')
+        date_min = pd.to_datetime(str(date_min)).strftime('%Y.%m.%d')
 
-    dump = {
-        "useful": True,
-        "minimum_on_date": date_min,
-        "minvalue": minimum,
-        "maximum_on_date": date_max,
-        "maxvalue": maximum,
-        "source": "Quandl data platform API"
-    }
+        dump = {
+            "useful": True,
+            "minimum_on_date": date_min,
+            "minvalue": minimum,
+            "maximum_on_date": date_max,
+            "maxvalue": maximum,
+            "commodity name": commodity_in_sentence,
+            "sector ": sector,
+            "Quandl code ": code,
+            "exchange ": source,
+            "source": "Quandl data platform API"
+        }
 
-    #print (dump)
+    print (dump)
     return dump
 
 if __name__ == "__main__":

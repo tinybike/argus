@@ -2,8 +2,8 @@
         "type":                "commodity",
         "exchange":        "wgc",                 
         "commodity":        "gold",                
-        "datestart":        "marketstart",        
-        "dateend":        "marketend",        
-        "value":                1200,                
+        "datestart":        "1991-01-28",
+        "dateend":        "2000-10-10",
+        "value":                250,
         "comp":                "above"                
 }

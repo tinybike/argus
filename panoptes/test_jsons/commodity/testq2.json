@@ -1,0 +1,9 @@
+{
+        "type":                "commodity",
+        "exchange":        "CME",
+        "commodity":        "lumber",
+        "datestart":        "1977-02-12",
+        "dateend":        "2010-08-08",
+        "value":                400,
+        "comp":                "above"
+}
