@@ -1,11 +1,15 @@
 import sys
 import json
 from stock import makequery as stockquery
+from commodity_quandl import commodity_query as commodityquery
 
 def proccess(que):
     squery = stockquery(que)
     if squery['useful'] == True:
         return evaluate(que, squery)
+    cquery = commodityquery(que)
+    if cquery['useful'] == True:
+        return evaluate(que, cquery)
 
 def evaluate(question, response):
     answer = {}

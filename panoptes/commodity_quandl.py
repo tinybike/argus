@@ -33,22 +33,24 @@ def validate(date_text):
         if date_text == 'marketstart' or date_text == 'marketend':
             return ''
         print("Wrong date format, please see the help below")
-        help()
+        return "Error"
+        #help() TODO json
 
 def future_date(date):
     if datetime.now() < date:
-        # print ("Future date was inserted : " + str(date))
-        exit("Future date was inserted : " + str(date))
+        print ("Future date was inserted : " + str(date))
+        #exit("Future date was inserted : " + str(date)) # TODO
+
 
 def check(code):
     if code is None:
-        # print ("For your source and commodity was not found any code in the list")
-        exit("For your source and commodity was not found any code in the list")
+        print ("For your source and commodity was not found any code in the list")
+        #exit("For your source and commodity was not found any code in the list")
 
 def isAfter(dateBefore, dateAfter):
     if dateBefore > dateAfter:
-        # print ("date_from is after date_to!")
-        exit("date_from is after date_to!")
+        print ("date_from is after date_to!")
+        #exit("date_from is after date_to!")
 
 def checkLiteralsDate(dateBefore, dateAfter):
     if dateBefore == 'marketend':
@@ -59,32 +61,23 @@ def checkLiteralsDate(dateBefore, dateAfter):
 
 
 
-def commodity_query(que, df):
+def commodity_query(que):
+    df = pd.read_csv('commodities.csv')
+    if que["type"] != "commodity":
+        print("Doesn't look like a commodity query to me, can't do.")
+        answer = {"useful": False}
+        return answer
 
-    stringJson = ""
-    for line in que:
-        stringJson += line
-
-    try:
-        question = json.loads(stringJson)
-    except ValueError as e:
-        exit("Wrong json format!")  # maybe ''
-
-    if question["type"] != "commodity":
-        exit("Doesn't look like a commodity query to me, can't do.")
-
-    # TODO make note on the wiki on this when it will be updated into module
-
-    if len(question) != 7:
+    ''' if len(que) != 7:
         print ("Wrong number of arguments! For more help use argument -h")
-        help()
+        answer = {"error": True}'''
 
-    source = str(question["exchange"])
-    commodity = str(question["commodity"])
-    date_from = question["datestart"]
-    date_to = question["dateend"]
+    source = str(que["exchange"])
+    commodity = str(que["commodity"])
+    date_from = que["datestart"]
+    date_to = que["dateend"]
 
-    checkLiteralsDate(date_from, date_to)
+    # checkLiteralsDate(date_from, date_to) TODO json error
 
     date1 = validate(date_from)
     date2 = validate(date_to)
@@ -105,10 +98,9 @@ def commodity_query(que, df):
             if row.Name.lower().find(commodity.lower()) >= 0 and row.Source.lower() == source.lower():
                 code = row.Code
         print ("code : "+code)
-    # check(code)
+    check(code)
 
     try:
-        # auth_tok = "yourauthhere" as last argument for authentication if I will have account
         if date1 != '' and date2 != '':
             data = quandl.get(code, start_date=date1, end_date=date2)
         elif date1 == '' and date2 != '':
@@ -120,19 +112,18 @@ def commodity_query(que, df):
     except Exception as e:
         print ("The source/commodity was not found or the company/source does not exist anymore \n\n")
         print (e)
-        exit()
+        #exit()
 
-    print (data)
+    # print (data)
     if len(data.columns) == 1:
         try:
             minimum = np.nanmin(data.Value.get_values())
             maximum = np.nanmax(data.Value.get_values())
-        except TypeError as e:
+        except TypeError:
             print("There is no value in the column for the given range")
-            exit()
-        print(data.Value.get_values())
+            #exit()
+        #print(data.Value.get_values())
         index_max = np.nanargmax(data.Value.get_values())
-        # index_max = data.Value.get_values().index(maximum)
         date_max = data.index.get_values()[index_max]
         index_min = np.nanargmin(data.Value.get_values())
         date_min = data.index.get_values()[index_min]
@@ -140,50 +131,35 @@ def commodity_query(que, df):
         try:
             minimum = np.nanmin(data.Settle.get_values())
             maximum = np.nanmax(data.Settle.get_values())
-        except TypeError as e:
+        except TypeError:
             print("There is no value in the column for the given range")
-            exit()
-        # index_max = data.Settle.get_values().index(maximum)
-        print(data.columns)
-        print(type(data.Settle.get_values()))
-        print(type(data))
+            # exit()
+        # print(data.columns)
+        # print(type(data.Settle.get_values()))
+        # print(type(data))
 
         index_max = np.nanargmax(data.Settle.get_values())
-        # index_max = data.Value.get_values().index(maximum)
-        print("index")
-        print(index_max)
+        #print("index")
+        #print(index_max)
         date_max = data.index.get_values()[index_max]
         index_min = np.nanargmin(data.Settle.get_values())
         date_min = data.index.get_values()[index_min]
         print ("For more dimensions was chose Settle column")
 
-    answer = {"Questioned value": str(question["value"])}
-    answer['Source'] = "Quandl data platform API"
-
-    print(date_max)
     date_max = pd.to_datetime(str(date_max)).strftime('%Y.%m.%d')
     date_min = pd.to_datetime(str(date_min)).strftime('%Y.%m.%d')
-    if question["comp"] == "above":
-        if maximum > question["value"]:
-            answer["Decision"] = True
-            answer["Maximal value"] = str(maximum)
-            answer["On Date"] = date_max
-        else:
-            answer["Decision"] = False
-            answer["Maximal value"] = str(maximum)
-            answer["On Date"] = date_max
 
-    if question["comp"] == "below":
-        if minimum < question["value"]:
-            answer["Decision"] = True
-            answer["Minimal value"] = str(minimum)
-            answer["On Date"] = date_min
-        else:
-            answer["Decision"] = False
-            answer["Maximal value"] = str(minimum)
-            answer["On Date"] = date_min
+    dump = {
+        "useful": True,
+        "minimum_on_date": date_min,
+        "minvalue": minimum,
+        "maximum_on_date": date_max,
+        "maxvalue": maximum,
+        "source": "Quandl data platform API"
+    }
 
-    return json.dumps(answer)
+    #print (dump)
+    return dump
 
 if __name__ == "__main__":
     arguments = sys.argv
@@ -198,5 +174,6 @@ if __name__ == "__main__":
         if name == "-l":
             list_sources(df)
 
-    with open(sys.argv[1]) as que: # TODO check if its ok
-        print(commodity_query(que, df))
+    with open(sys.argv[1]) as que:
+        question = json.load(que)
+        print(commodity_query(question))
