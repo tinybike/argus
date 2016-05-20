@@ -21,7 +21,7 @@ def help():
 
 def makequery(question):
     if question["type"] != "stock":
-        print("Doesn't look like a stock query to me, can't do.")
+        #print("Doesn't look like a stock query to me, can't do.")
         answer = {"useful": False}
         return answer
 
