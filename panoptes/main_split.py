@@ -1,6 +1,7 @@
 import sys
 import json
 from stock import makequery as stockquery
+from currency import makequery as currencyquery
 from commodity_quandl import commodity_query as commodityquery
 
 def proccess(que):
@@ -10,10 +11,15 @@ def proccess(que):
     cquery = commodityquery(que)
     if cquery['useful'] == True:
         return evaluate(que, cquery)
+    currquery = currencyquery(que)
+    if currquery['useful'] == True:
+        return evaluate(que, currquery)
 
 def evaluate(question, response):
     answer = {}
     answer["source"] = response["source"]
+
+    print(response)
 
     if "comp" in question:
         answer["Questioned value"] = question["value"]
