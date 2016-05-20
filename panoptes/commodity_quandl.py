@@ -1,4 +1,4 @@
-
+from __future__ import print_function
 import quandl
 import sys
 import json
@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import datetime
 from datetime import datetime
+
 
 def help():
     print("\nFinds low and high value of a commodity, params are name of stock market\n"
@@ -51,7 +52,7 @@ def isAfter(dateBefore, dateAfter):
 
 def checkLiteralsDate(dateBefore, dateAfter):
     if dateBefore == 'marketend':
-        exit("From date can not be marketend")
+        exit("From date can not be marketend") # TODO return instead of exit json
 
     if dateAfter == 'marketstart':
         exit("End date can not be marketstart")
@@ -61,7 +62,7 @@ def checkLiteralsDate(dateBefore, dateAfter):
 def commodity_query(que, df):
 
     stringJson = ""
-    for line in que:  # sys.stdin
+    for line in que:
         stringJson += line
 
     try:
@@ -197,5 +198,5 @@ if __name__ == "__main__":
         if name == "-l":
             list_sources(df)
 
-    with open(sys.argv[1]) as que:
+    with open(sys.argv[1]) as que: # TODO check if its ok
         print(commodity_query(que, df))

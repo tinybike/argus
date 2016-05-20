@@ -1,0 +1,9 @@
+{
+        "type":                "commodity",
+        "exchange":        "wgc",                 
+        "commodity":        "gold",                
+        "datestart":        "marketstart",        
+        "dateend":        "marketend",        
+        "value":                1200,                
+        "comp":                "above"                
+}
