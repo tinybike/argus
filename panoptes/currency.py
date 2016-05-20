@@ -1,6 +1,7 @@
 import urllib.request
 import sys
 import json
+import datetime
 
 
 class dayrec(object):
@@ -15,7 +16,34 @@ def makequery(question):
         answer = {"useful": False}
         return answer
     else:
-        return dayget(question)
+        min = 99999999999999999999
+        max = 0
+        days = 0
+
+        if question["datestart"] == question["dateend"]:
+            value = dayget(question)
+            answer = {
+                "minvalue": value,
+                "maxvalue": value,
+                "days": 1
+            }
+        else:
+            while question["datestart"] <= question["dateend"]:
+                days+=1
+                value = dayget(question)
+                if value < min:
+                    min = value
+                if value > max:
+                    max = value
+                question["datestart"] = str(datetime.date(*(int(s) for s in question["datestart"].split('-'))) + datetime.timedelta(days=1))
+            answer = {
+                "minvalue": min,
+                "maxvalue": max,
+                "days": days
+            }
+        answer["useful"] = True
+        answer["source"] = "fixer.io"
+        return answer
 
 def dayget(question):
 
@@ -23,18 +51,12 @@ def dayget(question):
         base = "?base=" +question["base"]
     else:
         base = "?base=USD"
-
     symb = ";symbols=" + question["currency"]
-
     print("http://api.fixer.io/"+question["datestart"]+base+symb)
     res = urllib.request.urlopen("http://api.fixer.io/"+question["datestart"]+base+symb)
     response = json.loads(res.read().decode("windows-1252"));
-
     toss, value = response["rates"].popitem()
-
     return value
-
-    return response
 
 if __name__ == "__main__":
     with open(sys.argv[1]) as que:
