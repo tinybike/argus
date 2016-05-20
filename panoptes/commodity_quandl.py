@@ -120,7 +120,7 @@ def commodity_query(que):
         print (e)
         #exit()
 
-    print (data)
+    #print (data)
     dump = None
     if len(data.columns) == 1:
         try:
@@ -169,23 +169,50 @@ def commodity_query(que):
         date_min = data.index.get_values()[index_min]
         print ("For more dimensions was chose Settle column")
 
+        open_price_max = data.Open.get_values()[index_max]
+        open_price_min = data.Open.get_values()[index_min]
+
+        high_max = data.High.get_values()[index_max]
+        high_min = data.High.get_values()[index_min]
+
+        low_max = data.Low.get_values()[index_max]
+        low_min = data.Low.get_values()[index_min]
+
+        volume_max = data.Volume.get_values()[index_max]
+        volume_min = data.Volume.get_values()[index_min]
+
+        interest_max = data['Open Interest'].get_values()[index_max]
+        interest_min = data['Open Interest'].get_values()[index_min]
+
+
         date_max = pd.to_datetime(str(date_max)).strftime('%Y.%m.%d')
         date_min = pd.to_datetime(str(date_min)).strftime('%Y.%m.%d')
 
         dump = {
             "useful": True,
             "minimum_on_date": date_min,
-            "minvalue": minimum,
+            "minvalue": minimum,  # settle
+            "open_price_min": open_price_min,
+            "high_price_min": high_min,
+            "low_price_min": low_min,
+            "volume_min": volume_min,
+            "open_interest_min": interest_min,
             "maximum_on_date": date_max,
-            "maxvalue": maximum,
+            "maxvalue": maximum,  # settle
+            "open_price_max": open_price_max,
+            "high_price_max": high_max,
+            "low_price_max": low_max,
+            "volume_max": volume_max,
+            "open_interest_max": interest_max,
             "commodity name": commodity_in_sentence,
             "sector ": sector,
             "Quandl code ": code,
             "exchange ": source,
-            "source": "Quandl data platform API"
+            "source": "Quandl data platform API",
         }
 
-    print (dump)
+    #data.to_csv("test_data", sep='\t')
+    #print (dump)
     return dump
 
 if __name__ == "__main__":
