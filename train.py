@@ -52,8 +52,8 @@ def train_and_eval(test_path, rnn_args, save_to_argus=True, model='rnn'):
     glove = emb.GloVe(N=conf['embdim'])
 
     print('Dataset')
-    vocab = pickle.load(open('sources/vocab.txt'))
-    y, _, gr = load_sets(qs_train, max_sentences, vocab)
+    # vocab = pickle.load(open('sources/vocab.txt'))
+    y, vocab, gr = load_sets(qs_train, max_sentences)
     y, _, grv = load_sets(qs_val, max_sentences, vocab)
     yt, _, grt = load_sets(qs_test, max_sentences, vocab)
     # pickle.dump(vocab, open('sources/vocab.txt', 'wb'))
