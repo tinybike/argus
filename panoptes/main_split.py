@@ -42,6 +42,7 @@ def evaluate(question, response):
                 answer["decision"] = False
                 answer["maximal value"] = str(response["minvalue"])
                 answer["on Date"] = response["minimum_on_date"]
+    answer += response
 
     return json.dumps(answer)
 
