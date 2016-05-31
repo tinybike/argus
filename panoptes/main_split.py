@@ -3,6 +3,7 @@ import json
 from stock import makequery as stockquery
 from currency import makequery as currencyquery
 from commodity_quandl import commodity_query as commodityquery
+from crypto_currency import makequery as cryptoquerry
 
 def proccess(que):
     squery = stockquery(que)
@@ -14,6 +15,9 @@ def proccess(que):
     currquery = currencyquery(que)
     if currquery['useful'] == True:
         return evaluate(que, currquery)
+    crypto_currquery = cryptoquerry(que)
+    if crypto_currquery['useful'] == True:
+        return evaluate(que, crypto_currquery)
 
 def evaluate(question, response):
     answer = {}
