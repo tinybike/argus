@@ -14,11 +14,6 @@ try:
 except ImportError:
     from urllib import urlopen
 
-from builtins import open
-from builtins import str
-from builtins import int
-from future import standard_library
-standard_library.install_aliases()
 
 def makequery(question):
 
