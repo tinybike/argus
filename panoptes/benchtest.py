@@ -12,10 +12,6 @@ if __name__ == "__main__":
         questions = csv.reader(quescsv)
         for row in questions:
             for rowy in row:
-                try:
-                    alpha = rowy[0].isalpha()
-                    space = (rowy[0] != '\n')
-                except:
-                    pass
-                if not alpha and space:
-                    print(rowy)
+                if "{" in rowy:
+                    ajson=json.loads(rowy)
+                    print(ajson)

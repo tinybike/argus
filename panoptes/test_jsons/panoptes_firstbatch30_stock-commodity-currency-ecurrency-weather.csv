@@ -5,15 +5,7 @@
         ""dateend"":        ""2016-03-18"",
         ""value"":                105,                
         ""comp"":                ""above""                
-}","{
-        ""type"":                ""stock"",
-        ""exchange"":        ""tag"",                 # [NYSE, NASDAQ...] or [index] (for indexes)
-        ""stock"":                ""tag"",                # [GOOG, MSFT...] mostly universal between exchanges?
-        ""datestart"":        ""dd;mm;yyyy"",        # Date to evaluate from, [dd;mm;yyyy, marketstart, marketend]
-        ""dateend"":        ""dd;mm;yyyy"",        # Date to evaluate to -||-
-        ""value"":                float,                # Monetary value
-        ""comp"":                ""comp""                # [above, below]
-}"
+}",
 ,Will the S&P 500 close at a value above 2050 on March 26th 2016?,"{
         ""type"":                ""stock"",
         ""exchange"":        ""index"",
@@ -92,18 +84,10 @@
         ""dateend"":        ""2016-03-20"",        
         ""value"":                1250,                
         ""comp"":                ""above""                
-}","{
-        ""type"":                ""commodity"",
-        ""exchange"":        ""tag"",                 # [ODA, TFGRAIN...]
-        ""commodity"":        ""tag"",                # [PPORK_USD, SOYBEANS] exchange dependent!!! see list of commodities
-        ""datestart"":        ""dd;mm;yyyy"",        # Date to evaluate from, [dd;mm;yyyy, marketstart, marketend]
-        ""dateend"":        ""dd;mm;yyyy"",        # Date to evaluate to -||-
-        ""value"":                float,                # Monetary value
-        ""comp"":                ""comp""                # [above, below]
-}"
+}",
 ,"Will the price of a barrel of crude oil be below 50USD on March 19, 2016?","{
         ""type"":                ""commodity"",                 
-        ""commodity"":        ""oil"",                #(?)        
+        ""commodity"":        ""oil"",
         ""datestart"":        ""2016-03-19"",        
         ""dateend"":        ""2016-03-19"",        
         ""value"":                1250,                
@@ -111,7 +95,7 @@
 }",
 ,Will the price of palladium go below 600 in 2016?,"{
         ""type"":                ""commodity"",                 
-        ""commodity"":        ""FUTURE_PA1"",        #(?)        
+        ""commodity"":        ""FUTURE_PA1"",
         ""datestart"":        ""marketstart"",        
         ""dateend"":        ""2016-12-31"",        
         ""value"":                600,                
@@ -119,7 +103,7 @@
 }",
 ,Will the price of natural gas go below 300 on 24th September 2016?,"{
         ""type"":                ""commodity"",               
-        ""commodity"":        ""naturalgas"",        #(???)        
+        ""commodity"":        ""naturalgas"",
         ""datestart"":        ""marketstart"",        
         ""dateend"":        ""2016-09-24"",        
         ""value"":                300,                
@@ -133,19 +117,13 @@
         ""base_currency"":        ""USD"",
         ""value"":                0.04,
         ""comp"":                ""below""
-}","{
-	""currency"":	""tag"",		# [EUR, CZK, GBP] quite universal, might need parsing from real names
-	""datestart"":	""dd;mm;yyyy"",	# Date to evaluate from, [dd;mm;yyyy, marketstart, marketend]
-	""dateend"":	""dd;mm;yyyy"",	# Date to evaluate to -||-
-	""value"":		float,		# Monetary value (USD, most probably)
-	""comp"":		""comp""		# [above, below]
-}"
-,"Will the CAD drop below 0.5 USD in March, 2016?","{
+}",
+"Will the CAD drop below 0.5 USD in March, 2016?","{
         ""type"":                ""currency"",
         ""currency"":        ""CAD"",
         ""datestart"":        ""2016-03-01"",
         ""dateend"":        ""2016-03-31"",
-        ""base_currency"":        ""USD""
+        ""base_currency"":        ""USD"",
         ""value"":                0.5,
         ""comp"":                ""below""
 }",
@@ -154,7 +132,7 @@
         ""currency"":        ""GBP"",
         ""datestart"":        ""2016-05-03"",
         ""dateend"":        ""2016-05-03"",
-        ""base_currency"":        ""USD""
+        ""base_currency"":        ""USD"",
         ""value"":                1.5,
         ""comp"":                ""above""
 }",
@@ -166,16 +144,7 @@
         ""base_currency"":        ""BTC"",
         ""value"":                0.022,                
         ""comp"":                ""below""                
-}","{
-        ""type"":                ""currency"",
-        ""exchange"":        ""tag"",                 # [TradeBlock, BitFinex...]
-        ""currency"":        ""tag"",                # [BTC, ETH...] universal between exchanges
-        ""datestart"":        ""dd;mm;yyyy"",        # Date to evaluate from, [dd;mm;yyyy, marketstart, marketend]
-        ""dateend"":        ""dd;mm;yyyy"",        # Date to evaluate to -||-
-        ""currency"":        ""name"",                # [USD,BTC]
-        ""value"":                float,                # Monetary value
-        ""comp"":                ""comp""                # [above, below]
-}"
+}",
 ,Will ETH price exceed 20$ on 20th March 2016 according to BitFinex?,"{
         ""type"":                ""currency"",
         ""exchange"":        ""BitFinex"",
@@ -268,37 +237,30 @@
         ""place"":                ""Kiev"",
         ""temperature"":        20,
         ""datestart"":        ""2016-04-15"",
-        ""dateend"":        ""2016-04-15""
-        ""comp"":                ""above"",
-}","{
-        ""type"":                ""weather"",
-        ""place"":                ""name"",         # [Prague, Kiev...]
-        ""temperature"":        float,                # degrees C
-        ""datestart"":        ""dd;mm;yyyy"",        # Date to evaluate from, [dd;mm;yyyy, marketstart, marketend]
-        ""dateend"":        ""dd;mm;yyyy""        # Date to evaluate to -||-
-        ""comp"":                ""comp"",                # [above, below]
-}"
+        ""dateend"":        ""2016-04-15"",
+        ""comp"":                ""above""
+}",
 ,Will the temperature of Glasgow (UK) be more than 14 degrees C on April 23 2016?,"{
         ""type"":                ""weather"",
         ""place"":                ""Glasgow, UK"",
         ""temperature"":        14,
         ""datestart"":        ""2016-04-23"",
-        ""dateend"":        ""2016-04-23""
-        ""comp"":                ""above"",
+        ""dateend"":        ""2016-04-23"",
+        ""comp"":                ""above""
 }",
 ,"Will the temperature in New York, United States be below 5 degrees C on 12th December 2016?","{
         ""type"":                ""weather"",
         ""place"":                ""New York, US"",
         ""temperature"":        5,
         ""datestart"":        ""2016-12-12"",
-        ""dateend"":        ""2016-12-12""
-        ""comp"":                ""below"",
+        ""dateend"":        ""2016-12-12"",
+        ""comp"":                ""below""
 }",
 ,Will the temperature in Warsaw (Poland) stay above 0 degrees C in May 2016?,"{
         ""type"":                ""weather"",
         ""place"":                ""Warsaw, PL"",
         ""temperature"":        0,
         ""datestart"":        ""2016-05-01"",
-        ""dateend"":        ""2016-05-31""
-        ""comp"":                ""above"",
+        ""dateend"":        ""2016-05-31"",
+        ""comp"":                ""above""
 }",
