@@ -1,8 +1,8 @@
 {
   "type":"stock",
-  "stock":"F",
-  "datestart":"2016-02-01",
-  "dateend":"2016-02-28",
+  "stock":"CRVL",
+  "datestart":"2016-01-02",
+  "dateend":"2016-01-02",
   "value":500,
   "comp":"above"
 }
