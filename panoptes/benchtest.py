@@ -36,7 +36,7 @@ def parsecsv(csvfile):
                 queststring = rowy
 
     print("Results:\nTotal questions: " + str(total) + "\nAPI hits: " + str(APIhit) + "\nDecisions: " + str(decided) + "\nDecision success rate: " + str(100*decided/total)+"%\n")
-    print(bulk)
+    #print(bulk)
 
 def testcall(question):
     try:
