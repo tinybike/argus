@@ -9,7 +9,7 @@
 ,Will the S&P 500 close at a value above 2050 on March 26th 2016?,"{
         ""type"":                ""stock"",
         ""exchange"":        ""index"",
-        ""stock"":                ""S&P"",        
+        ""stock"":                ""^GSPC"",
         ""datestart"":        ""2016-03-26"",
         ""dateend"":        ""2016-03-26"",
         ""value"":                2050,                
