@@ -129,7 +129,7 @@
 }",
 ,Will the value of GBP in USD be above 1.5 USD on 3rd May 2016?,"{
         ""type"":                ""currency"",
-        ""currency"":        ""GBP"",
+        ""currency"":        ""USD"",
         ""datestart"":        ""2016-05-03"",
         ""dateend"":        ""2016-05-03"",
         ""base"":        ""USD"",
