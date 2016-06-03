@@ -2,7 +2,11 @@ from __future__ import print_function
 from __future__ import division
 from __future__ import unicode_literals
 from __future__ import absolute_import
-import urllib.request
+#import urllib.request
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
 import sys
 import json
 
@@ -35,7 +39,7 @@ def makequery(question):
         help()
 
     #Query to the Yahoo finance API
-    response = urllib.request.urlopen('http://ichart.finance.yahoo.com/table.csv?s='+name+'&a='+str(int(fm) - 1)+'&b='+fd+'&c='+fy+'&d='+str(int(tm) - 1)+'&e='+td+'&f='+ty+'&e=.csv')
+    response = urlopen('http://ichart.finance.yahoo.com/table.csv?s='+name+'&a='+str(int(fm) - 1)+'&b='+fd+'&c='+fy+'&d='+str(int(tm) - 1)+'&e='+td+'&f='+ty+'&e=.csv')
 
     records = []
     days = 0
@@ -50,13 +54,16 @@ def makequery(question):
     while True:
 
         line = response.readline()
-        #print(line)
+        print(line)
         if len(line) < 1:
             break
 
         days += 1
         d = dayrec()
-        line = str(line).split("'")[1]
+        try:
+            line = str(line).split("'")[1]
+        except:
+            pass
         d.date=(str(line).split(',')[0])
         d.hi=float(str(line).split(',')[2])
         d.lo=float(str(line).split(',')[3])

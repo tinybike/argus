@@ -1,4 +1,8 @@
-import urllib.request
+# import urllib.request
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib import urlopen
 import sys
 import json
 import datetime
@@ -61,7 +65,7 @@ def dayget(question):
         base = "?base=USD"
     symb = ";symbols=" + question["currency"]
     print("http://api.fixer.io/"+question["datestart"]+base+symb)
-    res = urllib.request.urlopen("http://api.fixer.io/"+question["datestart"]+base+symb)
+    res = urlopen("http://api.fixer.io/"+question["datestart"]+base+symb)
     response = json.loads(res.read().decode("windows-1252"));
     toss, value = response["rates"].popitem()
     return value

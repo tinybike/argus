@@ -1,0 +1,9 @@
+{
+        "type":                "crypto_currency",
+        "currency":        "REP",
+        "datestart":        "2016-01-01",
+        "dateend":        "2016-05-01",
+        "base":   "USD",
+        "value":                15,
+        "comp":                "above"
+}
