@@ -109,7 +109,7 @@
         ""value"":                300,
         ""comp"":                ""below""
 }",
-"Currency """"finance"""":",Will the CZK have value of below 0.04 USD on 15th December 2015?,"{
+"Currency """"finance"""":",Will the CZK have value of below 0.04 USD per on 15th December 2015?,"{
         ""type"":                ""currency"",
         ""currency"":        ""CZK"",
         ""datestart"":        ""2015-12-15"",
@@ -118,7 +118,7 @@
         ""value"":                0.04,
         ""comp"":                ""below""
 }",
-"Will the CAD drop below 0.5 USD in March, 2016?","{
+"Will the CAD drop below 0.5 per USD in March, 2016?","{
         ""type"":                ""currency"",
         ""currency"":        ""CAD"",
         ""datestart"":        ""2016-03-01"",
@@ -127,7 +127,7 @@
         ""value"":                0.5,
         ""comp"":                ""below""
 }",
-,Will the value of GBP in USD be above 1.5 USD on 3rd May 2016?,"{
+,Will the value of GBP in USD be above 1.5 per USD on 3rd May 2016?,"{
         ""type"":                ""currency"",
         ""currency"":        ""USD"",
         ""datestart"":        ""2016-05-03"",
