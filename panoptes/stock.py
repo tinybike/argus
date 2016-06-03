@@ -54,7 +54,7 @@ def makequery(question):
     while True:
 
         line = response.readline()
-        print(line)
+        # print(line)
         if len(line) < 1:
             break
 
