@@ -16,6 +16,7 @@ def parsecsv(csvfile):
         queststring = ""
         for rowy in row:
             if "{" in rowy:
+                print(queststring)
                 print(rowy)
                 total+=1
                 question = json.loads(rowy)
@@ -24,6 +25,8 @@ def parsecsv(csvfile):
                 pack = question,result,answer
                 bulk+=pack
                 print(result)
+                print("|----------------------------------------------|\n")
+
 
                 if result["APIres"]:
                     APIhit+=1
