@@ -16,15 +16,16 @@ def parsecsv(csvfile):
         queststring = ""
         for rowy in row:
             if "{" in rowy:
-                print(queststring)
-                print(rowy)
+                print("Written question: "+str(queststring))
+                print("Question json: "+str(rowy))
                 total+=1
                 question = json.loads(rowy)
                 question["questionstring"] = queststring
                 result,answer = testcall(question)
                 pack = question,result,answer
                 bulk+=pack
-                print(result)
+                print("Answer: "+ str(answer))
+                print("Result: "+ str(result))
                 print("|----------------------------------------------|\n")
 
 
