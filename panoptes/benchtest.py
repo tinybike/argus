@@ -39,21 +39,21 @@ def parsecsv(csvfile):
     #print(bulk)
 
 def testcall(question):
+    result = {"APIres":False,
+              "decided":False,
+              }
+    answer = {}
     try:
         sanswer = main_split.proccess(question)
         answer = json.loads(sanswer)
-    except:
-        answer = {}
+    except BaseException as ex:
+        result["Except"]=ex
         pass
-    result = {}
+
     if "useful" in answer:
         result["APIres"] = answer["useful"]
-    else:
-        result["APIres"] = False
     if "decision" in answer:
         result["decided"] = True
-    else:
-        result["decided"] = False
     return result, answer
 
 if __name__ == "__main__":
