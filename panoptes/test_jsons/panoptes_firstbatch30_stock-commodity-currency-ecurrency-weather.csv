@@ -126,7 +126,7 @@
         ""base"":        ""USD"",
         ""value"":                0.5,
         ""comp"":                ""below""
-}",
+}",,
 ,Will the value of GBP in USD be above 1.5 per USD on 3rd May 2016?,"{
         ""type"":                ""currency"",
         ""currency"":        ""USD"",
@@ -135,46 +135,49 @@
         ""base"":        ""USD"",
         ""value"":                1.5,
         ""comp"":                ""above""
-}",
+}"," changed date, because our API doesnt have a data for it"
 "E. """"Finance"""":",Will Ethereum price go below 0.022btc until 10 April 00:00 GMT?,"{
         ""type"":                ""crypto_currency"",
         ""currency"":        ""ETH"",
-        ""datestart"":        ""2016-01-01"",
-        ""dateend"":        ""2016-04-10"",
+        ""datestart"":        ""2016-04-12"",
+        ""dateend"":        ""2016-05-10"",
         ""base"":        ""BTC"",
         ""value"":                0.022,
         ""comp"":                ""below""
-}",
+}"," ""datestart"":        ""2016-01-01"",
+        ""dateend"":        ""2016-04-10"""
 ,Will ETH price exceed 20$ on 20th March 2016 according to BitFinex?,"{
         ""type"":                ""crypto_currency"",
         ""exchange"":        ""BitFinex"",
         ""currency"":        ""ETH"",
-        ""datestart"":        ""2016-03-20"",
-        ""dateend"":        ""2016-03-20"",
+        ""datestart"":        ""2016-04-20"",
+        ""dateend"":        ""2016-04-20"",
         ""base"":        ""USD"",
         ""value"":                20,
         ""comp"":                ""above""
-}",
+}"," ""datestart"":        ""2016-03-20"",  ""dateend"":        ""2016-03-20"","
 ,"Will the price of Ether drop below 10.00 USD before March 20th, 2016? (according to Poloniex Exchange)","{
         ""type"":                ""crypto_currency"",
         ""exchange"":        ""Poloniex"",
         ""currency"":        ""ETH"",
-        ""datestart"":        ""2016-01-01"",
-        ""dateend"":        ""2016-03-20"",
+        ""datestart"":        ""2016-04-11"",
+        ""dateend"":        ""2016-05-20"",
         ""base"":        ""USD"",
         ""value"":                10,
         ""comp"":                ""below""
-}",
+}","      ""datestart"":        ""2016-01-01"",
+        ""dateend"":        ""2016-03-20"""
 ,"Will the dollar price of ETH, as reported by TradeBlock, be trading below $10.82 at the expiration of this market?","{
         ""type"":                ""crypto_currency"",
         ""exchange"":        ""TradeBlock"",
         ""currency"":        ""ETH"",
-        ""datestart"":        ""2016-01-02"",
-        ""dateend"":        ""2016-01-02"",
+        ""datestart"":        ""2016-05-02"",
+        ""dateend"":        ""2016-05-02"",
         ""base"":        ""USD"",
         ""value"":                10.82,
         ""comp"":                ""below""
-}",
+}"," ""datestart"":        ""2016-01-02"",
+        ""dateend"":        ""2016-01-02"""
 ,"Will Bitcoin's price drop below $410 USD at any time before April 9, 2016 (Coinbase)","{
         ""type"":                ""crypto_currency"",
         ""exchange"":        ""Coinbase"",
@@ -217,21 +220,22 @@
 ,Will Ethereum go below $10 in 2015?,"{
         ""type"":                ""crypto_currency"",
         ""currency"":        ""ETH"",
-        ""datestart"":        ""2015-01-01"",
-        ""dateend"":        ""2015-12-31"",
+        ""datestart"":        ""2016-04-01"",
+        ""dateend"":        ""2016-05-31"",
         ""base"":        ""USD"",
         ""value"":                10,
         ""comp"":                ""below""
-}",
+}"," ""datestart"":        ""2015-01-01"",""dateend"":        ""2015-12-31"","
 ,Will the price of REP go over $15 USD before May 1st 2016?,"{
         ""type"":                ""crypto_currency"",
         ""currency"":        ""REP"",
-        ""datestart"":        ""2016-01-01"",
+        ""datestart"":        ""2016-04-15"",
         ""dateend"":        ""2016-05-01"",
         ""base"":   ""USD"",
         ""value"":                15,                
         ""comp"":                ""above""                
-}",
+}","      ""2016-01-01"",
+        ""dateend"":        ""2016-05-01"" "
 "Weather"""":","Will temperature in Kiev, Ukraine exceed 20 degrees (in Celsius ) on April 15, 2016?","{
         ""type"":                ""weather"",
         ""place"":                ""Kiev"",
