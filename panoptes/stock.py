@@ -3,6 +3,8 @@ from __future__ import division
 from __future__ import unicode_literals
 from __future__ import absolute_import
 #import urllib.request
+
+
 try:
     from urllib.request import urlopen
 except ImportError:
@@ -39,7 +41,24 @@ def makequery(question):
         help()
 
     #Query to the Yahoo finance API
-    response = urlopen('http://ichart.finance.yahoo.com/table.csv?s='+name+'&a='+str(int(fm) - 1)+'&b='+fd+'&c='+fy+'&d='+str(int(tm) - 1)+'&e='+td+'&f='+ty+'&e=.csv')
+    try:
+        response = urlopen('http://ichart.finance.yahoo.com/table.csv?s='+name+'&a='+str(int(fm) - 1)+'&b='+fd+'&c='+fy+'&d='+str(int(tm) - 1)+'&e='+td+'&f='+ty+'&e=.csv')
+    except:
+        try:
+            recurdepth = question["recursive_search_for_real_bizday"]
+        except:
+            recurdepth = 0
+        recurdepth += 1
+
+        if recurdepth > 10:
+            answer = {"useful": False, "error": "Recursion limit reached"}
+            return answer
+        import datetime
+        # print("recursing: " + str(recurdepth))
+        question["datestart"] = str(
+            datetime.date(*(int(s) for s in question["datestart"].split('-'))) - datetime.timedelta(days=1))
+        question["recursive_search_for_real_bizday"] = recurdepth
+        return makequery(question)
 
     records = []
     days = 0
