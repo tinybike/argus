@@ -1,0 +1,8 @@
+{
+  "type":"weather",
+  "place":"Kiev",
+  "temperature":20,
+  "datestart":"2016-04-15",
+  "dateend": "2016-04-15",
+  "comp":"above"
+}
