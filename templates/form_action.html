@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <title>Answered</title>
+        <title>Argus 1.0 Demo - Augur AI Reporter Assistant</title>
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 	<style type=text/css>
                 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:300&subset=latin,latin-ext);
@@ -37,23 +37,31 @@
             </div>
             <div id="qbox">
                 <form method="post" action="{{ url_for('generate_answer') }}">
-<p><em style="font-size: 80%">
-The system determines whether retroactive predictions turned out to be true by
-scanning news stories that were published between September 2014-2015.<br>
+<em style="font-size: 80%">
+	<p>The system determines whether retroactive predictions turned out to be true<br>
+by scanning news stories that were published between September 2014 -
+September 2015.</p>
+
+<p>
 This is a <b>work-in-progress prototype</b> that comes with caveats including:<br>
-1) Word order is sometimes not taken into account, 2) Verb negation is
-sometimes not weighed,<br>3) Answers based on little evidence may be inaccurate</em></p>
+1) Word order is sometimes not taken into account<br>
+2) Verb negation is sometimes not weighed<br>
+3) Answers based on little evidence are more likely to return inaccurate results
+</p>
+</em>
+
 <div style="margin-top: 3ex; margin-bottom: 3ex">
                   <input type="text" name="question" size="60" placeholder="Will Donald Trump announce he is running for President in 2015?" />
                   <input type="submit" name="go" value="Ask" />
 </div>
 <p style="font-size: 80%">
-We welcome comments and suggestions.
-Please send your feedback to at <a
+	We welcome comments and suggestions.<br>
+Please send your feedback to <a
 href="mailto:argus1.0@outlook.com?subject=LiveDemo May
-2016">argus1.0@outlook.com</a><br>
+2016">argus1.0@outlook.com</a></p>
+<p style="font-size: 80%">
 <a href="https://goo.gl/vR8KrB">Working Paper</a> |
-<a href="https://github.com/AugurProject/argus">https://github.com/AugurProject/argus</a></p>
+<a href="https://github.com/AugurProject/argus">Code Repository</a></p>
                 </form>
             </div>
         </div>
