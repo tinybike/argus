@@ -54,7 +54,7 @@ def isAfter(dateBefore, dateAfter):
 
 def checkLiteralsDate(dateBefore, dateAfter):
     if dateBefore == 'marketend':
-        exit("From date can not be marketend") # TODO return instead of exit json
+        exit("From date can not be marketend")  # TODO return instead of exit json
 
     if dateAfter == 'marketstart':
         exit("End date can not be marketstart")
@@ -72,7 +72,10 @@ def commodity_query(que):
         print ("Wrong number of arguments! For more help use argument -h")
         answer = {"error": True}'''
 
-    source = str(que["exchange"])
+    source = None
+    if "exchange" in question:
+        source = str(que["exchange"])
+
     commodity = str(que["commodity"])
     date_from = que["datestart"]
     date_to = que["dateend"]
@@ -86,50 +89,43 @@ def commodity_query(que):
         isAfter(date1, date2)
         future_date(date2)
 
-    code = None
-    commodity_in_sentence = None
-    sector = None
     # TODO what about something more clever then substring? Maybe just memory
-    for index, row in df.iterrows():
-        if row.Code.lower().find(commodity.lower()) >= 0 and row.Source.lower() == source.lower():
-            code = row.Code
-            commodity_in_sentence = row.Name
-            sector = row.Sector
 
+    flag = False
+    index_end = -1
+    last_index = 0
+    data = None
+    while True:
+        if source is not None:
+            flag = True
+        code, commodity_in_sentence, source, sector, index_end = search(source, commodity, index_end, df)
 
-    if code is None:  # so we dont get code
-        for index, row in df.iterrows():
-            if row.Name.lower().find(commodity.lower()) >= 0 and row.Source.lower() == source.lower():
-                code = row.Code
-                commodity_in_sentence = row.Name
-                sector = row.Sector
-        print ("code : "+code)
-    check(code)
+        # print ("CODE GET out of function :-:")
+        # print (code)
+        data = searchQuandl(date1, date2, code)
 
-    try:
-        if date1 != '' and date2 != '':
-            data = quandl.get(code, start_date=date1, end_date=date2)
-        elif date1 == '' and date2 != '':
-            data = quandl.get(code, end_date=date2)
-        elif date1 != '' and date2 == '':
-            data = quandl.get(code, start_date=date1)
-        else:
-            data = quandl.get(code)
-    except Exception as e:
-        print ("The source/commodity was not found or the company/source does not exist anymore \n\n")
-        print (e)
-        #exit()
+        if data is not None and not data.empty:  # if data was found
+            break
+        if flag:  # if the given source was wanted
+            break
 
-    #print (data)
-    dump = None
+        if index_end == last_index:  # if search finished and nothing was found
+            break
+
+        last_index = index_end
+        commodity_in_sentence = None
+        code = None
+        sector = None
+        source = None
+
+    # print (data)
+
     if len(data.columns) == 1:
         try:
             minimum = np.nanmin(data.Value.get_values())
             maximum = np.nanmax(data.Value.get_values())
         except TypeError:
             print("There is no value in the column for the given range")
-            #exit()
-        #print(data.Value.get_values())
         index_max = np.nanargmax(data.Value.get_values())
         date_max = data.index.get_values()[index_max]
         index_min = np.nanargmin(data.Value.get_values())
@@ -147,7 +143,7 @@ def commodity_query(que):
             "commodity name": commodity_in_sentence,
             "sector ": sector,
             "Quandl code ": code,
-            "exchange " : source,
+            "exchange ": source,
             "source": "Quandl data platform API"
         }
     else:
@@ -157,9 +153,6 @@ def commodity_query(que):
         except TypeError:
             print("There is no value in the column for the given range")
             # exit()
-        # print(data.columns)
-        # print(type(data.Settle.get_values()))
-        # print(type(data))
 
         index_max = np.nanargmax(data.Settle.get_values())
         # print("index")
@@ -214,6 +207,84 @@ def commodity_query(que):
     #data.to_csv("test_data", sep='\t')
     #print (dump)
     return dump
+
+def search(source, commodity, index_end, df):
+    code = None
+    commodity_in_sentence = None
+    sector = None
+
+    if source is not None:
+        for index, row in df.iterrows():
+            if (row.Code.lower().find(" " + commodity.lower()) >= 0
+                or row.Code.lower().find(commodity.lower()) ==0) \
+                    and row.Source.lower() == source.lower():
+                code = row.Code
+                commodity_in_sentence = row.Name
+                sector = row.Sector
+
+        if code is None:  # so we dont get code
+            for index, row in df.iterrows():
+                if (row.Name.lower().find(commodity.lower()) == 0
+                    or row.Name.lower().find(" " + commodity.lower()) >= 0)\
+                        and row.Source.lower() == source.lower():
+                    code = row.Code
+                    commodity_in_sentence = row.Name
+                    sector = row.Sector
+    else:
+
+        for index, row in df.iterrows():
+            if (row.Code.lower().find(" " + commodity.lower()) >= 0
+                or row.Code.lower().find(commodity.lower()) ==0)\
+                    and index > index_end:
+                source = row.Source
+                code = row.Code
+                commodity_in_sentence = row.Name
+                sector = row.Sector
+                index_end = index
+                break
+        # print(code)
+        if code is None:  # so we dont get code
+            for index, row in df.iterrows():
+                if (row.Name.lower().find(commodity.lower()) == 0
+                    or row.Name.lower().find(" " + commodity.lower()) >= 0)\
+                        and index > index_end:
+                    source = row.Source
+                    code = row.Code
+                    commodity_in_sentence = row.Name
+                    sector = row.Sector
+                    index_end = index
+                    break
+
+    # print("code with name : " + code)
+    check(code)
+    return code, commodity_in_sentence, source, sector, index_end
+
+def searchQuandl(date1, date2, code):
+    quandl.ApiConfig.api_key = "Vezn4-YcDxD5ihmyNuY-"
+    # print ("date 1 ")
+    # print (date1)
+    # print ("date 2 ")
+    # print (date2)
+    try:
+        if date1 != '' and date2 != '':
+            data = quandl.get(code, start_date=date1, end_date=date2)
+            # data = quandl.get("DOE/RBRTE", start_date="2015-03-19", end_date="2016-03-20")
+        elif (date1 == '' and date2 != ''):
+            data = quandl.get(code, end_date=date2)
+        elif date1 != '' and date2 == '':
+            data = quandl.get(code, start_date=date1)
+        else:
+            data = quandl.get(code)
+    except Exception as e:
+        print("The source/commodity was not found or the company/source does not exist anymore \n\n")
+        print(e)
+        data = None
+
+    # print ("Data --- ")
+    # print (data)
+    # print ("----------")
+    exit(0)
+    return data
 
 if __name__ == "__main__":
     arguments = sys.argv

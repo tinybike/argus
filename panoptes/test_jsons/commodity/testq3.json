@@ -1,0 +1,8 @@
+{
+        "type":                "commodity",
+        "commodity":        "oil",
+        "datestart":        "2016-03-19",
+        "dateend":        "2016-03-19",
+        "value":                1250,
+        "comp":                "below"
+}
