@@ -93,14 +93,11 @@ def commodity_query(que):
 
     # TODO what about something more clever then substring? Maybe just memory
 
-    flag = False
     index_end = -1
     last_index = 0
     data = None
     while True:
-        if source is not None:
-            flag = True
-        code, commodity_in_sentence, source, sector, index_end = search(source, commodity, index_end, df)
+        code, name, index_end = search(source, commodity, index_end, df)
 
         # print ("CODE GET out of function :-:")
         # print (code)
@@ -108,17 +105,13 @@ def commodity_query(que):
 
         if data is not None and not data.empty:  # if data was found
             break
-        if flag:  # if the given source was wanted
-            break
 
         if index_end == last_index:  # if search finished and nothing was found
             break
 
         last_index = index_end
-        commodity_in_sentence = None
+        name = None
         code = None
-        sector = None
-        source = None
 
     # print (data)
 
@@ -142,10 +135,8 @@ def commodity_query(que):
             "minvalue": minimum,
             "maximum_on_date": date_max,
             "maxvalue": maximum,
-            "commodity name": commodity_in_sentence,
-            "sector ": sector,
+            "commodity name": name,
             "Quandl code ": code,
-            "exchange ": source,
             "source": "Quandl data platform API"
         }
     else:
@@ -199,10 +190,8 @@ def commodity_query(que):
             "low_price_max": low_max,
             "volume_max": volume_max,
             "open_interest_max": interest_max,
-            "commodity name": commodity_in_sentence,
-            "sector ": sector,
+            "commodity name": name,
             "Quandl code ": code,
-            "exchange ": source,
             "source": "Quandl data platform API",
         }
 
@@ -212,54 +201,34 @@ def commodity_query(que):
 
 def search(source, commodity, index_end, df):
     code = None
-    commodity_in_sentence = None
-    sector = None
+    name = None
 
     commodity = dictionary(commodity)
 
-    if source is not None:
+    for index, row in df.iterrows():
+        if source is not None and row.Name.lower().find(source.lower()) < 0:
+            continue
+        if row.Code.lower().find(commodity.lower()) >= 0 and index > index_end:
+            code = row.Code
+            name = row.Name
+            index_end = index
+            break
+    # print(code)
+    if code is None:  # so we dont get code
         for index, row in df.iterrows():
-            if (row.Code.lower().find(commodity.lower()) >= 0) \
-                    and row.Source.lower() == source.lower():
-                code = row.Code
-                commodity_in_sentence = row.Name
-                sector = row.Sector
-
-        if code is None:  # so we dont get code
-            for index, row in df.iterrows():
-                if (row.Name.lower().find(commodity.lower()) == 0
-                    or row.Name.lower().find(" " + commodity.lower()) >= 0)\
-                        and row.Source.lower() == source.lower():
-                    code = row.Code
-                    commodity_in_sentence = row.Name
-                    sector = row.Sector
-    else:
-
-        for index, row in df.iterrows():
-            if (row.Code.lower().find(commodity.lower()) >= 0)\
+            if source is not None and row.Name.lower().find(source.lower()) < 0:
+                continue
+            if (row.Name.lower().find(commodity.lower()) == 0
+                or row.Name.lower().find(" " + commodity.lower()) >= 0)\
                     and index > index_end:
-                source = row.Source
                 code = row.Code
-                commodity_in_sentence = row.Name
-                sector = row.Sector
+                name = row.Name
                 index_end = index
                 break
-        # print(code)
-        if code is None:  # so we dont get code
-            for index, row in df.iterrows():
-                if (row.Name.lower().find(commodity.lower()) == 0
-                    or row.Name.lower().find(" " + commodity.lower()) >= 0)\
-                        and index > index_end:
-                    source = row.Source
-                    code = row.Code
-                    commodity_in_sentence = row.Name
-                    sector = row.Sector
-                    index_end = index
-                    break
 
     # print("code with name : " + code)
     check(code)
-    return code, commodity_in_sentence, source, sector, index_end
+    return code, name, index_end
 
 def searchQuandl(date1, date2, code):
     print ("date 1 ")

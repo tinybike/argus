@@ -1,6 +1,6 @@
 {
         "type":                "commodity",
-        "commodity":        "oil",
+        "commodity":        "crude oil",
         "datestart":        "2016-03-19",
         "dateend":        "2016-03-19",
         "value":                1250,

@@ -75,11 +75,11 @@
         ""value"":                40,
         ""comp"":                ""below""
 }",
-"Commodity """"market"""":","Will the price of gold be above $1250 (registered by COMEX) before March 20, 2016?","{
+"Commodity """"market"""":","Will the price of aluminium be above $1250 (registered by COMEX) before March 20, 2016?","{
 
         ""type"":                ""commodity"",
         ""exchange"":        ""COMEX"",
-        ""commodity"":        ""FUTURE_GC1"",
+        ""commodity"":        ""aluminium"",
         ""datestart"":        ""2016-01-01"",
         ""dateend"":        ""2016-03-20"",
         ""value"":                1250,
@@ -87,7 +87,7 @@
 }",
 ,"Will the price of a barrel of crude oil be below 50USD on March 19, 2016?","{
         ""type"":                ""commodity"",
-        ""commodity"":        ""oil"",
+        ""commodity"":        ""crude oil"",
         ""datestart"":        ""2016-03-19"",
         ""dateend"":        ""2016-03-19"",
         ""value"":                1250,
@@ -95,7 +95,7 @@
 }",
 ,Will the price of palladium go below 600 in 2015?,"{
         ""type"":                ""commodity"",
-        ""commodity"":        ""FUTURE_PA1"",
+        ""commodity"":        ""palladium"",
         ""datestart"":        ""2015-01-01"",
         ""dateend"":        ""2015-12-31"",
         ""value"":                600,
@@ -103,7 +103,7 @@
 }",
 ,Will the price of natural gas go below 300 on 24th May 2016?,"{
         ""type"":                ""commodity"",
-        ""commodity"":        ""naturalgas"",
+        ""commodity"":        ""natural gas"",
         ""datestart"":        ""2016-05-24"",
         ""dateend"":        ""2016-05-24"",
         ""value"":                300,

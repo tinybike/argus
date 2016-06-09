@@ -1,1 +1,163 @@
-Name,Code,Source,Sector"Milk, Non-Fat Dry, Chicago",WSJ/MILK,WSJ,Farms and FisheriesCME Milk Futures,OFDP/FUTURE_DA1,OFDP,Farms and Fisheries"Cheddar Cheese, Barrels, Chicago",WSJ/CHEESE_BRL,WSJ,Farms and Fisheries"Cheddar Cheese, Blocks, Chicago",WSJ/CHEESE_BLK,WSJ,Farms and Fisheries"Beef, choice grades 1-3",WSJ/BEEF_C,WSJ,Farms and Fisheries"Beef, select grades 1-3",WSJ/BEEF_S,WSJ,Farms and FisheriesBeef (ODA),ODA/PBEEF_USD,ODA,Farms and FisheriesCME Live Cattle Futures,OFDP/FUTURE_LC1,OFDP,Farms and FisheriesCME Feeder Cattle Futures,OFDP/FUTURE_FC1,OFDP,Farms and FisheriesCattle Hides,WSJ/HIDES,WSJ,Farms and Fisheries"Hides, Chicago (ODA)",ODA/PHIDE_USD,ODA,Farms and Fisheries"Steers, Texas-Oklahoma average",WSJ/STEERS,WSJ,Farms and Fisheries"Steers, feeder, Oklahoma city average",WSJ/FEEDER,WSJ,Farms and Fisheries"Broiler chickens, dressed 'A' grade",WSJ/CHKN_A,WSJ,Farms and Fisheries"Broiler chickens, national composite weighted average price",WSJ/CHKN_NTL,WSJ,Farms and Fisheries"Chicken, Georgia (ODA)",ODA/PPOULT_USD,ODA,Farms and Fisheries"Eggs, Large White, Chicago",WSJ/EGGS,WSJ,Farms and Fisheries"Hams, 17-20 lbs, Mid US FOB",WSJ/HAMS,WSJ,Farms and Fisheries"Hogs, Iowa-South Minnesota average",WSJ/HOGS,WSJ,Farms and Fisheries"Pork Bellies, 12-14 lbs, Mid US",WSJ/PBELLY,WSJ,Farms and Fisheries"Pork Loins, 13-19 lbs, Mid US",WSJ/PLOIN,WSJ,Farms and Fisheries"Pork, Chicago (ODA)",ODA/PPORK_USD,ODA,Farms and FisheriesCME Lean Hog Futures,OFDP/FUTURE_LN1,OFDP,Farms and Fisheries"Butter, AA Chicago",WSJ/BUTTER,WSJ,Farms and Fisheries"Grease, Choice White, Chicago",WSJ/GREASE,WSJ,Farms and Fisheries"Lard, Chicago",WSJ/LARD,WSJ,Farms and Fisheries"Tallow, Bleachable, Chicago",WSJ/TALLOW_B,WSJ,Farms and Fisheries"Tallow, Edible, Chicago",WSJ/TALLOW_E,WSJ,Farms and FisheriesLamb,ODA/PLAMB_USD,ODA,Farms and FisheriesWool,ODA/PWOOLC_USD,ODA,Farms and FisheriesSalmon,ODA/PSALM_USD,ODA,Farms and FisheriesShrimp,ODA/PSHRI_USD,ODA,Farms and FisheriesFishmeal,ODA/PFISH_USD,ODA,Farms and FisheriesTop-quality Minneapolis,WSJ/BARLEY,WSJ,GrainsWestern Canada (ODA),ODA/PBARL_USD,ODA,GrainsWestern Canada (WB),WORLDBANK/WLD_BARLEY,WORLDBANK,GrainsTop Flight Grain Co-op,TFGRAIN/CORN,TFGRAIN,GrainsCentral Illinois No. 2 Yellow,WSJ/CORN_2,WSJ,GrainsCBOT Corn Futures,OFDP/FUTURE_C1,OFDP,Grains"Corn Gluten Feed, Midwest",WSJ/CORN_FEED,WSJ,Grains"Corn Gluten Meal, Midwest",WSJ/CORN_MEAL,WSJ,GrainsU.S. Gulf Imports,WORLDBANK/WLD_MAIZE,WORLDBANK,GrainsNo. 2 Milling Minneapolis,WSJ/OATS,WSJ,GrainsCBOT Oats Futures,OFDP/FUTURE_O1,OFDP,Grains"5% Broken White, Thailand",WSJ/RICE_THAI,WSJ,GrainsThailand (ODA),ODA/PRICENPQ_USD,ODA,GrainsNo. 2 Long Grain Milled,WSJ/RICE_2,WSJ,GrainsCBOT Rice Futures,OFDP/FUTURE_RR1,OFDP,GrainsTop Flight Grain Co-op,TFGRAIN/SOYBEANS,TFGRAIN,Grains"No. 1 Yellow, Illinois",WSJ/SOYB_1,WSJ,GrainsCBOT Soybean Futures,OFDP/FUTURE_S1,OFDP,Grains"Soybean Meal, Central Illinois",WSJ/SOYB_MEAL,WSJ,GrainsCBOT Soybean Meal Futures,OFDP/FUTURE_SM1,OFDP,Grains"Soybean Oil, Crude, Central Illinois",WSJ/SOYB_OIL,WSJ,GrainsSoybean Oil,WORLDBANK/WLD_SOYBEAN_OIL,WORLDBANK,GrainsCBOT Soybean Oil Futures,OFDP/FUTURE_BO1,OFDP,Grains"Spring 14% protein, Minneapolis",WSJ/WHEAT_MN,WSJ,Grains"No. 2 Soft Red, St Louis",WSJ/WHEAT_2,WSJ,Grains"Hard, Kansas City",WSJ/WHEAT_KC,WSJ,Grains"No. 1 Soft White, Portland OR",WSJ/WHEAT_1,WSJ,GrainsGulf of Mexico,ODA/PWHEAMT_USD,ODA,GrainsCBOT Wheat Futures,OFDP/FUTURE_W1,OFDP,GrainsKansas City Bran,WSJ/BRAN,WSJ,GrainsKansas City Flour,WSJ/FLOUR,WSJ,GrainsSorghum,WSJ/SORGHUM,WSJ,GrainsLondon A.M. Fixing,OFDP/GOLD_1,LBMA,MetalsLondon P.M. Fixing,OFDP/GOLD_2,LBMA,MetalsEngelhard industrial bullion,WSJ/AU_EIB,WSJ,MetalsEngelhard fabricated products,WSJ/AU_EFP,WSJ,MetalsHandy & Harman base price,WSJ/AU_HHB,WSJ,MetalsHandy & Harman fabric price,WSJ/AU_HHF,WSJ,Metals"Krugerrand, wholesale",WSJ/AU_ZAR,WSJ,MetalsMaple Leaf,WSJ/AU_MPL,WSJ,MetalsAmerican Eagle,WSJ/AU_EGL,WSJ,MetalsMexican peso,WSJ/AU_MXP,WSJ,MetalsAustria crown,WSJ/AU_CRN,WSJ,MetalsAustria phil,WSJ/AU_PHL,WSJ,MetalsWorld Gold Council,WGC/GOLD_DAILY_USD,WGC,MetalsBundesbank,BUNDESBANK/BBK01_WT5511,BUNDESBANK,MetalsCOMEX Gold Futures,OFDP/FUTURE_GC1,COMEX,MetalsShanghai Gold Futures,SHFE/AUV2013,SHFE,MetalsWorld Bank,WORLDBANK/WLD_GOLD,WORLDBANK,MetalsEngelhard industrial bullion,WSJ/AG_EIB,WSJ,MetalsEngelhard fabricated products,WSJ/AG_EFP,WSJ,MetalsHandy & Harman base price,WSJ/AG_HHB,WSJ,MetalsHandy & Harman fabric price,WSJ/AG_HHF,WSJ,Metals"London fixing, USD equivalent",OFDP/SILVER_5,LME,Metals"Silver Coins, wholesale",WSJ/AG_CNF,WSJ,MetalsShanghai Silver Futures,SHFE/AGV2013,SHFE,MetalsCOMEX Silver Futures,OFDP/FUTURE_SI1,COMEX,MetalsWorld Bank,WORLDBANK/WLD_SILVER,WORLDBANK,MetalsFree Market,WSJ/PL_MKT,WSJ,MetalsEngelhard industrial bullion,WSJ/PL_EIB,WSJ,MetalsEngelhard fabricated products,WSJ/PL_EFP,WSJ,MetalsJohnson Mathey London,JOHNMATT/PLAT,JOHNMATT,MetalsNYMEX Platinum Futures,OFDP/FUTURE_PL1,NYMEX,MetalsEngelhard industrial bullion,WSJ/PA_EFP,WSJ,MetalsEngelhard fabricated products,WSJ/PA_EFP,WSJ,MetalsJohnson Mathey London,JOHNMATT/PALL,JOHNMATT,MetalsNYMEX Palladium Futures,OFDP/FUTURE_PA1,NYMEX,MetalsIridium,JOHNMATT/IRID,JOHNMATT,MetalsRhodium,JOHNMATT/RHOD,JOHNMATT,MetalsRuthenium,JOHNMATT/RUTH,JOHNMATT,Metals"Aluminum, LME",OFDP/ALUMINIUM_21,LME,Metals"Aluminum, Ryan's Notes",WSJ/AL_RYN,WSJ,Metals"Aluminum, ODA",ODA/PALUM_USD,ODA,MetalsShanghai Aluminum Futures,SHFE/ALV2013,SHFE,Metals"Cobalt, LME",OFDP/COBALT_51,OFDP,Metals"Copper, LME",OFDP/COPPER_6,OFDP,Metals"Copper, high grade, Comex spot",WSJ/COPPER,WSJ,Metals"Copper, ODA",ODA/PCOPP_USD,ODA,MetalsCopper Futures,OFDP/FUTURE_HG1,OFDP,MetalsShanghai Copper Futures,SHFE/CUV2013,SHFE,Metals"Iron Ore, 62% Fe CFR China",WSJ/FE_TJN,WSJ,Metals"Iron Ore, Tianjin (ODA)",ODA/PIORECR_USD,ODA,Metals"Lead, LME",OFDP/LEAD_31,LME,Metals"Lead, N. Am. Solder",WSJ/LEAD,WSJ,Metals"Lead, ODA",ODA/PLEAD_USD,ODA,MetalsShanghai Lead Futures,SHFE/PBV2013,SHFE,Metals"Molybdenum, LME",OFDP/MOLYBDENUM_56,LME,Metals"Nickel, LME",OFDP/NICKEL_41,LME,Metals"Nickel, ODA",ODA/PNICK_USD,ODA,Metals"Steel Billet, LME",OFDP/STEELBILLET_46,OFDP,Metals"Shredded Scrap, US Midwest",WSJ/SH_SCRP,WSJ,Metals"Stainless Steel Scrap, US",WSJ/ST_SCRP,WSJ,Metals"Steel, Hot-Rolled Coil US, FOB Midwest Mill",WSJ/STEEL,WSJ,MetalsSteel Wire,WORLDBANK/WLD_STL_JP_WIROD,WORLDBANK,MetalsShanghai Steel Rebar Futures,SHFE/RBV2013,SHFE,MetalsShanghai Steel Wire Futures,SHFE/WRV2013,SHFE,Metals"Tin, LME",OFDP/TIN_36,LME,Metals"Tin, N. Am. solder",WSJ/TIN,WSJ,Metals"Tin, ODA",ODA/PTIN_USD,ODA,Metals"Zinc, LME",OFDP/ZINC_26,LME,Metals"Zinc, N. Am",WSJ/ZINC,WSJ,Metals"Zinc, ODA",ODA/PZINC_USD,ODA,MetalsShanghai Zinc Futures,SHFE/ZNV2013,SHFE,MetalsNYMEX RBOB Gasoline Futures,OFDP/FUTURE_RB1,NYMEX,Oil and GasNYMEX Crude Oil Futures,OFDP/FUTURE_CL1,NYMEX,Oil and GasICE Brent Crude Oil Futures,OFDP/FUTURE_B1,ICE,Oil and GasU.S. Landed Costs of Canadian Light Sour Blend Crude Oil,DOE/I19263000008,DOE,Oil and GasLos Angeles Reformulated RBOB Regular Gasoline Spot,DOE/EER_EPMRR_PF4_Y05LA_DPG,DOE,Oil and GasWTI Crude Oil Spot Cushing OK FOB,DOE/RWTC,DOE,Oil and GasEurope Brent Crude Oil Spot FOB,DOE/RBRTE,DOE,Oil and GasU.S. FOB Costs of Non-OPEC Countries Crude Oil,DOE/I070000004,DOE,Oil and GasU.S. FOB Costs of OPEC Countries Crude Oil,DOE/I060000004,DOE,Oil and GasCrude Oils from 1861,BRP/CRUDE_OIL_PRICES,BRP,Oil and GasOPEC Reference Basket,OPEC/ORB,OPEC,Oil and GasDubai Crude Oil,ODA/POILDUB_USD,ODA,Oil and GasBlended Crude Oil,ODA/POILAPSP_USD,ODA,Oil and GasWTI Crude Oil,ODA/POILWTI_USD,ODA,Oil and GasBrent Crude Oil,ODA/POILBRE_USD,ODA,Oil and GasEurope & Central Asia (all income levels): Pump for gasoline (US$ per liter),WORLDBANK/ECS_EP_PMP_SGAS_CD,WORLDBANK,Oil and GasUS Midgrade Conventional Gas,FRED/GASMIDCOVW,FRED,Oil and GasConventional Gasolines: New York Harbor Regular,FRED/DGASNYH,FRED,Oil and GasUS Regular Conventional Gas,FRED/GASREGCOVW,FRED,Oil and GasConventional Gasolines: U.S. Gulf Coast Regular,FRED/DGASUSGULF,FRED,Oil and GasConsumer Index for All Urban Consumers: Gasoline (all types),FRED/CUUR0000SETB01,FRED,Oil and GasUS All Grades Conventional Gas,FRED/GASALLCOVW,FRED,Oil and GasUS Premium Conventional Gas,FRED/GASPRMCOVW,FRED,Oil and GasNYMEX Natural Gas Futures,OFDP/FUTURE_NG1,NYMEX,Natural GasICE UK Natural Gas Futures,OFDP/FUTURE_M1,ICE,Natural GasNatural Gas Transco Zone 3,WSJ/NG_TRAN3,WSJ,Natural GasNatural Gas Panhandle East,WSJ/NG_PHE,WSJ,Natural GasNatural Gas Opal,WSJ/NG_OPAL,WSJ,Natural GasNatural Gas Haynesville N. LA,WSJ/NG_HAYN,WSJ,Natural GasNatural Gas Transco Zone 6 NY,WSJ/NG_TRAN6,WSJ,Natural GasNatural Gas Marcellus NE PA,WSJ/NG_MARC,WSJ,Natural GasNatural Gas Henry Hub,WSJ/NG_HH,WSJ,Natural GasNatural Gass (vs. Crude),BRP/GAS_PRICES,BRP,Natural GasGermany  Natural Gas,ODA/PNGASEU_USD,ODA,Natural GasHenry Hub Natural Gas,ODA/PNGASUS_USD,ODA,Natural GasJapan Natural Gas,ODA/PNGASJP_USD,ODA,Natural GasNatural Gas: Henry Hub LA,FRED/GASPRICE,FRED,Natural GasImport (End Use): Gas-natural,FRED/IR10110,FRED,Natural GasU.S. Coals 1949-2005,EPI/152,EPI,CoalUS Coals by Region,DOE/COAL,DOE,CoalCoals,BRP/COAL_PRICES,BRP,CoalCoal South African export Monthly,INDEXMUNDI/COMMODITY_COALSOUTHAFRICANEXPORTPRICE,INDEXMUNDI,CoalCoal,ODA/PCOALAU_USD,ODA,CoalCoal Australia,WORLDBANK/WLD_COAL_AUS,WORLDBANK,CoalCoal Exportss for Great Britain,FRED/M04111GBM318NNBR,FRED,CoalWholesale of Coal for Essen Germany,FRED/M04I1ADE00ESSM372NNBR,FRED,CoalArabica Coffee,ODA/PCOFFOTM_USD,ODA,Agricultural SoftsRobusta Coffee,ODA/PCOFFROB_USD,ODA,Agricultural SoftsCoffee Futures,OFDP/FUTURE_KC1,ICE,Agricultural SoftsCocoa beans,ODA/PCOCO_USD,ODA,Agricultural SoftsCocoa Futures,OFDP/FUTURE_CC1,ICE,Agricultural SoftsTobacco,WORLDBANK/WLD_TOBAC_US,WORLDBANK,Agricultural SoftsTea,ODA/PTEA_USD,ODA,Agricultural SoftsTea Mombasa auctions,WORLDBANK/WLD_TEA_MOMBASA,WORLDBANK,Agricultural SoftsUS Imports Sugar,ODA/PSUGAUSA_USD,ODA,Agricultural SoftsSugar No. 11 Futures,OFDP/FUTURE_SB1,ICE,Agricultural SoftsGroundnuts (Peanuts),ODA/PGNUTS_USD,ODA,Fruits and NutsOranges,ODA/PORANG_USD,ODA,Fruits and NutsOrange Juice Futures,OFDP/FUTURE_OJ1,ICE,Fruits and NutsBananas,ODA/PBANSOP_USD,ODA,Fruits and NutsBananas US,WORLDBANK/WLD_BANANA_US,WORLDBANK,Fruits and NutsCorn Oil Crude Wet/Dry Mill,WSJ/CORN_OIL,WSJ,Vegetable OilsRapeseed Oil,ODA/PROIL_USD,ODA,Vegetable OilsSunflower Oil,ODA/PSUNO_USD,ODA,Vegetable OilsOlive Oil,ODA/POLVOIL_USD,ODA,Vegetable OilsPalm Oil,ODA/PPOIL_USD,ODA,Vegetable OilsPalmkernal oil,WORLDBANK/WLD_PLMKRNL_OIL,WORLDBANK,Vegetable OilsGroundnut oil,WORLDBANK/WLD_GRNUT_OIL,WORLDBANK,Vegetable OilsHard Logs,ODA/PLOGSK_USD,ODA,ForestrySoft Logs,ODA/PLOGORE_USD,ODA,ForestryCopra,WORLDBANK/WLD_COPRA,WORLDBANK,ForestrySoft Sawnwood,ODA/PSAWORE_USD,ODA,ForestryHard Sawnwood,ODA/PSAWMAL_USD,ODA,ForestryWoodpulp,WORLDBANK/WLD_WOODPULP,WORLDBANK,ForestryPlywood,WORLDBANK/WLD_PLYWOOD,WORLDBANK,ForestryLumber Futures,OFDP/FUTURE_LB1,CME,ForestryRubber,ODA/PRUBB_USD,ODA,ForestryCotton,ODA/PCOTTIND_USD,ODA,Textile and FibresCotton 1 1/16 strand lw-md Memphis,WSJ/COTTON,WSJ,Textile and FibresCotton No. 2 Futures,OFDP/FUTURE_CT1,ICE,Textile and FibresWool 64's Staple Terr. Delivery,WSJ/WOOL,WSJ,Textile and FibresBurlap 10-oz 40-inch NY yard nominal,WSJ/BURLAP,WSJ,Textile and FibresCotlook 'A' Index,WSJ/COTLOOK,WSJ,Textile and Fibres"Urea, E. Europe, bulk",WORLDBANK/WLD_UREA_EE_BULK,WORLDBANK,Fertilizers and ChemicalsPhosphate rock Pric,WORLDBANK/WLD_PHOSROCK,WORLDBANK,Fertilizers and ChemicalsPotash (Potassium Chloride),WORLDBANK/WLD_POTASH,WORLDBANK,Fertilizers and ChemicalsTSP,WORLDBANK/WLD_TSP,WORLDBANK,Fertilizers and ChemicalsDAP,WORLDBANK/WLD_DAP,WORLDBANK,Fertilizers and ChemicalsFertilizers Index: 2000=100,WORLDBANK/WLD_IFERTILIZERS,WORLDBANK,Commodity IndexesFood Index: 2000=100,WORLDBANK/WLD_IFOOD,WORLDBANK,Commodity Indexes1 Timber Index: 2000=100,WORLDBANK/WLD_ITIMBER,WORLDBANK,Commodity IndexesMetals and minerals Index: 2000=100,WORLDBANK/WLD_IMETMIN,WORLDBANK,Commodity IndexesBeverages Index: 2000=100,WORLDBANK/WLD_IBEVERAGES,WORLDBANK,Commodity IndexesEnergy Index: 2000=100,WORLDBANK/WLD_IENERGY,WORLDBANK,Commodity IndexesNon-energy commodities Index: 2000=100,WORLDBANK/WLD_INONFUEL,WORLDBANK,Commodity IndexesFats and oils Index: 2000=100,WORLDBANK/WLD_IFATS_OILS,WORLDBANK,Commodity IndexesAgriculture Index: 2000=100,WORLDBANK/WLD_IAGRICULTURE,WORLDBANK,Commodity IndexesGrains Index: 2000=100,WORLDBANK/WLD_IGRAINS,WORLDBANK,Commodity IndexesRaw materials Index: 2000=100,WORLDBANK/WLD_IRAW_MATERIAL,WORLDBANK,Commodity Indexes2 Oth raw materials Index: 2000=100,WORLDBANK/WLD_IOTHERRAWMAT,WORLDBANK,Commodity IndexesOther food Index: 2000=100,WORLDBANK/WLD_IOTHERFOOD,WORLDBANK,Commodity Indexes
+Code,Name
+COM/COPPER,"Copper,COMEX"
+COM/POILAPSP_INDEX,"Crude Oil (petroleum), Price index, 2005 = 100, simple average of three spot prices; Dated Brent, West Texas Intermediate, and the Dubai Fateh"
+COM/SOYB_OIL,"Soybean oil, crude; Central Illinois lb."
+COM/COCOA,"Cocoa, ICE"
+COM/ITRXEUC,Markit iTraxx Europe Crossover Index
+COM/CORN_OIL,"Corn oil, crude wet/dry mill"
+COM/AG_EFP,Engelhard fabricated products: Silver
+COM/DTGAP,DTCC GCF Repo Index - Agency Total Par Value
+COM/HIDES,Heavy Native Steer Hides
+COM/HIDES_LB,"Steer Hides, Butt Brand/PC"
+COM/SOYB_1,"Soybeans, No. 1 yellow Illinois, bu"
+COM/WHEAT_14_5_MN,"Wheat, Spring 14.5%"
+COM/BEEF_C,Beef - Choice 1
+COM/POLVOIL_USD,"Olive Oil, extra virgin less than 1% free fatty acid, ex-tanker price U.K., US$ per metric ton"
+COM/PSOYB_USD,"Soybeans, U.S. soybeans, Chicago Soybean futures contract (first contract forward) No. 2 yellow and par, US$ per metric ton"
+COM/PORANG_USD,"Oranges, miscellaneous oranges CIF French import price, US$ per metric ton"
+COM/PALUM_USD,"Aluminum, 99.5% minimum purity, LME spot price, CIF UK ports, US$ per metric ton"
+COM/PFANDB_INDEX,"Food and Beverage Price Index, 2005 = 100, includes Food and Beverage Price Indices"
+COM/PFISH_USD,"Fishmeal, Peru Fish meal/pellets 65% protein, CIF, US$ per metric ton"
+COM/POILBRE_USD,"Crude Oil (petroleum),  Dated Brent, light blend 38 API, fob U.K., US$ per barrel"
+COM/PALLFNF_INDEX,"All Commodity Price Index, 2005 = 100, includes both Fuel and Non-Fuel Price Indices"
+COM/PLEAD_USD,"Lead, 99.97% pure, LME spot price, CIF European Ports, US$ per metric ton"
+COM/PRICENPQ_USD,"Rice, 5 percent broken milled white rice, Thailand nominal price quote, US$ per metric ton"
+COM/PNGASJP_USD,"Natural Gas, Indonesian Liquefied Natural Gas in Japan, US$ per Million Metric British Thermal Unit"
+COM/PSHRI_USD,"Shrimp, No.1 shell-on headless, 26-30 count per pound, Mexican origin, New York port, US$ per kilogram"
+COM/PSUGAEEC_USD,"Sugar, European import price, CIF Europe, US cents per pound"
+COM/COAL_POWD,"Powder River Basin 8,800 Btu, 0.8 SO2"
+COM/PBANSOP_USD,"Bananas, Central American and Ecuador, FOB U.S. Ports, US$ per metric ton"
+COM/AU_LAM,Gold Price - London AM fixing
+COM/SOYB_MEAL,"Soybean Meal, Cent. Ill., rail, ton 48%"
+COM/CTNSD_MEAL,"Cottonseed meal, ton"
+COM/AL_CMX,"Aluminum,COMEX"
+COM/CHEESE_BRL,"Cheddar cheese, barrels, Chicago lb."
+COM/AG_HHB,Handy  &  Harman base price
+COM/AU_LPM,Gold Price - London PM Fixing
+COM/WHEAT_KC,"Wheat, hard, KC, bu"
+COM/PNGASUS_USD,"Natural Gas, Natural Gas spot price at the Henry Hub terminal in Louisiana, US$ per Million Metric British Thermal Unit"
+COM/PNGASEU_USD,"Natural Gas, Russian Natural Gas border price in Germany, US$ per Million Metric British Thermal Unit"
+COM/POILDUB_USD,"Oil; Dubai, medium, Fateh 32 API, fob Dubai Crude Oil (petroleum), Dubai Fateh Fateh 32 API, US$ per barrel"
+COM/PSUGAISA_USD,"Sugar, Free Market, Coffee Sugar and Cocoa Exchange (CSCE) contract no.11 nearest future position, US cents per pound"
+COM/PZINC_USD,"Zinc, high grade 98% pure, US$ per metric ton"
+COM/PCOPP_USD,"Copper, grade A cathode, LME spot price, CIF European ports, US$ per metric ton"
+COM/PIORECR_USD,"China import Iron Ore Fines 62% FE spot (CFR Tianjin port), US dollars per metric ton"
+COM/PRAWM_INDEX,"Agricultural Raw Materials Index, 2005 = 100, includes Timber, Cotton, Wool, Rubber, and Hides Price Indices"
+COM/PCOFFROB_USD,"Coffee, Robusta, International Coffee Organization New York cash price, ex-dock New York, US cents per pound"
+COM/PNICK_USD,"Nickel, melting grade, LME spot price, CIF European ports, US$ per metric ton"
+COM/PGNUTS_USD,"Groundnuts (peanuts), 40/50 (40 to 50 count per ounce), cif Argentina, US$ per metric ton"
+COM/PCOALAU_USD,"Coal, Australian thermal coal, 12,000- btu/pound, less than 1% sulfur, 14% ash, FOB Newcastle/Port Kembla, US$ per metric ton"
+COM/PHIDE_USD,"Hides, Heavy native steers, over 53 pounds, wholesale dealer's price, US, Chicago, fob Shipping Point, US cents per pound"
+COM/PSOIL_USD,"Soybean Oil, Chicago Soybean Oil Futures (first contract forward) exchange approved grades, US$ per metric ton"
+COM/PPORK_USD,"Swine (pork), 51-52% lean Hogs, U.S. price, US cents per pound."
+COM/PFOOD_INDEX,"Food Price Index, 2005 = 100, includes Cereal, Vegetable Oils, Meat, Seafood, Sugar, Bananas, and Oranges Price Indices"
+COM/PWHEAMT_USD,"Wheat, No.1 Hard Red Winter, ordinary protein, Kansas City, US$ per metric ton"
+COM/PSUNO_USD,"Sunflower oil, Sunflower Oil, US export price from Gulf of Mexico, US$ per metric ton"
+COM/PROIL_USD,"Rapeseed oil, crude, fob Rotterdam, US$ per metric ton"
+COM/WOOL_62,"Wool, 62s, staple, Terr. delivery lb."
+COM/DIESEL_ULS,"Diesel Fuel, 15 ppm S, NY harbor ultra"
+COM/PL_EFP,Engelhard fabricated products: Platinum
+COM/CORN_2,"Corn, No. 2 yellow. Cent. Ill. bu"
+COM/COFFEE_CLMB,"Coffee, Colombian, NY lb."
+COM/CORN_FEED,"Corn gluten feed, Midwest, ton"
+COM/WOOL_60,"Wool, 60s, staple, Terr. delivery lb."
+COM/AG_HHF,Silver Handy & Harman Base Price
+COM/LCDX,Markit LCDX Index (Loan CDS)
+COM/AU_EIB,Engelhard Industrial Bullion - Gold
+COM/OIL_BRENT,"Crude Oil, Brent Blend, North Sea"
+COM/WHEAT_2,"Wheat, No. 2 soft red, St.Louis, bushel"
+COM/AU_EGL,"Gold American Eagle, Spot Price"
+COM/AU_PHL,Gold Vienna Philharmonics
+COM/CHKN_A,"Broilers, dressed 'A'; per lb."
+COM/PSMEA_USD,"Soybean Meal, Chicago Soybean Meal Futures (first contract forward) Minimum 48 percent protein, US$ per metric ton"
+COM/LM_PK602_LOIN,USDA LM_PK602: Pork Loin
+COM/SORGHUM,No. 2 Grain Sorghum: Texas Gulf
+COM/BRAN,"Bran, wheat middlings, Kn. City by Rail; $ per ton"
+COM/DTGRT,DTCC GCF Repo Index - Treasury Weighted Average
+COM/PSAWORE_USD,"Soft Sawnwood, average export price of Douglas Fir, U.S. Price, US$ per cubic meter"
+COM/LM_PK602_AI,USDA LM_PK602: Pork Added Ingreds
+COM/LM_PK602_BUTT,USDA LM_PK602: Pork Butt
+COM/PTIN_USD,"Tin, standard grade, LME spot price, US$ per metric ton"
+COM/PURAN_USD,"Uranium, NUEXCO, Restricted Price, Nuexco exchange spot, US$ per pound"
+COM/BONE_MEAL,"Meat and Bone Meal, 50%"
+COM/WOOL_60_62,"Wool, 60-62s, staple, Terr. delivery lb."
+COM/WHEAT_15_MN,"Wheat, Spring 15%"
+COM/CHKN_NTL,Broilers - National comp weighted avg
+COM/AL_LME,"Aluminum, LME, $ per metric ton"
+COM/DTGMA,DTCC GCF Repo Index - MBS Weighted Average
+COM/GREASE,"Grease, choice white, Chicago / lb."
+COM/PBEVE_INDEX,"Beverage Price Index, 2005 = 100, includes Coffee, Tea, and Cocoa"
+COM/PRUBB_USD,"Rubber, Singapore Commodity Exchange, No. 3 Rubber Smoked Sheets, 1st contract, US cents per pound"
+COM/PSAWMAL_USD,"Hard Sawnwood, Dark Red Meranti, select and better quality, C&F U.K port, US$ per cubic meter"
+COM/PBARL_USD,"Barley, Canadian no.1 Western Barley, spot price, US$ per metric ton"
+COM/LM_PK602_PICNIC,USDA LM_PK602: Pork Picnic
+COM/LM_PK602_HAM,USDA LM_PK602: Pork Ham
+COM/PA_EFP,"Palladium, Engelhard fabricated products"
+COM/PPOIL_USD,"Palm oil, Malaysia Palm Oil Futures (first contract forward) 4-5 percent FFA, US$ per metric ton"
+COM/BEEF_S,Beef - Select 1
+COM/PL_EIB,"Platinum, Engelhard industrial bullion"
+COM/AG_EIB,Engelhard industrial bullion - Silver
+COM/PNFUEL_INDEX,"Non-Fuel Price Index, 2005 = 100, includes Food and Beverages and Industrial Inputs Price Indices"
+COM/BUTTER,"Butter, AA Chicago, lb"
+COM/PBEEF_USD,"Beef, Australian and New Zealand 85% lean fores, CIF U.S. import price, US cents per pound"
+COM/LM_PK602_BELLY,USDA LM_PK602: Pork Belly
+COM/PSALM_USD,"Fish (salmon), Farm Bred Norwegian Salmon, export price, US$ per kilogram"
+COM/WHEAT_1,"Wheat, No. 1 soft white, del Portland, Ore"
+COM/FEDFU,U.S. Federal Funds Effective Rate
+COM/PCOFFOTM_USD,"Coffee, Other Mild Arabicas, International Coffee Organization New York cash price, ex-dock New York, US cents per pound"
+COM/COTLOOK,Cotlook 'A' Index
+COM/COFFEE_BRZL,"Coffee, Brazilian, Comp."
+COM/AU_ZAR,"Gold Kruggerand, Spot Price"
+COM/TALLOW_B,"Tallow, bleachable; Chicago / lb."
+COM/PCOTTIND_USD,"Cotton, Cotton Outlook 'A Index', Middling 1-3/32 inch staple, CIF Liverpool, US cents per pound"
+COM/CORN_MEAL,"Corn gluten meal, Midwest, ton"
+COM/PLOGSK_USD,"Hard Logs, Best quality Malaysian meranti, import price Japan, US$ per cubic meter"
+COM/WOOL,"Wool, 64s, staple, Terr. delivery lb."
+COM/OIL_WTI,"West Texas Intermediate, Cushing"
+COM/HOMINY,"Hominy feed, Cent. Ill. ton"
+COM/LM_PK602_SPARERIB,USDA LM_PK602: Pork Sparerib
+COM/HOGS,"Hogs, Iowa"
+COM/PNRG_INDEX,"Fuel (Energy) Index, 2005 = 100, includes Crude oil (petroleum), Natural Gas, and Coal Price Indices"
+COM/PINDU_INDEX,"Industrial Inputs Price Index, 2005 = 100, includes Agricultural Raw Materials and Metals Price Indices"
+COM/PLAMB_USD,"Lamb, frozen carcass Smithfield London, US cents per pound"
+COM/AG_GBP,Silver Price -  London Fixing (GBP)
+COM/CDXNAHY,Markit CDX North America High Yield
+COM/CDXNAIG,Markit CDX North America Investment Grade
+COM/FUELOIL,"Fuel oil, No. 2 NY gal."
+COM/FE_VALE,"Iron Ore, 62%, Vale"
+COM/AG_FAB,Silver Fabric Price
+COM/AU_EFP,Engelhard fabricated products: Gold
+COM/FE_TJN,"Iron Ore 62% Fe CFR China,CME"
+COM/CHEESE_BLK,"Cheddar cheese, blocks, Chicago lb."
+COM/WHEAT_MN,"Wheat, Spring 14%"
+COM/AG_USD,Silver Price - London Fixing (USD)
+COM/DTGMP,DTCC GCF Repo Index - MBS Total Par Value
+COM/DTGAA,DTCC GCF Repo Index - Agency Weighted Average
+COM/MILK,"Milk, Nonfat dry, Chicago"
+COM/AU_MPL,"Gold Maple Leaf, Spot Price"
+COM/COAL_CAPP,"Central Appalachia 12,500 Btu, 1.2 SO2"
+COM/LM_PK602_JOWL,USDA LM_PK602: Pork Jowl
+COM/EGGS,"Eggs, large white, Chicago dozen"
+COM/PRUSA,U.S. Prime Rate
+COM/OATS,"Oats, No. 2 milling, Mnpls; $ per bu"
+COM/WOOL_58,"Wool, 58s, staple, Terr. delivery lb."
+COM/MCDX,Markit MCDX Index (Municipal CDS)
+COM/DTGTP,DTCC GCF Repo Index - Treasury Par Value
+COM/BUTANE,"Mont Belvieu Normal Butane (OPIS),CME"
+COM/COTTON,"Cotton,ICE"
+COM/RICE_2,"Rice, Long Grain Milled, No. 2 AR"
+COM/PPOULT_USD,"Poultry (chicken), Whole bird spot price, Ready-to-cook, whole, iced, Georgia docks, US cents per pound"
+COM/PWOOLF_USD,"Wool, fine, 19 micron, Australian Wool Exchange spot quote, US cents per kilogram"
+COM/PTEA_USD,"Tea, Mombasa, Kenya, Auction Price, US cents per kilogram, From July 1998,Kenya auctions, Best Pekoe Fannings. Prior, London auctions, c.i.f. U.K. warehouses"
+COM/POILWTI_USD,"Crude Oil (petroleum), West Texas Intermediate 40 API, Midland Texas, US$ per barrel"
+COM/PCOCO_USD,"Cocoa beans, International Cocoa Organization cash price, CIF US and European ports, US$ per metric ton"
+COM/POILAPSP_USD,"Crude Oil (petroleum), simple average of three spot prices; Dated Brent, West Texas Intermediate, and the Dubai Fateh"
+COM/GAS_CR,"Gasoline:Gasoline, conventional, regular NY gal"
+COM/PMETA_INDEX,"Metals Price Index, 2005 = 100, includes Copper, Aluminum, Iron Ore, Tin, Nickel, Zinc, Lead, and Uranium Price Indices"
+COM/PWOOLC_USD,"Wool, coarse, 23 micron, Australian Wool Exchange spot quote, US cents per kilogram"
+COM/PMAIZMT_USD,"Maize (corn), U.S. No.2 Yellow, FOB Gulf of Mexico, U.S. price, US$ per metric ton"
+COM/PLOGORE_USD,"Soft Logs, Average Export price from the U.S. for Douglas Fir, US$ per cubic meter"
+COM/PSUGAUSA_USD,"Sugar, U.S. import price, contract no.14 nearest futures position, US cents per pound (Footnote: No. 14 revised to No. 16)"
+COM/TALLOW_E,"Tallow, edible, Chicago / lb."
+COM/LM_PK602_TRIM,USDA LM_PK602: Pork Trim
+COM/LM_PK602_VARIETY,USDA LM_PK602: Pork Variety
