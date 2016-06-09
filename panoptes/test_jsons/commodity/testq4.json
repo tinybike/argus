@@ -1,0 +1,8 @@
+{
+        "type":                "commodity",
+        "commodity":        "FUTURE_PA1",
+        "datestart":        "2015-01-01",
+        "dateend":        "2015-12-31",
+        "value":                600,
+        "comp":                "below"
+}

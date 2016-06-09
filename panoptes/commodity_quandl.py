@@ -1,5 +1,7 @@
 from __future__ import print_function
 import quandl
+quandl.ApiConfig.api_key = "Vezn4-YcDxD5ihmyNuY-"
+quandl.ApiConfig.api_version = '2015-04-09'
 import sys
 import json
 import numpy as np
@@ -213,10 +215,11 @@ def search(source, commodity, index_end, df):
     commodity_in_sentence = None
     sector = None
 
+    commodity = dictionary(commodity)
+
     if source is not None:
         for index, row in df.iterrows():
-            if (row.Code.lower().find(" " + commodity.lower()) >= 0
-                or row.Code.lower().find(commodity.lower()) ==0) \
+            if (row.Code.lower().find(commodity.lower()) >= 0) \
                     and row.Source.lower() == source.lower():
                 code = row.Code
                 commodity_in_sentence = row.Name
@@ -233,8 +236,7 @@ def search(source, commodity, index_end, df):
     else:
 
         for index, row in df.iterrows():
-            if (row.Code.lower().find(" " + commodity.lower()) >= 0
-                or row.Code.lower().find(commodity.lower()) ==0)\
+            if (row.Code.lower().find(commodity.lower()) >= 0)\
                     and index > index_end:
                 source = row.Source
                 code = row.Code
@@ -260,15 +262,19 @@ def search(source, commodity, index_end, df):
     return code, commodity_in_sentence, source, sector, index_end
 
 def searchQuandl(date1, date2, code):
-    quandl.ApiConfig.api_key = "Vezn4-YcDxD5ihmyNuY-"
-    # print ("date 1 ")
-    # print (date1)
-    # print ("date 2 ")
-    # print (date2)
+    print ("date 1 ")
+    print (date1)
+    print ("date 2 ")
+    print (date2)
+    print (code)
     try:
         if date1 != '' and date2 != '':
             data = quandl.get(code, start_date=date1, end_date=date2)
-            # data = quandl.get("DOE/RBRTE", start_date="2015-03-19", end_date="2016-03-20")
+            # OFDP/FUTURE_B1 OFDP has been deprecated all with OFDP
+            # DOE/RWTC only to 2015, all wth DOE - MOVED TO EIA
+            # WSJ/SOYB_OIL wrong code
+            # JODI/OIL_LPSCKT_NIC is in Qunadl and is by our conditons, but its not in csv
+            # data = quandl.get("DOE/RWTC", authtoken="Vezn4-YcDxD5ihmyNuY-", start_date="2015-03-19", end_date="2016-03-20")
         elif (date1 == '' and date2 != ''):
             data = quandl.get(code, end_date=date2)
         elif date1 != '' and date2 == '':
@@ -280,11 +286,16 @@ def searchQuandl(date1, date2, code):
         print(e)
         data = None
 
-    # print ("Data --- ")
-    # print (data)
-    # print ("----------")
-    exit(0)
+    print ("Data --- ")
+    print (data)
+    print ("----------")
+    #exit(0)
     return data
+
+def dictionary(name):
+    if name == "naturalgas":
+        return "Natural Gas"
+    return name
 
 if __name__ == "__main__":
     arguments = sys.argv

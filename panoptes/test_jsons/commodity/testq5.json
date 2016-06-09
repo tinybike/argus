@@ -1,0 +1,8 @@
+{
+        "type":                "commodity",
+        "commodity":        "naturalgas",
+        "datestart":        "2016-05-24",
+        "dateend":        "2016-05-24",
+        "value":                300,
+        "comp":                "below"
+}
