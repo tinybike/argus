@@ -7,7 +7,7 @@ import json
 import numpy as np
 import pandas as pd
 import datetime
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 def help():
@@ -46,7 +46,7 @@ def future_date(date):
 
 def check(code):
     if code is None:
-        print ("For your source and commodity was not found any code in the list")
+        raise ValueError('For your source, commodity and date was not found any code in the list')
         #exit("For your source and commodity was not found any code in the list")
 
 def isAfter(dateBefore, dateAfter):
@@ -56,16 +56,25 @@ def isAfter(dateBefore, dateAfter):
 
 def checkLiteralsDate(dateBefore, dateAfter):
     if dateBefore == 'marketend':
-        exit("From date can not be marketend")  # TODO return instead of exit json
+        # exit("From date can not be marketend")  # TODO return instead of exit json
+        pass
 
     if dateAfter == 'marketstart':
-        exit("End date can not be marketstart")
+        # exit("End date can not be marketstart")
+        pass
+
+def edit_weekends(date1):
+    day_of_week = date1.weekday()
+    if day_of_week == 6:
+        date1 = date1 - timedelta(days=1)
+    if day_of_week == 5:
+        date1 = date1 - timedelta(days=1)
+    return date1
 
 
-
-def commodity_query(que):
+def commodity_query(question_in):
     df = pd.read_csv('commodities.csv')
-    if que["type"] != "commodity":
+    if question_in["type"] != "commodity":
         print("Doesn't look like a commodity query to me, can't do.")
         answer = {"useful": False}
         return answer
@@ -75,17 +84,21 @@ def commodity_query(que):
         answer = {"error": True}'''
 
     source = None
-    if "exchange" in question:
-        source = str(que["exchange"])
+    if "exchange" in question_in:
+        source = str(question_in["exchange"])
 
-    commodity = str(que["commodity"])
-    date_from = que["datestart"]
-    date_to = que["dateend"]
+    commodity = str(question_in["commodity"])
+    date_from = question_in["datestart"]
+    date_to = question_in["dateend"]
 
     # checkLiteralsDate(date_from, date_to) TODO json error
 
     date1 = validate(date_from)
     date2 = validate(date_to)
+
+    # is saturday or sunday
+    date1 = edit_weekends(date1)
+    date2 = edit_weekends(date2)
 
     if date1 != '' and date2 != '':
         isAfter(date1, date2)
@@ -196,7 +209,7 @@ def commodity_query(que):
         }
 
     #data.to_csv("test_data", sep='\t')
-    #print (dump)
+    # print (dump)
     return dump
 
 def search(source, commodity, index_end, df):
@@ -226,16 +239,16 @@ def search(source, commodity, index_end, df):
                 index_end = index
                 break
 
-    # print("code with name : " + code)
     check(code)
+    # print("code with name : " + code)
     return code, name, index_end
 
 def searchQuandl(date1, date2, code):
-    print ("date 1 ")
-    print (date1)
-    print ("date 2 ")
-    print (date2)
-    print (code)
+    # print ("date 1 ")
+    # print (date1)
+    # print ("date 2 ")
+    # print (date2)
+    # print (code)
     try:
         if date1 != '' and date2 != '':
             data = quandl.get(code, start_date=date1, end_date=date2)
@@ -255,15 +268,16 @@ def searchQuandl(date1, date2, code):
         print(e)
         data = None
 
-    print ("Data --- ")
-    print (data)
-    print ("----------")
-    #exit(0)
+    # print ("Data --- ")
+    # print (data)
+    # print ("----------")
     return data
 
 def dictionary(name):
     if name == "naturalgas":
         return "Natural Gas"
+    if name == "aluminium":
+        return "aluminum"
     return name
 
 if __name__ == "__main__":

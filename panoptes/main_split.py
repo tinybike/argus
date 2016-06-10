@@ -7,14 +7,18 @@ from crypto_currency import makequery as cryptoquerry
 
 def proccess(que):
     squery = stockquery(que)
+
     if squery['useful'] == True:
         return evaluate(que, squery)
+
     cquery = commodityquery(que)
     if cquery['useful'] == True:
         return evaluate(que, cquery)
+
     currquery = currencyquery(que)
     if currquery['useful'] == True:
         return evaluate(que, currquery)
+
     crypto_currquery = cryptoquerry(que)
     if crypto_currquery['useful'] == True:
         return evaluate(que, crypto_currquery)

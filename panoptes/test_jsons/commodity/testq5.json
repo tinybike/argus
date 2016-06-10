@@ -1,6 +1,6 @@
 {
         "type":                "commodity",
-        "commodity":        "naturalgas",
+        "commodity":        "natural gas",
         "datestart":        "2016-05-24",
         "dateend":        "2016-05-24",
         "value":                300,

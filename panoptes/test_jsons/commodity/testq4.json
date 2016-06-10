@@ -1,8 +1,10 @@
 {
+
         "type":                "commodity",
-        "commodity":        "FUTURE_PA1",
-        "datestart":        "2015-01-01",
-        "dateend":        "2015-12-31",
-        "value":                600,
-        "comp":                "below"
+        "exchange":        "COMEX",
+        "commodity":        "aluminium",
+        "datestart":        "2016-01-01",
+        "dateend":        "2016-03-30",
+        "value":                1250,
+        "comp":                "above"
 }

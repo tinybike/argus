@@ -3,6 +3,8 @@ COM/COPPER,"Copper,COMEX"
 COM/POILAPSP_INDEX,"Crude Oil (petroleum), Price index, 2005 = 100, simple average of three spot prices; Dated Brent, West Texas Intermediate, and the Dubai Fateh"
 COM/SOYB_OIL,"Soybean oil, crude; Central Illinois lb."
 COM/COCOA,"Cocoa, ICE"
+CHRIS/CME_NG1,"Natural Gas (Henry Hub) Physical Futures, Continuous Contract #1 (NG1) (Front Month), CME"
+CHRIS/CME_CL1,"Crude Oil Futures, Continuous Contract, CME"
 COM/ITRXEUC,Markit iTraxx Europe Crossover Index
 COM/CORN_OIL,"Corn oil, crude wet/dry mill"
 COM/AG_EFP,Engelhard fabricated products: Silver
