@@ -70,8 +70,10 @@ def makequery(question):
         return answer
 
 def dayget(question):
-
-
+    date = datetime.date(*(int(s) for s in question["datestart"].split('-')))
+    forecast = load_forecast("07b0a1ff17788bad43b9d3ad43819037",question["latitude"],question["longitude"],date)
+    for dat in forecast.daily().data:
+        print(dat)
 
 if __name__ == "__main__":
     with open(sys.argv[1]) as que:
