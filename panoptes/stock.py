@@ -83,6 +83,24 @@ def makequery(question):
             line = str(line).split("'")[1]
         except:
             pass
+
+        if line.find("Yahoo! - 404 Not Found") >= 0:
+            try:
+                recurdepth = question["recursive_search_for_real_bizday"]
+            except:
+                recurdepth = 0
+            recurdepth += 1
+
+            if recurdepth > 10:
+                answer = {"useful": False, "error": "Recursion limit reached"}
+                return answer
+            import datetime
+            # print("recursing: " + str(recurdepth))
+            question["datestart"] = str(
+                datetime.date(*(int(s) for s in question["datestart"].split('-'))) - datetime.timedelta(days=1))
+            question["recursive_search_for_real_bizday"] = recurdepth
+            return makequery(question)
+
         d.date=(str(line).split(',')[0])
         d.hi=float(str(line).split(',')[2])
         d.lo=float(str(line).split(',')[3])
