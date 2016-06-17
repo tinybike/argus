@@ -9,8 +9,8 @@ from nltk.corpus import wordnet as wn
 import re
 from feature_functs import tokenize, load, patterns, patterns_string
 import math
-from keras_preprocess import load_model, prep
-import pysts.nlp as nlp_
+import urllib2
+import json
 
 clas = '#'
 rel = '@'
@@ -44,70 +44,22 @@ class Model(object):
     """
 
     def __init__(self):
-        model_path = 'sources/models/full_model.h5'
-        vocab_path = 'sources/vocab.txt'
-        self.w_dim, self.q_dim = feature_dimensions()
-        self.max_sentences = 50
-        self.s0pad = 60
-        self.s1pad = 60
-        self.model, self.vocab = load_model(model_path, vocab_path, self.w_dim,
-                                            self.q_dim, self.max_sentences)
+        self.url = 'http://pasky.or.cz:5052/score'
 
     def predict(self, answer):
-        try:
-            si03d, si13d, f04d, f14d = [], [], [], []
-            s0 = [tokenize(answer.q.text)] * len(answer.sources)  # TODO: should tokenize
-            s1 = [tokenize(source.sentence) for source in answer.sources]
-            si0 = self.vocab.vectorize(s0, spad=self.s0pad)
-            si1 = self.vocab.vectorize(s1, spad=self.s1pad)
-            si0 = prep.pad_sequences(si0.T, maxlen=self.max_sentences, padding='post', truncating='post').T
-            si1 = prep.pad_sequences(si1.T, maxlen=self.max_sentences, padding='post', truncating='post').T
-            si03d.append(si0)
-            si13d.append(si1)
+        s0 = tokenize(answer.q.text)
+        s1 = [tokenize(source.sentence) for source in answer.sources]
+        f = [source.features for source in answer.sources]
+        r = {'s0': s0, 's1': [dict(text=s1_, **f_) for s1_, f_ in zip(s1, f)]}
+        print(r)
 
-            f0, f1 = nlp_.sentence_flags(s0, s1, self.s0pad, self.s1pad)
-            f0 = prep.pad_sequences(f0.transpose((1, 0, 2)), maxlen=self.max_sentences,
-                                    padding='post', truncating='post', dtype='bool').transpose((1, 0, 2))
-            f1 = prep.pad_sequences(f1.transpose((1, 0, 2)), maxlen=self.max_sentences,
-                                    padding='post', truncating='post', dtype='bool').transpose((1, 0, 2))
-            f04d.append(f0)
-            f14d.append(f1)
+        req = urllib2.Request(self.url)
+        req.add_header('Content-Type','application/json')
+        resp = urllib2.urlopen(req, json.dumps(r))
+        rr = json.loads(resp.read())
 
-            # ==========================================
-
-            c = np.array([[f.get_value() for f in source.features if '#' in f.get_type()]
-                         for source in answer.sources])
-            r = np.array([[f.get_value() for f in source.features if '@' in f.get_type()]
-                         for source in answer.sources])
-
-            c = np.array([prep.pad_sequences(c.T,
-                                             maxlen=self.max_sentences, padding='post',
-                                             truncating='post', dtype='float32')])
-            r = np.array([prep.pad_sequences(r.T,
-                                             maxlen=self.max_sentences, padding='post',
-                                             truncating='post', dtype='float32')])
-            c = c.transpose((0, 2, 1))
-            r = r.transpose((0, 2, 1))
-            y = np.zeros((len(answer.sources), 1))
-
-            gr = {'si03d': np.array(si03d), 'si13d': np.array(si13d),
-                  'c_in': c, 'r_in': r, 'score': y}
-            if f0 is not None:
-                gr['f04d'] = np.array(f04d)
-                gr['f14d'] = np.array(f14d)
-
-            from keras_preprocess import c_r_out
-            prediction = self.model.predict(gr)
-            c_r = c_r_out(*[gr[name] for name in self.model.input_order])[0]
-            c = c_r[:, 0]
-            r = c_r[:, 1]
-            r = r  # / np.sum(r)
-            return {'y': prediction['score'][:, 0][0],
-                    'class': c,
-                    'rel': r}
-
-        except ValueError:
-            return 0.
+        return {'y': rr['score']}
+                #'class': c, 'rel': r}
 
 MODEL = Model()
 
