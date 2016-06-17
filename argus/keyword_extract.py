@@ -1,7 +1,6 @@
 """
 Sentence analysis and keyword extraction using Spacy.
 """
-import nltk
 from nltk.corpus import stopwords
 import csv
 from spacy.en import English
@@ -9,19 +8,6 @@ from spacy.parts_of_speech import ADP, PUNCT, VERB, PART, ADV
 
 nlp = English()
 print 'SpaCy loaded'
-
-# Used when tokenizing words
-sentence_re = r'''(?x)      # set flag to allow verbose regexps
-      (?:[A-Z])(?:\.[A-Z])+\.?  # abbreviations, e.g. U.S.A.
-    | \w+(?:-\w+)*            # words with optional internal hyphens
-    | \$?\d+(?:\.\d+)?%?      # currency and percentages, e.g. $12.40, 82%
-    | \.\.\.                # ellipsis
-    | [][.,;"'?():-_`]      # these are separate tokens
-'''
-
-
-def tokenize(string):
-    return nltk.regexp_tokenize(string, sentence_re)
 
 
 def load_sw():

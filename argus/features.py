@@ -7,9 +7,9 @@ import numpy as np
 from keyword_extract import nlp, verbs, extract_from_string, get_subj, get_obj
 from nltk.corpus import wordnet as wn
 import re
-from feature_functs import load, patterns, patterns_string
+from feature_functs import tokenize, load, patterns, patterns_string
 import math
-from keras_preprocess import load_model, prep, tokenize
+from keras_preprocess import load_model, prep
 import pysts.nlp as nlp_
 
 clas = '#'

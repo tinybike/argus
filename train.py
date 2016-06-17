@@ -16,7 +16,8 @@ import numpy as np
 from keras.optimizers import SGD
 
 import pysts.embedding as emb
-from argus.keras_preprocess import config, load_sets, load_and_train, tokenize, Q
+from argus.feature_functs import tokenize
+from argus.keras_preprocess import config, load_sets, load_and_train, Q
 
 trainIDs = []
 params = ['dropout=0', 'inp_e_dropout=0', 'pact="tanh"', 'l2reg=0.01']  # can be replaced by script params

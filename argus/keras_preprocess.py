@@ -29,20 +29,6 @@ s0pad = 60
 s1pad = 60
 
 
-# Used when tokenizing words
-sentence_re = r'''(?x)      # set flag to allow verbose regexps
-      (?:[A-Z])(?:\.[A-Z])+\.?  # abbreviations, e.g. U.S.A.
-    | \w+(?:-\w+)*            # words with optional internal hyphens
-    | \$?\d+(?:\.\d+)?%?      # currency and percentages, e.g. $12.40, 82%
-    | \.\.\.                # ellipsis
-    | [][.,;"'?():-_`]      # these are separate tokens
-'''
-
-import nltk
-def tokenize(string):
-    return nltk.regexp_tokenize(string, sentence_re)
-
-
 class Q:
     def __init__(self, qtext, q, s, c, r, y):
         self.qtext = qtext  # str of question
