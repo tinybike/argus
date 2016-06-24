@@ -109,31 +109,31 @@
         ""value"":                300,
         ""comp"":                ""below""
 }",
-"Currency """"finance"""":",Will the CZK have value of below 0.04 USD per on 15th December 2015?,"{
+"Currency """"finance"""":",Will the CZK have value of below 24 per USD on 15th December 2015?,"{
         ""type"":                ""currency"",
         ""currency"":        ""CZK"",
         ""datestart"":        ""2015-12-15"",
         ""dateend"":        ""2015-12-15"",
         ""base"":        ""USD"",
-        ""value"":                0.04,
+        ""value"":                24,
         ""comp"":                ""below""
 }",
-"Will the CAD drop below 0.5 per USD in March, 2016?","{
+"Will the CAD drop below 1.2 per USD in March, 2016?","{
         ""type"":                ""currency"",
         ""currency"":        ""CAD"",
         ""datestart"":        ""2016-03-01"",
         ""dateend"":        ""2016-03-31"",
         ""base"":        ""USD"",
-        ""value"":                0.5,
+        ""value"":                1.2,
         ""comp"":                ""below""
 }",,
-,Will the value of GBP in USD be above 1.5 per USD on 3rd May 2016?,"{
+,Will the value of GBP in USD be above 0.8 per USD on 3rd May 2016?,"{
         ""type"":                ""currency"",
         ""currency"":        ""GBP"",
         ""datestart"":        ""2016-05-03"",
         ""dateend"":        ""2016-05-03"",
         ""base"":        ""USD"",
-        ""value"":                1.5,
+        ""value"":               0.8,
         ""comp"":                ""above""
 }"," changed date, because our API doesnt have a data for it"
 "E. """"Finance"""":",Will Ethereum price go below 0.022btc until 10 April 00:00 GMT?,"{

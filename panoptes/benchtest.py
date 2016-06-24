@@ -29,20 +29,19 @@ def parsecsv(csvfile):
                 bulk+=pack
                 print("Answer: "+ str(answer))
                 print("Result: "+ str(result))
-                print("|----------------------------------------------|\n")
-
-
-
                 if result["APIres"]:
                     APIhit+=1
                 if result["decided"]:
                     decided+=1
+                    print("")
+                    print("The decision is: " + str(answer["decision"]))
                 if answer["decision"] == True:
                     decided_true+=1
                     decistr+= 'T'
                 else:
                     decided_false+=1
                     decistr+= 'F'
+                print("|----------------------------------------------|\n")
 
             else:
                 queststring = rowy
