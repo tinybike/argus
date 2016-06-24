@@ -5,8 +5,8 @@ except ImportError:
 import sys
 import json
 import datetime
+import requests
 from geopy.geocoders import Nominatim
-from forecastio import *
 
 
 class dayrec(object):
@@ -29,8 +29,6 @@ def makequery(question):
         question["longitude"] = location.longitude
 
         print("Decoded position as: " + question["Address"])
-        print(question["latitude"])
-        print(question["longitude"])
 
         min = 99999999999999999999
         mindate = ""
@@ -41,8 +39,8 @@ def makequery(question):
         if question["datestart"] == question["dateend"]:
             value = dayget(question)
             answer = {
-                "minvalue": value,
-                "maxvalue": value,
+                "minvalue": value["minimal"],
+                "maxvalue": value["maximal"],
                 "minimum_on_date": question["datestart"],
                 "maximum_on_date": question["datestart"],
                 "days": 1
@@ -51,11 +49,11 @@ def makequery(question):
             while question["datestart"] <= question["dateend"]:
                 days+=1
                 value = dayget(question)
-                if value < min:
-                    min = value
+                if value["minimal"] < min:
+                    min = value["minimal"]
                     mindate = question["datestart"]
-                if value > max:
-                    max = value
+                if value["maximal"] > max:
+                    max = value["maximal"]
                     maxdate = question["datestart"]
                 question["datestart"] = str(datetime.date(*(int(s) for s in question["datestart"].split('-'))) + datetime.timedelta(days=1))
             answer = {
@@ -66,14 +64,17 @@ def makequery(question):
                 "days": days
             }
         answer["useful"] = True
-        answer["source"] = "fixer.io"
+        answer["source"] = "forecast.io"
         return answer
 
 def dayget(question):
-    date = datetime.date(*(int(s) for s in question["datestart"].split('-')))
-    forecast = load_forecast("07b0a1ff17788bad43b9d3ad43819037",question["latitude"],question["longitude"],date)
-    for dat in forecast.daily().data:
-        print(dat)
+    #print(question["datestart"])
+    #print(("https://api.forecast.io/forecast/07b0a1ff17788bad43b9d3ad43819037/"+str(question["latitude"])+","+str(question["longitude"])+","+question["datestart"]+"T12:00:00"))
+    forecast = requests.get("https://api.forecast.io/forecast/07b0a1ff17788bad43b9d3ad43819037/"+str(question["latitude"])+","+str(question["longitude"])+","+question["datestart"]+"T12:00:00?units=si")
+    temperatures = {}
+    temperatures["minimal"]=(forecast.json()["daily"]["data"][0]["temperatureMin"])
+    temperatures["maximal"] = (forecast.json()["daily"]["data"][0]["temperatureMax"])
+    return temperatures
 
 if __name__ == "__main__":
     with open(sys.argv[1]) as que:

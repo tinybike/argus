@@ -9,6 +9,9 @@ def parsecsv(csvfile):
     total = 0
     APIhit = 0
     decided = 0
+    decided_true = 0
+    decided_false = 0
+    decistr = ""
 
     bulk = []
 
@@ -29,14 +32,25 @@ def parsecsv(csvfile):
                 print("|----------------------------------------------|\n")
 
 
+
                 if result["APIres"]:
                     APIhit+=1
                 if result["decided"]:
                     decided+=1
+                if answer["decision"] == True:
+                    decided_true+=1
+                    decistr+= 'T'
+                else:
+                    decided_false+=1
+                    decistr+= 'F'
+
             else:
                 queststring = rowy
 
     print("Results:\nTotal questions: " + str(total) + "\nAPI hits: " + str(APIhit) + "\nDecisions: " + str(decided) + "\nDecision success rate: " + str(100*decided/total)+"%\n")
+    print("Decided as true: "+str(decided_true))
+    print("Decided as false: " + str(decided_false))
+    print("Decisions: "+decistr)
     #print(bulk)
 
 def testcall(question):

@@ -239,32 +239,33 @@
 "Weather"""":","Will temperature in Kiev, Ukraine exceed 20 degrees (in Celsius ) on April 15, 2016?","{
         ""type"":                ""weather"",
         ""place"":                ""Kiev"",
-        ""temperature"":        20,
+        ""value"":        20,
         ""datestart"":        ""2016-04-15"",
         ""dateend"":        ""2016-04-15"",
         ""comp"":                ""above""
 }",
-,Will the temperature of Glasgow (UK) be more than 14 degrees C on April 23 2016?,"{
+,Will the temperature Glasgow (UK) be more than 14 degrees C on April 23 2016?,"{
         ""type"":                ""weather"",
         ""place"":                ""Glasgow, UK"",
-        ""temperature"":        14,
+        ""value"":        14,
         ""datestart"":        ""2016-04-23"",
         ""dateend"":        ""2016-04-23"",
         ""comp"":                ""above""
 }",
-,"Will the temperature in New York, United States be below 5 degrees C on 12th December 2015?","{
+,"Will the temperature in New York, United States be drop below 5 degrees C on 12th December 2015?","{
         ""type"":                ""weather"",
         ""place"":                ""New York, US"",
-        ""temperature"":        5,
+        ""value"":        5,
         ""datestart"":        ""2015-12-12"",
         ""dateend"":        ""2015-12-12"",
         ""comp"":                ""below""
 }",
-,Will the temperature in Warsaw (Poland) stay above 0 degrees C in May 2016?,"{
+,Will the temperature in Warsaw (Poland) stay above 5 degrees C in May 2016?,"{
         ""type"":                ""weather"",
         ""place"":                ""Warsaw, PL"",
-        ""temperature"":        0,
+        ""value"":        5,
         ""datestart"":        ""2016-05-01"",
         ""dateend"":        ""2016-05-31"",
+        ""compwith"":       ""minimum"",
         ""comp"":                ""above""
 }",

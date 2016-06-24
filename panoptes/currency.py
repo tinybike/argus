@@ -64,7 +64,7 @@ def dayget(question):
     else:
         base = "?base=USD"
     symb = ";symbols=" + question["currency"]
-    print("http://api.fixer.io/"+question["datestart"]+base+symb)
+    #print("http://api.fixer.io/"+question["datestart"]+base+symb)
     res = urlopen("http://api.fixer.io/"+question["datestart"]+base+symb)
     response = json.loads(res.read().decode("windows-1252"));
     toss, value = response["rates"].popitem()
