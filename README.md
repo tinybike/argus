@@ -5,7 +5,10 @@ Run:
 
 	python web_interface.py
 
-then open http://0.0.0.0:5500/
+then open http://0.0.0.0:5500/ or a version that also handles network
+timeouts well:
+
+	PYTHONIOENCODING=utf8 uwsgi --master --plugins python --http-socket "[::]:5500" -p 1 --manage-script-name --mount /=web_interface:app &
 
 Setup
 -----
