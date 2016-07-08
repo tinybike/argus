@@ -4,7 +4,7 @@
         "exchange":        "COMEX",
         "commodity":        "aluminium",
         "datestart":        "2016-01-01",
-        "dateend":        "2016-03-30",
+        "dateend":        "2016-06-30",
         "value":                1250,
         "comp":                "above"
 }
