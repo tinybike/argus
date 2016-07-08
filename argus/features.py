@@ -451,4 +451,5 @@ def gen_features(answer):
     for i in range(len(answer.sources)):
         for func in feature_list:
             answer.sources[i].features.append(eval(func)(answer, i))
-    expand_features(answer)
+    # TODO: not supported by the dataset-sts api for now
+    # expand_features(answer)
