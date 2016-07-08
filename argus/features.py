@@ -118,6 +118,17 @@ class Feature(object):
             return '--feature_name--'
 
 
+class NNFeature(Feature):
+    """ special feature representing the neural network reading output.
+    This feature is not used in the normal course of action as it is generated
+    directly by the scoring backend, but it is used for the web interface
+    reporting. """
+    def __init__(self, value):
+        Feature.set_type(self, clas + rel)
+        Feature.set_name(self, 'text')
+        Feature.set_value(self, value)
+
+
 class ElasticScore(Feature):
     def __init__(self, answer, i):
         Feature.set_type(self, rel)

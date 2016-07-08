@@ -77,7 +77,7 @@ def create_sources(a):
     sources.sort(key=lambda x: x.rel, reverse=True)
     return sources
 
-from argus.features import MODEL, feature_dimensions
+from argus.features import MODEL, feature_dimensions, NNFeature
 w_dim, _ = feature_dimensions()
 w_weights = MODEL.get_weights('c')
 q_weights = MODEL.get_weights('r')
@@ -99,23 +99,26 @@ class Web_Source(object):
         self.rel = s.rel * 100
         self.percentage = str('%.2f%% (rel %.2f%%)' % (proc, self.rel))
 
-        feats = s.features
-        self.info = ''
-        fi = 0
-        ri = 0
-        for j in range(len(feats)):
+        # we include the NNFeature() at the beginning, but eventually actually
+        # skip it in the listing as we don't have direct access to the NN score
+        feats = [NNFeature(float('nan'))] + s.features
+        self.info = 'classification:<table class="features"><tr><th>Feature</th><th>Value</th><th>Weighed&nbsp;Value</th></tr>'
+        fi = 1  # skip NN weight
+        ri = 1  # skip NN weight
+        for j in range(1, len(feats)):
             f = feats[j]
             if '#' in f.get_type():
-                self.info += f.get_name() + str(
-                    ': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(), w_weights[fi], feats[j].get_value() * w_weights[fi]))
+                self.info += '<tr><td>%s<td><b>%+.2f</b><td><i>(* %.2f =)</i> %+.2f</tr>' % (
+                    f.get_name(), feats[j].get_value(), w_weights[fi], feats[j].get_value() * w_weights[fi])
                 fi += 1
-        self.info += '---------------<br />'
-        for j in range(len(feats)):
+        self.info += '</table>relevance:<table class="features"><tr><th>Feature</th><th>Value</th><th>Weighed&nbsp;Value</th></tr>'
+        for j in range(1, len(feats)):
             f = feats[j]
             if '@' in f.get_type():
-                self.info += f.get_name() + str(
-                    ': %+.2f * %.2f = %+.2f <br />' % (feats[j].get_value(), q_weights[ri], feats[j].get_value() * q_weights[ri]))
+                self.info += '<tr><td>%s<td><b>%+.2f</b><td><i>(* %.2f =)</i> %+.2f</tr>' % (
+                    f.get_name(), feats[j].get_value(), q_weights[ri], feats[j].get_value() * q_weights[ri])
                 ri += 1
+        self.info += '</table>'
 
 
 # self.info = str('Question sentiment: %+d * %.2f = %+.2f <br />Sentence sentiment: %+d * %.2f = %+.2f <br />Verb similarity: %+.2f * %.2f = %+.2f' % (,qsh[1],w[0][1],qsh[1]*w[0][1],v_sim,w[0][2],v_sim*w[0][2]))
