@@ -54,19 +54,26 @@ class Model(object):
         return np.array(rr[nodename])
 
     def predict(self, answer):
-        s0 = tokenize(answer.q.text)
-        s1 = [tokenize(source.sentence) for source in answer.sources]
+        s0 = ' '.join(tokenize(answer.q.text))
+        s1 = [' '.join(tokenize(source.sentence)) for source in answer.sources]
         f = [source.features for source in answer.sources]
-        r = {'s0': s0, 's1': [dict(text=s1_, **f_) for s1_, f_ in zip(s1, f)]}
+        r = {
+            's0': s0,
+            's1': [dict([('text', s1_)] + [
+                        (feat.get_type() + feat.get_name(), feat.get_value())
+                        for feat in f_
+                        ])
+                   for s1_, f_ in zip(s1, f)]
+        }
         print(r)
 
         req = urllib2.Request(self.url + 'score')
         req.add_header('Content-Type', 'application/json')
         resp = urllib2.urlopen(req, json.dumps(r))
         rr = json.loads(resp.read())
+        print(rr)
 
-        return {'y': rr['score']}
-                #'class': c, 'rel': r}
+        return {'y': rr['score'], 'class': rr['class'], 'rel': rr['rel']}
 
 MODEL = Model()
 
