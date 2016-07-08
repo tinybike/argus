@@ -1,27 +1,24 @@
-"""Extract question|sentence|gs class"""
+#!/usr/bin/python
+"""Extract question|sentence|gs class from per-pair feature dumps
+for dataset-sts datasets.
+
+Usage: tests/feature_prints/dataset.py tests/feature_prints/train/all_features.tsv >argus_train.csv """
 
 import csv
 import numpy as np
+import sys
 
-trainIDs = np.load('../trainIDs/trainIDs.npy')
+allftsv = sys.argv[1]
 
-table_test = []
-table_train = []
-for line in csv.reader(open('all_features.tsv'), delimiter='\t'):
-    if line[2] not in '10':
-        continue
-    if line[0] in trainIDs:
-        table_train.append([line[0], line[2], line[1].replace('\n', ' ')])
+writer = csv.writer(sys.stdout, delimiter=',')
+writer.writerow(['qtext', 'label', 'atext'])
+
+for line in csv.reader(open(allftsv), delimiter='\t'):
+    gs = line[2]
+    if gs == 'YES':
+        gs = 1
+    elif gs == 'NO':
+        gs = 0
     else:
-        table_test.append([line[0], line[2], line[1].replace('\n', ' ')])
-
-
-writer = csv.writer(open('argus_train.csv', 'wb'), delimiter=',')
-writer.writerow(['qtext', 'label', 'atext'])
-for triplet in table_train:
-    writer.writerow(triplet)
-
-writer = csv.writer(open('argus_test.csv', 'wb'), delimiter=',')
-writer.writerow(['qtext', 'label', 'atext'])
-for triplet in table_test:
-    writer.writerow(triplet)
+        continue
+    writer.writerow([line[0], gs, line[1].replace('\n', ' ')])
