@@ -44,7 +44,14 @@ class Model(object):
     """
 
     def __init__(self):
-        self.url = 'http://pasky.or.cz:5052/score'
+        self.url = 'http://pasky.or.cz:5052/'
+
+    def get_weights(self, nodename):
+        req = urllib2.Request(self.url + 'weights/' + nodename)
+        req.add_header('Content-Type','application/json')
+        resp = urllib2.urlopen(req)
+        rr = json.loads(resp.read())
+        return np.array(rr[nodename])
 
     def predict(self, answer):
         s0 = tokenize(answer.q.text)
@@ -53,8 +60,8 @@ class Model(object):
         r = {'s0': s0, 's1': [dict(text=s1_, **f_) for s1_, f_ in zip(s1, f)]}
         print(r)
 
-        req = urllib2.Request(self.url)
-        req.add_header('Content-Type','application/json')
+        req = urllib2.Request(self.url + 'score')
+        req.add_header('Content-Type', 'application/json')
         resp = urllib2.urlopen(req, json.dumps(r))
         rr = json.loads(resp.read())
 

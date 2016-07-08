@@ -79,8 +79,8 @@ def create_sources(a):
 
 from argus.features import MODEL, feature_dimensions
 w_dim, _ = feature_dimensions()
-w_weights = MODEL.model.get_weights()[-4][:, 0]
-q_weights = MODEL.model.get_weights()[-2][:, 0]
+w_weights = MODEL.get_weights('c')
+q_weights = MODEL.get_weights('r')
 class Web_Source(object):
     def __init__(self, a, i):
         s = a.sources[i]
