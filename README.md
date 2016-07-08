@@ -7,6 +7,18 @@ Run:
 
 then open http://0.0.0.0:5500/
 
+Architecture
+------------
+
+The web_interface runs the web frontend as well as the basic search, analysis
+and scoring pipeline.  However, the neural network processing of snippets and
+scoring logic is part of the sentence pair scoring package
+
+	https://github.com/brmson/dataset-sts (f/bigvocab branch at the moment)
+
+relying on its Argus dataset.  You can clone that repo, run tools/hypev-api.py
+and modify the url in argus/features.py.
+
 Setup
 -----
 
@@ -14,8 +26,6 @@ Setup
 	python -m nltk.downloader wordnet
 	pip install spacy
 	python -m spacy.en.download all
-	Get glove.6B.50d.txt from http://nlp.stanford.edu/projects/glove/ to sources/
-	Get our version of keras from https://github.com/brmson/keras
 	
 
 Testing
@@ -59,9 +69,10 @@ If you didn't already, run
 
 	python preprocess_output.py -regen
 
-to create new output tsv files with up-to-date feature vectors. Then run:
-
-	python train.py
+to create new output tsv files with up-to-date feature vectors.
+These vectors can be then used for training process within dataset-sts
+repo, with an example command in data/hypev/argus/README.md .
+Then, restart the hypev-api.
 
 To reevaluate system performance with retrained classifier, run preprocess_output.py.
 
