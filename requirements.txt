@@ -1,3 +1,5 @@
 nltk
 spacy
 quandl
+geopy
+
